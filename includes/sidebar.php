@@ -89,6 +89,7 @@
                 <a class="collapse-item" href="C_dirEnt">Dir. Entrega</a>
                 <a class="collapse-item" href="#">Lista Precios</a>
                 <a class="collapse-item" href="C_factura.php">Facturas</a>
+                <a class="collapse-item" href="C_listaPrecios.php">Lista Precios</a>
             </div>
         </div>
     </li>

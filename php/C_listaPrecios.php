@@ -251,7 +251,7 @@
                             <div class="card shadow mb-4">
 
                                 <?php
-                                    include("FC_ListasPrecio.php");
+                                    include("FC_listaPrecios.php");
                                 ?>
 
                             </div>
