@@ -26,11 +26,11 @@
               <p class="login-card-description">¡Bienvenido usuario!</p>
               <form method="post" action="../includes/login.inc.php">
                   <div class="form-group">
-                    <input type="text" name="user" id="user" class="form-control" placeholder="Usuario">
+                    <input type="text" name="user" id="user" class="form-control" required placeholder="Usuario">
                   </div>
                   <div class="form-group mb-4">
                     <label for="password" class="sr-only">Password</label>
-                    <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña">
+                    <input type="password" name="password" id="password" class="form-control" required placeholder="Contraseña">
                   </div>
                   <input name="submit" id="login" class="btn btn-block login-btn mb-4" type="submit" value="Iniciar Sesión" onclick="">
                   <!-- <input type="submit" name="submit" value="Registrar" title="Registra tu cuenta"> -->

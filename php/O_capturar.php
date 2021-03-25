@@ -246,9 +246,21 @@
 
                 </div> -->
 				<div class="container-fluid"> 
-					<?php
-						include("FO_capturar.php");
-					?>
+                    <div class="col-lg-12">
+                        <div class="card-body">
+                            <div class="card shadow mb-4">
+
+                                <?php
+                                    include("FO_capturar.php");
+                                ?>
+
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                    
+    
 				</div>
 				
                 <!-- /.container-fluid -->
