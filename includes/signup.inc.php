@@ -6,9 +6,11 @@ if (isset($_POST["submit"])){
     $contrasena = $_POST["contrasena"];
     $repcontrasena = $_POST["repcontrasena"];
     echo "Funciona";
+    header("location: ../php/login.php");
+
 }
 else{
-    header("location: ../register.php");
+    header("location: ../php/register.php");
 }
 
 ?>

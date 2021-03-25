@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
   <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
@@ -21,10 +21,10 @@
           <div class="col-md-7">
             <div class="card-body">
               <div class="brand-wrapper">
-                <img src="images/logo.png" alt="logo" class="logo">
+                <img src="../img/logo.png" alt="logo" class="logo">
               </div>
               <p class="login-card-description">¡Bienvenido usuario!</p>
-              <form action="php/login.inc.php">
+              <form method="post" action="../includes/login.inc.php">
                   <div class="form-group">
                     <input type="text" name="user" id="user" class="form-control" placeholder="Usuario">
                   </div>
@@ -32,7 +32,9 @@
                     <label for="password" class="sr-only">Password</label>
                     <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña">
                   </div>
-                  <input name="login" id="login" class="btn btn-block login-btn mb-4" type="button" value="Iniciar Sesión">
+                  <input name="submit" id="login" class="btn btn-block login-btn mb-4" type="submit" value="Iniciar Sesión" onclick="">
+                  <!-- <input type="submit" name="submit" value="Registrar" title="Registra tu cuenta"> -->
+
                   
                 </form>
                 <nav class="login-card-footer-nav">
