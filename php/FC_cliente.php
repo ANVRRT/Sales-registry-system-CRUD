@@ -63,8 +63,9 @@
 			</div>
 
 			<div class="campo campo--button">
-				<input class="campo__field button--red grd" type="reset" value="Alta de cliente">
+				<input class="campo__field button--blue" type="submit" value="Alta de cliente">
 				<input class="campo__field button--blue" type="submit" value="Baja de cliente">
+                <input class="campo__field button--red grd" type="reset" value="Limpiar formulario">
 			</div>
 		</form>
 	</div>	
