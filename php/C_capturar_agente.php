@@ -251,7 +251,7 @@
                             <div class="card shadow mb-4">
 
                                 <?php
-                                    include("FC_compania.php");
+                                    include("FC_capturar_agente.php");
                                 ?>
 
                             </div>

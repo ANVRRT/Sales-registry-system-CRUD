@@ -83,7 +83,7 @@
                 <a class="collapse-item" href="#">Inventario</a>
                 <a class="collapse-item" href="#">Almacen</a>
                 <a class="collapse-item" href="#">Cliente</a>
-                <a class="collapse-item" href="#">Agente</a>
+                <a class="collapse-item" href="C_capturar_agente.php">Agente</a>
                 <a class="collapse-item" href="#">Artículo</a>
                 <a class="collapse-item" href="#">Dir. Entrega</a>
                 <a class="collapse-item" href="#">Lista Precios</a>
