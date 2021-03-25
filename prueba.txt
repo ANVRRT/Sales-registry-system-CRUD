@@ -1,0 +1,2 @@
+fileA
+Prueba.js merge conflict
