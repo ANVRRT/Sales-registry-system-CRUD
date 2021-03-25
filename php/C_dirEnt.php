@@ -251,7 +251,7 @@
                             <div class="card shadow mb-4">
 
                                 <?php
-                                    include("FODir_capturar.php");
+                                    include("FC_dirEnt.php");
                                 ?>
 
                             </div>

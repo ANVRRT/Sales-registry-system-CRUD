@@ -70,6 +70,7 @@
         </div>
     </li>
 
+
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
@@ -85,7 +86,7 @@
                 <a class="collapse-item" href="C_cliente.php">Cliente</a>
                 <a class="collapse-item" href="C_agente.php">Agente</a>
                 <a class="collapse-item" href="C_articulo">Artículo</a>
-                <a class="collapse-item" href="#">Dir. Entrega</a>
+                <a class="collapse-item" href="C_dirEnt">Dir. Entrega</a>
                 <a class="collapse-item" href="#">Lista Precios</a>
                 <a class="collapse-item" href="C_factura.php">Facturas</a>
             </div>
