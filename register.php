@@ -137,5 +137,5 @@ Description: Design register crazy!
         <input style="margin-bottom: 0px;" type="password" name="contrasena" id="password" required placeholder="Contraseña" autocomplete="off">
         <input type="password" name="repcontrasena" id="password" required placeholder="Repetir Contraseña" autocomplete="off">
         <input type="submit" name="submit" value="Registrar" title="Registra tu cuenta">
-
+    </form>
 </html>
