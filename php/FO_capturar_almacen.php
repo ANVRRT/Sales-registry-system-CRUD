@@ -25,7 +25,8 @@
 
 			<div class="campo campo--button">
 				<input class="campo__field button--red grd" type="reset" value="Limpiar">
-				<input class="campo__field button--blue" type="submit" value="Guardar">
+				<input class="campo__field button--blue" type="submit" value="Alta">
+				<input class="campo__field button--blue" type="submit" value="Baja">
 			</div>
 		</form>
 	</div>	

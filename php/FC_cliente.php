@@ -63,9 +63,15 @@
 			</div>
 
 			<div class="campo campo--button">
+<<<<<<< HEAD
 				<input class="campo__field button--blue" type="submit" value="Alta de cliente">
 				<input class="campo__field button--blue" type="submit" value="Baja de cliente">
                 <input class="campo__field button--red grd" type="reset" value="Limpiar formulario">
+=======
+				<input class="campo__field button--red grd" type="reset" value="Limpiar">
+				<input class="campo__field button--red grd" type="reset" value="Alta">
+				<input class="campo__field button--blue" type="submit" value="Baja">
+>>>>>>> f164b6c26c68440d137b9deba74e07c0f3bb4645
 			</div>
 		</form>
 	</div>	
