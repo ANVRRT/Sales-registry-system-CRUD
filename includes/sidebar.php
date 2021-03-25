@@ -1,4 +1,4 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" ">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./index.php">
@@ -16,7 +16,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="./index.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span>Inicio</span></a>
     </li>
 
     <!-- Divider -->
@@ -24,11 +24,11 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Interface
+        Catálogos
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
             <span>Components</span>
@@ -40,19 +40,32 @@
                 <a class="collapse-item" href="cards.html">Cards</a>
             </div>
         </div>
-    </li>
+    </li> -->
 
     
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAut" aria-expanded="true" aria-controls="collapseAut">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseA" aria-expanded="true" aria-controls="collapseA">
             <i class="fas fa-check-double"></i>
             <span>Autorizaciones</span>
         </a>
-        <div id="collapseAut" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseA" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Autorizaciones:</h6>
-                <a class="collapse-item" href="Autorizacion_ordenes_venta.php">Ordenes de Venta</a>
-                <a class="collapse-item" href="cards.html">Cards</a>
+                <a class="collapse-item" href="A_ordenes_venta.php">Ordenes de Venta</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseO" aria-expanded="true" aria-controls="collapseO">
+            <i class="fas fa-clipboard-list"></i>
+            <span>Ordenes</span>
+        </a>
+        <div id="collapseO" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Ordenes:</h6>
+                <a class="collapse-item" href="O_venta.php">Ordenes de Venta</a>
+                <a class="collapse-item" href="O_capturar.php">Capturar Orden</a>
             </div>
         </div>
     </li>
@@ -111,7 +124,7 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="../php/tables.php">
+        <a class="nav-link" href="O_venta.php">
             <i class="fas fa-fw fa-table"></i>
             <span>Tables</span></a>
     </li>

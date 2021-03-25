@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Papeles Corrugados</title>
 
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="../css/styles-capOrden.css">
-	<link rel="stylesheet" href="../css/normalize.css">
-</head>
-<body>
-	<div class="bg">
+<div style="height:100%;">
+	<div >
 		<h1>Capturar Orden</h1>
 		<form class="formulario">
 			<div class="campo">
@@ -72,4 +60,4 @@
 			</div>
 		</form>
 	</div>	
-</html>
+</div>
