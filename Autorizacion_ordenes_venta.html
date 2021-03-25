@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Ordenes de Venta en Proceso</title>
+    <title>Autorizar Fechas Definitivas</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -38,7 +38,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">La Moderna</div>
+                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
             </a>
 
             <!-- Divider -->
@@ -134,7 +134,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Ordenes de Venta en Proceso</span></a>
+                    <span>Tables</span></a>
             </li>
 
             <!-- Divider -->
@@ -364,83 +364,56 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Ordenes de Venta en Proceso</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Autorización de Fechas definitivas</h1>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Tabla de Ordenes de Venta en Proceso</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Ordenes de venta</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr>
-                                            <th>Orden</th>
+                                        <tr align="center">
                                             <th>Cliente</th>
                                             <th>Nombre</th>
-                                            <th>Fec.Ord.</th>
-                                            <th>Articulo</th>
+                                            <th>Orden</th>
+                                            <th>Fecha Orden</th>
+                                            <th>Artículo</th>
                                             <th>Descripción</th>
                                             <th>Cantidad</th>
                                             <th>Precio</th>
-                                            <th>Fec.Sol.</th>
-                                            <th>Fact</th>
-                                            <th>CXC</th>
-                                            <th>Precios</th>
-                                            <th>Costeo</th>
-                                            <th>ING</th>
-                                            <th>Motivo ING</th>
-                                            <th>PLN</th>
-                                            <th>Serv.Cli.</th>
-                                            <th>Acciones</th>
+                                            <th>Fecha Entrega</th>
+                                            <th>CxC</th>
+                                            <th>Facturas</th>
+                                            <th>Stock</th>
+                                            <th>Orden de compra</th>
+                                            <th>Autorización</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Orden</th>
-                                            <th>Cliente</th>
-                                            <th>Nombre</th>
-                                            <th>Fec.Ord.</th>
-                                            <th>Articulo</th>
-                                            <th>Descripción</th>
-                                            <th>Cantidad</th>
-                                            <th>Precio</th>
-                                            <th>Fec.Sol.</th>
-                                            <th>Fact</th>
-                                            <th>CXC</th>
-                                            <th>Precios</th>
-                                            <th>Costeo</th>
-                                            <th>ING</th>
-                                            <th>Motivo ING</th>
-                                            <th>PLN</th>
-                                            <th>Serv.Cli.</th>
-                                            <th>Acciones</th>
+                                    
+                                    <tbody>
+                                        <tr >
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td align="center"><input  type="checkbox" name="cxc"></td>
+                                            <td></td>
+                                            
+                                            <td></td>
+                                            <td></td>
+                                            <td align="center"><input name="autorizar" type="button" value="Autorizar orden" class="btn btn-primary"></td>
+                                            
                                         </tr>
-                                    </tfoot>
+                                       
                                     </tbody>
-                                   		<tr align="center">
-                                            <td>47568</td>
-                                            <td>001032</td>
-                                            <td>Articulos Decorativos y Soluciones</td>
-                                            <td>KS290018856</td>
-                                            <td>A-3 KRAFT</td>
-                                            <td>3.000</td>
-                                            <td>3400.000</td>
-                                            <td>25-Ene-2021</td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="button" value="Cancelar Orden" class="btn btn-primary"> <br><br>
-                                            	<input type="button" value="Borrar Orden" class="btn btn-primary">
-                                            </td>
-
-                                        </tr>                         	</table>
+                                </table>
                             </div>
                         </div>
                     </div>
