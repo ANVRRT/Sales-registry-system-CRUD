@@ -3,26 +3,11 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Ordenes de Venta en Proceso</title>
-
-    <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+    <?php
+        include("../includes/header.php");
+    ?>
+	<link rel="stylesheet" href="../css/styles-capOrden2.css">
+	<link rel="stylesheet" href="../css/normalize.css">
 </head>
 
 <body id="page-top">
@@ -30,9 +15,17 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <?php
-        include("includes/sidebar.php")
-        ?>
+        <!-- Sidebar -->
+		<div >
+			
+			<?php
+				include("../includes/sidebar.php")
+			?>
+			
+			
+		</div>
+        
+        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -44,11 +37,9 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <form class="form-inline">
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                    </form>
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
                     <!-- Topbar Search -->
                     <form
@@ -158,7 +149,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
+                                        <img class="rounded-circle" src="../img/undraw_profile_1.svg"
                                             alt="">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
@@ -170,7 +161,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
+                                        <img class="rounded-circle" src="../img/undraw_profile_2.svg"
                                             alt="">
                                         <div class="status-indicator"></div>
                                     </div>
@@ -182,7 +173,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
+                                        <img class="rounded-circle" src="../img/undraw_profile_3.svg"
                                             alt="">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
@@ -216,7 +207,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                    src="../img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -247,91 +238,19 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <!-- <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Ordenes de Venta en Proceso</h1>
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Tabla de Ordenes de Venta en Proceso</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Orden</th>
-                                            <th>Cliente</th>
-                                            <th>Nombre</th>
-                                            <th>Fec.Ord.</th>
-                                            <th>Articulo</th>
-                                            <th>Descripción</th>
-                                            <th>Cantidad</th>
-                                            <th>Precio</th>
-                                            <th>Fec.Sol.</th>
-                                            <th>Fact</th>
-                                            <th>CXC</th>
-                                            <th>Precios</th>
-                                            <th>Costeo</th>
-                                            <th>ING</th>
-                                            <th>Motivo ING</th>
-                                            <th>PLN</th>
-                                            <th>Serv.Cli.</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Orden</th>
-                                            <th>Cliente</th>
-                                            <th>Nombre</th>
-                                            <th>Fec.Ord.</th>
-                                            <th>Articulo</th>
-                                            <th>Descripción</th>
-                                            <th>Cantidad</th>
-                                            <th>Precio</th>
-                                            <th>Fec.Sol.</th>
-                                            <th>Fact</th>
-                                            <th>CXC</th>
-                                            <th>Precios</th>
-                                            <th>Costeo</th>
-                                            <th>ING</th>
-                                            <th>Motivo ING</th>
-                                            <th>PLN</th>
-                                            <th>Serv.Cli.</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </tfoot>
-                                    </tbody>
-                                   		<tr align="center">
-                                            <td>47568</td>
-                                            <td>001032</td>
-                                            <td>Articulos Decorativos y Soluciones</td>
-                                            <td>KS290018856</td>
-                                            <td>A-3 KRAFT</td>
-                                            <td>3.000</td>
-                                            <td>3400.000</td>
-                                            <td>25-Ene-2021</td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="button" value="Cancelar Orden" class="btn btn-primary"> <br><br>
-                                            	<input type="button" value="Borrar Orden" class="btn btn-primary">
-                                            </td>
+					
+                    Page Heading
+                    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
 
-                                        </tr>                         	</table>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                </div> -->
+				<div class="container-fluid"> 
+					<?php
+						include("FO_capturar.php");
+					?>
+				</div>
+				
                 <!-- /.container-fluid -->
 
             </div>
@@ -379,21 +298,14 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
+    <script src="../js/sb-admin-2.min.js"></script>
 
 </body>
 
