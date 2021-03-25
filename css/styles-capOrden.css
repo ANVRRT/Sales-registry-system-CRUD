@@ -1,20 +1,19 @@
-:root {
-	--fuentePri: 'Open Sans', sans-serif;
-	--fuenteSec: 'Montserrat', sans-serif;
+.button--blue {
+	background-color: #436adf;
 }
 
-html {
-    font-size: 62.5%;       /* DEFAULT */
-    box-sizing: border-box; /* DEFAULT */
+.button--blue:hover {
+	background-color:#2c499e;
+	cursor: pointer;
 }
 
-*, *:before, *:after {
-    box-sizing: inherit;    /* DEFAULT */
+.button--red {
+	background-color: #e74a3b;
 }
 
-body {
-    font-size: 1.6rem;        /* DEFAULT */
-	font-family: var(--fuentePri)
+.button--red:hover {
+	background-color:#a13228;
+	cursor: pointer;
 }
 
 form {

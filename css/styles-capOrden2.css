@@ -1,3 +1,22 @@
+:root {
+	--fuentePri: 'Open Sans', sans-serif;
+	--fuenteSec: 'Montserrat', sans-serif;
+}
+
+html {
+    font-size: 62.5%;       /* DEFAULT */
+    box-sizing: border-box; /* DEFAULT */
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;    /* DEFAULT */
+}
+
+body {
+    font-size: 1.6rem;        /* DEFAULT */
+	font-family: var(--fuentePri)
+}
+
 form {
 	background-color: #FFFFFF;
 	display: flex;
@@ -77,7 +96,7 @@ h1 {
 	grid-row: 2 / 3;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 700px) {
 	.campo--button {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
