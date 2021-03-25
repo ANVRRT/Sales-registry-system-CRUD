@@ -81,7 +81,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Altas y bajas:</h6>
                 <a class="collapse-item" href="C_capturar_Compania.php">Compañia</a>
-                <a class="collapse-item" href="#">Inventario</a>
+                <a class="collapse-item" href="C_inventario.php">Inventario</a>
                 <a class="collapse-item" href="O_capturar_almacen.php">Almacen</a>
                 <a class="collapse-item" href="C_cliente.php">Cliente</a>
                 <a class="collapse-item" href="C_agente.php">Agente</a>
