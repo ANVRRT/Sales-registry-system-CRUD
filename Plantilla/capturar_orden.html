@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Papeles Corrugados</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body><center>
+	<table border="3" width="70%" height="70%">
+	<form name="f_captura_orden">
+		<tr bgcolor="#FFA531">
+			<td colspan="2"> <h2 style="color: white" align="center">Captura de Ordenes de Venta</h2> </td>
+		</tr>
+		<tr>
+			<td><p>Cliente</p></td>
+			<td align="center"><input name="cliente" type="text" size="9" maxlength="9" class="sign-in-container"></td>
+		</tr>
+		<tr>
+			<td><p>Dir. de entrega</p></td>
+			<td align="center"><input name="direccion" type="text" size="30" maxlength="30" class="sign-in-container"></td>
+		</tr>
+		<tr>
+			<td><p>Orden de compra</p></td>
+			<td align="center"><input name="orden" type="text" size="30" maxlength="30" class="sign-in-container"></td>
+		</tr>
+		<tr>
+			<td><p>Artículo</p></td>
+			<td align="center"><input name="articulo" type="text" size="30" maxlength="30" class="sign-in-container"></td>
+		</tr>
+		<tr>
+			<td><p>Cantidad</p></td>
+			<td align="center"><input name="cantidad" type="number" size="5" maxlength="4" class="sign-in-container"></td>
+		</tr>
+		<tr>
+			<td><p>Precio</p></td>
+			<td align="center"><input name="precio" type="number" size="5" maxlength="3" class="sign-in-container"></td>
+		</tr>
+		<tr>
+			<td><p>Fecha Solicitada</p></td>
+			<td align="center"><input name="fecha" type="date" size="5" maxlength="3" class="sign-in-container"></td>
+		</tr>
+		<tr>
+			<td><p>Observaciones del Artículo</p></td>
+			<td align="center"><textarea name="obs_articulo" rows="4" cols="40"></textarea></td>
+		</tr>
+		<tr>
+			<td colspan="2"><input name="b_agregar" type="button" value="Agregar Artículo" class="ghost" style="width:250px" onClick=""></td>
+		</tr>
+		<tr>
+			<td><p>Observaciones de la Orden</p></td>
+			<td align="center"><textarea name="obs_orden" rows="4" cols="40"></textarea></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input name="b_guardar" type="button" value="Guardar" class="ghost" style="width:200px" onClick="">
+				<input name="b_cancelar" type="reset" value="Cancelar" class="ghost" style="width:200px">
+			</td>
+		</tr>	
+	</form>
+	</table>
+</center></body>
+</html>
