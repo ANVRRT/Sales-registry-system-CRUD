@@ -129,7 +129,7 @@ Description: Design register crazy!
 <html>
 <p class="texto">Registrarse</p>
 <div class="Registro">
-    <form method="post" action="php/signup.inc.php">
+    <form method="post" action="../includes/signup.inc.php">
 
         <input type="text" name="idUsuario" required placeholder="Usuario" autocomplete="off">
         <input type="text" name="nombre" required placeholder="Nombre" autocomplete="off">
