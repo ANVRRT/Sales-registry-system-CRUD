@@ -24,7 +24,7 @@
                 <img src="images/logo.png" alt="logo" class="logo">
               </div>
               <p class="login-card-description">¡Bienvenido usuario!</p>
-              <form action="login_form">
+              <form action="php/login.inc.php">
                   <div class="form-group">
                     <input type="text" name="user" id="user" class="form-control" placeholder="Usuario">
                   </div>
