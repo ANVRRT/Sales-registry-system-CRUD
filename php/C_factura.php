@@ -2,11 +2,10 @@
 <html lang="en">
 
 <head>
-
     <?php
         include("../includes/header.php");
     ?>
-	<link rel="stylesheet" href="../css/styles-capOrden2.css">
+	<link rel="stylesheet" href="../css/styles-capOrden.css">
 	<link rel="stylesheet" href="../css/normalize.css">
 </head>
 
@@ -248,19 +247,11 @@
 				<div class="container-fluid"> 
                     <div class="col-lg-12">
                         <div class="card-body">
-                            <div class="card shadow mb-4">
-
-                                <?php
-                                    include("FC_capturar_factura.php");
-                                ?>
-
-                            </div>
+                            <?php
+                                include("FC_capturar_factura.php");
+                            ?>
                         </div>
-                        
-
                     </div>
-                    
-    
 				</div>
 				
                 <!-- /.container-fluid -->
