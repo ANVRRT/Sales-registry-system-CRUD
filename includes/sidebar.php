@@ -1,3 +1,15 @@
+<?php
+    session_start();
+    if(!isset($_SESSION["idUsuario"]))
+    {
+        header("location: ../php/login.php");
+        exit();
+    }
+    
+
+?>
+
+
 <ul style="height: 100%; vertical-align:middle;" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" ">
 
     <!-- Sidebar - Brand -->
@@ -80,16 +92,15 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Altas y bajas:</h6>
-                <a class="collapse-item" href="C_capturar_Compania.php">Compañia</a>
+                <a class="collapse-item" href="C_compania.php">Compañia</a>
                 <a class="collapse-item" href="C_inventario.php">Inventario</a>
-                <a class="collapse-item" href="O_capturar_almacen.php">Almacen</a>
+                <a class="collapse-item" href="C_almacen.php">Almacen</a>
                 <a class="collapse-item" href="C_cliente.php">Cliente</a>
                 <a class="collapse-item" href="C_agente.php">Agente</a>
                 <a class="collapse-item" href="C_articulo">Artículo</a>
                 <a class="collapse-item" href="C_dirEnt">Dir. Entrega</a>
-                <a class="collapse-item" href="#">Lista Precios</a>
+                <a class="collapse-item" href="C_listaPrecios">Lista Precios</a>
                 <a class="collapse-item" href="C_factura.php">Facturas</a>
-                <a class="collapse-item" href="C_listaPrecios.php">Lista Precios</a>
             </div>
         </div>
     </li>
@@ -113,6 +124,18 @@
                 <h6 class="collapse-header">Login Screens:</h6>
                 <a class="collapse-item" href="../php/login.php">Login</a>
                 <a class="collapse-item" href="../php/register.php">Register</a>
+                <?php
+                    if(isset($_SESSION["idUsuario"]))
+                    {
+                        echo "<a class='collapse-item' href='../includes/logout.inc.php'>Desloggeate bro</a>";
+
+                    }
+                    else{
+                        echo "<a class='collapse-item' href='../php/Login.php' >Loggeate bro</a>";
+
+                    }
+
+                ?>
                 <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                 <div class="collapse-divider"></div>
                 <h6 class="collapse-header">Other Pages:</h6>

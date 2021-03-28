@@ -1,3 +1,14 @@
+<?php
+    session_start();
+    if(isset($_SESSION["idUsuario"]))
+    {
+        header("location: ../php/index.php");
+        exit();
+    }
+    
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +37,7 @@
               <p class="login-card-description">¡Bienvenido usuario!</p>
               <form method="post" action="../includes/login.inc.php">
                   <div class="form-group">
-                    <input type="text" name="user" id="user" class="form-control" required placeholder="Usuario">
+                    <input type="text" name="idUsuario" id="user" class="form-control" required placeholder="Usuario">
                   </div>
                   <div class="form-group mb-4">
                     <label for="password" class="sr-only">Password</label>
@@ -35,8 +46,21 @@
                   <input name="submit" id="login" class="btn btn-block login-btn mb-4" type="submit" value="Iniciar Sesión" onclick="">
                   <!-- <input type="submit" name="submit" value="Registrar" title="Registra tu cuenta"> -->
 
-                  
                 </form>
+                <?php
+                    if(isset($_GET["error"]))
+                    {
+                        if($_GET["error"] == "user!exists")
+                        {
+                            echo "<p style='color: black;'> ¡Ese nombre de usuario no existe! </p>";
+                        }
+                        if($_GET["error"] == "wrongpswrd")
+                        {
+                            echo "<p style='color: black;'> ¡Contraseña invalida! </p>";
+                        }
+
+                    }
+                ?>
                 <nav class="login-card-footer-nav">
                   <p>Papeles Corrugados S.A. de C.V. Vialidad Toluca Tenango Km 6 San Lorenzo Coacalco, Metepec, Estado de México. C.P. 52140</p>
                 </nav>

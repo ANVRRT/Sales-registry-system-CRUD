@@ -5,7 +5,7 @@
     <?php
         include("../includes/header.php");
     ?>
-	<link rel="stylesheet" href="../css/styles-capOrden.css">
+    <link rel="stylesheet" href="../css/styles-capOrden.css">
 	<link rel="stylesheet" href="../css/normalize.css">
 </head>
 
@@ -248,7 +248,7 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("FC_capturar_Compania.php");
+                                include("FC_almacen.php");
                             ?>
                         </div>
                     </div>
