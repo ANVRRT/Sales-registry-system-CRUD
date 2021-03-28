@@ -1,3 +1,14 @@
+<?php
+    session_start();
+    if(isset($_SESSION["idUsuario"]))
+    {
+        header("location: ../php/index.php");
+        exit();
+    }
+    
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
