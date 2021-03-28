@@ -50,7 +50,7 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("FC_capturar_Compania.php");
+                                include("FC_compania.php");
                             ?>
                         </div>
                     </div>

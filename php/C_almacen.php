@@ -248,7 +248,7 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("FO_capturar_almacen.php");
+                                include("FC_almacen.php");
                             ?>
                         </div>
                     </div>

@@ -92,7 +92,7 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Altas y bajas:</h6>
-                <a class="collapse-item" href="C_capturar_Compania.php">Compañia</a>
+                <a class="collapse-item" href="C_compania.php">Compañia</a>
                 <a class="collapse-item" href="C_inventario.php">Inventario</a>
                 <a class="collapse-item" href="C_almacen.php">Almacen</a>
                 <a class="collapse-item" href="C_cliente.php">Cliente</a>
@@ -101,7 +101,6 @@
                 <a class="collapse-item" href="C_dirEnt">Dir. Entrega</a>
                 <a class="collapse-item" href="C_listaPrecios">Lista Precios</a>
                 <a class="collapse-item" href="C_factura.php">Facturas</a>
-                <a class="collapse-item" href="C_listaPrecios.php">Lista Precios</a>
             </div>
         </div>
     </li>
