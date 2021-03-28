@@ -127,15 +127,46 @@ Description: Design register crazy!
     }
 </style>
 <html>
-<p class="texto">Registrarse</p>
-<div class="Registro">
-    <form method="post" action="../includes/signup.inc.php">
+    <p class="texto">Registrarse</p>
+    <div class="Registro">
+        <form method="post" action="../includes/signup.inc.php">
 
-        <input type="text" name="idUsuario" required placeholder="Usuario" autocomplete="off">
-        <input type="text" name="nombre" required placeholder="Nombre" autocomplete="off">
-        <input type="text" name="rol" required placeholder="Rol" autocomplete="off">
-        <input style="margin-bottom: 0px;" type="password" name="contrasena" id="password" required placeholder="Contraseña" autocomplete="off">
-        <input type="password" name="repcontrasena" id="password" required placeholder="Repetir Contraseña" autocomplete="off">
-        <input type="submit" name="submit" value="Registrar" title="Registra tu cuenta">
-    </form>
+            <input type="text" name="idUsuario" required placeholder="Usuario" autocomplete="off">
+            <input type="text" name="idCompania" required placeholder="idCompania" autocomplete="off">
+            <input type="text" name="nombre" required placeholder="Nombre" autocomplete="off">
+            <input type="text" name="rol" required placeholder="Rol" autocomplete="off">
+            <input style="margin-bottom: 0px;" type="password" name="contrasena" id="password" required placeholder="Contraseña" autocomplete="off">
+            <input type="password" name="repcontrasena" id="password" required placeholder="Repetir Contraseña" autocomplete="off">
+            <input type="submit" name="submit" value="Registrar" title="Registra tu cuenta">
+        </form>
+    </div>
+<?php
+    if(isset($_GET["error"]))
+    {
+        if($_GET["error"] == "invalididU")
+        {
+            echo "<p style='color: white;'> ¡Nombre de usuario invalido! </p>";
+        }
+        if($_GET["error"] == "pswrd!match")
+        {
+            echo "<p style='color: white;'> ¡Las contraseñas no coinciden! </p>";
+        }
+        if($_GET["error"] == "usrtaken")
+        {
+            echo "<p style='color: white;'> ¡Ese usuario ya existe! </p>";
+        }
+        if($_GET["error"] == "comp!exist")
+        {
+            echo "<p style='color: white;'> ¡Esa empresa no existe! </p>";
+        }
+        if($_GET["error"] == "stmtfailed")
+        {
+            echo "<p style='color: white;'> ¡Algo ocurrió! Contacta al administrador </p>";
+        }
+        if($_GET["error"] == "success")
+        {
+            echo "<p style='color: green;'> ¡Usuario creado exitosamente! </p>";
+        }
+    }
+?>
 </html>
