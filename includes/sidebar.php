@@ -1,23 +1,18 @@
 <?php
-    session_start();
-    if(!isset($_SESSION["idUsuario"]))
-    {
-        header("location: ../php/login.php");
-        exit();
-    }
-    
-
+session_start();
+if (!isset($_SESSION["idUsuario"])) {
+    header("location: ../php/login.php");
+    exit();
+}
 ?>
-
-
 <ul style="height: 100%; vertical-align:middle;" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" ">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./index.php">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-box-open"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">Cartones Corrugados</div>
+    <a class=" sidebar-brand d-flex align-items-center justify-content-center" href="./index.php">
+    <div class="sidebar-brand-icon rotate-n-15">
+        <i class="fas fa-box-open"></i>
+    </div>
+    <div class="sidebar-brand-text mx-3">Cartones Corrugados</div>
 
     </a>
 
@@ -54,7 +49,7 @@
         </div>
     </li> -->
 
-    
+
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseA" aria-expanded="true" aria-controls="collapseA">
             <i class="fas fa-check-double"></i>
@@ -138,15 +133,11 @@
                 <a class="collapse-item" href="../php/login.php">Login</a>
                 <a class="collapse-item" href="../php/register.php">Register</a>
                 <?php
-                    if(isset($_SESSION["idUsuario"]))
-                    {
-                        echo "<a class='collapse-item' href='../includes/logout.inc.php'>Desloggeate bro</a>";
-
-                    }
-                    else{
-                        echo "<a class='collapse-item' href='../php/Login.php' >Loggeate bro</a>";
-
-                    }
+                if (isset($_SESSION["idUsuario"])) {
+                    echo "<a class='collapse-item' href='../includes/logout.inc.php'>Desloggeate bro</a>";
+                } else {
+                    echo "<a class='collapse-item' href='../php/Login.php' >Loggeate bro</a>";
+                }
 
                 ?>
                 <a class="collapse-item" href="forgot-password.html">Forgot Password</a>

@@ -3,10 +3,10 @@
 
 <head>
     <?php
-        include("../includes/header.php");
+    include("../includes/header.php");
     ?>
-	<link rel="stylesheet" href="../css/styles-capOrden.css">
-	<link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/styles-capOrden.css">
+    <link rel="stylesheet" href="../css/normalize.css">
 </head>
 
 <body id="page-top">
@@ -15,15 +15,15 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-		<div >
-			
-			<?php
-				include("../includes/sidebar.php")
-			?>
-			
-			
-		</div>
-        
+        <div>
+
+            <?php
+            include("../includes/sidebar.php");
+            ?>
+
+
+        </div>
+
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -34,7 +34,7 @@
 
                 <!-- Topbar -->
                 <?php
-                    include("../includes/topbar.php");
+                include("../includes/topbar.php");
                 ?>
                 <!-- End of Topbar -->
 
@@ -46,16 +46,35 @@
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
 
                 </div> -->
-				<div class="container-fluid"> 
+                <div class="container-fluid">
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("FC_agente.php");
+                            // $encontrado = false;
+                            // if (($_SESSION["rol"]) != "CXC") {
+                            //     if(isset($_SESSION["permisos"])){
+                            //         foreach($_SESSION["permisos"] as $permiso){
+                            //             if($permiso == "pc_agente"){
+                            //                 $encontrado = true;
+                            //             }
+                            //         }
+                            //     }
+                            //     if ($encontro == false){
+                            //         include("permission!assigned.php");
+                            //     }
+                            //     else{
+                            //         include("FC_agente.php");
+                            //     }       
+                            // }
+                            // else{
+                            //     include("FC_agente.php");
+                            // }
+                            include("FC_agente.php");
                             ?>
                         </div>
                     </div>
-				</div>
-				
+                </div>
+
                 <!-- /.container-fluid -->
 
             </div>
@@ -83,8 +102,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
