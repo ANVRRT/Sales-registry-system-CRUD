@@ -43,7 +43,6 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Tabla de Autorización</h6>
-                            <input type="button" value="Generar Reporte" class="btn btn-primary">
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
