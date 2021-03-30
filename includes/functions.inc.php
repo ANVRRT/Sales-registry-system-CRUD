@@ -151,6 +151,22 @@ function loginUser($conn, $idUsuario, $pswrd)
     }
     else if ($checkPswrd == true)
     {
+        // $sql = "SELECT * FROM Permiso WHERE idUsuario = ? ;";
+        // $stmt = mysqli_stmt_init($conn);
+        // if (!mysqli_stmt_prepare($stmt,$sql))
+        // {
+        //     header("location: ../php/register.php?error=stmtfailed");
+        //     exit();
+        // }
+        // mysqli_stmt_bind_param($stmt,"s", $idUsuario);
+        // mysqli_stmt_execute($stmt);
+
+        // $resultData = mysqli_stmt_get_result($stmt);
+
+        // if($row = mysqli_fetch_assoc($resultData))
+        // {
+        //     $_SESSION["permisos"] = $row;
+        // }
         session_start();
         $_SESSION["idUsuario"] = $iduExists["idUsuario"];
         $_SESSION["idCompania"] = $iduExists["idCompania"];
