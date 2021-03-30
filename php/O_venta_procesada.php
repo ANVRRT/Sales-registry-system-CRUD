@@ -80,7 +80,7 @@
                                         </tr>
                                     </tfoot>
                                     </tbody>
-                                   		<tr style="align:center">
+                                   		<tr style="margin:auto">
                                             <td>792</td>
                                             <td>INDUSTRIA DE ALIMENTOS NUTRIWELL</td>
                                             <td>47843</td>
@@ -94,7 +94,7 @@
                                             <td>0</td>
                                             <td>0</td>
                                         </tr>
-                                        <tr style="align:center">
+                                        <tr style="margin:auto">
                                             <td>792</td>
                                             <td>INDUSTRIA DE ALIMENTOS NUTRIWELL</td>
                                             <td>47843</td>
