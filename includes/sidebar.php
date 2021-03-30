@@ -71,7 +71,8 @@ if (!isset($_SESSION["idUsuario"])) {
         <div id="collapseO" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Ordenes:</h6>
-                <a class="collapse-item" href="O_venta.php">Ordenes en proceso</a>
+                <a class="collapse-item" href="O_venta_proceso.php">Ordenes en proceso</a>
+                <a class="collapse-item" href="O_venta_procesada.php">Ordenes procesadas</a>
                 <a class="collapse-item" href="O_capturar.php">Capturar Orden</a>
             </div>
         </div>
