@@ -74,6 +74,7 @@ if (!isset($_SESSION["idUsuario"])) {
                 <a class="collapse-item" href="O_venta_proceso.php">Ordenes en proceso</a>
                 <a class="collapse-item" href="O_venta_procesada.php">Ordenes procesadas</a>
                 <a class="collapse-item" href="O_capturar.php">Capturar Orden</a>
+                <a class="collapse-item" href="O_buscar.php">Buscar Orden</a>
             </div>
         </div>
     </li>
@@ -110,6 +111,7 @@ if (!isset($_SESSION["idUsuario"])) {
                 <a class="collapse-item" href="C_listaPrecios">Lista Precios</a>
                 <a class="collapse-item" href="C_factura.php">Facturas</a>
                 <a class="collapse-item" href="C_cantidadE.php">Cant. Entregada</a>
+                <a class="collapse-item" href="C_bloqueoCliente.php">Bloqueo Cliente</a>
             </div>
         </div>
     </li>
