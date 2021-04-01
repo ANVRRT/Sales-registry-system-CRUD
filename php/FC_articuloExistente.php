@@ -1,10 +1,10 @@
 <div class="fix-margin">
-	<h1 class="h1-mine">Artículo Existente</h1>
+	<h1 class="h1-mine">Artículo existente</h1>
 
 	<form class="formulario">
 
         <div class="campo">
-			<label class="campo__label" for="idArticulo">ID Artículo</label>
+			<label class="campo__label" for="idArticulo">Id Artículo</label>
 			<input class="campo__field" type="text" id="idArticulo">
 		</div>
 
