@@ -51,7 +51,7 @@
                         <div class="card-body">
                             <?php
                             $encontrado = false;
-                            if (($_SESSION["rol"] != "CXC") ) {
+                            if (($_SESSION["rol"] != "CXC") && ($_SESSION["rol"] != "ADM")) {
                                 if(isset($_SESSION["permisos"])){
                                     foreach($_SESSION["permisos"] as $permiso){
                                         // echo "<p> $permiso</p>";
