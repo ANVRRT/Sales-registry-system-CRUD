@@ -4,12 +4,43 @@
 	<form class="formulario">
 		<div class="campo">
 			<label class="campo__label" for="idCompania">Compañía</label>
-			<input class="campo__field" type="text" id="idCompania">
+
+			<?php
+				echo "<input class='campo__field' type='text' id='idCompania' value='".$_SESSION["idCompania"]."' readonly>";
+			?>
+
+			
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="idArticulo">ID Artículo</label>
-			<input class="campo__field" type="text" id="idArticulo">
+			<input class="campo__field" type="text" id="idArticulo" list="articulos">
+			<?php
+				require_once("../includes/dbh.inc.php");
+
+				// $query="SELECT * FROM ArticuloExistente WHERE idCompania = ".$_SESSION["idCompania"].";";
+
+				// echo "<datalist id='articulos'>";
+				// $sql=mysqli_query($conn,$query);
+				// while ($reg=mysqli_fetch_object($sql)){
+				// 	echo "<option>$reg->idArticulo";
+				// }
+				// echo "</datalist>";
+
+				require_once("../includes/functions_catalogos.php");
+				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
+				
+				echo "<datalist id='articulos'>";
+				while($row = mysqli_fetch_assoc($reg))
+				{
+					// echo $row["idArticulo"]."<br>";
+					echo "<option>".$row["idArticulo"]."</option>";
+
+				}
+				
+				echo "</datalist>";
+			?>
+			
 		</div>
 
 		<div class="campo campo__text">
