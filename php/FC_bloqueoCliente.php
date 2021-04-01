@@ -28,7 +28,7 @@
                                 <tr>
                                     <td>Alfreds Futterkiste</td>
                                     <td>
-                                        <input class="btn btn-danger" type="submit" value="bloquear">
+                                        <input class="btn btn-danger" type="submit" value="Bloquear">
                                     </td>
                                 </tr>
                             </table>
@@ -39,7 +39,7 @@
                                 <tr>
                                     <td>Alfreds Futterkiste</td>
                                     <td>
-                                        <input class="btn btn-success" type="submit" value="desbloquear">
+                                        <input class="btn btn-success" type="submit" value="Desbloquear">
                                     </td>
                                 </tr>
                             </table>
