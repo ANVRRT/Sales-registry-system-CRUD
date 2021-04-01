@@ -15,6 +15,16 @@ echo "<script>
 
 		</script>
 ";
+
+
+if (isset($_SESSION["permisos"])) {
+	
+	echo "HOLA";
+    // echo $_SESSION["permisos"]["1"];
+	foreach($_SESSION["permisos"] as $value){
+		echo $value . "<br>";
+	}
+}
 ?>
 
 <div class="fix-margin">

@@ -50,26 +50,29 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                            // $encontrado = false;
-                            // if (($_SESSION["rol"]) != "CXC") {
-                            //     if(isset($_SESSION["permisos"])){
-                            //         foreach($_SESSION["permisos"] as $permiso){
-                            //             if($permiso == "pc_agente"){
-                            //                 $encontrado = true;
-                            //             }
-                            //         }
-                            //     }
-                            //     if ($encontro == false){
-                            //         include("permission!assigned.php");
-                            //     }
-                            //     else{
-                            //         include("FC_agente.php");
-                            //     }       
-                            // }
-                            // else{
-                            //     include("FC_agente.php");
-                            // }
-                            include("FC_agente.php");
+                            $encontrado = false;
+                            if (($_SESSION["rol"] != "CXC") ) {
+                                if(isset($_SESSION["permisos"])){
+                                    foreach($_SESSION["permisos"] as $permiso){
+                                        // echo "<p> $permiso</p>";
+                                        if($permiso == "pc_agente"){
+                                            $encontrado = true;
+                                        }
+                                    }
+                                    
+                                }
+                                if ($encontrado == false){
+                                    // echo "HOLA";
+
+                                }
+                                else{
+                                    include("FC_agente.php");
+                                }       
+                            }
+                            else{
+                                include("FC_agente.php");
+                            }
+                            // include("FC_agente.php");
                             ?>
                         </div>
                     </div>
