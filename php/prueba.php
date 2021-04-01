@@ -4,7 +4,7 @@ echo "<script>
 			var r = confirm('¿Deseas eliminar a '+par+'?');
 			if (r == true) {
 				valor = par;
-				var serv = 'http://localhost/CCLAMODERNA/PHP/'+'index.php?resultado='+valor;
+				var serv = 'index.php?resultado='+valor;
 				location.href = serv;
 			  } else {
 				alert('No eliminaste a '+par+'!');
@@ -15,10 +15,6 @@ echo "<script>
 
 		</script>
 ";
-
-
-
-
 ?>
 
 <div class="fix-margin">
@@ -34,9 +30,6 @@ echo "<script>
             echo "</div>";
 			// onClick='pruebax(document.getElementById(\"$idRepresentante\").value)'
         ?>
-		
-		
-
 		<div class="campo">
 			<label class="campo__label" for="idCompania">ID Compañia</label>
 			<input class="campo__field" type="text" id="idCompania">
@@ -48,7 +41,6 @@ echo "<script>
 		</div>
 
 		<div class="campo__3--button">
-			
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
 			<input class="campo__field button--blue" type="submit" value="Baja" >
 			<input class="campo__field button--blue" type="submit" value="Alta">

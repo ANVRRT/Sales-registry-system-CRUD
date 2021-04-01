@@ -36,14 +36,14 @@
 			<input class="campo__field" type="checkbox" id="nivelDscto">
 		</div>
 
-		<div class="campo campo__text">
+		<div class="campo">
 			<label class="campo__label" for="fechaCaducidad">Fecha de caducidad</label>
-			<textarea class="campo__field campo__field--textarea" type="date"id="fechaCaducidad"></textarea>
+			<input class="campo__field" type="date" id="fechaCaducidad"></input>
 		</div>
 
-		<div class="campo campo__text">
+		<div class="campo">
 			<label class="campo__label" for="fechaInicio">Fecha de inicio</label>
-			<textarea class="campo__field campo__field--textarea" type="date"id="fechaInicio"></textarea>
+			<input class="campo__field" type="date"id="fechaInicio"></input>
 		</div>
 
 		<div class="campo campo__text">
