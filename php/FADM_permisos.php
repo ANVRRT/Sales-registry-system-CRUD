@@ -1,6 +1,6 @@
 
-<div class="formulario">
-	<h1 class="h1-mine">Facturas</h1>
+<div class="fix-margin">
+	<h1 class="h1-mine">Permisos</h1>
 
 	<form class="formulario">
 		<div class="campo">
