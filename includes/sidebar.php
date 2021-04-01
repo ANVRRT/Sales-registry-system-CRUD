@@ -59,6 +59,7 @@ if (!isset($_SESSION["idUsuario"])) {
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Autorizaciones:</h6>
                 <a class="collapse-item" href="A_ordenes_venta.php">Ordenes de Venta</a>
+                <a class="collapse-item" href="A_fechas_definitivas.php">Autorizacion Fechas definitivas</a>
             </div>
         </div>
     </li>
