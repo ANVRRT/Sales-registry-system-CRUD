@@ -58,8 +58,8 @@ if (!isset($_SESSION["idUsuario"])) {
         <div id="collapseA" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Autorizaciones:</h6>
-                <a class="collapse-item" href="A_ordenes_venta.php">Ordenes de Venta</a>
-                <a class="collapse-item" href="A_fechas_definitivas.php">Autorizacion Fechas definitivas</a>
+                <a class="collapse-item" href="A_ordenes_venta.php">Autorizacion Fechas definitivas CXC</a>
+                <a class="collapse-item" href="A_fechas_definitivas.php">Autorizacion Fechas definitivas PLN</a>
             </div>
         </div>
     </li>
