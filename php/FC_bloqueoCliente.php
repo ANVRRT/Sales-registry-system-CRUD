@@ -28,15 +28,8 @@
                                 <tr>
                                     <td>Alfreds Futterkiste</td>
                                     <td>
-                                        <select class="form-control" name="bloquear">
-                                            <option value="1">Sin cambios</option>
-                                            <option value="0">Bloquear</option>
-                                        </select>
+                                        <input class="btn btn-danger" type="submit" value="bloquear">
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>Centro comercial Moctezuma</td>
-                                    <td>Francisco Chang</td>
                                 </tr>
                             </table>
                             </td>
@@ -46,25 +39,14 @@
                                 <tr>
                                     <td>Alfreds Futterkiste</td>
                                     <td>
-                                        <select class="form-control" name="desbloquear">
-                                            <option value="0">Sin cambios</option>
-                                            <option value="1">Desbloquear</option>
-                                        </select>
+                                        <input class="btn btn-success" type="submit" value="desbloquear">
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>Magazzini Alimentari Riuniti</td>
-                                    <td>Giovanni Rovelli</td>
                                 </tr>
                             </table>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <div class="campo__3--button">
-                    <input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
-                    <input class="campo__field button--blue" type="submit" value="Actualizar">
-                </div>
             </form>
         </div>
     </body>
