@@ -1,5 +1,5 @@
 <div class="fix-margin">
-	<h1 class="h1-mine">Artículo</h1>
+	<h1 class="h1-mine">Artículo Vendido</h1>
 
 	<form class="formulario">
 		<div class="campo">
