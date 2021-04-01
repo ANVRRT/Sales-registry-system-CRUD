@@ -25,7 +25,7 @@
 	
 		<div class="campo">
 			<label class="campo__label" for="fechaMov">Fecha Movimiento</label>
-			<input class="campo__field" type="text" id="fechaMov">
+			<input class="campo__field" type="date" id="fechaMov">
 		</div>
 
 		<div class="campo">
