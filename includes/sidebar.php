@@ -58,8 +58,8 @@ if (!isset($_SESSION["idUsuario"])) {
         <div id="collapseA" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Autorizaciones:</h6>
-                <a class="collapse-item" href="A_ordenes_venta.php">Ordenes de Venta</a>
-                <a class="collapse-item" href="A_fechas_definitivas.php">Autorizacion Fechas definitivas</a>
+                <a class="collapse-item" href="A_ordenes_venta.php">Autorizacion Fechas definitivas CXC</a>
+                <a class="collapse-item" href="A_fechas_definitivas.php">Autorizacion Fechas definitivas PLN</a>
             </div>
         </div>
     </li>
@@ -107,7 +107,8 @@ if (!isset($_SESSION["idUsuario"])) {
                 <a class="collapse-item" href="C_almacen.php">Almacen</a>
                 <a class="collapse-item" href="C_cliente.php">Cliente</a>
                 <a class="collapse-item" href="C_agente.php">Agente</a>
-                <a class="collapse-item" href="C_articulo">Artículo</a>
+                <a class="collapse-item" href="C_articuloExistente.php">Artículo existente</a>
+                <a class="collapse-item" href="C_articuloVendido">Artículo vendido</a>
                 <a class="collapse-item" href="C_dirEnt">Dir. Entrega</a>
                 <a class="collapse-item" href="C_listaPrecios">Lista Precios</a>
                 <a class="collapse-item" href="C_factura.php">Facturas</a>
