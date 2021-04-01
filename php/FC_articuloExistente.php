@@ -1,5 +1,5 @@
 <div class="fix-margin">
-	<h1 class="h1-mine">Artículo</h1>
+	<h1 class="h1-mine">Artículo existente</h1>
 
 	<form class="formulario">
 		<div class="campo">
@@ -11,7 +11,6 @@
 
 			
 		</div>
-
 		<div class="campo">
 			<label class="campo__label" for="idArticulo">ID Artículo</label>
 			<input class="campo__field" type="text" id="idArticulo" list="articulos">
@@ -40,8 +39,9 @@
 				
 				echo "</datalist>";
 			?>
-			
 		</div>
+
+
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="descripcion">Descripción</label>
@@ -49,17 +49,7 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="unidad">Unidad de Venta</label>
-			<input class="campo__field" type="number" id="unidad">
-		</div>
-
-		<div class="campo">
-			<label class="campo__label" for="clave">Clave de Acceso</label>
-			<input class="campo__field" type="text" id="clave">
-		</div>
-
-		<div class="campo">
-			<label class="campo__label" for="costo">Costo Estándar</label>
+			<label class="campo__label" for="unidad">Costo estándar</label>
 			<input class="campo__field" type="number" id="costo">
 		</div>
 
