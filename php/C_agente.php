@@ -3,7 +3,7 @@
 
 <head>
     <?php
-    include("../includes/header.php");
+        include("../includes/header.php");
     ?>
     <link rel="stylesheet" href="../css/styles-capOrden.css">
     <link rel="stylesheet" href="../css/normalize.css">

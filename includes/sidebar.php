@@ -59,7 +59,8 @@ if (!isset($_SESSION["idUsuario"])) {
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Autorizaciones:</h6>
                 <a class="collapse-item" href="A_ordenes_venta.php">Ordenes de Venta</a>
-                <a class="collapse-item" href="A_fechas_definitivas.php">Autorizacion Fechas definitivas</a>
+                <a class="collapse-item" href="A_fechas_definitivas.php">Autorizacion Fechas <br>definitivas</a>
+                <a class="collapse-item" href="A_ordenes_venta_precios.php">Ordenes de Venta Precios</a>
             </div>
         </div>
     </li>
@@ -147,7 +148,7 @@ if (!isset($_SESSION["idUsuario"])) {
                 <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                 <div class="collapse-divider"></div>
                 <h6 class="collapse-header">Other Pages:</h6>
-                <a class="collapse-item" href="404.html">404 Page</a>
+                <a class="collapse-item" href="../Plantilla/404.html">404 Page</a>
                 <a class="collapse-item" href="blank.html">Blank Page</a>
             </div>
         </div>
