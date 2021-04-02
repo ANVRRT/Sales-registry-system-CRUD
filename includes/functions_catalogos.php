@@ -23,7 +23,31 @@ function dispArticulos($conn, $idCompania){
 
     mysqli_stmt_close($stmt);
 }
-require_once("../includes/dbh.inc.php");
 
-dispArticulos($conn, "225");
+
+function createArtExistente($conn, $idUsuario, $idCompania, $rol, $nombre){
+    $sql = "INSERT INTO Usuario VALUES(?,?,?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/register.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sssss", $idUsuario, $idCompania, $nombre, $hashedPswrd, $rol);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_articuloExistente.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_articuloExistente.php?error=sqlerror");
+        exit();
+    }
+    
+   
+
+}
 ?>

@@ -51,10 +51,23 @@
                         <div class="card-body">
                             <?php
                                 include("FC_articuloExistente.php");
+                                if(isset($_GET["error"]))
+                                {
+                                    if($_GET["error"] == "success")
+                                    {
+                                        echo "<p style='color: black;'> ¡Artículo dado de alta exitosamente! </p>";
+                                    }
+                                    if($_GET["error"] == "sqlerror")
+                                    {
+                                        echo "<p style='color: black;'> ¡Algo ocurrio mal! </p>";
+                                    }
+
+                                }
                             ?>
                         </div>
                     </div>
 				</div>
+                
 				
                 <!-- /.container-fluid -->
 

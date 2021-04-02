@@ -33,7 +33,7 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					// echo $row["idArticulo"]."<br>";
-					echo "<option>".$row["idArticulo"]."</option>";
+					echo "<option>".$row["idArticulo"]."  ".$row["descripcion"]."</option>";
 
 				}
 				
