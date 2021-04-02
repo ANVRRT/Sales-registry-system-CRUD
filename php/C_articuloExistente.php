@@ -7,6 +7,8 @@
     ?>
 	<link rel="stylesheet" href="../css/styles-capOrden.css">
 	<link rel="stylesheet" href="../css/normalize.css">
+    <script type="text/javascript" src="../js/catalogos/articuloExistente.js"></script>
+
 </head>
 
 <body id="page-top">
