@@ -7,7 +7,7 @@
     ?>
 	<link rel="stylesheet" href="../css/styles-capOrden.css">
 	<link rel="stylesheet" href="../css/normalize.css">
-    <script type="text/javascript" src="../js/catalogos/articuloExistente.js"></script>
+    <!-- <script type="text/javascript" src="../js/catalogos/articuloExistente.js"></script> -->
 
 </head>
 
@@ -52,7 +52,7 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("FC_articuloExistente.php");
+                                include("forms/FC_articuloExistente.php");
                                 if(isset($_GET["error"]))
                                 {
                                     if($_GET["error"] == "success")
