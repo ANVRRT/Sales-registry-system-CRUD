@@ -4,9 +4,85 @@ require_once("dbh.inc.php");
 if(isset($_POST["A_artE"])){
     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 }
-if(isset($_POST["B_artE"])){
+if(isset($_POST["B_artE"])){ 
     deleteArtExistente($conn,$_POST["idArticulo"]);
 }
+// if(isset($_POST["A_artE"])){ //AGENTE
+//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
+// }
+// if(isset($_POST["B_artE"])){ 
+//     deleteArtExistente($conn,$_POST["idArticulo"]);
+// }if(isset($_POST["A_artE"])){ //ALMACEN
+//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
+// }
+// if(isset($_POST["B_artE"])){
+//     deleteArtExistente($conn,$_POST["idArticulo"]);
+// }
+// if(isset($_POST["A_artE"])){ //ARTCLIENTEVendido
+//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
+// }
+// if(isset($_POST["B_artE"])){ 
+//     deleteArtExistente($conn,$_POST["idArticulo"]);
+// }
+// if(isset($_POST["A_artE"])){ //BloqueoCliente
+//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
+// }
+// if(isset($_POST["B_artE"])){
+//     deleteArtExistente($conn,$_POST["idArticulo"]);
+// }
+// if(isset($_POST["A_artE"])){ //CantEnt
+//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
+// }
+// if(isset($_POST["B_artE"])){
+//     deleteArtExistente($conn,$_POST["idArticulo"]);
+// }
+// if(isset($_POST["A_artE"])){ //Cliente
+//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
+// }
+// if(isset($_POST["B_artE"])){
+//     deleteArtExistente($conn,$_POST["idArticulo"]);
+// }
+// if(isset($_POST["A_artE"])){ //Compañia
+//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
+// }
+// if(isset($_POST["B_artE"])){
+//     deleteArtExistente($conn,$_POST["idArticulo"]);
+// }
+// if(isset($_POST["A_artE"])){ //DirEnt
+//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
+// }
+// if(isset($_POST["B_artE"])){
+//     deleteArtExistente($conn,$_POST["idArticulo"]);
+// }
+// if(isset($_POST["A_artE"])){ //Factura
+//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
+// }
+// if(isset($_POST["B_artE"])){
+//     deleteArtExistente($conn,$_POST["idArticulo"]);
+// }
+// if(isset($_POST["A_artE"])){ //Inventario
+//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
+// }
+// if(isset($_POST["B_artE"])){
+//     deleteArtExistente($conn,$_POST["idArticulo"]);
+// }
+// if(isset($_POST["A_artE"])){ //Lista Precios
+//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
+// }
+// if(isset($_POST["B_artE"])){
+//     deleteArtExistente($conn,$_POST["idArticulo"]);
+// }
+// if(isset($_POST["A_artE"])){ //ADM Permisos
+//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
+// }
+// if(isset($_POST["B_artE"])){
+//     deleteArtExistente($conn,$_POST["idArticulo"]);
+// }if(isset($_POST["A_artE"])){
+//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
+// }
+// if(isset($_POST["B_artE"])){
+//     deleteArtExistente($conn,$_POST["idArticulo"]);
+// }
 
 
 function dispArticulos($conn, $idCompania){

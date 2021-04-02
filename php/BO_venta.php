@@ -50,7 +50,7 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("B_ordenes_venta.php");
+                                include("FB_ordenes_venta.php");
                             ?>
                         </div>
                     </div>
