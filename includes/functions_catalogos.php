@@ -24,12 +24,14 @@ if(isset($_POST["B_artE"])){
 // if(isset($_POST["B_artE"])){ 
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-// if(isset($_POST["A_artE"])){ //BloqueoCliente
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+//if(isset($_REQUEST['estado'])==0){//BLOQUEO CLIENTE
+  //  bClient($conn, $_GET['idB']);
+    //echo($_REQUEST['idB']);
+//}
+if(isset($_REQUEST['estado'])==1){
+    dClient($conn, $_REQUEST['idD']);
+    //echo($_REQUEST['idD']);
+}
 // if(isset($_POST["A_artE"])){ //CantEnt
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
@@ -151,6 +153,72 @@ function deleteArtExistente($conn,$idArticulo){
     else{
         mysqli_stmt_close($stmt);
         header("location: ../php/C_articuloExistente.php?error=sqlerror");
+        exit();
+    }
+}
+
+function disClients($conn, $estado){
+    $sql="SELECT * FROM Cliente WHERE bloqueo = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"i", $estado);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    return $resultData;
+
+    mysqli_stmt_close($stmt);
+}
+
+function bClient($conn, $id){
+    $sql= "UPDATE Cliente SET bloqueo= 0 WHERE idCliente= ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"i",$id);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        //header("location: ../php/C_bloqueoCliente.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        //header("location: ../php/C_bloqueoCliente.php?error=sqlerror");
+        exit();
+    }
+}
+
+function dClient($conn, $id){
+    $sql= "UPDATE Cliente SET bloqueo= 1 WHERE idCliente= ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"i",$id);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_bloqueoCliente.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_bloqueoCliente.php?error=sqlerror");
         exit();
     }
 }
