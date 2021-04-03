@@ -17,22 +17,12 @@
 			<?php
 				require_once("../includes/dbh.inc.php");
 
-				// $query="SELECT * FROM ArticuloExistente WHERE idCompania = ".$_SESSION["idCompania"].";";
-
-				// echo "<datalist id='articulos'>";
-				// $sql=mysqli_query($conn,$query);
-				// while ($reg=mysqli_fetch_object($sql)){
-				// 	echo "<option>$reg->idArticulo";
-				// }
-				// echo "</datalist>";
-
 				require_once("../includes/functions_catalogos.php");
 				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='articulos'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					// echo $row["idArticulo"]."<br>";
 					echo "<option>".$row["idArticulo"]."</option>";
 
 				}
