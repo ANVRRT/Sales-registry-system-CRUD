@@ -7,8 +7,6 @@
     ?>
 	<link rel="stylesheet" href="../css/styles-capOrden.css">
 	<link rel="stylesheet" href="../css/normalize.css">
-    <!-- <script type="text/javascript" src="../js/catalogos/articuloExistente.js"></script> -->
-
 </head>
 
 <body id="page-top">
@@ -52,24 +50,11 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("forms/FC_articuloExistente.php");
-                                if(isset($_GET["error"]))
-                                {
-                                    if($_GET["error"] == "success")
-                                    {
-                                        echo "<p style='color: black;'> ¡Artículo dado de alta exitosamente! </p>";
-                                    }
-                                    if($_GET["error"] == "sqlerror")
-                                    {
-                                        echo "<p style='color: black;'> ¡Algo ocurrio mal! </p>";
-                                    }
-
-                                }
+                                include("FB_ordenes_venta.php");
                             ?>
                         </div>
                     </div>
 				</div>
-                
 				
                 <!-- /.container-fluid -->
 

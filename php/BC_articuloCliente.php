@@ -5,8 +5,8 @@
     <?php
         include("../includes/header.php");
     ?>
-	<link rel="stylesheet" href="../css/styles-capOrden.css">
-	<link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/styles-capOrden.css">
+    <link rel="stylesheet" href="../css/normalize.css">
 </head>
 
 <body id="page-top">
@@ -15,14 +15,14 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-		<div >
-			
-			<?php
-				include("../includes/sidebar.php")
-			?>
-			
-			
-		</div>
+        <div >
+            
+            <?php
+                include("../includes/sidebar.php")
+            ?>
+            
+            
+        </div>
         
         <!-- End of Sidebar -->
 
@@ -41,21 +41,21 @@
                 <!-- Begin Page Content -->
                 <!-- <div class="container-fluid">
 
-					
+                    
                     Page Heading
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
 
                 </div> -->
-				<div class="container-fluid"> 
+                <div class="container-fluid"> 
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("B_ordenes_venta.php");
+                                include("FB_articuloCliente.php");
                             ?>
                         </div>
                     </div>
-				</div>
-				
+                </div>
+                
                 <!-- /.container-fluid -->
 
             </div>
