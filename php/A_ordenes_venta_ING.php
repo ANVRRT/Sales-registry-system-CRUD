@@ -40,7 +40,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Autorización de Fechas definitivas CXC</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Autorización Ordenes de Venta (ING)</h1>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -51,19 +51,20 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr align="center">
-                                            <th>Cliente</th>
-                                            <th>Nombre</th>
-                                            <th>Orden</th>
-                                            <th>Fecha Orden</th>
-                                            <th>Artículo</th>
-                                            <th>Descripción</th>
-                                            <th>Cantidad</th>
-                                            <th>Precio</th>
-                                            <th>Fecha Entrega</th>
+                                            <th>Cliente</th><!---->
+                                            <th>Nombre</th><!---->
+                                            <th>Orden</th><!---->
+                                            <th>Fecha Orden</th><!---->
+                                            <th>Artículo</th><!---->
+                                            <th>Descripción</th><!---->
+                                            <th>Cantidad</th><!---->
+                                            <th>Precio</th><!---->
+                                            <th>Fecha Entrega</th><!---->
                                             <th>CxC</th>
-                                            <th>Facturas</th>
-                                            <th>Stock</th>
-                                            <th>Orden de compra</th>
+                                            <th>CST</th>
+                                            <th>ING</th>
+                                            <th>PREC</th>
+                                            <th>REP</th>
                                             <th>Autorización</th>
                                         </tr>
                                     </thead>
@@ -80,10 +81,10 @@
                                             <td></td>
                                             <td></td>
                                             <td align="center"><input  type="checkbox" name="cxc"></td>
-                                            <td></td>
-                                            
-                                            <td></td>
-                                            <td></td>
+                                            <td align="center"><input  type="checkbox" name="cst"></td>
+                                            <td align="center"><input  type="checkbox" name="ing"></td>
+                                            <td align="center"><input  type="checkbox" name="prec"></td>
+                                            <td align="center"><input  type="checkbox" name="rep"></td>
                                             <td align="center"><input name="autorizar" type="button" value="Autorizar orden" class="btn btn-primary"></td>
                                             
                                         </tr>

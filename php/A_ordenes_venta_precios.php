@@ -15,8 +15,17 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet"> 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 	<link rel="stylesheet" href="../css/estilo-ventana-emergente.css">
+    
+    <script src="http://code.jquery.com/jquery-1.0.4.js"></script>
+    <script type="text/javascript" src="../js/prueba.js"></script>
+    <script>
+        datos();
+    </script>
 
 </head>
+
+  <input type="text" id="texto1" value=""/><br>
+  <input type="text" id="texto2" disabled value=""/>
 
 <body id="page-top">
 
@@ -89,8 +98,8 @@
                                             <td>KS290019078</td>
                                             <td>67570548 CC GEN</td>
                                             <td>09/feb/2021</td>
-                                            <td>25.00</td>
-                                            <td>3,500</td>
+                                            <td><input type="text" id="texto1" value="25.00" ></td>
+                                            <td><input boarder="none" type="text" id="texto6" value="3,500"></td>
                                             <td>MXP</td>
                                             <td>29/ene/2021</td>
                                             <td>09/feb/2021</td>
@@ -101,8 +110,10 @@
                                             <td>0</td>
                                             <td></td>
                                             <td align="center">
-                                                <input id="btn-abrir-popup" type="button" value="Autorizar orden" class="btn btn-primary">
-                                                </a>
+                                                <input type="button" class="btn btn-primary"  data-toggle="modal" data-target="#ventana" value="Autorizar Orden"> 
+                                                <!--<button onClick="abrir()" id="btn-abrir-popup" type="button" class="btn btn-primary">Autorizar orden</button>-->
+                                                
+                                                
                                             </td>
                                             
                                             
@@ -134,13 +145,62 @@
 
     </div>
     <!-- End of Page Wrapper -->
-    <script>
-        var cant = document.f_precios.cantidadP.value;
-        //alert (cant);
-    </script>
+    <div class="modal fade" id="ventana" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="titlePop" id="exampleModalLabel" align="center">¿Estas seguro que deseas Autorizar la orden 115048 del articulo KS290019078?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <table width="100%">
+                <form name="f_popup">
+                    <div>
+                        <tr align="center" >
+                            <td><p class="textPop">Cantidad</p>
+                                <!--<input class="bloquePop" name="cant" size="10" type="text" placeholder="25.00"  disabled>-->
+                                
+                                
+                                <input type="text" id="texto2"  disabled value=""/>    
+
+                            </td>
+                            <td><p class="textPop">Precio</p>
+                            <input   class="bloquePop" name="pre"  size="10" type="text" placeholder="3500"   disabled>
+                               
+                            </td>
+                        </tr>
+                        
+                        <tr align="center">
+                            <td><p class="textPop">fecha O.C</p><input     class="bloquePop" name="fec_OC"   size="10" type="text" placeholder="29/ene/2021" disabled></td>
+                            <td><p class="textPop">Fecha Cliente</p><input class="bloquePop" name="fec_Clie" size="10" type="text" placeholder="09/feb/2021" disabled></td>
+                        </tr>
+                        
+                    </div>
+                </form></table>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>    
+                    <input type="submit" class="btn btn-primary" value="Autorizar">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
 
-    <div class="overlay" id="overlay">
+   <!--<div class="ventana" id="ventana">
+        <a onClick="cerrar()" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+        <h4 size="5">¿Estas seguro que deseas Autorizar la orden 115048 del articulo KS290019078?</h4>
+        
+        
+    </div>
+
+
+     <div class="overlay" id="overlay">
 			<div class="popup" id="popup">
 
 				<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
@@ -162,7 +222,7 @@
 		</div>
 	</div>
 
-	<script src="../js/popup.js"></script>
+	<script src="../js/popup.js"></script>-->
 
 
     <!-- Scroll to Top Button-->

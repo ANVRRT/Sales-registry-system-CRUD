@@ -82,7 +82,7 @@
                                         </tr>
                                     </tfoot>
                                     </tbody>
-                                   		<tr align="center">
+                                   		<tr style="margin: auto;">
                                             <td>47568</td>
                                             <td>001032</td>
                                             <td>Datos de Prueba Directos</td>

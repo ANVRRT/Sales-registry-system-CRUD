@@ -50,7 +50,19 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("FC_inventario.php");
+                                include("forms/FC_inventario.php");
+                                if(isset($_GET["error"]))
+                                {
+                                    if($_GET["error"] == "success")
+                                    {
+                                        echo "<p style='color: black;'> ¡Artículo dado de alta exitosamente! </p>";
+                                    }
+                                    if($_GET["error"] == "sqlerror")
+                                    {
+                                        echo "<p style='color: black;'> ¡Algo ocurrio mal! </p>";
+                                    }
+
+                                }
                             ?>
                         </div>
                     </div>

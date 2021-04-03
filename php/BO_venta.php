@@ -50,7 +50,7 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("FC_articulo.php");
+                                include("forms/FB_ordenes_venta.php");
                             ?>
                         </div>
                     </div>

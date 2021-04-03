@@ -50,7 +50,7 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("forms/FADM_permisos.php");
+                                include("forms/FC_articuloVendido.php");
                             ?>
                         </div>
                     </div>
