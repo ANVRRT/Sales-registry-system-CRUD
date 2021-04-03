@@ -24,11 +24,11 @@ if(isset($_POST["B_artE"])){
 // if(isset($_POST["B_artE"])){ 
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-//if(isset($_REQUEST['estado'])==0){//BLOQUEO CLIENTE
-  //  bClient($conn, $_GET['idB']);
+if(isset($_REQUEST['estadoB'])==2){//BLOQUEO CLIENTE
+    bClient($conn, $_GET['idB']);
     //echo($_REQUEST['idB']);
-//}
-if(isset($_REQUEST['estado'])==1){
+}
+if(isset($_REQUEST['estadoD'])==1){
     dClient($conn, $_REQUEST['idD']);
     //echo($_REQUEST['idD']);
 }
@@ -176,7 +176,7 @@ function disClients($conn, $estado){
 }
 
 function bClient($conn, $id){
-    $sql= "UPDATE Cliente SET bloqueo= 0 WHERE idCliente= ?";
+    $sql= "UPDATE Cliente SET bloqueo= 1 WHERE idCliente= ?";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -189,18 +189,18 @@ function bClient($conn, $id){
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
-        //header("location: ../php/C_bloqueoCliente.php?error=success");
+        header("location: ../php/C_bloqueoCliente.php?error=success");
         exit();
     }
     else{
         mysqli_stmt_close($stmt);
-        //header("location: ../php/C_bloqueoCliente.php?error=sqlerror");
+        header("location: ../php/C_bloqueoCliente.php?error=sqlerror");
         exit();
     }
 }
 
 function dClient($conn, $id){
-    $sql= "UPDATE Cliente SET bloqueo= 1 WHERE idCliente= ?";
+    $sql= "UPDATE Cliente SET bloqueo= 0 WHERE idCliente= ?";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
