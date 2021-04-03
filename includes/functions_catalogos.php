@@ -42,12 +42,12 @@ if(isset($_POST["B_artE"])){
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-// if(isset($_POST["A_artE"])){ //Compañia
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["aComp"])){ //Compañia
+    createCompania($conn,$_POST["idCompania"],$_POST["nombre"]);
+}
+if(isset($_POST["bComp"])){
+    deleteCompania($conn,$_POST["idCompania"]);
+}
 // if(isset($_POST["A_artE"])){ //DirEnt
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
@@ -154,4 +154,52 @@ function deleteArtExistente($conn,$idArticulo){
         exit();
     }
 }
+
+function createCompania($conn, $idCompania, $nombre){
+    $sql = "INSERT INTO Compania VALUES(?,?)";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ss", $idCompania, $nombre);
+    
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_compania.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_compania.php?error=sqlerror");
+        exit();
+    }
+}
+
+function deleteCompania($conn, $idCompania){
+    $sql = "DELETE FROM Compania WHERE idCompania = ?";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $idCompania);
+
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_compania.php?error=success2");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_compania.php?error=sqlerror");
+        exit();
+    }
+}
+
 ?>

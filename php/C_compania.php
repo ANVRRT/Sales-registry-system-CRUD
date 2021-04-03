@@ -51,6 +51,18 @@
                         <div class="card-body">
                             <?php
                                 include("forms/FC_compania.php");
+
+                                if (isset($_GET["error"])){
+                                    if ($_GET["error"] == "success"){
+                                        echo "<p style='color: black;'>¡Compañia dada de alta exitosamente!</p>";
+                                    }
+                                    if ($_GET["error"] == "success2"){
+                                        echo "<p style='color: black;'>¡Compañia dada de baja exitosamente!</p>";
+                                    }
+                                    if ($_GET["error"] == "sqlerror"){
+                                        echo "<p style='color: black;'>¡Algo salió mal!</p>";
+                                    }
+                                }
                             ?>
                         </div>
                     </div>
