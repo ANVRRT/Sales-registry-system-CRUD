@@ -52,7 +52,6 @@
                         <div class="card-body">
                             <?php
                                 include("forms/FC_articuloVendido.php");
-
                                 if(isset($_GET["error"]))
                                 {
                                     if($_GET["error"] == "success")
