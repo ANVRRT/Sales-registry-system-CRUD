@@ -46,10 +46,36 @@
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
 
                 </div> -->
-                <div class="container-fluid">
+                <div class="container-fluid"> 
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
+                                include("forms/FC_agente.php");
+                                if(isset($_GET["error"]))
+                                {
+                                    if($_GET["error"] == "success")
+                                    {
+                                        echo "<p style='color: black;'> ¡Agente dado de alta exitosamente! </p>";
+                                    }
+                                    if($_GET["error"] == "success2")
+                                    {
+                                        echo "<p style='color: black;'> ¡Agente dado de baja exitosamente! </p>";
+                                    }
+                                    if($_GET["error"] == "sqlerror")
+                                    {
+                                        echo "<p style='color: black;'> ¡Algo salió mal! </p>";
+                                    }
+
+                                }
+                            ?>
+                        </div>
+                    </div>
+				</div>
+				<!--
+                <div class="container-fluid">
+                    <div class="col-lg-12">
+                        <div class="card-body">
+                            <?php /*
                             $encontrado = false;
                             if (($_SESSION["rol"] != "CXC") && ($_SESSION["rol"] != "ADM")) {
                                 if(isset($_SESSION["permisos"])){
@@ -66,17 +92,18 @@
 
                                 }
                                 else{
-                                    include("FC_agente.php");
+                                    include("forms/FC_agente.php");
                                 }       
                             }
                             else{
-                                include("FC_agente.php");
+                                include("forms/FC_agente.php");
                             }
                             // include("FC_agente.php");
-                            ?>
+                            */?>
                         </div>
                     </div>
                 </div>
+            -->
 
                 <!-- /.container-fluid -->
 
