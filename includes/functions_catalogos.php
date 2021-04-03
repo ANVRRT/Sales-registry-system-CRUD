@@ -7,12 +7,13 @@ if(isset($_POST["A_artE"])){
 if(isset($_POST["B_artE"])){ 
     deleteArtExistente($conn,$_POST["idArticulo"]);
 }
-// if(isset($_POST["A_artE"])){ //AGENTE
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){ 
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }if(isset($_POST["A_artE"])){ //ALMACEN
+if(isset($_POST["A_age"])){ //AGENTE
+    createAgente($conn,$_POST["idRepresentante"],$_POST["nomRepresentante"],$_POST["idCompania"]);
+}
+if(isset($_POST["B_age"])){ 
+    deleteAgente($conn,$_POST["idRepresentante"]);
+}
+// if(isset($_POST["A_artE"])){ //ALMACEN
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
 // if(isset($_POST["B_artE"])){
@@ -154,4 +155,49 @@ function deleteArtExistente($conn,$idArticulo){
         exit();
     }
 }
+
+function createAgente($conn,$idRepresentante,$nomRepresentante,$idCompania){
+    $sql = "INSERT INTO Agente VALUES(?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sss",$idRepresentante,$nomRepresentante,$idCompania);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_agente.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_agente.php?error=sqlerror");
+        exit();
+    }
+}
+function deleteAgente($conn,$idRepresentante){
+    $sql = "DELETE FROM Agente WHERE idRepresentante = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s",$idRepresentante);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_agente.php?error=success2");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_agente.php?error=sqlerror");
+        exit();
+    }
+}
+
 ?>
