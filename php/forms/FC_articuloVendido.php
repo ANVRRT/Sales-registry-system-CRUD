@@ -5,7 +5,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="folio">Folio</label>
-			<input class="campo__field" name="folio" type="text" id="folio">
+			<input class="campo__field" name="folio" type="text" id="folio" require>
 		</div>
 		<div class="campo">
 			<label class="campo__label" for="idArticulo">ID Artículo</label>
