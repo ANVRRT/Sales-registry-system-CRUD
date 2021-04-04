@@ -52,12 +52,12 @@ if(isset($_POST["A_cliente"])){ //Cliente
 if(isset($_POST["B_cliente"])){
    deleteCliente($conn,$_POST["idCliente"]);
 }
-// if(isset($_POST["A_artE"])){ //Compañia
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_Compania"])){ //Compañia
+    createCompania($conn,$_POST["idCompania"],$_POST["nombre"]);
+}
+if(isset($_POST["B_Compania"])){
+    deleteCompania($conn,$_POST["idCompania"]);
+}
 // if(isset($_POST["A_artE"])){ //DirEnt
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
