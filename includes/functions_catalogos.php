@@ -7,23 +7,24 @@ if(isset($_POST["A_artE"])){
 if(isset($_POST["B_artE"])){ 
     deleteArtExistente($conn,$_POST["idArticulo"]);
 }
-// if(isset($_POST["A_artE"])){ //AGENTE
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){ 
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }if(isset($_POST["A_artE"])){ //ALMACEN
+if(isset($_POST["A_agente"])){ //AGENTE
+    createAgente($conn,$_POST["idRepresentante"],$_POST["nomRepresentante"],$_POST["idCompania"]);
+}
+if(isset($_POST["B_agente"])){ 
+    deleteAgente($conn,$_POST["idRepresentante"]);
+}
+// if(isset($_POST["A_artE"])){ //ALMACEN
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-// if(isset($_POST["A_artE"])){ //ARTCLIENTEVendido
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){ 
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_artV"])){ //ARTCLIENTEVendido
+    createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["stock"],$_POST["codAviso"],$_POST["udVta"]);
+}
+if(isset($_POST["B_artV"])){ 
+    deleteArtVendido($conn,$_POST["folio"]);
+}
 // if(isset($_POST["A_artE"])){ //BloqueoCliente
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
@@ -42,12 +43,12 @@ if(isset($_POST["B_artE"])){
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-// if(isset($_POST["A_artE"])){ //Compañia
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_Compania"])){ //Compañia
+    createCompania($conn,$_POST["idCompania"],$_POST["nombre"]);
+}
+if(isset($_POST["B_Compania"])){
+    deleteCompania($conn,$_POST["idCompania"]);
+}
 // if(isset($_POST["A_artE"])){ //DirEnt
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
@@ -155,8 +156,6 @@ function deleteArtExistente($conn,$idArticulo){
         exit();
     }
 }
-
-
 function createArtVendido($conn,$folio,$idArticulo,$idCompania,$idCliente,$stock,$codAviso,$udVta){
     $sql = "INSERT INTO ArticuloVendido VALUES(?,?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
@@ -290,7 +289,6 @@ function deleteCompania($conn, $idCompania){
         exit();
     }
 }
-
 function dispClientes($conn, $idCompania)
 {
     $sql="SELECT * FROM Cliente WHERE idCompania=?";
@@ -363,5 +361,4 @@ function deleteFactura($conn,$numFact){
         exit();
     }
 }
-
 ?>

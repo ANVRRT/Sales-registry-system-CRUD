@@ -1,21 +1,21 @@
 <div class="fix-margin">
 	<h1 class="h1-mine">Capturar Compañia</h1>
 
-	<form class="formulario">
+	<form class="formulario" method="POST" action="../includes/functions_catalogos.php">
 		<div class="campo">
 			<label class="campo__label" for="idCompania">Id Compañia</label>
-			<input class="campo__field" type="text" id="idCompania">
+			<input class="campo__field" type="text" name="idCompania" id="idCompania">
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="nom_compania">Nombre de Compañia</label>
-			<input class="campo__field" type="text" id="nom_compania">
+			<input class="campo__field" type="text" name="nombre" id="nombre">
 		</div>
 
 		<div class="campo__3--button">
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
-			<input class="campo__field button--blue" type="submit" value="Baja">
-			<input class="campo__field button--blue" type="submit" value="Alta">
+			<input class="campo__field button--blue" type="submit" value="Baja" name="B_Compania">
+			<input class="campo__field button--blue" type="submit" value="Alta" name="A_Compania">
 		</div>
 	</form>
 </div>

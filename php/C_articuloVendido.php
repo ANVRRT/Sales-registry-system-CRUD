@@ -46,11 +46,24 @@
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
 
                 </div> -->
+
 				<div class="container-fluid"> 
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
                                 include("forms/FC_articuloVendido.php");
+                                if(isset($_GET["error"]))
+                                {
+                                    if($_GET["error"] == "success")
+                                    {
+                                        echo "<p style='color: black;'> ¡Artículo dado de alta exitosamente! </p>";
+                                    }
+                                    if($_GET["error"] == "sqlerror")
+                                    {
+                                        echo "<p style='color: black;'> ¡Algo ocurrio mal! </p>";
+                                    }
+
+                                }
                             ?>
                         </div>
                     </div>
@@ -79,7 +92,7 @@
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
+        <em class="fas fa-angle-up"></em>
     </a>
 
     <!-- Logout Modal-->
