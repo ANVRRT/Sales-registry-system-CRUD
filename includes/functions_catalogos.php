@@ -177,15 +177,15 @@ function createArtVendido($conn,$folio,$idArticulo,$idCompania,$idCliente,$stock
         exit();
     }
 }
-function deleteArtVendido($conn,$folio){
-    $sql = "DELETE FROM ArticuloVendido WHERE folio = ?";
+function deleteArtVendido($conn,$folio,$idCompania){
+    $sql = "DELETE FROM ArticuloVendido WHERE folio = ? AND idCompania = ? ";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"s",$folio);
+    mysqli_stmt_bind_param($stmt,"ss",$folio,$idCompania);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);

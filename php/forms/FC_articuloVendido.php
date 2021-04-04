@@ -11,9 +11,7 @@
 			<label class="campo__label" for="idArticulo">ID Artículo</label>
 			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos">
 			<?php
-				require_once("../includes/dbh.inc.php");
 
-				require_once("../includes/functions_catalogos.php");
 				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='articulos'>";
