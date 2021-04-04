@@ -3,6 +3,8 @@
 
 <head>
     <?php
+        require_once("../includes/dbh.inc.php");
+        require_once("../includes/functions_catalogos.php");
         include("../includes/header.php");
     ?>
 	<link rel="stylesheet" href="../css/styles-capOrden.css">
