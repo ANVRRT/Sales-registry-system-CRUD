@@ -50,7 +50,7 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("FC_bloqueoCliente.php");
+                                include("forms/FC_bloqueoCliente.php");
                             ?>
                         </div>
                     </div>
