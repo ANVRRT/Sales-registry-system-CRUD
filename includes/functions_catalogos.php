@@ -13,12 +13,12 @@ if(isset($_POST["A_agente"])){ //AGENTE
 if(isset($_POST["B_agente"])){ 
     deleteAgente($conn,$_POST["idRepresentante"]);
 }
-// if(isset($_POST["A_artE"])){ //ALMACEN
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_almacen"])){ //ALMACEN
+    createAlmacen($conn,$_POST["idAlmacen"],$_POST["descripcion"],$_POST["idCompania"]);
+}
+if(isset($_POST["B_almacen"])){
+    deleteAlmacen($conn,$_POST["idAlmacen"]);
+}
 if(isset($_POST["A_artV"])){ //ARTCLIENTEVendido
     createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["stock"],$_POST["codAviso"],$_POST["udVta"]);
 }
@@ -69,12 +69,12 @@ if(isset($_POST["B_Compania"])){
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-// if(isset($_POST["A_artE"])){ //Inventario
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_inventario"])){ //Inventario
+    createInventario($conn,$_POST["idCompania"],$_POST["idAlmacen"],$_POST["idArticulo"],$_POST["stock"]);
+}
+if(isset($_POST["B_inventario"])){
+    deleteInventario($conn,$_POST["idArticulo"]);
+}
 // if(isset($_POST["A_artE"])){ //Lista Precios
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
@@ -86,7 +86,7 @@ if(isset($_POST["B_Compania"])){
 // }
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }if(isset($_POST["A_artE"])){
+// }if(isset($_POST["A_artE"])){ //EXTRA Plantilla?
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
 // if(isset($_POST["B_artE"])){
@@ -412,6 +412,95 @@ function deleteCliente($conn,$idCliente){
     else{
         mysqli_stmt_close($stmt);
         header("location: ../php/C_cliente.php?error=sqlerror");
+        exit();
+    }
+}
+
+function createAlmacen($conn,$idAlmacen,$descripcion,$idCompania){
+    $sql = "INSERT INTO Almacen VALUES(?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sss",$idAlmacen,$descripcion,$idCompania);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_almacen.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_almacen.php?error=sqlerror");
+        exit();
+    }
+}
+function deleteAlmacen($conn,$idAlmacen){
+    $sql = "DELETE FROM Almacen WHERE idAlmacen = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s",$idAlmacen);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_almacen.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_almacen.php?error=sqlerror");
+        exit();
+    }
+}
+function createInventario($conn,$idCompania,$idAlmacen,$idArticulo,$stock){
+    $sql = "INSERT INTO Inventario VALUES(?,?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sssd",$idCompania,$idAlmacen,$idArticulo,$stock);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_inventario.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_inventario.php?error=sqlerror");
+        exit();
+    }
+}
+
+function deleteInventario($conn,$idArticulo){
+    $sql = "DELETE FROM Inventario WHERE idArticulo = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"s",$idArticulo);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_inventario.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_inventario.php?error=sqlerror");
         exit();
     }
 }
