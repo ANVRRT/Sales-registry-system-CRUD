@@ -13,12 +13,12 @@ if(isset($_POST["A_agente"])){ //AGENTE
 if(isset($_POST["B_agente"])){ 
     deleteAgente($conn,$_POST["idRepresentante"]);
 }
-// if(isset($_POST["A_artE"])){ //ALMACEN
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_almacen"])){ //ALMACEN
+    createAlmacen($conn,$_POST["idAlmacen"],$_POST["descripcion"],$_POST["idCompania"]);
+}
+if(isset($_POST["B_almacen"])){
+    deleteAlmacen($conn,$_POST["idAlmacen"]);
+}
 if(isset($_POST["A_artV"])){ //ARTCLIENTEVendido
     createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["stock"],$_POST["codAviso"],$_POST["udVta"]);
 }
@@ -37,12 +37,20 @@ if(isset($_POST["B_artV"])){
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-// if(isset($_POST["A_artE"])){ //Cliente
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_cliente"])){ //Cliente
+    if(isset($_POST["bloqueo"])){
+        createCliente($conn,$_POST["idCliente"],$_POST["idCompania"],$_POST["idRepresentante"], $_POST["listaPrecios"],$_POST["idAlmacen"],$_POST["nomCliente"],
+        $_POST["estatus"],$_POST["idAnalista"],$_POST["divisa"],$_POST["limCredito"],$_POST["saldoOrden"],$_POST["saldoFactura"],$_POST["bloqueo"]);
+    }
+    else{
+        $bloqueo=0;
+        createCliente($conn,$_POST["idCliente"],$_POST["idCompania"],$_POST["idRepresentante"], $_POST["listaPrecios"],$_POST["idAlmacen"],$_POST["nomCliente"],
+        $_POST["estatus"],$_POST["idAnalista"],$_POST["divisa"],$_POST["limCredito"],$_POST["saldoOrden"],$_POST["saldoFactura"],$bloqueo);
+    }
+}
+if(isset($_POST["B_cliente"])){
+   deleteCliente($conn,$_POST["idCliente"]);
+}
 if(isset($_POST["A_Compania"])){ //Compañia
     createCompania($conn,$_POST["idCompania"],$_POST["nombre"]);
 }
@@ -55,12 +63,18 @@ if(isset($_POST["B_Compania"])){
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-// if(isset($_POST["A_artE"])){ //Inventario
+// if(isset($_POST["A_artE"])){ //Factura
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
+if(isset($_POST["A_inventario"])){ //Inventario
+    createInventario($conn,$_POST["idCompania"],$_POST["idAlmacen"],$_POST["idArticulo"],$_POST["stock"]);
+}
+if(isset($_POST["B_inventario"])){
+    deleteInventario($conn,$_POST["idArticulo"]);
+}
 // if(isset($_POST["A_artE"])){ //Lista Precios
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
@@ -72,15 +86,13 @@ if(isset($_POST["B_Compania"])){
 // }
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }if(isset($_POST["A_artE"])){
+// }if(isset($_POST["A_artE"])){ //EXTRA Plantilla?
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-
-//FACTURAS
-if(isset($_POST["A_Facs"])){ //Factura
+if(isset($_POST["A_Facs"])){ //Facturas
     createFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_POST["idOrden"],$_POST["idArticulo"],$_POST["idCliente"],$_POST["idFolio"],$_POST["entrega"],$_POST["tipoTrans"],$_POST["fechaFac"]);
 }
 if(isset($_POST["B_Facs"])){
