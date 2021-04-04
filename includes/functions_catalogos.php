@@ -42,10 +42,10 @@ if(isset($_POST["B_artE"])){
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-if(isset($_POST["aComp"])){ //Compañia
+if(isset($_POST["A_Compania"])){ //Compañia
     createCompania($conn,$_POST["idCompania"],$_POST["nombre"]);
 }
-if(isset($_POST["bComp"])){
+if(isset($_POST["B_Compania"])){
     deleteCompania($conn,$_POST["idCompania"]);
 }
 // if(isset($_POST["A_artE"])){ //DirEnt
@@ -151,6 +151,95 @@ function deleteArtExistente($conn,$idArticulo){
     else{
         mysqli_stmt_close($stmt);
         header("location: ../php/C_articuloExistente.php?error=sqlerror");
+        exit();
+    }
+}
+
+
+function createArtVendido($conn,$folio,$idArticulo,$idCompania,$idCliente,$stock,$codAviso,$udVta){
+    $sql = "INSERT INTO ArticuloVendido VALUES(?,?,?,?,?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"isssdss",$folio,$idArticulo,$idCompania,$idCliente,$stock,$codAviso,$udVta);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_articuloVendido.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_articuloVendido.php?error=sqlerror");
+        exit();
+    }
+}
+function deleteArtVendido($conn,$folio){
+    $sql = "DELETE FROM ArticuloVendido WHERE folio = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s",$folio);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_articuloVendido.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_articuloVendido.php?error=sqlerror");
+        exit();
+    }
+}
+
+function createAgente($conn,$idRepresentante,$nomRepresentante,$idCompania){
+    $sql = "INSERT INTO Agente VALUES(?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sss",$idRepresentante,$nomRepresentante,$idCompania);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_agente.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_agente.php?error=sqlerror");
+        exit();
+    }
+}
+function deleteAgente($conn,$idRepresentante){
+    $sql = "DELETE FROM Agente WHERE idRepresentante = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s",$idRepresentante);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_agente.php?error=success2");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_agente.php?error=sqlerror");
         exit();
     }
 }

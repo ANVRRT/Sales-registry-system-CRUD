@@ -14,8 +14,8 @@
 
 		<div class="campo__3--button">
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
-			<input class="campo__field button--blue" type="submit" value="Baja" name="bComp">
-			<input class="campo__field button--blue" type="submit" value="Alta" name="aComp">
+			<input class="campo__field button--blue" type="submit" value="Baja" name="B_Compania">
+			<input class="campo__field button--blue" type="submit" value="Alta" name="A_Compania">
 		</div>
 	</form>
 </div>
