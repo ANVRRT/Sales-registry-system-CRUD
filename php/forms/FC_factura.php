@@ -1,8 +1,3 @@
-<?php
-	require_once("../includes/dbh.inc.php");
-	require_once("../includes/functions_catalogos.php");
-?>
-
 <div class="formulario">
 	<h1 class="h1-mine">Facturas</h1>
 
