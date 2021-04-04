@@ -50,7 +50,7 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("FC_dirEnt.php");
+                                include("forms/FC_dirEnt.php");
                             ?>
                         </div>
                     </div>

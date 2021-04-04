@@ -31,30 +31,39 @@ if(isset($_POST["B_artV"])){
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-// if(isset($_POST["A_artE"])){ //CantEnt
+//if(isset($_POST["A_artE"])){ //CantEnt
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
-// if(isset($_POST["A_artE"])){ //Cliente
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+ //}
+//if(isset($_POST["B_artE"])){
+//   deleteArtExistente($conn,$_POST["idArticulo"]);
+//}
+if(isset($_POST["A_cliente"])){ //Cliente
+    if(isset($_POST["bloqueo"])){
+        createCliente($conn,$_POST["idCliente"],$_POST["idCompania"],$_POST["idRepresentante"], $_POST["listaPrecios"],$_POST["idAlmacen"],$_POST["nomCliente"],
+        $_POST["estatus"],$_POST["idAnalista"],$_POST["divisa"],$_POST["limCredito"],$_POST["saldoOrden"],$_POST["saldoFactura"],$_POST["bloqueo"]);
+    }
+    else{
+        $bloqueo=0;
+        createCliente($conn,$_POST["idCliente"],$_POST["idCompania"],$_POST["idRepresentante"], $_POST["listaPrecios"],$_POST["idAlmacen"],$_POST["nomCliente"],
+        $_POST["estatus"],$_POST["idAnalista"],$_POST["divisa"],$_POST["limCredito"],$_POST["saldoOrden"],$_POST["saldoFactura"],$bloqueo);
+    }
+}
+if(isset($_POST["B_cliente"])){
+   deleteCliente($conn,$_POST["idCliente"]);
+}
 if(isset($_POST["A_Compania"])){ //Compañia
     createCompania($conn,$_POST["idCompania"],$_POST["nombre"]);
 }
 if(isset($_POST["B_Compania"])){
     deleteCompania($conn,$_POST["idCompania"]);
 }
-// if(isset($_POST["A_artE"])){ //DirEnt
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_dirEnt"])){ //DirEnt
+     createDirEnt($conn,$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$_POST["nombreEntrega"],$_POST["direccion"],
+     $_POST["municipio"],$_POST["estado"],$_POST["telefono"],$_POST["observacion-orden"],$_POST["codpost"],$_POST["codruta"],$_POST["pais"],$_POST["rfc"]);
+ }
+if(isset($_POST["B_dirEnt"])){
+     deleteDirEnt($conn,$_POST["idCliente"],$_POST["dirEnt"]);
+ }
 // if(isset($_POST["A_artE"])){ //Factura
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
@@ -67,12 +76,13 @@ if(isset($_POST["B_Compania"])){
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-// if(isset($_POST["A_artE"])){ //Lista Precios
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_listPrecios"])){ //Lista Precios
+     createListPrecios($conn,$_POST["idCompania"],$_POST["idLista"],$_POST["idArticulo"],$_POST["descuento"],$_POST["precio"],
+     $_POST["cantOlmp"],$_POST["nivelDscto"],$_POST["fechaCaducidad"],$_POST["fechaInicio"],$_POST["impDesc"]);
+}
+if(isset($_POST["B_listPrecios"])){
+     deleteListPrecios($conn,$_POST["idLista"],$_POST["idCompania"],$_POST["idArticulo"],$_POST["nivelDscto"]);
+}
 // if(isset($_POST["A_artE"])){ //ADM Permisos
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
@@ -179,6 +189,31 @@ function dispAlmacen($conn, $idCompania){
     }
     else{
         $result = "No hay almacenes existentes para esta compania";
+        return $result;
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+function dispClientes($conn, $idCompania){
+    $sql="SELECT * FROM Cliente WHERE idCompania = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    if(mysqli_fetch_assoc($resultData))
+    {
+        return $resultData;
+    }
+    else{
+        $result = "No hay clientes existentes para esta compania";
         return $result;
     }
 
@@ -363,5 +398,76 @@ function deleteCompania($conn, $idCompania){
         exit();
     }
 }
+
+function createListPrecios($conn,$idCompania,$idLista,$idArticulo,$descuento,$precio,$cantOlmp,$nivelDscto,$fechaCaducidad,$fechaInicio,$impDesc){
+    $sql = "INSERT INTO ListaPrecio VALUES(?,?,?,?,?,?,?,?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sssidiissd",$idCompania,$idLista,$idArticulo,$descuento,$precio,$cantOlmp,$nivelDscto,$fechaCaducidad,$fechaInicio,$impDesc);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_ListaPrecios.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_ListaPrecios.php?error=sqlerror");
+        exit();
+    }
+}
+
+function deleteListPrecios($conn, $idLista,$idCompania,$idArticulo,$nivelDscto){
+    $sql = "DELETE FROM ListaPrecio WHERE idLista = ? AND  idCompania = ? AND idArticulo = ? AND nivelDscto = ?";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "sssi", $idLista,$idCompania,$idArticulo,$nivelDscto);
+
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_ListaPrecios.php?error=success2");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_ListaPrecios.php?error=sqlerror");
+        exit();
+    }
+}
+
+function createDirEnt($conn,$idCompania,$idCliente,$dirEnt,$nombreEntrega,$direccion,$municipio,$estado,$telefono,$observaciones,$codpost,$codruta,$pais,$rfc){
+    $sql = "INSERT INTO DirEnt VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sssssssssssss",$idCompania,$idCliente,$dirEnt,$nombreEntrega,$direccion,$municipio,$estado,$telefono,$observaciones,$codpost,$codruta,$pais,$rfc);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_dirEnt.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_dirEnt.php?error=sqlerror");
+        exit();
+    }
+}
+
 
 ?>
