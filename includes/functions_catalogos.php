@@ -11,7 +11,7 @@ if(isset($_POST["A_agente"])){ //AGENTE
     createAgente($conn,$_POST["idRepresentante"],$_POST["nomRepresentante"],$_POST["idCompania"]);
 }
 if(isset($_POST["B_agente"])){ 
-    deleteAgente($conn,$_POST["idRepresentante"]);
+    deleteAgente($conn,$_POST["idRepresentante"],$_POST["idCompania"]);
 }
 if(isset($_POST["A_almacen"])){ //ALMACEN
     createAlmacen($conn,$_POST["idAlmacen"],$_POST["descripcion"],$_POST["idCompania"]);
@@ -284,15 +284,15 @@ function createAgente($conn,$idRepresentante,$nomRepresentante,$idCompania){
         exit();
     }
 }
-function deleteAgente($conn,$idRepresentante){
-    $sql = "DELETE FROM Agente WHERE idRepresentante = ?";
+function deleteAgente($conn,$idRepresentante,$idCompania){
+    $sql = "DELETE FROM Agente WHERE idRepresentante = ? AND idCompania = ?";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"s",$idRepresentante);
+    mysqli_stmt_bind_param($stmt,"ss",$idRepresentante,$idCompania);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
