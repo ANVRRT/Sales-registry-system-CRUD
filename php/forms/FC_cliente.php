@@ -2,19 +2,20 @@
 <div class="fix-margin">
 	<h1 class="h1-mine">Administración de clientes</h1>
 
-	<form class="formulario" method="POST" action="../includes/functions_catalogos.php">
+	<form class="formulario">
 		<div class="campo">
 			<label class="campo__label" for="cliente"> id Cliente</label>
-			<input class="campo__field" type="text" name="idCliente" id="idCliente" required>
-			
+			<input class="campo__field" type="text" id="cliente">
 		</div>
 		<div class="campo">
 			<label class="campo__label" for="compania">Compañía</label>
 			<?php
 				echo "<input class='campo__field' type='text'name='idCompania' id='idCompania' value='".$_SESSION["idCompania"]."' readonly>";
 			?>
+		<div class="campo">
+			<label class="campo__label" for="compania">Compañía</label>
+			<input class="campo__field" type="text" id="compania">
 		</div>
-
 		<div class="campo">
 			<label class="campo__label" for="idRepresentante">Representante</label>
 			<input class="campo__field" type="text" name="idRepresentante" id="idRepresentante" list="representante" >
@@ -34,7 +35,7 @@
 				echo "</datalist>";
 			?>
 		</div>
-
+	
 		<div class="campo">
 			<label class="campo__label" for="idAlmacen">Lista de  precios a utilizar</label>
 			<input class="campo__field" type="text" name="listaPrecios" id="listaPrecios" list="listaPrecio">
@@ -53,7 +54,6 @@
 				
 				echo "</datalist>";
 			?>
-			
 		</div>
 
 		<div class="campo">
@@ -83,8 +83,8 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="listPrecios">Estatus</label>
-			<input class="campo__field" type="number" name="estatus" id="estatus" min="1" max="3">
+			<label class="campo__label" for="bloqueo">Bloqueo</label>
+			<input class="campo__field" type="checkbox" id="bloqueo">
 		</div>
 
 		<div class="campo campo__text">
@@ -109,33 +109,28 @@
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="divisa">Divisa</label>
-			<input class="campo__field" type="text" name="divisa" id="divisa" >
+			<textarea class="campo__field campo__field--textarea" id="divisa"></textarea>
 		</div>
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="lim_credito">Límite de crédito</label>
-			<input class="campo__field" type="number" name="limCredito" id="limCredito" >
+			<textarea class="campo__field campo__field--textarea" id="lim_credito"></textarea>
 		</div>
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="saldoOrden">Saldo orden</label>
-			<input class="campo__field" type="number" name="saldoOrden" id="saldoOrden" >
+			<textarea class="campo__field campo__field--textarea" id="saldoOrden"></textarea>
 		</div>
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="saldoFact">Saldo factura</label>
-			<input class="campo__field" type="number" name="saldoFactura" id="saldoFactura" >
-		</div>
-
-		<div class="campo">
-			<label class="campo__label" for="bloqueo">Bloqueo</label>
-			<input class="campo__field" type="checkbox" name="bloqueo" id="bloqueo" value="1" >
+			<textarea class="campo__field campo__field--textarea" id="saldoFact"></textarea>
 		</div>
 
 		<div class="campo__3--button">
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
-			<input class="campo__field button--blue" type="submit" name= "B_cliente" value="Baja">
-			<input class="campo__field button--blue" type="submit" name= "A_cliente" value="Alta">
+			<input class="campo__field button--blue" type="submit" value="Baja">
+			<input class="campo__field button--blue" type="submit" value="Alta">
 		</div>
 	</form>
 </div>
