@@ -22,7 +22,7 @@ if(isset($_POST["A_artV"])){ //ARTCLIENTEVendido
     createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["stock"],$_POST["codAviso"],$_POST["udVta"]);
 }
 if(isset($_POST["B_artV"])){ 
-    deleteArtVendido($conn,$_POST["folio"]);
+    deleteArtVendido($conn,$_POST["folio"],$_POST["idCompania"]);
 }
 // if(isset($_POST["A_artE"])){ //BloqueoCliente
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
