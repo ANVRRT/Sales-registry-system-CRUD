@@ -11,14 +11,12 @@
 			<?php
 				require_once("../includes/dbh.inc.php");
 				require_once("../includes/functions_catalogos.php");
-				$reg = dispClientes($conn);
+				$reg = dispClientes($conn,$_SESSION["idCompania"]);
 				
 				echo "<datalist id='clientes'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					echo "<option>".$row["idCliente"]."</option>";
-					$idCompania = $row["idCompania"];
-
 				}
 				
 				echo "</datalist>";
@@ -68,7 +66,7 @@
 			<?php
 				require_once("../includes/dbh.inc.php");
 				require_once("../includes/functions_catalogos.php");
-				$reg = dispArticulos($conn, $idCompania);
+				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='articulos'>";
 				while($row = mysqli_fetch_assoc($reg))
@@ -84,8 +82,8 @@
 
 		<div class="campo__3--button">
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
-			<input class="campo__field button--blue" type="submit" value="Baja" name ="B_Facs_Baja">
-			<input class="campo__field button--blue" type="submit" value="Alta" name ="B_Facs_Alta">
+			<input class="campo__field button--blue" type="submit" value="Baja" name ="B_Facs">
+			<input class="campo__field button--blue" type="submit" value="Alta" name ="A_Facs">
 		</div>
 	</form>
 </div>

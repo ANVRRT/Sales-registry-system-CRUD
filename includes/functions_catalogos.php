@@ -79,10 +79,10 @@ if(isset($_POST["B_artE"])){
 // }
 
 //FACTURAS
-if(isset($_POST["B_Facs_Alta"])){ //Factura
+if(isset($_POST["A_Facs"])){ //Factura
     createFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_POST["idOrden"],$_POST["idArticulo"],$_POST["idCliente"],$_POST["idFolio"],$_POST["entrega"],$_POST["tipoTrans"],$_POST["fechaFac"]);
 }
-if(isset($_POST["B_Facs_Baja"])){
+if(isset($_POST["B_Facs"])){
     deleteFactura($conn,$_POST["numFac"]);
 }
 
@@ -291,9 +291,9 @@ function deleteCompania($conn, $idCompania){
     }
 }
 
-function dispClientes($conn)
+function dispClientes($conn, $idCompania)
 {
-    $sql="SELECT * FROM Cliente";
+    $sql="SELECT * FROM Cliente WHERE idCompania=?";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -301,6 +301,7 @@ function dispClientes($conn)
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
+    mysqli_stmt_bind_param($stmt, "s", $idCompania);
     mysqli_stmt_execute($stmt);
 
     $resultData = mysqli_stmt_get_result($stmt);
@@ -314,34 +315,6 @@ function dispClientes($conn)
     }
 
     mysqli_stmt_close($stmt);
-}
-
-function getIDCompany($conn, $idCliente)
-{
-    $sql = "SELECT idCompania FROM Cliente WHERE idCliente = ?";
-
-    $statement = mysqli_stmt_init($conn);
-    
-    if(!mysqli_stmt_prepare($statement, $sql))
-    {
-        header("location: ../php/index.php?error=stmtfailed");
-        exit();
-    }
-    mysqli_stmt_bind_param($statement,"s",$idCliente);
-    mysqli_stmt_execute($statement);
-
-    $resultData = mysqli_stmt_get_result($statement);
-    if(mysqli_fetch_assoc($resultData))
-    {
-        return $resultData;
-    }
-    else{
-        $result = "No hay compañia registrada...";
-        return $result;
-    }
-
-    mysqli_stmt_close($statement);
-
 }
 
 function createFactura($conn,$numFact,$idCompania,$idOrden,$idArticulo,$idCliente,$folio,$entrega,$tipoTrans,$fechaFac)
