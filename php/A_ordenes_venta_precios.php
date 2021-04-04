@@ -15,18 +15,12 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet"> 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 	<link rel="stylesheet" href="../css/estilo-ventana-emergente.css">
+    <script type="text/javascript" src="../js/popup.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     
-    <script src="http://code.jquery.com/jquery-1.0.4.js"></script>
-    <script type="text/javascript" src="../js/prueba.js"></script>
-    <script>
-        datos();
-    </script>
+    
 
 </head>
-
-  <input type="text" id="texto1" value=""/><br>
-  <input type="text" id="texto2" disabled value=""/>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -93,16 +87,16 @@
                                         <tr >
                                             <td>115048</td>
                                             <td>UNILEVER MANUFAC.</td>
-                                            <td>47842</td>
+                                            <td><input class="datosVerificar" type="text" id="t_orden"  size="12%" value="47842456"    disabled></td>
                                             <td>29/ene/2021</td>
-                                            <td>KS290019078</td>
+                                            <td><input class="datosVerificar" type="text" id="t_art"    size="12%" value="KS290019078" disabled></td>
                                             <td>67570548 CC GEN</td>
                                             <td>09/feb/2021</td>
-                                            <td><input type="text" id="texto1" value="25.00" ></td>
-                                            <td><input boarder="none" type="text" id="texto6" value="3,500"></td>
+                                            <td><input class="datosVerificar" type="text" id="t_cant"   size="12%" value="450"         disabled></td>
+                                            <td><input class="datosVerificar" type="text" id="t_pre"    size="12%" value="3,5000"      disabled></td>
                                             <td>MXP</td>
-                                            <td>29/ene/2021</td>
-                                            <td>09/feb/2021</td>
+                                            <td><input class="datosVerificar" type="text" id="t_fec1"   size="12%" value="29/ene/2021" disabled></td>
+                                            <td><input class="datosVerificar" type="text" id="t_fec1"   size="12%" value="09/feb/2021" disabled></td>
                                             <td align="center"><input  type="checkbox" name="PREC"></td>
                                             <td align="center"><input  type="checkbox" name="Rep"></td>
                                             <td>sin cambios</td>
@@ -142,15 +136,22 @@
 
         </div>
         <!-- End of Content Wrapper -->
+        
 
     </div>
+    <script>
+        dataup('t_cant','ta3');
+    </script>
     <!-- End of Page Wrapper -->
     <div class="modal fade" id="ventana" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="titlePop" id="exampleModalLabel" align="center">¿Estas seguro que deseas Autorizar la orden 115048 del articulo KS290019078?</h5>
+                    <h5 class="titlePop" align="center">¿Estas seguro que deseas Autorizar la orden 
+                        <input class="titleorden" id=ta1 size="12%" disabled/> del articulo 
+                        <input class="titleorden" id=ta2 size="12%" disabled/>?
+                    </h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -163,12 +164,11 @@
                             <td><p class="textPop">Cantidad</p>
                                 <!--<input class="bloquePop" name="cant" size="10" type="text" placeholder="25.00"  disabled>-->
                                 
-                                
-                                <input type="text" id="texto2"  disabled value=""/>    
+                                <input class="bloquePop" type="text" id="ta3" size="12%" disabled>     
 
                             </td>
                             <td><p class="textPop">Precio</p>
-                            <input   class="bloquePop" name="pre"  size="10" type="text" placeholder="3500"   disabled>
+                            <input type="text" id="dos"  size="10" class="bloquePop" disabled>
                                
                             </td>
                         </tr>
