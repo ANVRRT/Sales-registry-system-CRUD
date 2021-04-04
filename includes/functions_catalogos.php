@@ -7,23 +7,24 @@ if(isset($_POST["A_artE"])){
 if(isset($_POST["B_artE"])){ 
     deleteArtExistente($conn,$_POST["idArticulo"]);
 }
-// if(isset($_POST["A_artE"])){ //AGENTE
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){ 
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }if(isset($_POST["A_artE"])){ //ALMACEN
+if(isset($_POST["A_agente"])){ //AGENTE
+    createAgente($conn,$_POST["idRepresentante"],$_POST["nomRepresentante"],$_POST["idCompania"]);
+}
+if(isset($_POST["B_agente"])){ 
+    deleteAgente($conn,$_POST["idRepresentante"]);
+}
+// if(isset($_POST["A_artE"])){ //ALMACEN
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-// if(isset($_POST["A_artE"])){ //ARTCLIENTEVendido
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){ 
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_artV"])){ //ARTCLIENTEVendido
+    createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["stock"],$_POST["codAviso"],$_POST["udVta"]);
+}
+if(isset($_POST["B_artV"])){ 
+    deleteArtVendido($conn,$_POST["folio"]);
+}
 // if(isset($_POST["A_artE"])){ //BloqueoCliente
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
@@ -45,9 +46,7 @@ if(isset($_POST["A_cliente"])){ //Cliente
         $bloqueo=0;
         createCliente($conn,$_POST["idCliente"],$_POST["idCompania"],$_POST["idRepresentante"], $_POST["listaPrecios"],$_POST["idAlmacen"],$_POST["nomCliente"],
         $_POST["estatus"],$_POST["idAnalista"],$_POST["divisa"],$_POST["limCredito"],$_POST["saldoOrden"],$_POST["saldoFactura"],$bloqueo);
-
     }
-    
 }
 if(isset($_POST["B_cliente"])){
    deleteCliente($conn,$_POST["idCliente"]);
@@ -298,7 +297,6 @@ function deleteCompania($conn, $idCompania){
         exit();
     }
 }
-
 function createCliente($conn,$idCliente,$idCompania,$idRepresentante,$listaPrecios,$idAlmacen,$nomCliente,$estatus,$idAnalista,$divisa,$limCredito,$saldoOrden,$saldoFactura,$bloqueo)
 {
     $sql = "INSERT INTO Cliente VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);";
@@ -343,6 +341,4 @@ function deleteCliente($conn,$idCliente){
         exit();
     }
 }
-
-
 ?>
