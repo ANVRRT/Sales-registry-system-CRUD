@@ -608,71 +608,6 @@ function deleteFactura($conn,$numFact){
         exit();
     }
 
-    function disClients($conn, $estado, $compania){
-        $sql="SELECT * FROM Cliente WHERE bloqueo = ? AND idCompania = ?";
-    
-        $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt,$sql))
-        {
-            header("location: ../php/index.php?error=stmtfailed");
-            exit();
-        }
-        mysqli_stmt_bind_param($stmt,"is", $estado, $compania);
-        mysqli_stmt_execute($stmt);
-    
-        $resultData = mysqli_stmt_get_result($stmt);
-        return $resultData;
-    
-        mysqli_stmt_close($stmt);
-    }
-    
-    function bClient($conn, $id){
-        $sql= "UPDATE Cliente SET bloqueo= 1 WHERE idCliente= ?";
-    
-        $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt,$sql))
-        {
-            header("location: ../php/index.php?error=stmtfailed");
-            exit();
-        }
-    
-        mysqli_stmt_bind_param($stmt,"i",$id);
-        if(mysqli_stmt_execute($stmt))
-        {
-            mysqli_stmt_close($stmt);
-            header("location: ../php/C_bloqueoCliente.php?error=success");
-            exit();
-        }
-        else{
-            mysqli_stmt_close($stmt);
-            header("location: ../php/C_bloqueoCliente.php?error=sqlerror");
-            exit();
-        }
-    }
-    
-    function dClient($conn, $id){
-        $sql= "UPDATE Cliente SET bloqueo= 0 WHERE idCliente= ?";
-    
-        $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt,$sql))
-        {
-            header("location: ../php/index.php?error=stmtfailed");
-            exit();
-        }
-    
-        mysqli_stmt_bind_param($stmt,"i",$id);
-        if(mysqli_stmt_execute($stmt))
-        {
-            mysqli_stmt_close($stmt);
-            header("location: ../php/C_bloqueoCliente.php?error=success");
-            exit();
-        }
-        else{
-            mysqli_stmt_close($stmt);
-            header("location: ../php/C_bloqueoCliente.php?error=sqlerror");
-            exit();
-        }
-    }
 }
 
 function disClients($conn, $estado, $compania){
@@ -740,4 +675,5 @@ function dClient($conn, $id){
         exit();
     }
 }
+
 ?>

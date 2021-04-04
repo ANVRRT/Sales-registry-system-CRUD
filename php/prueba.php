@@ -3,14 +3,20 @@ echo "<script>
 		function pruebaxy(par){
 			var r = confirm('¿Deseas eliminar a '+par+'?');
 			if (r == true) {
-				valor = par;
-				var serv = 'index.php?resultado='+valor;
+				valor= par;
+				var serv = '../includes/functions_catalogos.php?A_PLN=A_btn&resultado='+valor;
 				location.href = serv;
 			  } else {
 				alert('No eliminaste a '+par+'!');
 			  }
 			
 			// alert(valor);
+		}
+
+		function pruebalist(nombre){
+
+			
+
 		}
 
 		</script>
@@ -32,11 +38,11 @@ if (isset($_SESSION["permisos"])) {
 
 	<form name="prueba" class="formulario">
         <?php
-		$idRepresentante = "A01422954";
+			$idRepresentante = "A01422954";
             echo "<div class='campo'>";
             echo "<label class='campo__label' for='idRepresentante'>ID Representante</label>";
             echo "<input class='campo__field' name='idRepresentante' type='text' id='$idRepresentante'>";
-			echo "<input class='campo__field button--blue' type='button' value='Baja' onClick='pruebaxy(idRepresentante=document.getElementById(\"$idRepresentante\").value)'>";
+			echo "<input class='campo__field button--blue' type='button' value='Baja' onClick='pruebaxy(document.getElementById(\"$idRepresentante\").value)'>";
             echo "</div>";
 			// onClick='pruebax(document.getElementById(\"$idRepresentante\").value)'
         ?>
