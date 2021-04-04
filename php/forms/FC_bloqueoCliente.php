@@ -1,3 +1,7 @@
+<?php
+    require_once("../includes/dbh.inc.php");
+    require_once("../includes/functions_catalogos.php");
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -24,24 +28,59 @@
                         <tr>
                             <td>
                             <table style="width: 100%;">
-                        
-                                <tr>
-                                    <td>Alfreds Futterkiste</td>
-                                    <td>
-                                        <input class="btn btn-danger" type="button" value="Bloquear">
-                                    </td>
-                                </tr>
+                            <?php
+                                $clientesD = disClients($conn, 0, $_SESSION["idCompania"]);
+                                $check=mysqli_fetch_assoc($clientesD);
+                                if($check){
+                                    echo"<tr>";
+                                            echo"<td>".$check["nombreCliente"]."</td>";
+                                            echo"<td>";
+                                                echo"<a href='../includes/functions_catalogos.php?estadoB=2&idB=".$check["idCliente"]."'class='btn btn-danger'>Bloquear</a></th>";
+                                            echo"</td>";
+                                        echo"</tr>";
+                                    while($row = mysqli_fetch_assoc($clientesD))
+                                    {
+                                        echo"<tr>";
+                                            echo"<td>".$row["nombreCliente"]."</td>";
+                                            echo"<td>";
+                                                echo"<a href='../includes/functions_catalogos.php?estadoB=2&idB=".$row["idCliente"]."'class='btn btn-danger'>Bloquear</a></th>";
+                                            echo"</td>";
+                                        echo"</tr>";
+                                    }
+                                }
+                                else{
+                                    echo"No hay clientes disponibles";
+                                }
+                            ?>
                             </table>
                             </td>
                             
                             <td>
                             <table style="width: 100%;">
-                                <tr>
-                                    <td>Alfreds Futterkiste</td>
-                                    <td>
-                                        <input class="btn btn-success" type="button" value="Desbloquear">
-                                    </td>
-                                </tr>
+                            <?php
+                                $clientesB = disClients($conn, 1, $_SESSION["idCompania"]);
+                                $check=mysqli_fetch_assoc($clientesB);
+                                if($check){
+                                    echo"<tr>";
+                                            echo"<td>".$check["nombreCliente"]."</td>";
+                                            echo"<td>";
+                                                echo"<a href='../includes/functions_catalogos.php?estadoB=1&idB=".$check["idCliente"]."'class='btn btn-success'>Desbloquear</a></th>";
+                                            echo"</td>";
+                                        echo"</tr>";
+                                    while($row = mysqli_fetch_assoc($clientesB))
+                                    {
+                                        echo"<tr>";
+                                            echo"<td>".$row["nombreCliente"]."</td>";
+                                            echo"<td>";
+                                                echo"<a href='../includes/functions_catalogos.php?estadoD=1&idD=".$row["idCliente"]."'class='btn btn-success'>Desbloquear</a></th>";
+                                            echo"</td>";
+                                        echo"</tr>";
+                                    }
+                                }
+                                else{
+                                    echo"No hay clientes bloqueados";
+                                }
+                            ?>
                             </table>
                             </td>
                         </tr>
