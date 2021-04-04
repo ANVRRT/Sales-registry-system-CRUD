@@ -4,6 +4,8 @@
 <head>
     <?php
         include("../includes/header.php");
+        require_once("../includes/dbh.inc.php");
+        require_once("../includes/functions_catalogos.php");
     ?>
 	<link rel="stylesheet" href="../css/styles-capOrden.css">
 	<link rel="stylesheet" href="../css/normalize.css">
