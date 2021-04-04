@@ -111,6 +111,80 @@ function dispArticulos($conn, $idCompania){
 
     mysqli_stmt_close($stmt);
 }
+function dispRepresentante($conn, $idCompania){
+    $sql="SELECT * FROM Agente WHERE idCompania = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    if(mysqli_fetch_assoc($resultData))
+    {
+        return $resultData;
+    }
+    else{
+        $result = "No hay agentes existentes para esta compania";
+        return $result;
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+function dispListaPrecios($conn, $idCompania){
+    $sql="SELECT * FROM ListaPrecio WHERE idCompania = ?";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    if(mysqli_fetch_assoc($resultData))
+    {
+        return $resultData;
+    }
+    else{
+        $result = "No hay lista de precios existentes para esta compania";
+        return $result;
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+function dispAlmacen($conn, $idCompania){
+    $sql="SELECT * FROM Almacen WHERE idCompania = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    if(mysqli_fetch_assoc($resultData))
+    {
+        return $resultData;
+    }
+    else{
+        $result = "No hay almacenes existentes para esta compania";
+        return $result;
+    }
+
+    mysqli_stmt_close($stmt);
+}
 
 
 function createArtExistente($conn,$idArticulo,$idCompania,$descripcion,$costo){
@@ -156,6 +230,7 @@ function deleteArtExistente($conn,$idArticulo){
         exit();
     }
 }
+
 function createArtVendido($conn,$folio,$idArticulo,$idCompania,$idCliente,$stock,$codAviso,$udVta){
     $sql = "INSERT INTO ArticuloVendido VALUES(?,?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
@@ -286,6 +361,139 @@ function deleteCompania($conn, $idCompania){
     else{
         mysqli_stmt_close($stmt);
         header("location: ../php/C_compania.php?error=sqlerror");
+        exit();
+    }
+}
+function createCliente($conn,$idCliente,$idCompania,$idRepresentante,$listaPrecios,$idAlmacen,$nomCliente,$estatus,$idAnalista,$divisa,$limCredito,$saldoOrden,$saldoFactura,$bloqueo)
+{
+    $sql = "INSERT INTO Cliente VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"ssssssissiddi",$idCliente,$idCompania,$idRepresentante,$listaPrecios,$idAlmacen,$nomCliente,$estatus,$idAnalista,$divisa,$limCredito,$saldoOrden,$saldoFactura,$bloqueo);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_cliente.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_cliente.php?error=sqlerror");
+        exit();
+    }
+}
+function deleteCliente($conn,$idCliente){
+    $sql = "DELETE FROM Cliente WHERE idCliente = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s",$idCliente);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_cliente.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_cliente.php?error=sqlerror");
+        exit();
+    }
+}
+
+function createAlmacen($conn,$idAlmacen,$descripcion,$idCompania){
+    $sql = "INSERT INTO Almacen VALUES(?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sss",$idAlmacen,$descripcion,$idCompania);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_almacen.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_almacen.php?error=sqlerror");
+        exit();
+    }
+}
+function deleteAlmacen($conn,$idAlmacen){
+    $sql = "DELETE FROM Almacen WHERE idAlmacen = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s",$idAlmacen);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_almacen.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_almacen.php?error=sqlerror");
+        exit();
+    }
+}
+function createInventario($conn,$idCompania,$idAlmacen,$idArticulo,$stock){
+    $sql = "INSERT INTO Inventario VALUES(?,?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sssd",$idCompania,$idAlmacen,$idArticulo,$stock);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_inventario.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_inventario.php?error=sqlerror");
+        exit();
+    }
+}
+
+function deleteInventario($conn,$idArticulo){
+    $sql = "DELETE FROM Inventario WHERE idArticulo = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"s",$idArticulo);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_inventario.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_inventario.php?error=sqlerror");
         exit();
     }
 }
