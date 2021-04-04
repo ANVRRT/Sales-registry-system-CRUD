@@ -2,7 +2,7 @@
 	<h1 class="h1-mine">Capturar Agente</h1>
 
 	<form class="formulario" method="POST" action="../includes/functions_catalogos.php">
-	<div class="campo">
+		<div class="campo">
 			<label class="campo__label" for="idRepresentante">ID Representante</label>
 			<input class="campo__field" type="text" name="idRepresentante" id="idRepresentante" list="representante" required>
 			<?php
