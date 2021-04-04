@@ -9,7 +9,7 @@
 		</div>
 		<div class="campo">
 			<label class="campo__label" for="idArticulo">ID Artículo</label>
-			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos">
+			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos" require>
 			<?php
 
 				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
@@ -45,7 +45,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="codAviso">Código Aviso</label>
-			<input class="campo__field" name="codAviso" type="text" id="codAviso">
+			<input class="campo__field" name="codAviso" type="text" id="codAviso" require>
 		</div>
 
 		<div class="campo">
