@@ -157,8 +157,8 @@ function deleteArtExistente($conn,$idArticulo){
     }
 }
 
-function disClients($conn, $estado){
-    $sql="SELECT * FROM Cliente WHERE bloqueo = ?";
+function disClients($conn, $estado, $compania){
+    $sql="SELECT * FROM Cliente WHERE bloqueo = ? AND idCompania = ?";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -166,7 +166,7 @@ function disClients($conn, $estado){
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"i", $estado);
+    mysqli_stmt_bind_param($stmt,"is", $estado, $compania);
     mysqli_stmt_execute($stmt);
 
     $resultData = mysqli_stmt_get_result($stmt);
