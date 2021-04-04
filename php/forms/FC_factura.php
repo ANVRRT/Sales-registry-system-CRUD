@@ -1,4 +1,7 @@
-
+<?php
+	require_once("../includes/dbh.inc.php");
+	require_once("../includes/functions_catalogos.php");
+?>
 
 <div class="formulario">
 	<h1 class="h1-mine">Facturas</h1>
@@ -7,10 +10,8 @@
 
 		<div class="campo">
 			<label class="campo__label" for="idCliente">ID Cliente</label>
-			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="clientes" required>
+			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="clientes">
 			<?php
-				require_once("../includes/dbh.inc.php");
-				require_once("../includes/functions_catalogos.php");
 				$reg = dispClientes($conn,$_SESSION["idCompania"]);
 				
 				echo "<datalist id='clientes'>";
@@ -32,22 +33,22 @@
 
 		<div class="campo">
 			<label class="campo__label" for="idOrden">ID Orden</label>
-			<input class="campo__field" type="text" name="idOrden" maxlength="10" required>
+			<input class="campo__field" type="text" name="idOrden" maxlength="10">
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="idPosicion">Folio</label>
-			<input class="campo__field" type="text" name="idFolio" maxlength="11" required>
+			<label class="campo__label" for="idFolio">Folio</label>
+			<input class="campo__field" type="text" name="idFolio" maxlength="11" >
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="idEntrega">Entrega</label>
-			<input class="campo__field" type="text" name="entrega" maxlength="11" required>
+			<input class="campo__field" type="text" name="entrega" maxlength="11">
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="tipoTrans">Tipo de Transaccion</label>
-			<input class="campo__field" type="text" name="tipoTrans" maxlength="4" required>
+			<input class="campo__field" type="text" name="tipoTrans" maxlength="4">
 		</div>
 
 		<div class="campo">
@@ -57,15 +58,13 @@
 
 		<div class="campo">
 			<label class="campo__label" for="fechaFac">Fecha de Facturacion</label>
-			<input class="campo__field" type="date" name="fechaFac" required>
+			<input class="campo__field" type="date" name="fechaFac">
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="articulo">Artículo</label>
-			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos" required>
+			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos">
 			<?php
-				require_once("../includes/dbh.inc.php");
-				require_once("../includes/functions_catalogos.php");
 				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='articulos'>";
