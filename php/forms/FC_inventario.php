@@ -1,32 +1,61 @@
+
 <div class="fix-margin">
 	<h1 class="h1-mine">Inventario</h1>
 
-	<form class="formulario">
+	<form class="formulario" method="POST" action="../includes/functions_catalogos.php">
 		<div class="campo">
 			<label class="campo__label" for="idCompania">Compañia</label>
-			<input class="campo__field" type="text" id="idCompania">
+			<?php
+				echo "<input class='campo__field' type='text'name='idCompania' id='idCompania' value='".$_SESSION["idCompania"]."' readonly>";
+			?>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="idAlmace">ID Almacen</label>
-			<input class="campo__field" type="text" id="idAlmace">
+		<label class="campo__label" for="idAlmacen">ID Almacen</label>
+			<input class="campo__field" type="text" id="idAlmacen" name="idAlmacen" list="almacen">
+			<?php
+				
+				$reg = dispAlmacen($conn, $_SESSION["idCompania"]);
+
+				echo "<datalist id='almacen'>";
+				while($row = mysqli_fetch_assoc($reg))
+				{
+					echo "<option>".$row["idAlmacen"]."</option>";
+
+				}
+
+				echo "</datalist>";
+			?>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="idArticulo">Id Articulo</label>
-			<input class="campo__field" type="text" id="idArticulo">
+			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos">
+			<?php
+				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
+
+				echo "<datalist id='articulos'>";
+				while($row = mysqli_fetch_assoc($reg))
+				{
+					// echo $row["idArticulo"]."<br>";
+					echo "<option>".$row["idArticulo"]."</option>";
+
+				}
+
+				echo "</datalist>";
+			?>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="stockInventario">Stock</label>
-			<input class="campo__field" type="text" id="stockInventario">
+			<input class="campo__field" type="number" name="stock" id="stock">
 		</div>
 		
 
 		<div class="campo__3--button">
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
-			<input class="campo__field button--blue" type="submit" value="Baja">
-			<input class="campo__field button--blue" type="submit" value="Alta">
+			<input class="campo__field button--blue" name="B_inventario" type="submit" value="Baja">
+			<input class="campo__field button--blue" name="A_inventario" type="submit" value="Alta">
 		</div>
 	</form>
 </div>

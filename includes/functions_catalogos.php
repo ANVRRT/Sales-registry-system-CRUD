@@ -13,12 +13,12 @@ if(isset($_POST["A_agente"])){ //AGENTE
 if(isset($_POST["B_agente"])){ 
     deleteAgente($conn,$_POST["idRepresentante"]);
 }
-// if(isset($_POST["A_artE"])){ //ALMACEN
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_almacen"])){ //ALMACEN
+    createAlmacen($conn,$_POST["idAlmacen"],$_POST["descripcion"],$_POST["idCompania"]);
+}
+if(isset($_POST["B_almacen"])){
+    deleteAlmacen($conn,$_POST["idAlmacen"]);
+}
 if(isset($_POST["A_artV"])){ //ARTCLIENTEVendido
     createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["stock"],$_POST["codAviso"],$_POST["udVta"]);
 }
@@ -65,18 +65,18 @@ if(isset($_POST["B_Compania"])){
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-// if(isset($_POST["A_artE"])){ //Factura
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
-// if(isset($_POST["A_artE"])){ //Inventario
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_Facs"])){ //Factura
+    createFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_POST["idOrden"],$_POST["idArticulo"],$_POST["idCliente"],$_POST["idFolio"],$_POST["entrega"],$_POST["tipoTrans"],$_POST["fechaFac"]);
+}
+if(isset($_POST["B_Facs"])){
+    deleteFactura($conn,$_POST["numFac"]);
+}
+if(isset($_POST["A_inventario"])){ //Inventario
+    createInventario($conn,$_POST["idCompania"],$_POST["idAlmacen"],$_POST["idArticulo"],$_POST["stock"]);
+}
+if(isset($_POST["B_inventario"])){
+    deleteInventario($conn,$_POST["idArticulo"]);
+}
 // if(isset($_POST["A_artE"])){ //Lista Precios
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
@@ -88,7 +88,7 @@ if(isset($_POST["B_Compania"])){
 // }
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }if(isset($_POST["A_artE"])){
+// }if(isset($_POST["A_artE"])){ //EXTRA Plantilla?
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
 // if(isset($_POST["B_artE"])){
@@ -417,8 +417,98 @@ function deleteCliente($conn,$idCliente){
         exit();
     }
 }
-function disClients($conn, $estado, $compania){
-    $sql="SELECT * FROM Cliente WHERE bloqueo = ? AND idCompania = ?";
+
+function createAlmacen($conn,$idAlmacen,$descripcion,$idCompania){
+    $sql = "INSERT INTO Almacen VALUES(?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sss",$idAlmacen,$descripcion,$idCompania);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_almacen.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_almacen.php?error=sqlerror");
+        exit();
+    }
+}
+function deleteAlmacen($conn,$idAlmacen){
+    $sql = "DELETE FROM Almacen WHERE idAlmacen = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s",$idAlmacen);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_almacen.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_almacen.php?error=sqlerror");
+        exit();
+    }
+}
+function createInventario($conn,$idCompania,$idAlmacen,$idArticulo,$stock){
+    $sql = "INSERT INTO Inventario VALUES(?,?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sssd",$idCompania,$idAlmacen,$idArticulo,$stock);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_inventario.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_inventario.php?error=sqlerror");
+        exit();
+    }
+}
+
+function deleteInventario($conn,$idArticulo){
+    $sql = "DELETE FROM Inventario WHERE idArticulo = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"s",$idArticulo);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_inventario.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_inventario.php?error=sqlerror");
+        exit();
+    }
+}
+function dispClientes($conn, $idCompania)
+{
+    $sql="SELECT * FROM Cliente WHERE idCompania=?";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -426,17 +516,26 @@ function disClients($conn, $estado, $compania){
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"is", $estado, $compania);
+    mysqli_stmt_bind_param($stmt, "s", $idCompania);
     mysqli_stmt_execute($stmt);
 
     $resultData = mysqli_stmt_get_result($stmt);
-    return $resultData;
+    if(mysqli_fetch_assoc($resultData))
+    {
+        return $resultData;
+    }
+    else{
+        $result = "No hay clientes existentes";
+        return $result;
+    }
 
     mysqli_stmt_close($stmt);
 }
 
-function bClient($conn, $id){
-    $sql= "UPDATE Cliente SET bloqueo= 1 WHERE idCliente= ?";
+
+function dispFolios($conn, $idCliente)
+{
+    $sql="SELECT folio FROM ArticuloVendido WHERE idCliente=?";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -444,42 +543,133 @@ function bClient($conn, $id){
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
+    mysqli_stmt_bind_param($stmt, "s", $idCliente);
+    mysqli_stmt_execute($stmt);
 
-    mysqli_stmt_bind_param($stmt,"i",$id);
+    $resultData = mysqli_stmt_get_result($stmt);
+    if(mysqli_fetch_assoc($resultData))
+    {
+        return $resultData;
+    }
+    else{
+        $result = "No hay clientes existentes";
+        return $result;
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+
+function createFactura($conn,$numFact,$idCompania,$idOrden,$idArticulo,$idCliente,$folio,$entrega,$tipoTrans,$fechaFac)
+{
+    $sql = "INSERT INTO Factura VALUES(?,?,?,?,?,?,?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sssssiiss",$numFact,$idCompania,$idOrden,$idArticulo,$idCliente,$folio,$entrega,$tipoTrans,$fechaFac);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
-        header("location: ../php/C_bloqueoCliente.php?error=success");
+        header("location: ../php/C_factura.php?error=success");
         exit();
     }
     else{
+        //echo mysqli_error($conn);
         mysqli_stmt_close($stmt);
-        header("location: ../php/C_bloqueoCliente.php?error=sqlerror");
+        header("location: ../php/C_factura.php?error=sqlerror");
         exit();
     }
 }
 
-function dClient($conn, $id){
-    $sql= "UPDATE Cliente SET bloqueo= 0 WHERE idCliente= ?";
-
+function deleteFactura($conn,$numFact){
+    $sql = "DELETE FROM Factura WHERE numFact = ?";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-
-    mysqli_stmt_bind_param($stmt,"i",$id);
+    mysqli_stmt_bind_param($stmt,"s",$numFact);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
-        header("location: ../php/C_bloqueoCliente.php?error=success");
+        header("location: ../php/C_factura.php?error=success");
         exit();
     }
     else{
         mysqli_stmt_close($stmt);
-        header("location: ../php/C_bloqueoCliente.php?error=sqlerror");
+        header("location: ../php/C_factura.php?error=sqlerror");
         exit();
+    }
+
+    function disClients($conn, $estado, $compania){
+        $sql="SELECT * FROM Cliente WHERE bloqueo = ? AND idCompania = ?";
+    
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt,$sql))
+        {
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt,"is", $estado, $compania);
+        mysqli_stmt_execute($stmt);
+    
+        $resultData = mysqli_stmt_get_result($stmt);
+        return $resultData;
+    
+        mysqli_stmt_close($stmt);
+    }
+    
+    function bClient($conn, $id){
+        $sql= "UPDATE Cliente SET bloqueo= 1 WHERE idCliente= ?";
+    
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt,$sql))
+        {
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
+    
+        mysqli_stmt_bind_param($stmt,"i",$id);
+        if(mysqli_stmt_execute($stmt))
+        {
+            mysqli_stmt_close($stmt);
+            header("location: ../php/C_bloqueoCliente.php?error=success");
+            exit();
+        }
+        else{
+            mysqli_stmt_close($stmt);
+            header("location: ../php/C_bloqueoCliente.php?error=sqlerror");
+            exit();
+        }
+    }
+    
+    function dClient($conn, $id){
+        $sql= "UPDATE Cliente SET bloqueo= 0 WHERE idCliente= ?";
+    
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt,$sql))
+        {
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
+    
+        mysqli_stmt_bind_param($stmt,"i",$id);
+        if(mysqli_stmt_execute($stmt))
+        {
+            mysqli_stmt_close($stmt);
+            header("location: ../php/C_bloqueoCliente.php?error=success");
+            exit();
+        }
+        else{
+            mysqli_stmt_close($stmt);
+            header("location: ../php/C_bloqueoCliente.php?error=sqlerror");
+            exit();
+        }
     }
 }
 ?>
