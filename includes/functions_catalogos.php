@@ -19,12 +19,12 @@ if(isset($_POST["B_age"])){
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-// if(isset($_POST["A_artE"])){ //ARTCLIENTEVendido
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){ 
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_artV"])){ //ARTCLIENTEVendido
+    createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["stock"],$_POST["codAviso"],$_POST["udVta"]);
+}
+if(isset($_POST["B_artV"])){ 
+    deleteArtVendido($conn,$_POST["folio"]);
+}
 // if(isset($_POST["A_artE"])){ //BloqueoCliente
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
@@ -243,5 +243,4 @@ function deleteAgente($conn,$idRepresentante){
         exit();
     }
 }
-
 ?>
