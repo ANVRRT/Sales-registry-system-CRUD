@@ -7,10 +7,10 @@ if(isset($_POST["A_artE"])){
 if(isset($_POST["B_artE"])){ 
     deleteArtExistente($conn,$_POST["idArticulo"]);
 }
-if(isset($_POST["A_age"])){ //AGENTE
+if(isset($_POST["A_agente"])){ //AGENTE
     createAgente($conn,$_POST["idRepresentante"],$_POST["nomRepresentante"],$_POST["idCompania"]);
 }
-if(isset($_POST["B_age"])){ 
+if(isset($_POST["B_agente"])){ 
     deleteAgente($conn,$_POST["idRepresentante"]);
 }
 // if(isset($_POST["A_artE"])){ //ALMACEN

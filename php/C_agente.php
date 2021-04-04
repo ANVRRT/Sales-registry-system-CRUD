@@ -46,6 +46,7 @@
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
 
                 </div> -->
+                
                 <div class="container-fluid"> 
                     <div class="col-lg-12">
                         <div class="card-body">
@@ -71,39 +72,39 @@
                         </div>
                     </div>
 				</div>
-				<!--
-                <div class="container-fluid">
+				
+                <!-- <div class="container-fluid">
                     <div class="col-lg-12">
                         <div class="card-body">
-                            <?php /*
-                            $encontrado = false;
-                            if (($_SESSION["rol"] != "CXC") && ($_SESSION["rol"] != "ADM")) {
-                                if(isset($_SESSION["permisos"])){
-                                    foreach($_SESSION["permisos"] as $permiso){
-                                        // echo "<p> $permiso</p>";
-                                        if($permiso == "pc_agente"){
-                                            $encontrado = true;
-                                        }
-                                    }
+                            <?php 
+                            // $encontrado = false;
+                            // if (($_SESSION["rol"] != "CXC") && ($_SESSION["rol"] != "ADM")) {
+                            //     if(isset($_SESSION["permisos"])){
+                            //         foreach($_SESSION["permisos"] as $permiso){
+                            //             // echo "<p> $permiso</p>";
+                            //             if($permiso == "pc_agente"){
+                            //                 $encontrado = true;
+                            //             }
+                            //         }
                                     
-                                }
-                                if ($encontrado == false){
-                                    // echo "HOLA";
+                            //     }
+                            //     if ($encontrado == false){
+                            //         // echo "HOLA";
 
-                                }
-                                else{
-                                    include("forms/FC_agente.php");
-                                }       
-                            }
-                            else{
-                                include("forms/FC_agente.php");
-                            }
-                            // include("FC_agente.php");
-                            */?>
+                            //     }
+                            //     else{
+                            //         include("forms/FC_agente.php");
+                            //     }       
+                            // }
+                            // else{
+                            //     include("forms/FC_agente.php");
+                            // }
+                            // include("forms/FC_agente.php");
+                            ?>
                         </div>
                     </div>
-                </div>
-            -->
+                </div> -->
+           
 
                 <!-- /.container-fluid -->
 

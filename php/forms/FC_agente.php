@@ -21,8 +21,8 @@
 
 		<div class="campo__3--button">
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
-			<input class="campo__field button--blue" name="B_age" type="submit" value="Baja">
-			<input class="campo__field button--blue" name="A_age" type="submit" value="Alta">
+			<input class="campo__field button--blue" name="B_agente" type="submit" value="Baja">
+			<input class="campo__field button--blue" name="A_agente" type="submit" value="Alta">
 		</div>
 	</form>
 </div>
