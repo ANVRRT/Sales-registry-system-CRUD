@@ -7,23 +7,24 @@ if(isset($_POST["A_artE"])){
 if(isset($_POST["B_artE"])){ 
     deleteArtExistente($conn,$_POST["idArticulo"]);
 }
-// if(isset($_POST["A_artE"])){ //AGENTE
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){ 
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }if(isset($_POST["A_artE"])){ //ALMACEN
+if(isset($_POST["A_agente"])){ //AGENTE
+    createAgente($conn,$_POST["idRepresentante"],$_POST["nomRepresentante"],$_POST["idCompania"]);
+}
+if(isset($_POST["B_agente"])){ 
+    deleteAgente($conn,$_POST["idRepresentante"]);
+}
+// if(isset($_POST["A_artE"])){ //ALMACEN
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
-// if(isset($_POST["A_artE"])){ //ARTCLIENTEVendido
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){ 
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_artV"])){ //ARTCLIENTEVendido
+    createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["stock"],$_POST["codAviso"],$_POST["udVta"]);
+}
+if(isset($_POST["B_artV"])){ 
+    deleteArtVendido($conn,$_POST["folio"]);
+}
 // if(isset($_POST["A_artE"])){ //BloqueoCliente
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 // }
@@ -155,7 +156,6 @@ function deleteArtExistente($conn,$idArticulo){
     }
 }
 
-
 function createArtVendido($conn,$folio,$idArticulo,$idCompania,$idCliente,$stock,$codAviso,$udVta){
     $sql = "INSERT INTO ArticuloVendido VALUES(?,?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
@@ -243,7 +243,6 @@ function deleteAgente($conn,$idRepresentante){
         exit();
     }
 }
-
 function createCompania($conn, $idCompania, $nombre){
     $sql = "INSERT INTO Compania VALUES(?,?)";
     $stmt = mysqli_stmt_init($conn);

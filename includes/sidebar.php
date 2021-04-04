@@ -108,9 +108,9 @@ if (!isset($_SESSION["idUsuario"])) {
                 <a class="collapse-item" href="C_cliente.php">Cliente</a>
                 <a class="collapse-item" href="C_agente.php">Agente</a>
                 <a class="collapse-item" href="C_articuloExistente.php">Artículo existente</a>
-                <a class="collapse-item" href="C_articuloVendido">Artículo vendido</a>
-                <a class="collapse-item" href="C_dirEnt">Dir. Entrega</a>
-                <a class="collapse-item" href="C_listaPrecios">Lista Precios</a>
+                <a class="collapse-item" href="C_articuloVendido.php">Artículo vendido</a>
+                <a class="collapse-item" href="C_dirEnt.php">Dir. Entrega</a>
+                <a class="collapse-item" href="C_listaPrecios.php">Lista Precios</a>
                 <a class="collapse-item" href="C_factura.php">Facturas</a>
                 <a class="collapse-item" href="C_cantidadE.php">Cant. Entregada</a>
                 <a class="collapse-item" href="C_bloqueoCliente.php">Bloqueo Cliente</a>
