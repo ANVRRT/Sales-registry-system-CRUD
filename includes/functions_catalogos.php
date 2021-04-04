@@ -110,6 +110,80 @@ function dispArticulos($conn, $idCompania){
 
     mysqli_stmt_close($stmt);
 }
+function dispRepresentante($conn, $idCompania){
+    $sql="SELECT * FROM Agente WHERE idCompania = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    if(mysqli_fetch_assoc($resultData))
+    {
+        return $resultData;
+    }
+    else{
+        $result = "No hay agentes existentes para esta compania";
+        return $result;
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+function dispListaPrecios($conn, $idCompania){
+    $sql="SELECT * FROM ListaPrecio WHERE idCompania = ?";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    if(mysqli_fetch_assoc($resultData))
+    {
+        return $resultData;
+    }
+    else{
+        $result = "No hay lista de precios existentes para esta compania";
+        return $result;
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+function dispAlmacen($conn, $idCompania){
+    $sql="SELECT * FROM Almacen WHERE idCompania = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    if(mysqli_fetch_assoc($resultData))
+    {
+        return $resultData;
+    }
+    else{
+        $result = "No hay almacenes existentes para esta compania";
+        return $result;
+    }
+
+    mysqli_stmt_close($stmt);
+}
 
 
 function createArtExistente($conn,$idArticulo,$idCompania,$descripcion,$costo){
