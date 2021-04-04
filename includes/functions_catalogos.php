@@ -5,7 +5,7 @@ if(isset($_POST["A_artE"])){
     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
 }
 if(isset($_POST["B_artE"])){ 
-    deleteArtExistente($conn,$_POST["idArticulo"]);
+    deleteArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"]);
 }
 if(isset($_POST["A_agente"])){ //AGENTE
     createAgente($conn,$_POST["idRepresentante"],$_POST["nomRepresentante"],$_POST["idCompania"]);
@@ -220,15 +220,15 @@ function createArtExistente($conn,$idArticulo,$idCompania,$descripcion,$costo){
         exit();
     }
 }
-function deleteArtExistente($conn,$idArticulo){
-    $sql = "DELETE FROM ArticuloExistente WHERE idArticulo = ?";
+function deleteArtExistente($conn,$idArticulo, $idCompania){
+    $sql = "DELETE FROM ArticuloExistente WHERE idArticulo = ? AND idCompania = ?";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"s",$idArticulo);
+    mysqli_stmt_bind_param($stmt,"ss",$idArticulo, $idCompania);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
