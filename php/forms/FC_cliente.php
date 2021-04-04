@@ -10,18 +10,8 @@
 		</div>
 		<div class="campo">
 			<label class="campo__label" for="compania">Compañía</label>
-			<input class="campo__field" type="text" name="idCompania" id="idCompania" list="compania">
 			<?php
-				require_once("../includes/dbh.inc.php");
-
-				$query="SELECT idCompania FROM Compania ";
-
-				echo "<datalist id='compania'>";
-				$sql=mysqli_query($conn,$query);
-				while ($reg=mysqli_fetch_object($sql)){
-				echo "<option>$reg->idCompania";
-				}
-				echo "</datalist>";				
+				echo "<input class='campo__field' type='text'name='idCompania' id='idCompania' value='".$_SESSION["idCompania"]."' readonly>";
 			?>
 		</div>
 
@@ -31,20 +21,39 @@
 			<?php
 				require_once("../includes/dbh.inc.php");
 
-				$query="SELECT idRepresentante FROM Agente";
-
+				require_once("../includes/functions_catalogos.php");
+				$reg = dispRepresentante($conn, $_SESSION["idCompania"]);
+				
 				echo "<datalist id='representante'>";
-				$sql=mysqli_query($conn,$query);
-				while ($reg=mysqli_fetch_object($sql)){
-				echo "<option>$reg->idRepresentante";
+				while($row = mysqli_fetch_assoc($reg))
+				{
+					echo "<option>".$row["idRepresentante"]."</option>";
+
 				}
-				echo "</datalist>";				
+				
+				echo "</datalist>";
 			?>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="listPrecios">Lista de precios a utilizar</label>
-			<input class="campo__field" type="text" name="listaPrecios" id="listaPrecios" >
+			<label class="campo__label" for="idAlmacen">Lista de  precios a utilizar</label>
+			<input class="campo__field" type="text" name="listaPrecios" id="listaPrecios" list="listaPrecio">
+			<?php
+				require_once("../includes/dbh.inc.php");
+
+				require_once("../includes/functions_catalogos.php");
+				$reg = dispListaPrecios($conn, $_SESSION["idCompania"]);
+				
+				echo "<datalist id='listaPrecio'>";
+				if($row = mysqli_fetch_assoc($reg))
+				{
+					echo "<option>".$row["idLista"]."</option>";
+
+				}
+				
+				echo "</datalist>";
+			?>
+			
 		</div>
 
 		<div class="campo">
@@ -53,14 +62,17 @@
 			<?php
 				require_once("../includes/dbh.inc.php");
 
-				$query="SELECT idAlmacen FROM Almacen";
-
+				require_once("../includes/functions_catalogos.php");
+				$reg = dispAlmacen($conn, $_SESSION["idCompania"]);
+				
 				echo "<datalist id='almacen'>";
-				$sql=mysqli_query($conn,$query);
-				while ($reg=mysqli_fetch_object($sql)){
-				echo "<option>$reg->idAlmacen";
+				while($row = mysqli_fetch_assoc($reg))
+				{
+					echo "<option>".$row["idAlmacen"]."</option>";
+
 				}
-				echo "</datalist>";				
+				
+				echo "</datalist>";
 			?>
 			
 		</div>
@@ -81,14 +93,17 @@
 			<?php
 				require_once("../includes/dbh.inc.php");
 
-				$query="SELECT idRepresentante FROM Agente";
-
+				require_once("../includes/functions_catalogos.php");
+				$reg = dispRepresentante($conn, $_SESSION["idCompania"]);
+				
 				echo "<datalist id='analista'>";
-				$sql=mysqli_query($conn,$query);
-				while ($reg=mysqli_fetch_object($sql)){
-				echo "<option>$reg->idRepresentante";
+				while($row = mysqli_fetch_assoc($reg))
+				{
+					echo "<option>".$row["idRepresentante"]."</option>";
+
 				}
-				echo "</datalist>";				
+				
+				echo "</datalist>";
 			?>
 		</div>
 
