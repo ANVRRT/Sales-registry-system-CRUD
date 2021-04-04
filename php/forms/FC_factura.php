@@ -17,7 +17,7 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					echo "<option>".$row["idCliente"]."</option>";
-					$idCompany = $row["idCompania"];
+					$idCompania = $row["idCompania"];
 
 				}
 				
@@ -28,12 +28,7 @@
 		<div class="campo">
 			<label class="campo__label" for="idCompania">Compañia</label>
 			<?php
-				$idCliente = "<script>document.writeln(document.getElementById('idCliente').innerHTML);</script>";
-				if($idCliente != "")
-				{
-					//$idCompany = getIDCompany($conn, $idCliente);
-					echo "<input class='campo__field' type='text'name='idCompania' id='idCompania' value='$idCompany' readonly>";	
-				}
+				echo "<input class='campo__field' type='text'name='idCompania' id='idCompania' value='".$_SESSION["idCompania"]."' readonly>";
 			?>
 		</div>
 
@@ -73,7 +68,7 @@
 			<?php
 				require_once("../includes/dbh.inc.php");
 				require_once("../includes/functions_catalogos.php");
-				$reg = dispArticulos($conn, $idCompany);
+				$reg = dispArticulos($conn, $idCompania);
 				
 				echo "<datalist id='articulos'>";
 				while($row = mysqli_fetch_assoc($reg))
