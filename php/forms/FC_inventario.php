@@ -30,7 +30,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="idArticulo">Id Articulo</label>
-			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos">
+			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos" required>
 			<?php
 				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
 

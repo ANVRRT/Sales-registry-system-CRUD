@@ -77,7 +77,7 @@ if(isset($_POST["A_inventario"])){ //Inventario
     createInventario($conn,$_POST["idCompania"],$_POST["idAlmacen"],$_POST["idArticulo"],$_POST["stock"]);
 }
 if(isset($_POST["B_inventario"])){
-    deleteInventario($conn,$_POST["idArticulo"]);
+    deleteInventario($conn,$_POST["idArticulo"],$_POST["idCompania"]);
 }
 // if(isset($_POST["A_artE"])){ //Lista Precios
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
@@ -111,14 +111,8 @@ function dispArticulos($conn, $idCompania){
     mysqli_stmt_execute($stmt);
 
     $resultData = mysqli_stmt_get_result($stmt);
-    if(mysqli_fetch_assoc($resultData))
-    {
-        return $resultData;
-    }
-    else{
-        $result = "No hay artículos existentes para esta";
-        return $result;
-    }
+    return $resultData;
+
 
     mysqli_stmt_close($stmt);
 }
@@ -135,14 +129,8 @@ function dispRepresentante($conn, $idCompania){
     mysqli_stmt_execute($stmt);
 
     $resultData = mysqli_stmt_get_result($stmt);
-    if(mysqli_fetch_assoc($resultData))
-    {
-        return $resultData;
-    }
-    else{
-        $result = "No hay agentes existentes para esta compania";
-        return $result;
-    }
+    return $resultData;
+
 
     mysqli_stmt_close($stmt);
 }
@@ -160,14 +148,8 @@ function dispListaPrecios($conn, $idCompania){
     mysqli_stmt_execute($stmt);
 
     $resultData = mysqli_stmt_get_result($stmt);
-    if(mysqli_fetch_assoc($resultData))
-    {
-        return $resultData;
-    }
-    else{
-        $result = "No hay lista de precios existentes para esta compania";
-        return $result;
-    }
+    return $resultData;
+
 
     mysqli_stmt_close($stmt);
 }
@@ -185,14 +167,8 @@ function dispAlmacen($conn, $idCompania){
     mysqli_stmt_execute($stmt);
 
     $resultData = mysqli_stmt_get_result($stmt);
-    if(mysqli_fetch_assoc($resultData))
-    {
-        return $resultData;
-    }
-    else{
-        $result = "No hay almacenes existentes para esta compania";
-        return $result;
-    }
+    
+    return $resultData;
 
     mysqli_stmt_close($stmt);
 }
@@ -486,8 +462,8 @@ function createInventario($conn,$idCompania,$idAlmacen,$idArticulo,$stock){
     }
 }
 
-function deleteInventario($conn,$idArticulo){
-    $sql = "DELETE FROM Inventario WHERE idArticulo = ?";
+function deleteInventario($conn,$idArticulo,$idCompania){
+    $sql = "DELETE FROM Inventario WHERE idArticulo = ? AND idCompania = ?";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
@@ -495,7 +471,7 @@ function deleteInventario($conn,$idArticulo){
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"s",$idArticulo);
+    mysqli_stmt_bind_param($stmt,"ss",$idArticulo,$idCompania);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);

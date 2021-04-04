@@ -4,7 +4,21 @@
 	<form class="formulario"  method="POST" action="../includes/functions_catalogos.php">
 		<div class="campo">
 			<label class="campo__label" for="idAlmacen">ID Almacen</label>
-			<input class="campo__field" type="text" id="idAlmacen" name="idAlmacen">
+			<input class="campo__field" type="text" id="idAlmacen" name="idAlmacen" list="almacen" required>
+			<?php
+				
+				$reg = dispAlmacen($conn, $_SESSION["idCompania"]);
+
+				echo "<datalist id='almacen'>";
+				
+				while($row = mysqli_fetch_assoc($reg))
+				{
+					echo "<option>".$row["idAlmacen"]."</option>";
+
+				}
+
+				echo "</datalist>";
+			?>
 		</div>
 
 		<div class="campo">
