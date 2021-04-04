@@ -2,70 +2,125 @@
 <div class="fix-margin">
 	<h1 class="h1-mine">Administración de clientes</h1>
 
-	<form class="formulario">
+	<form class="formulario" method="POST" action="../includes/functions_catalogos.php">
 		<div class="campo">
 			<label class="campo__label" for="cliente"> id Cliente</label>
-			<input class="campo__field" type="text" id="cliente">
+			<input class="campo__field" type="text" name="idCliente" id="idCliente" required>
+			
 		</div>
-
-		<div class="campo">
-			<label class="campo__label" for="nomCliente">Nombre del cliente</label>
-			<input class="campo__field" type="text" id="nomCliente">
-		</div>
-
 		<div class="campo">
 			<label class="campo__label" for="compania">Compañía</label>
-			<input class="campo__field" type="text" id="compania">
+			<input class="campo__field" type="text" name="idCompania" id="idCompania" list="compania">
+			<?php
+				require_once("../includes/dbh.inc.php");
+
+				$query="SELECT idCompania FROM Compania ";
+
+				echo "<datalist id='compania'>";
+				$sql=mysqli_query($conn,$query);
+				while ($reg=mysqli_fetch_object($sql)){
+				echo "<option>$reg->idCompania";
+				}
+				echo "</datalist>";				
+			?>
 		</div>
+
 		<div class="campo">
 			<label class="campo__label" for="idRepresentante">Representante</label>
-			<input class="campo__field" type="text" id="idRepresentante">
+			<input class="campo__field" type="text" name="idRepresentante" id="idRepresentante" list="representante" >
+			<?php
+				require_once("../includes/dbh.inc.php");
+
+				$query="SELECT idRepresentante FROM Agente";
+
+				echo "<datalist id='representante'>";
+				$sql=mysqli_query($conn,$query);
+				while ($reg=mysqli_fetch_object($sql)){
+				echo "<option>$reg->idRepresentante";
+				}
+				echo "</datalist>";				
+			?>
 		</div>
-	
+
 		<div class="campo">
 			<label class="campo__label" for="listPrecios">Lista de precios a utilizar</label>
-			<input class="campo__field" type="number" id="listPrecios">
+			<input class="campo__field" type="text" name="listaPrecios" id="listaPrecios" >
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="idAlmacen">Almacen</label>
-			<input class="campo__field" type="text" id="idAlmacen">
+			<input class="campo__field" type="text" name="idAlmacen" id="idAlmacen" list="almacen">
+			<?php
+				require_once("../includes/dbh.inc.php");
+
+				$query="SELECT idAlmacen FROM Almacen";
+
+				echo "<datalist id='almacen'>";
+				$sql=mysqli_query($conn,$query);
+				while ($reg=mysqli_fetch_object($sql)){
+				echo "<option>$reg->idAlmacen";
+				}
+				echo "</datalist>";				
+			?>
+			
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="bloqueo">Bloqueo</label>
-			<input class="campo__field" type="checkbox" id="bloqueo">
+			<label class="campo__label" for="nomCliente">Nombre del cliente</label>
+			<input class="campo__field" type="text" name="nomCliente" id="nomCliente">
+		</div>
+
+		<div class="campo">
+			<label class="campo__label" for="listPrecios">Estatus</label>
+			<input class="campo__field" type="number" name="estatus" id="estatus" min="1" max="3">
 		</div>
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="analista">Analista</label>
-			<textarea class="campo__field campo__field--textarea" id="analista"></textarea>
+			<input class="campo__field" type="text" name="idAnalista" id="idAnalista" list="analista" >
+			<?php
+				require_once("../includes/dbh.inc.php");
+
+				$query="SELECT idRepresentante FROM Agente";
+
+				echo "<datalist id='analista'>";
+				$sql=mysqli_query($conn,$query);
+				while ($reg=mysqli_fetch_object($sql)){
+				echo "<option>$reg->idRepresentante";
+				}
+				echo "</datalist>";				
+			?>
 		</div>
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="divisa">Divisa</label>
-			<textarea class="campo__field campo__field--textarea" id="divisa"></textarea>
+			<input class="campo__field" type="text" name="divisa" id="divisa" >
 		</div>
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="lim_credito">Límite de crédito</label>
-			<textarea class="campo__field campo__field--textarea" id="lim_credito"></textarea>
+			<input class="campo__field" type="number" name="limCredito" id="limCredito" >
 		</div>
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="saldoOrden">Saldo orden</label>
-			<textarea class="campo__field campo__field--textarea" id="saldoOrden"></textarea>
+			<input class="campo__field" type="number" name="saldoOrden" id="saldoOrden" >
 		</div>
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="saldoFact">Saldo factura</label>
-			<textarea class="campo__field campo__field--textarea" id="saldoFact"></textarea>
+			<input class="campo__field" type="number" name="saldoFactura" id="saldoFactura" >
+		</div>
+
+		<div class="campo">
+			<label class="campo__label" for="bloqueo">Bloqueo</label>
+			<input class="campo__field" type="checkbox" name="bloqueo" id="bloqueo" value="1" >
 		</div>
 
 		<div class="campo__3--button">
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
-			<input class="campo__field button--blue" type="submit" value="Baja">
-			<input class="campo__field button--blue" type="submit" value="Alta">
+			<input class="campo__field button--blue" type="submit" name= "B_cliente" value="Baja">
+			<input class="campo__field button--blue" type="submit" name= "A_cliente" value="Alta">
 		</div>
 	</form>
 </div>
