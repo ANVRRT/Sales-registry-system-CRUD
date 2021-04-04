@@ -9,24 +9,22 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Bloqueo de clientes</title>
-
     </head>
     <body>
         <div class="fix-margin">
-            <form action="#" method="POST" class="formulario">
-                <br>
-                <h2>Bloqueo de clientes</h2>
-                <br>
-                <table style="width:100%" class="table">
-                    <thead class="thead-light">
-                        <tr>
-                            <th><label class="campo__label" >Disponibles</label></th>
-                            <th><label class="campo__label" >Bloqueados</label></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
+        <br>
+            <h2>Bloqueo de clientes</h2>
+            <br>
+            <table style="width:100%" class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th><label class="campo__label" >Disponibles</label></th>
+                        <th><label class="campo__label" >Bloqueados</label></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
                             <table style="width: 100%;">
                             <?php
                                 $clientesD = disClients($conn, 0, $_SESSION["idCompania"]);
@@ -54,7 +52,6 @@
                             ?>
                             </table>
                             </td>
-                            
                             <td>
                             <table style="width: 100%;">
                             <?php
@@ -82,11 +79,10 @@
                                 }
                             ?>
                             </table>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>
