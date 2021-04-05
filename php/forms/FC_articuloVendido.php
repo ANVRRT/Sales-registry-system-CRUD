@@ -5,15 +5,13 @@
 
 		<div class="campo">
 			<label class="campo__label" for="folio">Folio</label>
-			<input class="campo__field" name="folio" type="text" id="folio">
+			<input class="campo__field" name="folio" type="text" id="folio" require>
 		</div>
 		<div class="campo">
 			<label class="campo__label" for="idArticulo">ID Artículo</label>
-			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos">
+			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos" require>
 			<?php
-				require_once("../includes/dbh.inc.php");
 
-				require_once("../includes/functions_catalogos.php");
 				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='articulos'>";
@@ -47,7 +45,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="codAviso">Código Aviso</label>
-			<input class="campo__field" name="codAviso" type="text" id="codAviso">
+			<input class="campo__field" name="codAviso" type="text" id="codAviso" require>
 		</div>
 
 		<div class="campo">

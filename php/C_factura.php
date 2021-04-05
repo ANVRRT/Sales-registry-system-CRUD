@@ -3,6 +3,8 @@
 
 <head>
     <?php
+        require_once("../includes/dbh.inc.php");
+        require_once("../includes/functions_catalogos.php");
         include("../includes/header.php");
     ?>
 	<link rel="stylesheet" href="../css/styles-capOrden.css">
@@ -50,7 +52,19 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("FC_factura.php");
+                                include("forms/FC_factura.php");
+                                if(isset($_GET["error"]))
+                                {
+                                    if($_GET["error"] == "success")
+                                    {
+                                        echo "<p style='color: black;'> ¡Operación exitosa! </p>";
+                                    }
+                                    if($_GET["error"] == "sqlerror")
+                                    {
+                                        echo "<p style='color: black;'> ¡Algo ocurrio mal! </p>";
+                                    }
+
+                                }
                             ?>
                         </div>
                     </div>

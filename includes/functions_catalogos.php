@@ -171,7 +171,46 @@ function dispAlmacen($conn, $idCompania){
 
     mysqli_stmt_close($stmt);
 }
+function dispClientes($conn, $idCompania)
+{
+    $sql="SELECT * FROM Cliente WHERE idCompania=?";
 
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "s", $idCompania);
+    mysqli_stmt_execute($stmt);
+  
+    $resultData = mysqli_stmt_get_result($stmt);
+  
+    return $resultData;
+
+    mysqli_stmt_close($stmt);
+}
+
+
+function dispFolios($conn, $idCliente)
+{
+    $sql="SELECT folio FROM ArticuloVendido WHERE idCliente=?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "s", $idCliente);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+  
+    return $resultData;
+
+    mysqli_stmt_close($stmt);
+}
 
 function createArtExistente($conn,$idArticulo,$idCompania,$descripcion,$costo){
     $sql = "INSERT INTO ArticuloExistente VALUES(?,?,?,?);";
@@ -483,60 +522,6 @@ function deleteInventario($conn,$idArticulo,$idCompania){
         exit();
     }
 }
-function dispClientes($conn, $idCompania)
-{
-    $sql="SELECT * FROM Cliente WHERE idCompania=?";
-
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt,$sql))
-    {
-        header("location: ../php/index.php?error=stmtfailed");
-        exit();
-    }
-    mysqli_stmt_bind_param($stmt, "s", $idCompania);
-    mysqli_stmt_execute($stmt);
-
-    $resultData = mysqli_stmt_get_result($stmt);
-    if(mysqli_fetch_assoc($resultData))
-    {
-        return $resultData;
-    }
-    else{
-        $result = "No hay clientes existentes para esta compañia";
-        return $result;
-    }
-
-    mysqli_stmt_close($stmt);
-}
-
-
-function dispFolios($conn, $idCliente)
-{
-    $sql="SELECT folio FROM ArticuloVendido WHERE idCliente=?";
-
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt,$sql))
-    {
-        header("location: ../php/index.php?error=stmtfailed");
-        exit();
-    }
-    mysqli_stmt_bind_param($stmt, "s", $idCliente);
-    mysqli_stmt_execute($stmt);
-
-    $resultData = mysqli_stmt_get_result($stmt);
-    if(mysqli_fetch_assoc($resultData))
-    {
-        return $resultData;
-    }
-    else{
-        $result = "No hay clientes existentes";
-        return $result;
-    }
-
-    mysqli_stmt_close($stmt);
-}
-
-
 function createFactura($conn,$numFact,$idCompania,$idOrden,$idArticulo,$idCliente,$folio,$entrega,$tipoTrans,$fechaFac)
 {
     $sql = "INSERT INTO Factura VALUES(?,?,?,?,?,?,?,?,?);";
