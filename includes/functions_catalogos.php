@@ -135,7 +135,7 @@ function dispRepresentante($conn, $idCompania){
 }
 
 function dispListaPrecios($conn, $idCompania){
-    $sql="SELECT * FROM ListaPrecio WHERE idCompania = ?";
+    $sql="SELECT DISTINCT idLista FROM ListaPrecio WHERE idCompania = ?";
     
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
