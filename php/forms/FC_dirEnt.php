@@ -61,7 +61,7 @@
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="observacion-orden">Observaciones de la Orden</label>
-			<textarea class="campo__field campo__field--textarea" name="observacion-orden" id="observacion-orden"></textarea>
+			<input  type="text" class="campo__field" name="observaciones" id="observaciones">
 		</div>
 
 		<div class="campo">

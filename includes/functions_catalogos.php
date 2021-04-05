@@ -58,11 +58,11 @@ if(isset($_POST["B_Compania"])){
     deleteCompania($conn,$_POST["idCompania"]);
 }
 if(isset($_POST["A_dirEnt"])){ //DirEnt
-     createDirEnt($conn,$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$_POST["nombreEntrega"],$_POST["direccion"],
-     $_POST["municipio"],$_POST["estado"],$_POST["telefono"],$_POST["observacion-orden"],$_POST["codpost"],$_POST["codruta"],$_POST["pais"],$_POST["rfc"]);
+     createDirEnt($conn,$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$_POST["nombreEntrega"],$_POST["direccion"],$_POST["municipio"],$_POST["estado"],$_POST["telefono"],$_POST["observaciones"],$_POST["codpost"],$_POST["codruta"],$_POST["pais"],$_POST["rfc"]);
+     
  }
 if(isset($_POST["B_dirEnt"])){
-     deleteDirEnt($conn,$_POST["idCliente"],$_POST["dirEnt"]);
+     deleteDirEnt($conn,$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"]);
  }
 // if(isset($_POST["A_artE"])){ //Factura
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
@@ -460,6 +460,29 @@ function createDirEnt($conn,$idCompania,$idCliente,$dirEnt,$nombreEntrega,$direc
     {
         mysqli_stmt_close($stmt);
         header("location: ../php/C_dirEnt.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_dirEnt.php?error=sqlerror");
+        exit();
+    }
+}
+function deleteDirEnt($conn,$idCompania,$idCliente,$dirEnt){
+    $sql = "DELETE FROM DirEnt WHERE idCompania = ? AND idCliente = ? AND dirEnt = ?";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "sss",$idCompania,$idCliente,$dirEnt);
+
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_dirEnt.php?error=success2");
         exit();
     }
     else{
