@@ -95,8 +95,17 @@ if(isset($_POST["B_listPrecios"])){
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
+if(isset($_GET["listado"])){
+    $entrada = $_GET["entrada"];
+    if($_GET["listado"] == "dispListaPreciosByCliente"){
 
+        dispListaPreciosByCliente($conn,$entrada);
+    }
+    if($_GET["listado"] == "dispOrdenByCliente"){
 
+        dispOrdenByCliente($conn,$entrada);
+    }
+}
 function dispArticulos($conn, $idCompania){
     $sql="SELECT * FROM ArticuloExistente WHERE idCompania = ?";
 
@@ -150,6 +159,46 @@ function dispListaPrecios($conn, $idCompania){
     return $resultData;
 
 
+    mysqli_stmt_close($stmt);
+}
+function dispListaPreciosByCliente($conn, $entrada){
+    $sql="SELECT * FROM Cliente WHERE idCliente=?";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $entrada);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    while($row = mysqli_fetch_assoc($resultData))
+    {
+        echo "<option>".$row["idLista"]."</option>";
+
+    }
+    mysqli_stmt_close($stmt);
+}
+function dispOrdenByCliente($conn, $entrada){
+    $sql="SELECT * FROM Orden WHERE idCliente=?";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $entrada);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    while($row = mysqli_fetch_assoc($resultData))
+    {
+        echo "<option>".$row["idOrden"]."</option>";
+
+    }
     mysqli_stmt_close($stmt);
 }
 
