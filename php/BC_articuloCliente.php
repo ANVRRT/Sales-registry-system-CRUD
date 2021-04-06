@@ -4,6 +4,7 @@
 <head>
     <?php
         include("../includes/header.php");
+        require_once("../includes/dbh.inc.php");
     ?>
     <link rel="stylesheet" href="../css/styles-capOrden.css">
     <link rel="stylesheet" href="../css/normalize.css">
@@ -46,11 +47,46 @@
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
 
                 </div> -->
+
                 <div class="container-fluid"> 
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
                                 include("forms/FB_articuloCliente.php");
+                            	if(isset($_POST["Buscar"])){
+                            		$idCliente=$_POST["idCliente"];
+                            		$query = "SELECT ArticuloVendido.idArticulo, ArticuloExistente.descripcion FROM ArticuloVendido, ArticuloExistente WHERE ArticuloVendido.idCliente='$idCliente' AND ArticuloVendido.idArticulo = ArticuloExistente.idArticulo";
+									$sql=mysqli_query($conn,$query);
+                            		echo "<div class='card shadow mb-4'>
+					                        <div class='card-header py-3'>
+					                            <h6 class='m-0 font-weight-bold text-primary'>Artículos del cliente $idCliente</h6>
+					                        </div>
+					                        <div class='card-body'>
+					                            <div class='table-responsive'>
+					                                <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
+					                                    <thead>
+					                                        <tr align='center'>
+					                                            <th>ID Artículo</th><!---->
+					                                            <th>Descripción</th><!---->
+					                                        </tr>
+					                                    </thead>
+					                                    
+					                                    <tbody>";
+					                while ($reg=mysqli_fetch_object($sql)){
+					                                        echo "	<tr>
+					                                        			<td align='center'>$reg->idArticulo</td>
+					                                        			<td align='center'>$reg->descripcion</td>
+					                                        		</tr>";
+					                                    }
+
+									echo " 
+					                                        
+					                                    </tbody>
+					                                </table>
+					                            </div>
+					                        </div>
+					                    </div>";
+                            	}
                             ?>
                         </div>
                     </div>
