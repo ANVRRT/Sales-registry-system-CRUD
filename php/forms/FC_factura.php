@@ -1,11 +1,11 @@
 <div class="formulario">
 	<h1 class="h1-mine">Facturas</h1>
 
-	<form class="formulario" method="POST" action="../includes/functions_catalogos.php">
+	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 
 		<div class="campo">
 			<label class="campo__label" for="idCliente">ID Cliente</label>
-			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="clientes" onblur="AjaxFunction('dispOrdenByCliente',document.getElementById('idCliente').value,document.getElementById('idOrdenlist'))">
+			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="clientes" onblur="AjaxFunction('dispOrdenByCliente','idCliente','idOrdenlist')">
 			<?php
 				$reg = dispClientes($conn,$_SESSION["idCompania"]);
 				

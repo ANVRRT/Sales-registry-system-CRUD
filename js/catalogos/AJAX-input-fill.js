@@ -30,12 +30,12 @@ function AjaxFunction(listado,inputFieldGet,inputFieldPrint)
     {
         if(httpxml.readyState==4)
         {
-            inputFieldPrint.innerHTML=httpxml.responseText;
+            document.getElementById(inputFieldPrint).innerHTML=httpxml.responseText;
             // alert(inputFieldPrint.innerHTML=httpxml.responseText);
         }
     }
     var url="../includes/functions_catalogos.php";
-    var entrada = inputFieldGet;
+    var entrada = document.getElementById(inputFieldGet).value;
     // alert(entrada);
     url=url+"?listado="+listado+"&entrada="+entrada;
     // alert(url);
