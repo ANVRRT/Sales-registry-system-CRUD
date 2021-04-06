@@ -5,6 +5,7 @@
     <?php
         include("../includes/header.php");
         require_once("../includes/dbh.inc.php");
+        require_once("../includes/functions_catalogos.php");
     ?>
     <link rel="stylesheet" href="../css/styles-capOrden.css">
     <link rel="stylesheet" href="../css/normalize.css">
@@ -53,10 +54,10 @@
                         <div class="card-body">
                             <?php
                                 include("forms/FB_articuloCliente.php");
-                            	if(isset($_POST["Buscar"])){
+                            	if(isset($_POST["Buscar_articuloCliente"])){
                             		$idCliente=$_POST["idCliente"];
-                            		$query = "SELECT ArticuloVendido.idArticulo, ArticuloExistente.descripcion FROM ArticuloVendido, ArticuloExistente WHERE ArticuloVendido.idCliente='$idCliente' AND ArticuloVendido.idArticulo = ArticuloExistente.idArticulo";
-									$sql=mysqli_query($conn,$query);
+                            		$idCompania=$_SESSION["idCompania"];
+                            		$reg = buscarArticuloCliente($conn, $idCliente, $idCompania);
                             		echo "<div class='card shadow mb-4'>
 					                        <div class='card-header py-3'>
 					                            <h6 class='m-0 font-weight-bold text-primary'>Artículos del cliente $idCliente</h6>
@@ -72,10 +73,10 @@
 					                                    </thead>
 					                                    
 					                                    <tbody>";
-					                while ($reg=mysqli_fetch_object($sql)){
+					                while ($row=mysqli_fetch_assoc($reg)){
 					                                        echo "	<tr>
-					                                        			<td align='center'>$reg->idArticulo</td>
-					                                        			<td align='center'>$reg->descripcion</td>
+					                                        			<td align='center'>".$row["idArticulo"]."</td>
+					                                        			<td align='center'>".$row["descripcion"]."</td>
 					                                        		</tr>";
 					                                    }
 
