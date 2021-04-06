@@ -64,7 +64,7 @@
                                             <th>Facturas</th>
                                             <th>Stock</th>
                                             <th>Orden de compra</th>
-                                            <th>Autorización</th>
+                                            <th>Actualización</th>
                                         </tr>
                                     </thead>
                                     
@@ -84,7 +84,7 @@
                                             
                                             <td></td>
                                             <td></td>
-                                            <td align="center"><input name="autorizar" type="button" value="Autorizar orden" class="btn btn-primary"></td>
+                                            <td align="center"><input name="actualizar" type="button" value="Actualizar orden" class="btn btn-primary"></td>
                                             
                                         </tr>
                                        
