@@ -61,5 +61,18 @@ if (isset($_SESSION["permisos"])) {
 			<input class="campo__field button--blue" type="submit" value="Baja" >
 			<input class="campo__field button--blue" type="submit" value="Alta">
 		</div>
+
+		<div>
+			<input id="city2" type="text" onblur="AjaxFunction('dispListaPreciosByCliente',document.getElementById('city2').value,document.getElementById('city1'))" >
+
+			<input id="city" list="city1" >
+			<datalist id="city1" >
+			</datalist>
+
+			<!-- <input type=button onclick="AjaxFunction('dispListaPrecios')" value='Add Options'> -->
+
+		
+		
+		</div>
 	</form>
 </div>
