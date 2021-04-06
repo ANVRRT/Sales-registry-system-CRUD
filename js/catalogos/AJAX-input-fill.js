@@ -31,14 +31,14 @@ function AjaxFunction(listado,inputFieldGet,inputFieldPrint)
         if(httpxml.readyState==4)
         {
             inputFieldPrint.innerHTML=httpxml.responseText;
-            alert(inputFieldPrint.innerHTML=httpxml.responseText);
+            // alert(inputFieldPrint.innerHTML=httpxml.responseText);
         }
     }
     var url="../includes/functions_catalogos.php";
     var entrada = inputFieldGet;
-    alert(entrada);
+    // alert(entrada);
     url=url+"?listado="+listado+"&entrada="+entrada;
-    alert(url);
+    // alert(url);
     httpxml.onreadystatechange=stateck;
     httpxml.open("GET",url,true);
     httpxml.send(null);

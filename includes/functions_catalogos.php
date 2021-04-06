@@ -101,16 +101,11 @@ if(isset($_GET["listado"])){
 
         dispListaPreciosByCliente($conn,$entrada);
     }
-}
-
-if(isset($_GET["listado"])){
-    $entrada = $_GET["entrada"];
     if($_GET["listado"] == "dispOrdenByCliente"){
 
         dispOrdenByCliente($conn,$entrada);
     }
 }
-
 function dispArticulos($conn, $idCompania){
     $sql="SELECT * FROM ArticuloExistente WHERE idCompania = ?";
 
