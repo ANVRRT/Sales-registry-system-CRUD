@@ -45,7 +45,7 @@
 				$reg = dispListaPrecios($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='listaPrecio'>";
-				if($row = mysqli_fetch_assoc($reg))
+				while($row = mysqli_fetch_assoc($reg))
 				{
 					echo "<option>".$row["idLista"]."</option>";
 

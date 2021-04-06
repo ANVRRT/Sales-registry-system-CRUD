@@ -50,7 +50,7 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("FO_capturar.php");
+                                include("forms/FO_capturar.php");
                             ?>
                         </div>
                     </div>
