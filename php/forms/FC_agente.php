@@ -6,9 +6,6 @@
 			<label class="campo__label" for="idRepresentante">ID Representante</label>
 			<input class="campo__field" type="text" name="idRepresentante" id="idRepresentante" list="representante" required>
 			<?php
-				require_once("../includes/dbh.inc.php");
-
-				require_once("../includes/functions_catalogos.php");
 				$reg = dispRepresentante($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='representante'>";
