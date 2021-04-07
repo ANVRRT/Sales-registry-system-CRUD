@@ -75,7 +75,7 @@
                                                 <th>Orden de compra</th>
                                                 <!-- <th>Stock</th> -->
                                                 <th>Nota</th>
-                                                <th>Autorización</th>
+                                                <th>Actualización</th>
                                             </tr>
                                         </thead>
 
@@ -107,8 +107,8 @@
                                             // <!-- <td>0</td> -->
                                             echo "<td id='nota'></td>";
                                             echo "<td align='center'>";
-                                            echo "<input type='button' class='btn btn-primary'  data-toggle='modal' data-target='#ventana' value='Autorizar Orden' onClick='returnDataIntoPOW(document.getElementById(\"" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["idArticulo"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["cantidad"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["precio"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["fechaSolicitud"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["fechaEntrega"] . "_" . $row["idOrden"] . "\").innerHTML);'> ";
-                                            // <!--<button onClick="abrir()" id="btn-abrir-popup" type="button" class="btn btn-primary">Autorizar orden</button>-->
+                                            echo "<input type='button' class='btn btn-primary'  data-toggle='modal' data-target='#ventana' value='Actualizar Orden' onClick='returnDataIntoPOW(document.getElementById(\"" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["idArticulo"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["cantidad"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["precio"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["fechaSolicitud"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["fechaEntrega"] . "_" . $row["idOrden"] . "\").innerHTML);'> ";
+                                            // <!--<button onClick="abrir()" id="btn-abrir-popup" type="button" class="btn btn-primary">Actualizar orden</button>-->
                                             echo "</td>";
                                             echo "</tr>";
                                             ?>
@@ -139,8 +139,8 @@
                                             // <!-- <td>0</td> -->
                                             echo "<td id='nota'></td>";
                                             echo "<td align='center'>";
-                                            echo "<input type='button' class='btn btn-primary'  data-toggle='modal' data-target='#ventana' value='Autorizar Orden' onClick='returnDataIntoPOW(document.getElementById(\"" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["idArticulo"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["cantidad"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["precio"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["fechaSolicitud"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["fechaEntrega"] . "_" . $row["idOrden"] . "\").innerHTML);'> ";
-                                            // <!--<button onClick="abrir()" id="btn-abrir-popup" type="button" class="btn btn-primary">Autorizar orden</button>-->
+                                            echo "<input type='button' class='btn btn-primary'  data-toggle='modal' data-target='#ventana' value='Actualizar Orden' onClick='returnDataIntoPOW(document.getElementById(\"" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["idArticulo"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["cantidad"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["precio"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["fechaSolicitud"] . "_" . $row["idOrden"] . "\").innerHTML,document.getElementById(\"" . $row["fechaEntrega"] . "_" . $row["idOrden"] . "\").innerHTML);'> ";
+                                            // <!--<button onClick="abrir()" id="btn-abrir-popup" type="button" class="btn btn-primary">Actualizar orden</button>-->
                                             echo "</td>";
                                             echo "</tr>";
                                             ?>
@@ -181,7 +181,7 @@
                     <table width="100%">
                         <form name="f_popup" method="POST" action="../includes/functions_autorizaciones.php">
                             <div class="modal-header">
-                                <h5 class="titlePop" align="center">¿Estas seguro que deseas Autorizar la orden
+                                <h5 class="titlePop" align="center">¿Estas seguro que deseas Actualizar la orden
                                     <input style="text-align: center;" class="titleorden" name="PO_ORD" id="PO_ORD" size="12%" readonly> del articulo
                                     <input style="text-align: center;" class="titleorden" name="PO_ART" id="PO_ART" size="12%" readonly>?
                                 </h5>
@@ -218,7 +218,7 @@
                             <div>
                                 <tr>
                                     <td style="text-align: center;"><button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button></td>
-                                    <td style="text-align: center;"><input type="submit" name="A_VTA" class="btn btn-primary" value="Autorizar"></td>
+                                    <td style="text-align: center;"><input type="submit" name="A_VTA" class="btn btn-primary" value="Actualizar"></td>
                                     
                                     <!-- <input class="campo__field button--blue" name="A_almacen" type="submit" value="Alta"> -->
 
