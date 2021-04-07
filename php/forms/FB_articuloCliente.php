@@ -2,7 +2,7 @@
 <div class="fix-margin">
     <h1 class="h1-mine">Busqueda de Artículos de Cliente</h1>
 
-    <form class="formulario" style="min-height:18rem" method="POST" action="../php/BC_articuloCliente.php">
+    <form class="formulario" style="min-height:18rem" method="POST" action="../php/BC_articuloCliente.php" autocomplete="off">
 
         <div class="campo">
             <label class="campo__label" for="idCliente">Cliente</label>
