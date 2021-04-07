@@ -1,161 +1,127 @@
-<?php
-require_once("../includes/dbh.inc.php");
-?>
-###clave de todo
-<?php
-$pag=include("forms/FB_articuloCliente.php");
-echo "$pag";
-?>
-###
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <script src="../vendor/chart.js/Chart.min.js"></script>
-        <script src="../js/html2pdf.bundle.min.js"></script>
-        <script src="../js/conversionPDF.js"></script>
-        <title>Document</title>
-    </head>
-    <body>
-    <button id="btnPdf">Descargar reporte</button>
-    <button onclick="generatePDF()">Download as PDF</button>
+<head>
+    <?php
+        include("../includes/header.php");
+        require_once("../includes/dbh.inc.php");
+        require_once("../includes/functions_catalogos.php");
+    ?>
+    <link rel="stylesheet" href="../css/styles-capOrden.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+</head>
 
-        <div id="canvas-holder" name="grafica">
-            <canvas id="myBarChart" width="100" height="600"></canvas>
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div >
+            
+            <?php
+                include("../includes/sidebar.php")
+            ?>
+            
+            
         </div>
+        
+        <!-- End of Sidebar -->
 
-        <script>
-        // Set new default font family and font color to mimic Bootstrap's default styling
-Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = '#858796';
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-function number_format(number, decimals, dec_point, thousands_sep) {
-  // *     example: number_format(1234.56, 2, ',', ' ');
-  // *     return: '1 234,56'
-  number = (number + '').replace(',', '').replace(' ', '');
-  var n = !isFinite(+number) ? 0 : +number,
-    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-    sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-    s = '',
-    toFixedFix = function(n, prec) {
-      var k = Math.pow(10, prec);
-      return '' + Math.round(n * k) / k;
-    };
-  // Fix for IE parseFloat(0.55).toFixed(0) = 0;
-  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-  if (s[0].length > 3) {
-    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-  }
-  if ((s[1] || '').length < prec) {
-    s[1] = s[1] || '';
-    s[1] += new Array(prec - s[1].length + 1).join('0');
-  }
-  return s.join(dec);
-}
+            <!-- Main Content -->
+            <div id="content">
 
-// Bar Chart Example
-var ctx = document.getElementById("myBarChart");
-var myBarChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: [
-        <?php
-                        $sql="SELECT * FROM ArticuloExistente";
-                        //$sql="SELECT * FROM Factura,ArticuloExistente WHERE ArticuloExistente.idArticulo=Factura.idArticulo";
-                        $stmt = mysqli_stmt_init($conn);
-                        if (!mysqli_stmt_prepare($stmt,$sql))
-                        {
-                            header("location: ../php/index.php?error=stmtfailed");
-                            exit();
-                        }
-                        //mysqli_stmt_bind_param($stmt,"is", $estado, $compania);
-                        mysqli_stmt_execute($stmt);
+                <!-- Topbar -->
+                <?php
+                    include("../includes/topbar.php");
+                ?>
+                <!-- End of Topbar -->
 
-                        $resultData = mysqli_stmt_get_result($stmt);
-                        mysqli_stmt_close($stmt);
-                        //return $resultData;
-                        while($row = mysqli_fetch_assoc($resultData))
-                        {
-                        ?>
-                            '<?php echo $row["descripcion"];?>',
-                        <?php
-                        }
-                        ?>
-    ],
-    datasets: [{
-      label: "Revenue",
-      backgroundColor: "#4e73df",
-      hoverBackgroundColor: "#2e59d9",
-      borderColor: "#4e73df",
-      data: [
-        <?php
-                        $sql="SELECT * FROM ArticuloExistente";
-                        //$sql="SELECT * FROM Factura,ArticuloExistente WHERE ArticuloExistente.idArticulo=Factura.idArticulo";
-                        $stmt = mysqli_stmt_init($conn);
-                        if (!mysqli_stmt_prepare($stmt,$sql))
-                        {
-                            header("location: ../php/index.php?error=stmtfailed");
-                            exit();
-                        }
-                        //mysqli_stmt_bind_param($stmt,"is", $estado, $compania);
-                        mysqli_stmt_execute($stmt);
+                <!-- Begin Page Content -->
+                <!-- <div class="container-fluid">
 
-                        $resultData = mysqli_stmt_get_result($stmt);
-                        mysqli_stmt_close($stmt);
-                        //return $resultData;
-                        while($row = mysqli_fetch_assoc($resultData))
-                        {
-                        ?>
-                            '<?php echo $row["idArticulo"];?>',
-                        <?php
-                        }
-                        ?>
-      ],
-    }],
-  },
-  options: {
-    maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 10,
-        right: 10,
-        top: 25,
-        bottom: 0
-      }
-    },
-    scales: {
-      datasets:[{
-          maxBarThickness: 1
-      }]
-    },
-    legend: {
-      display: false
-    },
-    tooltips: {
-      titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
-      titleFontSize: 14,
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      caretPadding: 10,
-      callbacks: {
-        label: function(tooltipItem, chart) {
-          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
-        }
-      }
-    },
-  }
-});
-        </script>
-    </body>
+                    
+                    Page Heading
+                    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+
+                </div> -->
+
+                <div class="container-fluid"> 
+                    <div class="col-lg-12">
+                        <div class="card-body">
+                            <?php
+                            	if(isset($_POST["Generar"])){
+                                    echo "<div class='fix-margin'>";
+                            		include("R_graficaEjemplo.php");
+                                    echo "</div>";
+                            	}
+                                else{
+                                    include("forms/FR_seleccionReporte.php");
+                                }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="../js/sb-admin-2.min.js"></script>
+
+</body>
+
 </html>
