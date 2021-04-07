@@ -61,7 +61,7 @@
                                             <th>CXC</th>
                                             <th>Facturas</th>
                                             <th>Stock</th>
-                                            <th>Autorizar</th>
+                                            <th>Actualizar</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -78,7 +78,7 @@
                                             <th>CXC</th>
                                             <th>Facturas</th>
                                             <th>Stock</th>
-                                            <th>Autorizar</th>
+                                            <th>Actualizar</th>
                                         </tr>
                                     </tfoot>
                                     </tbody>
@@ -95,7 +95,7 @@
                                             <td><input type="checkbox"></td>
                                             <td><a>1032</a></td>
                                             <td>0</td>
-                                            <td><input type="button" value="Autorizar Orden" class="btn btn-primary"></td>
+                                            <td align="center"><input name="actualizar" type="button" value="Actualizar orden" class="btn btn-primary"></td>
                                         </tr>
                                     </tbody>
                                 </table>

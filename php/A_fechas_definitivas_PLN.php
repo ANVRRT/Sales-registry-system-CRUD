@@ -61,7 +61,7 @@
                                             <th>Fecha Entrega</th>
                                             <th>Pln</th>
                                             <th>Nota</th>
-                                            <th>Autorización</th>
+                                            <th>Actualización</th>
                                         </tr>
                                     </thead>
                                     
@@ -77,7 +77,7 @@
                                             <td>26/ENE/2018</td>
                                             <td align="center"><input  type="checkbox" name="cxc"></td>
                                             <td>Favor de respetar fecha del cliente</td>                                           
-                                            <td align="center"><input name="autorizar" type="button" value="Autorizar orden" class="btn btn-primary"></td>
+                                            <td align="center"><input name="actualizar" type="button" value="Actualizar orden" class="btn btn-primary"></td>
                                             
                                         </tr>
                                        
