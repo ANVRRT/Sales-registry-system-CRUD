@@ -146,6 +146,101 @@ function dispCompania($conn){
     mysqli_stmt_close($stmt);
 }
 
+function dispInventario($conn, $idCompania){
+    $sql="SELECT * FROM Inventario WHERE idCompania = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    return $resultData;
+
+
+    mysqli_stmt_close($stmt);
+}
+
+function dispArticuloVendido($conn, $idCompania){
+    $sql="SELECT * FROM ArticuloVendido WHERE idCompania = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    return $resultData;
+
+
+    mysqli_stmt_close($stmt);
+}
+
+function dispDirEnt($conn, $idCompania){
+    $sql="SELECT * FROM DirEnt WHERE idCompania = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    return $resultData;
+
+
+    mysqli_stmt_close($stmt);
+}
+
+function dispFactura($conn, $idCompania){
+    $sql="SELECT * FROM Factura WHERE idCompania = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    return $resultData;
+
+
+    mysqli_stmt_close($stmt);
+}
+
+function dispCantidadE($conn, $idCompania){
+    $sql="SELECT * FROM CantEntregada WHERE idCompania = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    return $resultData;
+
+
+    mysqli_stmt_close($stmt);
+}
+
 function dispArticulos($conn, $idCompania){
     $sql="SELECT * FROM ArticuloExistente WHERE idCompania = ?";
 
@@ -166,6 +261,25 @@ function dispArticulos($conn, $idCompania){
 }
 function dispRepresentante($conn, $idCompania){
     $sql="SELECT * FROM Agente WHERE idCompania = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    return $resultData;
+
+
+    mysqli_stmt_close($stmt);
+}
+
+function dispListaPrecioCompleta($conn, $idCompania){
+    $sql="SELECT * FROM ListaPrecio WHERE idCompania = ?";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
