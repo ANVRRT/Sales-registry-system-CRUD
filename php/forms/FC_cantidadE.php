@@ -2,7 +2,7 @@
 <div class="fix-margin">
 	<h1 class="h1-mine">Cantidad Entregada</h1>
 
-	<form class="formulario">
+	<form class="formulario" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="id_com">ID Compañia</label>
 			<input class="campo__field" type="text" id="id_com">

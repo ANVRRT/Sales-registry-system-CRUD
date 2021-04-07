@@ -1,7 +1,7 @@
 <div class="fix-margin">
 	<h1 class="h1-mine">Capturar Almacen</h1>
 
-	<form class="formulario"  method="POST" action="../includes/functions_catalogos.php">
+	<form class="formulario"  method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="idAlmacen">ID Almacen</label>
 			<input class="campo__field" type="text" id="idAlmacen" name="idAlmacen" list="almacen" required>
