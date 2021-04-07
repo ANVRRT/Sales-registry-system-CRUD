@@ -1,4 +1,4 @@
-<div class="formulario">
+<div class="fixed-margin">
 	<h1 class="h1-mine">Facturas</h1>
 
 	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">

@@ -58,23 +58,75 @@
                                             <th>Estatus</th>
                                             <th>Num. Orden compra</th>
                                             <th>Fecha Orden</th>
-                                            <th>tFac</th>
+                                            <?php
+                                            
+                                            
+                                            switch ($_SESSION["rol"]){
+                                                case "ADM":
+                                                    echo "<th>vFac</th>";
+                                                    echo "<th>vCxC</th>";
+                                                    echo "<th>vPRE</th>";
+                                                    echo "<th>vCST</th>";
+                                                    echo "<th>vING</th>";
+                                                    echo "<th>vPLN</th>";
+                                                    echo "<th>vFEC</th>";
+                                                    echo "<th>vServCli</th>";
+                                                    echo "<th>vREP</th>";
+                                                    break;
+                                                case "FAC":
+                                                    echo "<th>vFac</th>";
+                                                    echo "<th>vServCli</th>";
+                                                    echo "<th>vREP</th>";
+                                                    break;
+                                                case "CXC":
+                                                    echo "<th>vCxC</th>";
+                                                    echo "<th>vServCli</th>";
+                                                    echo "<th>vREP</th>";
+                                                    break;
+
+                                                case "VTA":
+                                                    echo "<th>vPRE</th>";
+                                                    echo "<th>vServCli</th>";
+                                                    echo "<th>vREP</th>";
+                                                    break;
+
+                                                case "CST":
+                                                    echo "<th>vCST</th>";
+                                                    echo "<th>vServCli</th>";
+                                                    echo "<th>vREP</th>";
+                                                    break;
+
+                                                case "ING":
+                                                    echo "<th>vING</th>";
+                                                    echo "<th>vServCli</th>";
+                                                    echo "<th>vREP</th>";
+                                                    break;
+
+                                                case "PLN":
+                                                    echo "<th>vPLN</th>";
+                                                    echo "<th>vServCli</th>";
+                                                    echo "<th>vREP</th>";
+                                                    break;
+
+                                                case "FEC":
+                                                    echo "<th>vFEC</th>";
+                                                    break;
+
+
+                                            }
+                                            ?>
+                                            <!-- <th>tFac</th>
                                             <th>tCxC</th>
                                             <th>tPRE</th>
                                             <th>tCST</th>
                                             <th>tING</th>
                                             <th>tPLN</th>
                                             <th>tFEC</th>
-                                            <th>Total</th>
-                                            <th>vFac</th>
-                                            <th>vCxC</th>
-                                            <th>vPRE</th>
-                                            <th>vCST</th>
-                                            <th>vING</th>
-                                            <th>vPLN</th>
-                                            <th>vServCli</th>
-                                            <th>vREP</th>
-                                            <th>vFEC</th>
+                                            <th>Total</th> --> 
+                                            
+                                            
+                                            
+                                            
                                             <th>Autorización</th>
                                         </tr>
                                     </thead>
@@ -86,17 +138,83 @@
                                             <td>A01</td>
                                             <td>01 Ags</td>
                                             <td align="center"><input  type="checkbox" name="estatus" id="estatus"></td>
-                                            <td>0001</td>
+                                            <td>0001</td>-
                                             <td>2021/04/05</td>
-                                            <td>2021/04/02</td>
+                                            <?php
+                                            
+                                            switch ($_SESSION["rol"]){
+                                                case "ADM":
+                                                    
+                                                    echo "<td align='center'><input  type='checkbox' name='vFacturas'   id='vFacturas'></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vCxC'        id='vCxC' ></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vPrecios'    id='vPrecios'></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vCST'        id='vCostos' ></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vIng'        id='vIng'></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vPLN'        id='vPLN'></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vFEC'        id='vFEC'></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vServCli'    id='vServCli' ></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vREP'        id='vREP'></td>";
+                                                    break;
+
+                                                    
+                                                case "FAC":
+                                                    
+                                                    echo "<td align='center'><input  type='checkbox' name='vFacturas'   id='vFacturas'></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vServCli'    id='vServCli' ></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vREP'        id='vREP'></td>";
+                                                    break;
+
+                                                case "CXC":
+                                                    
+                                                    echo "<td align='center'><input  type='checkbox' name='vCxC'        id='vCxC' ></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vServCli'    id='vServCli' ></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vREP'        id='vREP'></td>";
+                                                    break;
+
+                                                case "VTA":
+                                                    
+                                                    echo "<td align='center'><input  type='checkbox' name='vPrecios'    id='vPrecios'></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vServCli'    id='vServCli' ></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vREP'        id='vREP'></td>";
+                                                    break;
+
+                                                case "CST":
+                                                    echo "<td align='center'><input  type='checkbox' name='vCST'        id='vCostos' ></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vServCli'    id='vServCli' ></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vREP'        id='vREP'></td>";
+                                                    break;
+
+                                                case "ING":
+                                                    echo "<td align='center'><input  type='checkbox' name='vIng'        id='vIng'></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vServCli'    id='vServCli' ></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vREP'        id='vREP'></td>";
+                                                    break;
+
+                                                case "PLN":
+                                                    echo "<td align='center'><input  type='checkbox' name='vPLN'        id='vPLN'></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vServCli'    id='vServCli' ></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vREP'        id='vREP'></td>";
+                                                    break;
+
+                                                case "FEC":
+                                                    echo "<td align='center'><input  type='checkbox' name='vFEC'        id='vFEC'></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vServCli'    id='vServCli' ></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vREP'        id='vREP'></td>";
+                                                    break;
+
+
+                                            }
+                                            ?>
+                                            
+                                            <!-- <td>2021/04/02</td>
                                             <td>2021/04/01</td>
                                             <td>2021/04/05</td>
                                             <td>2021/04/04</td>
                                             <td>2021/03/31</td>
                                             <td>2021/04/02</td>
-                                            <td>2021/04/02</td>
-                                            <td>3</td>
-                                            <td align="center"><input  type="checkbox" name="vFacturas"   id="vFacturas"></td>
+                                            <td>2021/04/02</td> -->
+                                            <!-- <td>3</td> -->
+                                            <!-- <td align="center"><input  type="checkbox" name="vFacturas"   id="vFacturas"></td>
                                             <td align="center"><input  type="checkbox" name="vCxC"        id="vCxC" ></td>
                                             <td align="center"><input  type="checkbox" name="vPrecios"    id="vPrecios"></td>
                                             <td align="center"><input  type="checkbox" name="vCostos"     id="vCostos" ></td>
@@ -104,7 +222,7 @@
                                             <td align="center"><input  type="checkbox" name="vPlaneacion" id="vPlaneacion"></td>
                                             <td align="center"><input  type="checkbox" name="vServCli"    id="vServCli" ></td>
                                             <td align="center"><input  type="checkbox" name="vREP"        id="vREP"></td>
-                                            <td align="center"><input  type="checkbox" name="vFEC"        id="vFEC"></td>
+                                            <td align="center"><input  type="checkbox" name="vFEC"        id="vFEC"></td> -->
                                             <td align="center"><input name="autorizar" type="button" value="Autorizar orden" class="btn btn-primary"></td>
                                             
                                         </tr>

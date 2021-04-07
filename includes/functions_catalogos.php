@@ -180,6 +180,8 @@ function dispListaPreciosByCliente($conn, $entrada){
 
     }
     mysqli_stmt_close($stmt);
+    exit();
+
 }
 function dispOrdenByCliente($conn, $entrada){
     $sql="SELECT * FROM Orden WHERE idCliente=?";
@@ -200,6 +202,7 @@ function dispOrdenByCliente($conn, $entrada){
 
     }
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispAlmacen($conn, $idCompania){
