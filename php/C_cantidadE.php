@@ -4,9 +4,11 @@
 <head>
     <?php
         include("../includes/header.php");
+        require_once("../includes/functions_catalogos.php");
     ?>
 	<link rel="stylesheet" href="../css/styles-capOrden.css">
 	<link rel="stylesheet" href="../css/normalize.css">
+    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -51,6 +53,55 @@
                         <div class="card-body">
                             <?php
                                 include("forms/FC_cantidadE.php");
+                                if(isset($_POST["C_cantidadE"])){
+                                    $idCompania = $_SESSION["idCompania"];
+                                    $reg = dispCantidadE($conn,$idCompania);
+                                    echo "<div class='card shadow mb-4'>
+                                            <div class='card-header py-3'>
+                                                <h6 class='m-0 font-weight-bold text-primary'>Listado de Cantidad Entregada</h6>
+                                            </div>
+                                            <div class='card-body'>
+                                                <div class='table-responsive'>
+                                                    <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
+                                                        <thead>
+                                                            <tr align='center'>
+                                                                <th>ID Compañía</th>
+                                                                <th>ID Orden</th><!---->
+                                                                <th>Folio</th><!---->
+                                                                <th>Fecha Mov.</th>
+                                                                <th>Hora</th>
+                                                                <th>Secuencia</th>
+                                                                <th>Tipo Reg.</th>
+                                                                <th>Cantidad</th>
+                                                                <th>ID Artículo</th>
+                                                                <th>Posición</th>
+                                                            </tr>
+                                                        </thead>
+                                                        
+                                                        <tbody>";
+                                    while ($row=mysqli_fetch_assoc($reg)){
+                                                            echo "  <tr>
+                                                                        <td align='center'>".$row["idCompania"]."</td>
+                                                                        <td align='center'>".$row["idOrden"]."</td>
+                                                                        <td align='center'>".$row["folio"]."</td>
+                                                                        <td align='center'>".$row["fechaMov"]."</td>
+                                                                        <td align='center'>".$row["hora"]."</td>
+                                                                        <td align='center'>".$row["secuencia"]."</td>
+                                                                        <td align='center'>".$row["tipoReg"]."</td>
+                                                                        <td align='center'>".$row["cantidad"]."</td>
+                                                                        <td align='center'>".$row["idArticulo"]."</td>
+                                                                        <td align='center'>".$row["posicion"]."</td>
+                                                                    </tr>";
+                                                        }
+
+                                    echo " 
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>";
+                                }
                             ?>
                         </div>
                     </div>
@@ -111,6 +162,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../js/demo/datatables-demo.js"></script>
 
 </body>
 
