@@ -1,7 +1,14 @@
 <div class="fix-margin">
-	<h1 class="h1-mine">Artículo Vendido</h1>
+	<form method="POST" action="../php/C_articuloVendido.php" style="overflow: hidden">
+		<table width="100%">
+			<tr>
+				<td width="50%"><h1 class="h1-mine" style="margin-top:1.6rem">Artículo Vendido</h1></td>
+				<td><input class="campo__field button--blue" type="submit" value="Consultar los Artículos Vendidos" name="C_articuloVendido" style="margin-top:0rem"></td>
+			</tr>
+		</table>
+	</form>
 
-	<form class="formulario" method="POST" action="../includes/functions_catalogos.php">
+	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 
 		<div class="campo">
 			<label class="campo__label" for="folio">Folio</label>
