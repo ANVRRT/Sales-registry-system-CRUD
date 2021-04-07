@@ -40,7 +40,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Autorización de Fechas definitivas CXC</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Autorización Ordenes de Venta (CXC)</h1>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -64,7 +64,7 @@
                                             <th>Facturas</th>
                                             <th>Stock</th>
                                             <th>Orden de compra</th>
-                                            <th>Autorización</th>
+                                            <th>Actualización</th>
                                         </tr>
                                     </thead>
                                     
@@ -84,7 +84,7 @@
                                             
                                             <td></td>
                                             <td></td>
-                                            <td align="center"><input name="autorizar" type="button" value="Autorizar orden" class="btn btn-primary"></td>
+                                            <td align="center"><input name="actualizar" type="button" value="Actualizar orden" class="btn btn-primary"></td>
                                             
                                         </tr>
                                        

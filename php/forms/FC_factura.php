@@ -1,11 +1,11 @@
-<div class="formulario">
+<div class="fixed-margin">
 	<h1 class="h1-mine">Facturas</h1>
 
-	<form class="formulario" method="POST" action="../includes/functions_catalogos.php">
+	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 
 		<div class="campo">
 			<label class="campo__label" for="idCliente">ID Cliente</label>
-			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="clientes">
+			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="clientes" onblur="AjaxFunction('dispOrdenByCliente','idCliente','idOrdenlist')">
 			<?php
 				$reg = dispClientes($conn,$_SESSION["idCompania"]);
 				
@@ -28,7 +28,9 @@
 
 		<div class="campo">
 			<label class="campo__label" for="idOrden">ID Orden</label>
-			<input class="campo__field" type="text" name="idOrden" maxlength="10">
+			<input class="campo__field" type="text" name="idOrden" id="idOrden" maxlength="10" list="idOrdenlist">
+			<datalist id="idOrdenlist" >
+			</datalist>
 		</div>
 
 		<div class="campo">

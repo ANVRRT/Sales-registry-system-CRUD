@@ -36,7 +36,7 @@ if (isset($_SESSION["permisos"])) {
 <div class="fix-margin">
 	<h1 class="h1-mine">Capturar Agente</h1>
 
-	<form name="prueba" class="formulario">
+	<form name="prueba" class="formulario" autocomplete="off">
         <?php
 			$idRepresentante = "A01422954";
             echo "<div class='campo'>";
@@ -60,6 +60,19 @@ if (isset($_SESSION["permisos"])) {
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
 			<input class="campo__field button--blue" type="submit" value="Baja" >
 			<input class="campo__field button--blue" type="submit" value="Alta">
+		</div>
+
+		<div>
+			<input id="city2" type="text" onblur="AjaxFunction('dispListaPreciosByCliente','city2','city1')" >
+
+			<input id="city" list="city1" >
+			<datalist id="city1" >
+			</datalist>
+
+			<!-- <input type=button onclick="AjaxFunction('dispListaPrecios')" value='Add Options'> -->
+
+		
+		
 		</div>
 	</form>
 </div>

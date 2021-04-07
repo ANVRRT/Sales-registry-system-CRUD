@@ -2,7 +2,7 @@
 <div class="fix-margin">
     <h1 class="h1-mine">Busqueda de Ordenes de Venta</h1>
 
-    <form class="formulario">
+    <form class="formulario" autocomplete="off">
 
         <div class="campo">
             <label class="campo__label" for="folio">Folio</label>

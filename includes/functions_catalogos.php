@@ -95,7 +95,37 @@ if(isset($_POST["B_listPrecios"])){
 // if(isset($_POST["B_artE"])){
 //     deleteArtExistente($conn,$_POST["idArticulo"]);
 // }
+if(isset($_GET["listado"])){
+    $entrada = $_GET["entrada"];
+    if($_GET["listado"] == "dispListaPreciosByCliente"){
 
+        dispListaPreciosByCliente($conn,$entrada);
+    }
+    if($_GET["listado"] == "dispOrdenByCliente"){
+
+        dispOrdenByCliente($conn,$entrada);
+    }
+}
+
+
+function buscarArticuloCliente($conn, $idCliente, $idCompania){
+    $sql="SELECT ArticuloVendido.idArticulo, ArticuloExistente.descripcion FROM ArticuloVendido, ArticuloExistente WHERE ArticuloVendido.idCliente=? AND ArticuloVendido.idArticulo = ArticuloExistente.idArticulo AND ArticuloExistente.idCompania=?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"ss", $idCliente, $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    return $resultData;
+
+
+    mysqli_stmt_close($stmt);
+}
 
 function dispArticulos($conn, $idCompania){
     $sql="SELECT * FROM ArticuloExistente WHERE idCompania = ?";
@@ -135,7 +165,7 @@ function dispRepresentante($conn, $idCompania){
 }
 
 function dispListaPrecios($conn, $idCompania){
-    $sql="SELECT * FROM ListaPrecio WHERE idCompania = ?";
+    $sql="SELECT DISTINCT idLista FROM ListaPrecio WHERE idCompania = ?";
     
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -151,6 +181,49 @@ function dispListaPrecios($conn, $idCompania){
 
 
     mysqli_stmt_close($stmt);
+}
+function dispListaPreciosByCliente($conn, $entrada){
+    $sql="SELECT * FROM Cliente WHERE idCliente=?";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $entrada);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    while($row = mysqli_fetch_assoc($resultData))
+    {
+        echo "<option>".$row["idLista"]."</option>";
+
+    }
+    mysqli_stmt_close($stmt);
+    exit();
+
+}
+function dispOrdenByCliente($conn, $entrada){
+    $sql="SELECT * FROM Orden WHERE idCliente=?";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $entrada);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    while($row = mysqli_fetch_assoc($resultData))
+    {
+        echo "<option>".$row["idOrden"]."</option>";
+
+    }
+    mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispAlmacen($conn, $idCompania){

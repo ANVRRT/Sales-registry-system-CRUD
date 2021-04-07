@@ -1,7 +1,7 @@
 <div class="fix-margin">
 	<h1 class="h1-mine">Capturar Orden</h1>
 	
-	<form class="formulario">
+	<form class="formulario" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="cliente">Cliente</label>
 			<input class="campo__field" type="text" id="cliente">
