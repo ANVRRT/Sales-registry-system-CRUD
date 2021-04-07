@@ -1,7 +1,7 @@
 <div class="fix-margin">
 	<h1 class="h1-mine">Capturar Compañia</h1>
 
-	<form class="formulario" method="POST" action="../includes/functions_catalogos.php">
+	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="idCompania">Id Compañia</label>
 			<input class="campo__field" type="text" name="idCompania" id="idCompania">
