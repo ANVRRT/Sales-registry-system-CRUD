@@ -1,19 +1,16 @@
 <div class="fix-margin">
 	<h1 class="h1-mine">Capturar Orden</h1>
 	
-
 	<form class="formulario" id="f_orden" method="POST" action="../includes/functions_orden.php" autocomplete="off">
-	
 		<div class="campo">
 			<label class="campo__label" for="compania">Compañía</label>
 			<?php
 			
 				echo "<input class='campo__field' type='text'name='idCompania' id='idCompania' value='".$_SESSION["idCompania"]."' readonly>";
-				
 			?>
 		</div>
-		<div class="campo">
 
+		<div class="campo">
 			<label class="campo__label" for="cliente"> id Cliente</label>
 			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="cliente" onblur="AjaxFunction('dispDirEntByCLiente','idCliente','dirEntList');AjaxFunction('dispListaPreciosByCliente','idCliente','listaPrecio'); AjaxFunction('dispOrdenByCliente','idCliente','idOrdenlist')"  required>
 			<?php
@@ -30,7 +27,6 @@
 				}
 				echo "</datalist>";
 			?>
-			
 		</div>
 
 		<div class="campo">
@@ -56,9 +52,9 @@
 
 		<div class="campo">
 			<div class="campo__icon">
-				<label class="campo__label" for="articulo">Artículo</label>
-				<button  name="A_articulo"  type="submit"  style="border:none;" >
-					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus campo__icon--icon" width="22" height="22" viewBox="0 0 24 24" stroke-width="2.5" stroke="#36b9cc" fill="none" stroke-linecap="round" stroke-linejoin="round" >
+				<label class="campo__label campo__label--icon" for="articulo">Artículo</label>
+				<button  name="A_articulo"  type="submit"  style="border:none; background: none;" >
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#36b9cc" fill="none" stroke-linecap="round" stroke-linejoin="round" >
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 						<circle cx="12" cy="12" r="9" />
 						<line x1="9" y1="12" x2="15" y2="12" />
@@ -77,7 +73,6 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					echo "<option>".$row["idArticulo"]."</option>";
-
 				}
 				echo "</datalist>";
 			?>

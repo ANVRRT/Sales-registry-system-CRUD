@@ -87,7 +87,7 @@ if (!isset($_SESSION["idUsuario"])) {
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#admin" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-book"></i>
+            <i class="fas fa-users-cog"></i>
             <span>Administracion</span>
         </a>
         <div id="admin" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -112,8 +112,8 @@ if (!isset($_SESSION["idUsuario"])) {
                 <a class="collapse-item" href="C_almacen.php">Almacen</a>
                 <a class="collapse-item" href="C_cliente.php">Cliente</a>
                 <a class="collapse-item" href="C_agente.php">Agente</a>
-                <a class="collapse-item" href="C_articuloExistente.php">Artículo existente</a>
-                <a class="collapse-item" href="C_articuloVendido.php">Artículo vendido</a>
+                <a class="collapse-item" href="C_articuloExistente.php">Artículo Existente</a>
+                <a class="collapse-item" href="C_articuloVendido.php">Artículo Vendido</a>
                 <a class="collapse-item" href="C_dirEnt.php">Dir. Entrega</a>
                 <a class="collapse-item" href="C_listaPrecios.php">Lista Precios</a>
                 <a class="collapse-item" href="C_factura.php">Facturas</a>
@@ -180,7 +180,4 @@ if (!isset($_SESSION["idUsuario"])) {
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
-
-
-
 </ul>

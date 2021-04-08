@@ -1,13 +1,5 @@
-
 <div class="fix-margin">
-	<form method="POST" action="../php/C_inventario.php" style="overflow: hidden">
-		<table width="100%">
-			<tr>
-				<td width="50%"><h1 class="h1-mine" style="margin-top:1.6rem">Inventario</h1></td>
-				<td><input class="campo__field button--blue" type="submit" value="Consultar los inventarios" name="C_inventario" style="margin-top:0rem"></td>
-			</tr>
-		</table>
-	</form>
+	<h1 class="h1-mine">Inventario</h1>
 
 	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">
@@ -63,6 +55,12 @@
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
 			<input class="campo__field button--blue" name="B_inventario" type="submit" value="Baja">
 			<input class="campo__field button--blue" name="A_inventario" type="submit" value="Alta">
+		</div>
+	</form>
+
+	<form method="POST" action="../php/C_inventario.php" style="overflow: hidden">
+		<div class="consultas">
+			<input class="campo__field consultas--button button--blue" type="submit" value="Consultar todo" name="C_inventario">
 		</div>
 	</form>
 </div>

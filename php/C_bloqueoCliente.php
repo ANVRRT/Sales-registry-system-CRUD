@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <?php
@@ -7,7 +7,7 @@
         require_once("../includes/dbh.inc.php");
         require_once("../includes/functions_catalogos.php");
     ?>
-	<link rel="stylesheet" href="../css/styles-capOrden.css">
+	<link rel="stylesheet" href="../css/stylesForms.css">
 	<link rel="stylesheet" href="../css/normalize.css">
 </head>
 
@@ -67,7 +67,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Cartones Corrugados 2020</span>
                     </div>
                 </div>
             </footer>

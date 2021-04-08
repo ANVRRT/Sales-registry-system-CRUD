@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <?php
     include("../includes/header.php");
     ?>
-    <link rel="stylesheet" href="../css/styles-capOrden.css">
+    <link rel="stylesheet" href="../css/stylesForms.css">
     <link rel="stylesheet" href="../css/normalize.css">
     <script type="text/javascript" src="../js/catalogos/AJAX-input-fill.js"></script>
 
@@ -86,7 +86,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Cartones Corrugados 2020</span>
                     </div>
                 </div>
             </footer>
