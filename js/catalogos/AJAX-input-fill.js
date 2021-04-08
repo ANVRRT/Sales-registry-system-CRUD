@@ -1,6 +1,6 @@
 function AjaxFunction(listado,inputFieldGet,inputFieldPrint)
 {
-
+    
     var httpxml;
     try
     {
@@ -47,7 +47,7 @@ function AjaxFunction(listado,inputFieldGet,inputFieldPrint)
 }
 function AjaxFunction2(listado,inputFieldGet,inputFieldGetO,inputFieldPrint)
 {
-
+    
     var httpxml;
     try
     {
@@ -85,7 +85,7 @@ function AjaxFunction2(listado,inputFieldGet,inputFieldGetO,inputFieldPrint)
     var url="../includes/functions_catalogos.php";
     var entrada = document.getElementById(inputFieldGet).value;
     var entrada2 = document.getElementById(inputFieldGetO).value;
-    // alert(entrada);
+    //alert(entrada);
     url=url+"?listado="+listado+"&entrada="+entrada+"&entrada2="+entrada2;
     //alert(url);
     httpxml.onreadystatechange=stateck;

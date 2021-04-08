@@ -14,7 +14,7 @@
 		<div class="campo">
 
 			<label class="campo__label" for="cliente"> id Cliente</label>
-			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="cliente" onblur="AjaxFunction('dispDirEntByCLiente','idCliente','dirEntList'); AjaxFunction('dispOrdenByCliente','idCliente','idOrdenlist')"  required>
+			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="cliente" onblur="AjaxFunction('dispDirEntByCLiente','idCliente','dirEntList');AjaxFunction('dispListaPreciosByCliente','idCliente','listaPrecio'); AjaxFunction('dispOrdenByCliente','idCliente','idOrdenlist')"  required>
 			<?php
 				require_once("../includes/dbh.inc.php");
 
@@ -47,9 +47,16 @@
 		</div>
 
 		<div class="campo">
+			<label class="campo__label" for="idList">Lista de precios a utilizar</label>
+			<input class="campo__field" type="text" name="idList" id="idList" list="listaPrecio">
+			<datalist id="listaPrecio" >
+			</datalist>
+		</div>
+
+		<div class="campo">
 			<div class="campo__icon">
 				<label class="campo__label" for="articulo">Artículo</label>
-				<button id="add_articulo" onclick="addArticulo()" style="border:none;" >
+				<button name="add_articulo"  id="add_articulo" type="submit" style="border:none;" >
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus campo__icon--icon" width="22" height="22" viewBox="0 0 24 24" stroke-width="2.5" stroke="#36b9cc" fill="none" stroke-linecap="round" stroke-linejoin="round" >
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 						<circle cx="12" cy="12" r="9" />
@@ -58,7 +65,7 @@
 					</svg>
 				</button>
 			</div>
-			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulo" onblur="AjaxFunction2('dispFolio','idCliente','idArticulo','folioList')">
+			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulo" onblur="AjaxFunction2('dispFolio','idCliente','idArticulo','folioList');AjaxFunction2('dispPrecio','idList','idArticulo','precioList')">
 			<?php
 				require_once("../includes/dbh.inc.php");
 
@@ -77,20 +84,24 @@
 
 		<div class="campo">
 			<label class="campo__label" for="folio">Folio</label>
-			<input class="campo__field" type="text" name="folio" id="folio" list="folioList">
+			<input class="campo__field" type="text" name="folio" id="folio" list="folioList"  >
 			<datalist id="folioList" >
 			</datalist>
 		</div>
-		
+
+		<div class="campo">
+			<label class="campo__label" for="precio">Precio</label>
+			<input class="campo__field" type="text" name="precio" id="precio" list="precioList" >
+			<datalist id="precioList" >
+			</datalist>
+		</div>
+
 		<div class="campo">
 			<label class="campo__label" for="cantidad">Cantidad</label>
 			<input class="campo__field" type="number" name="cantidad" id="cantidad" min="0">
 		</div>
 
-		<div class="campo">
-			<label class="campo__label" for="precio">Precio</label>
-			<input class="campo__field" type="number" name="precio" id="precio">
-		</div>
+		
 
 		<div class="campo">
 			<label class="campo__label" for="codAviso">Código de aviso</label>
