@@ -56,7 +56,7 @@
 		<div class="campo">
 			<div class="campo__icon">
 				<label class="campo__label" for="articulo">Artículo</label>
-				<button  type="submit" name="A_articulo"  style="border:none;" >
+				<button  name="A_articulo"  type="submit"  style="border:none;" >
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus campo__icon--icon" width="22" height="22" viewBox="0 0 24 24" stroke-width="2.5" stroke="#36b9cc" fill="none" stroke-linecap="round" stroke-linejoin="round" >
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 						<circle cx="12" cy="12" r="9" />

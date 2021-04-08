@@ -1,7 +1,7 @@
 <?php
     require_once("dbh.inc.php");
 
-    if(isset($_POST["A_Orden"])|| isset($_POST["A_articulo"])){
+    if(isset($_POST["A_Orden"]) || isset($_POST["A_articulo"])){
         $banderaFolio=prepararFolio($conn,$_POST["folio"]);
         $banderaOrden=prepararOrden($conn,$_POST["idOrden"]);
         $total=$_POST["precio"]*$_POST["cantidad"];
