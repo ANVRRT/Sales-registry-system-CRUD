@@ -1,5 +1,12 @@
 <div class="fix-margin">
-	<h1 class="h1-mine">Capturar Direccion de entrega</h1>
+	<form method="POST" action="../php/C_dirEnt.php" style="overflow: hidden">
+		<table width="100%">
+			<tr>
+				<td width="50%"><h1 class="h1-mine" style="margin-top:1.6rem">Dirección de Entrega</h1></td>
+				<td><input class="campo__field button--blue" type="submit" value="Consultar las Direcciones de Entrega" name="C_dirEnt" style="margin-top:0rem"></td>
+			</tr>
+		</table>
+	</form>
 
 	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">

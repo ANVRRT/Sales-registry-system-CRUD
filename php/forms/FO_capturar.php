@@ -1,6 +1,7 @@
 <div class="fix-margin">
 	<h1 class="h1-mine">Capturar Orden</h1>
 	
+
 	<form class="formulario" id="f_orden" method="POST" action="../includes/functions_orden.php" autocomplete="off">
 	
 		<div class="campo">

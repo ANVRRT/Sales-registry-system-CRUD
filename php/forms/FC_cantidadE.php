@@ -1,8 +1,15 @@
 
 <div class="fix-margin">
-	<h1 class="h1-mine">Cantidad Entregada</h1>
+	<form method="POST" action="../php/C_cantidadE.php" style="overflow: hidden">
+		<table width="100%">
+			<tr>
+				<td width="800px"><h1 class="h1-mine" style="margin-top:1.6rem">Cantidad Entregada</h1></td>
+				<td><input class="campo__field button--blue" type="submit" value="Consultar el listado de Cantidad Entregada" name="C_cantidadE" style="margin-top:0rem"></td>
+			</tr>
+		</table>
+	</form>
 
-	<form class="formulario">
+	<form class="formulario" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="id_com">ID Compañia</label>
 			<input class="campo__field" type="text" id="id_com">

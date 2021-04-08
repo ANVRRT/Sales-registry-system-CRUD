@@ -62,6 +62,8 @@ if (!isset($_SESSION["idUsuario"])) {
                 <a class="collapse-item" href="A_ordenes_venta_ING.php">Autorizacion ordenes <br> ING</a>
                 <a class="collapse-item" href="A_ordenes_venta_CXC.php">Autorizacion ordenes <br> CXC</a>
                 <a class="collapse-item" href="A_ordenes_venta_CST.php">Autorizacion ordenes <br> CST</a>
+                <a class="collapse-item" href="A_ordenes_venta_VTA.php">Autorizacion ordenes <br> VTA</a>
+                <a class="collapse-item" href="A_ordenes_base.php">Listado ordenes base</a>
 
             </div>
         </div>

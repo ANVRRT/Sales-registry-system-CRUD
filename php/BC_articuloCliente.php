@@ -4,6 +4,8 @@
 <head>
     <?php
         include("../includes/header.php");
+        require_once("../includes/dbh.inc.php");
+        require_once("../includes/functions_catalogos.php");
     ?>
     <link rel="stylesheet" href="../css/styles-capOrden.css">
     <link rel="stylesheet" href="../css/normalize.css">
@@ -46,11 +48,46 @@
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
 
                 </div> -->
+
                 <div class="container-fluid"> 
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
                                 include("forms/FB_articuloCliente.php");
+                            	if(isset($_POST["Buscar_articuloCliente"])){
+                            		$idCliente=$_POST["idCliente"];
+                            		$idCompania=$_SESSION["idCompania"];
+                            		$reg = buscarArticuloCliente($conn, $idCliente, $idCompania);
+                            		echo "<div class='card shadow mb-4'>
+					                        <div class='card-header py-3'>
+					                            <h6 class='m-0 font-weight-bold text-primary'>Artículos del cliente $idCliente</h6>
+					                        </div>
+					                        <div class='card-body'>
+					                            <div class='table-responsive'>
+					                                <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
+					                                    <thead>
+					                                        <tr align='center'>
+					                                            <th>ID Artículo</th><!---->
+					                                            <th>Descripción</th><!---->
+					                                        </tr>
+					                                    </thead>
+					                                    
+					                                    <tbody>";
+					                while ($row=mysqli_fetch_assoc($reg)){
+					                                        echo "	<tr>
+					                                        			<td align='center'>".$row["idArticulo"]."</td>
+					                                        			<td align='center'>".$row["descripcion"]."</td>
+					                                        		</tr>";
+					                                    }
+
+									echo " 
+					                                        
+					                                    </tbody>
+					                                </table>
+					                            </div>
+					                        </div>
+					                    </div>";
+                            	}
                             ?>
                         </div>
                     </div>
@@ -111,6 +148,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
+
+     <!-- Page level plugins -->
+    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../js/demo/datatables-demo.js"></script>
 
 </body>
 

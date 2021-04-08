@@ -5,6 +5,8 @@
 
     <?php
     include("../includes/header.php");
+    require_once("../includes/dbh.inc.php");
+    require_once("../includes/functions_catalogos.php");
     ?>
 
     <!-- Custom styles for this page -->
@@ -32,7 +34,7 @@
 
                 <!-- Topbar -->
                 <?php
-                    include("../includes/topbar.php");
+                include("../includes/topbar.php");
                 ?>
                 <!-- End of Topbar -->
 
@@ -51,64 +53,211 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr align="center">
-                                            <th>Orden</th>
-                                            <th>Compañia</th>
-                                            <th>Cliente</th>
-                                            <th>Dirección Entrega</th>
-                                            <th>Estatus</th>
-                                            <th>Num. Orden compra</th>
-                                            <th>Fecha Orden</th>
-                                            <th>tFac</th>
+
+                                            <?php
+
+                                            echo "<th>Orden</th>";
+                                            echo "<th>Compañia</th>";
+                                            echo "<th>Cliente</th>";
+                                            echo "<th>Dirección Entrega</th>";
+                                            echo "<th>Estatus</th>";
+                                            echo "<th>Num. Orden compra</th>";
+                                            echo "<th>Fecha Orden</th>";
+
+                                            switch ($_SESSION["rol"]) {
+                                                case "ADM":
+                                                    echo "<th>vFac</th>";
+                                                    echo "<th>vCxC</th>";
+                                                    echo "<th>vPRE</th>";
+                                                    echo "<th>vCST</th>";
+                                                    echo "<th>vING</th>";
+                                                    echo "<th>vPLN</th>";
+                                                    echo "<th>vFEC</th>";
+                                                    break;
+                                                case "FAC":
+                                                    echo "<th>vFac</th>";
+                                                    break;
+                                                case "CXC":
+                                                    echo "<th>vCxC</th>";
+                                                    break;
+
+                                                case "VTA":
+                                                    echo "<th>vPRE</th>";
+                                                    break;
+
+                                                case "CST":
+                                                    echo "<th>vCST</th>";
+                                                    break;
+
+                                                case "ING":
+                                                    echo "<th>vING</th>";
+                                                    break;
+
+                                                case "PLN":
+                                                    echo "<th>vPLN</th>";
+                                                    break;
+
+                                                case "FEC":
+                                                    echo "<th>vFEC</th>";
+                                                    break;
+                                            }
+                                            echo "<th>vServCli</th>";
+                                            echo "<th>vREP</th>";
+
+                                            ?>
+                                            <!-- <th>tFac</th>
                                             <th>tCxC</th>
                                             <th>tPRE</th>
                                             <th>tCST</th>
                                             <th>tING</th>
                                             <th>tPLN</th>
                                             <th>tFEC</th>
-                                            <th>Total</th>
-                                            <th>vFac</th>
-                                            <th>vCxC</th>
-                                            <th>vPRE</th>
-                                            <th>vCST</th>
-                                            <th>vING</th>
-                                            <th>vPLN</th>
-                                            <th>vServCli</th>
-                                            <th>vREP</th>
-                                            <th>vFEC</th>
+                                            <th>Total</th> -->
+
+
+
+
                                             <th>Autorización</th>
                                         </tr>
                                     </thead>
-                                    
+
                                     <tbody>
-                                        <tr >
-                                            <td>0001</td>
-                                            <td>CC001</td>
-                                            <td>A01</td>
-                                            <td>01 Ags</td>
-                                            <td align="center"><input  type="checkbox" name="estatus" id="estatus"></td>
-                                            <td>0001</td>
-                                            <td>2021/04/05</td>
-                                            <td>2021/04/02</td>
-                                            <td>2021/04/01</td>
-                                            <td>2021/04/05</td>
-                                            <td>2021/04/04</td>
-                                            <td>2021/03/31</td>
-                                            <td>2021/04/02</td>
-                                            <td>2021/04/02</td>
-                                            <td>3</td>
-                                            <td align="center"><input  type="checkbox" name="vFacturas"   id="vFacturas"></td>
-                                            <td align="center"><input  type="checkbox" name="vCxC"        id="vCxC" ></td>
-                                            <td align="center"><input  type="checkbox" name="vPrecios"    id="vPrecios"></td>
-                                            <td align="center"><input  type="checkbox" name="vCostos"     id="vCostos" ></td>
-                                            <td align="center"><input  type="checkbox" name="vIng"        id="vIng"></td>
-                                            <td align="center"><input  type="checkbox" name="vPlaneacion" id="vPlaneacion"></td>
-                                            <td align="center"><input  type="checkbox" name="vServCli"    id="vServCli" ></td>
-                                            <td align="center"><input  type="checkbox" name="vREP"        id="vREP"></td>
-                                            <td align="center"><input  type="checkbox" name="vFEC"        id="vFEC"></td>
-                                            <td align="center"><input name="autorizar" type="button" value="Autorizar orden" class="btn btn-primary"></td>
-                                            
-                                        </tr>
-                                       
+
+
+                                        <?php
+
+
+                                        $reg = dispOrden($conn, $_SESSION["idCompania"]);
+
+                                        
+                                        while ($row = mysqli_fetch_assoc($reg)) {
+                                            // echo "<option>" . $row["idRepresentante"] . "</option>";
+                                            $estatus = "";
+                                            $vFacturas_chked = "";
+                                            $vCXC_chked = "";
+                                            $vPrecios_chked = "";
+                                            $vCostos_chked = "";
+                                            $vIng_chked = "";
+                                            $vPlaneacion_chked = "";
+                                            $vServCli_chked = "";
+                                            $vREP_chked = "";
+                                            $vFEC_chked = "";
+                                            if($row["estatus"]=="1"){
+                                                $estatus = "checked";
+                                            }
+                                            if($row["vFacturas"]=="1"){
+                                                $vFacturas_chked = "checked";
+                                            }
+                                            if($row["vCxC"]=="1"){
+                                                $vCXC_chked = "checked";
+                                            }
+                                            if($row["vPrecios"]=="1"){
+                                                $vPrecios_chked = "checked";
+                                            }
+                                            if($row["vCostos"]=="1"){
+                                                $vCostos_chked = "checked";
+                                            }
+                                            if($row["vIng"]=="1"){
+                                                $vIng_chked = "checked";
+                                            }
+                                            if($row["vPlaneacion"]=="1"){
+                                                $vPlaneacion_chked = "checked";
+                                            }
+                                            if($row["vServCli"]=="1"){
+                                                $vServCli_chked = "checked";
+                                            }
+                                            if($row["vREP"]=="1"){
+                                                $vREP_chked = "checked";
+                                            }
+                                            if($row["vFEC"]=="1"){
+                                                $vFEC_chked = "checked";
+                                            }
+                                            echo "<tr>";
+                                            echo "<td id='idOrden' style='text-align: center;'>". $row["idOrden"] ."</td>";
+                                            echo "<td id='compania' style='text-align: center;'>". $row["idCompania"] ."</td>";
+                                            echo "<td id='idCliente' style='text-align: center;'>". $row["idCliente"] ."</td>";
+                                            echo "<td id='dirEnt' style='text-align: center;'>". $row["dirEnt"] ."</td>";
+                                            echo "<td style='text-align: center;'><input  type='checkbox' name='estatus' id='estatus' ".$estatus."></td>";
+                                            echo "<td id='ordCompra' style='text-align: center;'>". $row["ordenCompra"] ."</td>";
+                                            echo "<td style='text-align: center;'><input  type='date' name='fechaOrden' id='fechaOrden' value='".$row["fechaOrden"]."' readonly></td>";
+                                            switch ($_SESSION["rol"]) {
+                                                case "ADM":
+                                                    echo "<td align='center'><input  type='checkbox' name='vFacturas'   id='vFacturas' ".$vFacturas_chked."></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vCxC'        id='vCxC' ".$vCXC_chked."></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vPrecios'    id='vPrecios' ".$vPrecios_chked."></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vCST'        id='vCostos' ".$vCostos_chked."></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vIng'        id='vIng' ".$vIng_chked."></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vPLN'        id='vPLN' ".$vPlaneacion_chked."></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vFEC'        id='vFEC' ".$vFEC_chked."></td>";
+                                                    break;
+                                                case "FAC":
+
+                                                    echo "<td align='center'><input  type='checkbox' name='vFacturas'   id='vFacturas' ".$vFacturas_chked."></td>";
+                                                    break;
+
+                                                case "CXC":
+
+                                                    echo "<td align='center'><input  type='checkbox' name='vCxC'        id='vCxC' ".$vCXC_chked."></td>";
+                                                    break;
+
+                                                case "VTA":
+
+                                                    echo "<td align='center'><input  type='checkbox' name='vPrecios'    id='vPrecios' ".$vPrecios_chked."></td>";
+                                                    break;
+
+                                                case "CST":
+                                                    echo "<td align='center'><input  type='checkbox' name='vCST'        id='vCostos' ".$vCostos_chked."></td>";
+                                                    break;
+
+                                                case "ING":
+                                                    echo "<td align='center'><input  type='checkbox' name='vIng'        id='vIng' ".$vIng_chked."></td>";
+                                                    break;
+
+                                                case "PLN":
+                                                    echo "<td align='center'><input  type='checkbox' name='vPLN'        id='vPLN' ".$vPlaneacion_chked."></td>";
+                                                    break;
+
+                                                case "FEC":
+                                                    echo "<td align='center'><input  type='checkbox' name='vFEC'        id='vFEC' ".$vFEC_chked."></td>";
+
+                                                    break;
+                                            }
+                                            echo "<td align='center'><input  type='checkbox' name='vServCli'    id='vServCli' ".$vServCli_chked."></td>";
+                                            echo "<td align='center'><input  type='checkbox' name='vREP'        id='vREP' ".$vREP_chked."></td>";
+                                            echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary'></td>";
+                                            echo "</tr>";
+                                        }
+
+                                        
+                                        
+                                        ?>
+                                        <!-- echo "<th>Orden</th>";
+                                        echo "<th>Compañia</th>";
+                                        echo "<th>Cliente</th>";
+                                        echo "<th>Dirección Entrega</th>";
+                                        echo "<th>Estatus</th>";
+                                        echo "<th>Num. Orden compra</th>";
+                                        echo "<th>Fecha Orden</th>"; -->
+                                        <!-- <td>2021/04/02</td>
+                                        <td>2021/04/01</td>
+                                        <td>2021/04/05</td>
+                                        <td>2021/04/04</td>
+                                        <td>2021/03/31</td>
+                                        <td>2021/04/02</td>
+                                        <td>2021/04/02</td> -->
+                                        <!-- <td>3</td> -->
+                                        <!-- <td align="center"><input  type="checkbox" name="vFacturas"   id="vFacturas"></td>
+                                        <td align="center"><input  type="checkbox" name="vCxC"        id="vCxC" ></td>
+                                        <td align="center"><input  type="checkbox" name="vPrecios"    id="vPrecios"></td>
+                                        <td align="center"><input  type="checkbox" name="vCostos"     id="vCostos" ></td>
+                                        <td align="center"><input  type="checkbox" name="vIng"        id="vIng"></td>
+                                        <td align="center"><input  type="checkbox" name="vPlaneacion" id="vPlaneacion"></td>
+                                        <td align="center"><input  type="checkbox" name="vServCli"    id="vServCli" ></td>
+                                        <td align="center"><input  type="checkbox" name="vREP"        id="vREP"></td>
+                                        <td align="center"><input  type="checkbox" name="vFEC"        id="vFEC"></td> -->
+
+
+
                                     </tbody>
                                 </table>
                             </div>
@@ -143,8 +292,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

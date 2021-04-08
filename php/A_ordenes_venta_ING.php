@@ -65,7 +65,7 @@
                                             <th>ING</th>
                                             <th>PREC</th>
                                             <th>REP</th>
-                                            <th>Autorización</th>
+                                            <th>Actualización</th>
                                         </tr>
                                     </thead>
                                     
@@ -85,7 +85,7 @@
                                             <td align="center"><input  type="checkbox" name="ing"></td>
                                             <td align="center"><input  type="checkbox" name="prec"></td>
                                             <td align="center"><input  type="checkbox" name="rep"></td>
-                                            <td align="center"><input name="autorizar" type="button" value="Autorizar orden" class="btn btn-primary"></td>
+                                            <td align="center"><input name="actualizar" type="button" value="Actualizar orden" class="btn btn-primary"></td>
                                             
                                         </tr>
                                        
