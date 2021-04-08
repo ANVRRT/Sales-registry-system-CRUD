@@ -1,7 +1,7 @@
 <div class="fix-margin">
 	<h1 class="h1-mine">Capturar Orden</h1>
 	
-	<form class="formulario"method="POST" action="../includes/functions_orden.php" autocomplete="off">
+	<form class="formulario" id="f_orden" method="POST" action="../includes/functions_orden.php" autocomplete="off">
 	
 		<div class="campo">
 			<label class="campo__label" for="compania">Compañía</label>
@@ -56,7 +56,7 @@
 		<div class="campo">
 			<div class="campo__icon">
 				<label class="campo__label" for="articulo">Artículo</label>
-				<button name="add_articulo"  id="add_articulo" type="submit" style="border:none;" >
+				<button  type="submit" name="A_articulo"  style="border:none;" >
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus campo__icon--icon" width="22" height="22" viewBox="0 0 24 24" stroke-width="2.5" stroke="#36b9cc" fill="none" stroke-linecap="round" stroke-linejoin="round" >
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 						<circle cx="12" cy="12" r="9" />

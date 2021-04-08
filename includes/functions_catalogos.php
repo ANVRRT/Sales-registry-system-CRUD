@@ -115,8 +115,7 @@ if(isset($_GET["listado"])){
         $entrada2 = $_GET["entrada2"];
         dispPrecio($conn,$entrada,$entrada2);
     }
- 
-    
+
 }
 function dispArticulos($conn, $idCompania){
     $sql="SELECT * FROM ArticuloExistente WHERE idCompania = ?";

@@ -93,6 +93,3 @@ function AjaxFunction2(listado,inputFieldGet,inputFieldGetO,inputFieldPrint)
     httpxml.send(null);
 
 }
-function addArticulo(){
-    //alert("Boton de agregar artículo");
-}

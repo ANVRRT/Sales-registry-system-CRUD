@@ -1,7 +1,7 @@
 <?php
     require_once("dbh.inc.php");
 
-    if(isset($_POST["A_Orden"])|| isset($_POST[""])){
+    if(isset($_POST["A_Orden"])|| isset($_POST["A_articulo"])){
         $banderaFolio=prepararFolio($conn,$_POST["folio"]);
         $banderaOrden=prepararOrden($conn,$_POST["idOrden"]);
         $total=$_POST["precio"]*$_POST["cantidad"];
@@ -21,6 +21,9 @@
         createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],'default',$_POST["numFact"],null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
         $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,null, $reg->divisa,null);
     }
+
+    
+
 
     function prepararFolio($conn,$folio){
         $query = "SELECT * FROM ArticuloVendido WHERE folio= $folio";
