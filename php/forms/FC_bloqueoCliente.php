@@ -13,7 +13,7 @@
             <br>
             <table style="width:100%" class="table">
                 <thead class="thead-light">
-                    <tr>
+                    <tr style="text-align: center;">
                         <th><label class="campo__label" >Disponibles</label></th>
                         <th><label class="campo__label" >Bloqueados</label></th>
                     </tr>
