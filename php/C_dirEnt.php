@@ -7,6 +7,7 @@
     ?>
 	<link rel="stylesheet" href="../css/styles-capOrden.css">
 	<link rel="stylesheet" href="../css/normalize.css">
+    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -51,6 +52,61 @@
                         <div class="card-body">
                             <?php
                                 include("forms/FC_dirEnt.php");
+                                if(isset($_POST["C_dirEnt"])){
+                                    $idCompania = $_SESSION["idCompania"];
+                                    $reg = dispDirEnt($conn,$idCompania);
+                                    echo "<div class='card shadow mb-4'>
+                                            <div class='card-header py-3'>
+                                                <h6 class='m-0 font-weight-bold text-primary'>Direcciones de Entrega</h6>
+                                            </div>
+                                            <div class='card-body'>
+                                                <div class='table-responsive'>
+                                                    <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
+                                                        <thead>
+                                                            <tr align='center'>
+                                                                <th>ID Compañía</th>
+                                                                <th>ID Cliente</th><!---->
+                                                                <th>Dir. Ent.</th><!---->
+                                                                <th>Nombre de Entrega</th>
+                                                                <th>Dirección</th>
+                                                                <th>Municipio</th>
+                                                                <th>Estado</th>
+                                                                <th>Teléfono</th>
+                                                                <th>Observaciones</th>
+                                                                <th>Cód. Postal</th>
+                                                                <th>Cód. Ruta</th>
+                                                                <th>País</th>
+                                                                <th>RFC</th>
+                                                            </tr>
+                                                        </thead>
+                                                        
+                                                        <tbody>";
+                                    while ($row=mysqli_fetch_assoc($reg)){
+                                                            echo "  <tr>
+                                                                        <td align='center'>".$row["idCompania"]."</td>
+                                                                        <td align='center'>".$row["idCliente"]."</td>
+                                                                        <td align='center'>".$row["dirEnt"]."</td>
+                                                                        <td align='center'>".$row["nombreEntrega"]."</td>
+                                                                        <td align='center'>".$row["direccion"]."</td>
+                                                                        <td align='center'>".$row["municipio"]."</td>
+                                                                        <td align='center'>".$row["estado"]."</td>
+                                                                        <td align='center'>".$row["telefono"]."</td>
+                                                                        <td align='center'>".$row["observaciones"]."</td>
+                                                                        <td align='center'>".$row["codPost"]."</td>
+                                                                        <td align='center'>".$row["codRuta"]."</td>
+                                                                        <td align='center'>".$row["pais"]."</td>
+                                                                        <td align='center'>".$row["rfc"]."</td>
+                                                                    </tr>";
+                                                        }
+
+                                    echo " 
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>";
+                                }
                             ?>
                         </div>
                     </div>
@@ -111,6 +167,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../js/demo/datatables-demo.js"></script>
 
 </body>
 

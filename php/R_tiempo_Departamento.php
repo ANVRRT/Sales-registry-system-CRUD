@@ -2,13 +2,16 @@
 <html lang="en">
 
 <head>
+
     <?php
-        include("../includes/header.php");
-        require_once("../includes/dbh.inc.php");
-        require_once("../includes/functions_catalogos.php");
+    include("../includes/header.php");
+    require_once("../includes/dbh.inc.php");
+    require_once("../includes/functions_reportes.php");
     ?>
-    <link rel="stylesheet" href="../css/styles-capOrden.css">
-    <link rel="stylesheet" href="../css/normalize.css">
+
+    <!-- Custom styles for this page -->
+    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -17,15 +20,10 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <div >
-            
-            <?php
-                include("../includes/sidebar.php")
-            ?>
-            
-            
-        </div>
-        
+        <?php
+        include("../includes/sidebar.php");
+
+        ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -41,58 +39,50 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <!-- <div class="container-fluid">
+                <div class="container-fluid">
 
-                    
-                    Page Heading
-                    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-
-                </div> -->
-
-                <div class="container-fluid"> 
-                    <div class="col-lg-12">
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Reporte de Promedio de Tiempo por Departamento</h1>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Ordenes de venta con todas las autorizaciones</h6>
+                        </div>
                         <div class="card-body">
-                            <?php
-                                include("forms/FB_articuloCliente.php");
-                            	if(isset($_POST["Buscar_articuloCliente"])){
-                            		$idCliente=$_POST["idCliente"];
-                            		$idCompania=$_SESSION["idCompania"];
-                            		$reg = buscarArticuloCliente($conn, $idCliente, $idCompania);
-                            		echo "<div class='card shadow mb-4'>
-					                        <div class='card-header py-3'>
-					                            <h6 class='m-0 font-weight-bold text-primary'>Artículos del cliente $idCliente</h6>
-					                        </div>
-					                        <div class='card-body'>
-					                            <div class='table-responsive'>
-					                                <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
-					                                    <thead>
-					                                        <tr align='center'>
-					                                            <th>ID Artículo</th><!---->
-					                                            <th>Descripción</th><!---->
-					                                        </tr>
-					                                    </thead>
-					                                    
-					                                    <tbody>";
-					                while ($row=mysqli_fetch_assoc($reg)){
-					                                        echo "	<tr>
-					                                        			<td align='center'>".$row["idArticulo"]."</td>
-					                                        			<td align='center'>".$row["descripcion"]."</td>
-					                                        		</tr>";
-					                                    }
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr align="center">
+                                            <th>Orden</th>
+                                            <th>Cliente</th>
+                                            <th>Nombre Cliente</th>                                            
+                                            <th>Fecha Orden</th>
+                                            <th>FAC</th>
+                                            <th>CXC</th>
+                                            <th>PRE</th>
+                                            <th>CST</th>
+                                            <th>ING</th>
+                                            <th>PLN</th>
+                                            <th>FEC</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                    <?php
+                                        //Getting authorised data from server at functions_reportes
+                                        dispOrdenes($conn,$_SESSION["idCompania"]);
 
-									echo " 
-					                                        
-					                                    </tbody>
-					                                </table>
-					                            </div>
-					                        </div>
-					                    </div>";
-                            	}
-                            ?>
+                                        
+                                        ?>
+                                    </tbody>
+                                </table>
+                                
+                            </div>
                         </div>
                     </div>
+
                 </div>
-                
                 <!-- /.container-fluid -->
 
             </div>
@@ -149,7 +139,7 @@
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
 
-     <!-- Page level plugins -->
+    <!-- Page level plugins -->
     <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 

@@ -1,14 +1,18 @@
 <div class="fix-margin">
-	<h1 class="h1-mine">Capturar Agente</h1>
+	<form method="POST" action="../php/C_agente.php" style="overflow: hidden">
+		<table width="100%">
+			<tr>
+				<td width="50%"><h1 class="h1-mine" style="margin-top:1.6rem">Agente</h1></td>
+				<td><input class="campo__field button--blue" type="submit" value="Consultar los representantes" name="C_agente" style="margin-top:0rem"></td>
+			</tr>
+		</table>
+	</form>
 
 	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="idRepresentante">ID Representante</label>
 			<input class="campo__field" type="text" name="idRepresentante" id="idRepresentante" list="representante" required>
 			<?php
-				require_once("../includes/dbh.inc.php");
-
-				require_once("../includes/functions_catalogos.php");
 				$reg = dispRepresentante($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='representante'>";

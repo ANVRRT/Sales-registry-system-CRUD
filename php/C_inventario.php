@@ -9,6 +9,7 @@
     ?>
 	<link rel="stylesheet" href="../css/styles-capOrden.css">
 	<link rel="stylesheet" href="../css/normalize.css">
+    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -53,6 +54,44 @@
                         <div class="card-body">
                             <?php
                                 include("forms/FC_inventario.php");
+                                if(isset($_POST["C_inventario"])){
+                                    $idCompania = $_SESSION["idCompania"];
+                                    $reg = dispInventario($conn,$idCompania);
+                                    echo "<div class='card shadow mb-4'>
+                                            <div class='card-header py-3'>
+                                                <h6 class='m-0 font-weight-bold text-primary'>Listado de Inventarios</h6>
+                                            </div>
+                                            <div class='card-body'>
+                                                <div class='table-responsive'>
+                                                    <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
+                                                        <thead>
+                                                            <tr align='center'>
+                                                                <th>ID Compañía</th>
+                                                                <th>ID Almacen</th><!---->
+                                                                <th>ID Artículo</th><!---->
+                                                                <th>Stock</th>
+                                                            </tr>
+                                                        </thead>
+                                                        
+                                                        <tbody>";
+                                    while ($row=mysqli_fetch_assoc($reg)){
+                                                            echo "  <tr>
+                                                                        <td align='center'>".$row["idCompania"]."</td>
+                                                                        <td align='center'>".$row["idAlmacen"]."</td>
+                                                                        <td align='center'>".$row["idArticulo"]."</td>
+                                                                        <td align='center'>".$row["stock"]."</td>
+                                                                    </tr>";
+                                                        }
+
+                                    echo " 
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>";
+                                }
+
                                 if(isset($_GET["error"]))
                                 {
                                     if($_GET["error"] == "success")
@@ -126,6 +165,12 @@
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
 
+    <!-- Page level plugins -->
+    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../js/demo/datatables-demo.js"></script>
 </body>
 
 </html>
