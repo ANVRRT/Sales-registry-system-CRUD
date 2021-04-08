@@ -15,7 +15,6 @@
         else{
             createArtVendido($conn,'default',$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"]);
         }
-        
         if(!$banderaOrden){
             createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,0,0,0,0,0,0,0,0,0); 
         }
