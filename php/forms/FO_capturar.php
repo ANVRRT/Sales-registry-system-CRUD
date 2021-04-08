@@ -35,21 +35,21 @@
 
 		<div class="campo">
 			<label class="campo__label" for="idOrden">ID Orden</label>
-			<input class="campo__field" type="text" name="idOrden" id="idOrden" maxlength="10" list="idOrdenlist">
+			<input class="campo__field" type="text" name="idOrden" id="idOrden" maxlength="10" list="idOrdenlist" required>
 			<datalist id="idOrdenlist" >
 			</datalist>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="dirEnt">Direccion de Entrega</label>
-			<input class="campo__field" type="text" name="dirEnt" id="dirEnt" list="dirEntList">
+			<input class="campo__field" type="text" name="dirEnt" id="dirEnt" list="dirEntList" required>
 			<datalist id="dirEntList" >
 			</datalist>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="idList">Lista de precios a utilizar</label>
-			<input class="campo__field" type="text" name="idList" id="idList" list="listaPrecio">
+			<input class="campo__field" type="text" name="idList" id="idList" list="listaPrecio" required>
 			<datalist id="listaPrecio" >
 			</datalist>
 		</div>
@@ -66,7 +66,7 @@
 					</svg>
 				</button>
 			</div>
-			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulo" onblur="AjaxFunction2('dispFolio','idCliente','idArticulo','folioList');AjaxFunction2('dispPrecio','idList','idArticulo','precioList')">
+			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulo" onblur="AjaxFunction2('dispFolio','idCliente','idArticulo','folioList');AjaxFunction2('dispPrecio','idList','idArticulo','precioList')" required>
 			<?php
 				require_once("../includes/dbh.inc.php");
 
@@ -85,43 +85,43 @@
 
 		<div class="campo">
 			<label class="campo__label" for="folio">Folio</label>
-			<input class="campo__field" type="text" name="folio" id="folio" list="folioList"  >
+			<input class="campo__field" type="text" name="folio" id="folio" list="folioList">
 			<datalist id="folioList" >
 			</datalist>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="precio">Precio</label>
-			<input class="campo__field" type="text" name="precio" id="precio" list="precioList" >
+			<input class="campo__field" type="text" name="precio" id="precio" list="precioList" required>
 			<datalist id="precioList" >
 			</datalist>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="cantidad">Cantidad</label>
-			<input class="campo__field" type="number" name="cantidad" id="cantidad" min="0">
+			<input class="campo__field" type="number" name="cantidad" id="cantidad" min="0" required>
 		</div>
 
 		
 
 		<div class="campo">
 			<label class="campo__label" for="codAviso">Código de aviso</label>
-			<input class="campo__field" type="text" name="codAviso" id="codAviso">
+			<input class="campo__field" type="text" name="codAviso" id="codAviso" maxlength="3" required>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="udVta">Unidad de venta</label>
-			<input class="campo__field" type="text" name="udVta" id="udVta">
+			<input class="campo__field" type="text" name="udVta" id="udVta" maxlength="3" required>
 		</div>
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="observacion-orden">Observaciones</label>
-			<textarea class="campo__field campo__field--textarea" name="observaciones" id="observaciones"></textarea>
+			<textarea class="campo__field campo__field--textarea" name="observaciones" id="observaciones" required></textarea>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="fecha-sol">Fecha de solicitud</label>
-			<input class="campo__field" type="date" name="fechaSol" id="fechaSol">
+			<input class="campo__field" type="date" name="fechaSol" id="fechaSol" required>
 		</div>
 
 		<div class="campo--button">
