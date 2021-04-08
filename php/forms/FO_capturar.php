@@ -115,7 +115,7 @@
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="observacion-orden">Observaciones</label>
-			<textarea class="campo__field campo__field--textarea" id="Observaciones"></textarea>
+			<textarea class="campo__field campo__field--textarea" name="observaciones" id="observaciones"></textarea>
 		</div>
 
 		<div class="campo">
