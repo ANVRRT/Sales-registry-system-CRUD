@@ -98,13 +98,24 @@ if(isset($_POST["B_listPrecios"])){
 if(isset($_GET["listado"])){
     $entrada = $_GET["entrada"];
     if($_GET["listado"] == "dispListaPreciosByCliente"){
-
         dispListaPreciosByCliente($conn,$entrada);
     }
     if($_GET["listado"] == "dispOrdenByCliente"){
 
         dispOrdenByCliente($conn,$entrada);
     }
+    if($_GET["listado"] == "dispDirEntByCLiente"){
+        dispDirEntByCLiente($conn,$entrada);
+    }
+    if($_GET["listado"] == "dispFolio"){
+        $entrada2 = $_GET["entrada2"];
+        dispFolio($conn,$entrada,$entrada2);
+    }
+    if($_GET["listado"] == "dispPrecio"){
+        $entrada2 = $_GET["entrada2"];
+        dispPrecio($conn,$entrada,$entrada2);
+    }
+
 }
 
 
@@ -376,6 +387,71 @@ function dispOrdenByCliente($conn, $entrada){
     mysqli_stmt_close($stmt);
     exit();
 }
+
+function dispDirEntByCLiente($conn, $entrada){
+    $sql="SELECT * FROM DirEnt WHERE idCliente=?";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $entrada);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    while($row = mysqli_fetch_assoc($resultData))
+    {
+        echo "<option>".$row["dirEnt"]."</option>";
+
+    }
+    mysqli_stmt_close($stmt);
+}
+
+function dispFolio($conn, $entrada,$entrada2){
+    $sql="SELECT * FROM ArticuloVendido WHERE idCliente=? AND idArticulo=?";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"ss", $entrada,$entrada2);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    while($row = mysqli_fetch_assoc($resultData))
+    {
+        echo "<option>".$row["folio"]."</option>";
+
+    }
+    mysqli_stmt_close($stmt);
+}
+
+
+function dispPrecio($conn, $entrada,$entrada2){
+    $sql="SELECT * FROM ListaPrecio WHERE idLista=? AND idArticulo=?";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"ss", $entrada,$entrada2);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    while($row = mysqli_fetch_assoc($resultData))
+    {
+        echo "<option>".$row["precio"]."</option>";
+
+    }
+    mysqli_stmt_close($stmt);
+}
+
 
 function dispAlmacen($conn, $idCompania){
     $sql="SELECT * FROM Almacen WHERE idCompania = ?";
@@ -950,5 +1026,8 @@ function deleteDirEnt($conn,$idCompania,$idCliente,$dirEnt){
         header("location: ../php/C_dirEnt.php?error=sqlerror");
         exit();
     }
+
+    
+    
 }
 ?>
