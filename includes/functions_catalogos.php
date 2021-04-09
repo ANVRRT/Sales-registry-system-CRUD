@@ -849,7 +849,7 @@ function createFactura($conn,$numFact,$idCompania,$idOrden,$idArticulo,$idClient
 {
     $sql = "INSERT INTO Factura VALUES(?,?,?,?,?,?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
-    $estatus = "1";
+    $estatus = 1;
     $idBaja = null;
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
