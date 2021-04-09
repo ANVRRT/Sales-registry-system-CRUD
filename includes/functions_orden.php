@@ -6,25 +6,36 @@
         $total=$_POST["precio"]*$_POST["cantidad"];
         $estatus=0;
         if(strlen($_POST["folio"])>0){
-            
-            if(!$banderaOrden){
-                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,0,0,0,0,0,0,0,0,0);
-        
+            $banderaFolio=prepararFolio($conn,$_POST["folio"]);
+            if(!$banderaFolio){
+                createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"]);
             }
+            
         }
         else{
-            
-
             createArtVendido($conn,'default',$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"]);
-            if(!$banderaOrden){
-                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,0,0,0,0,0,0,0,0,0); 
-            }
         }
+        if(!$banderaOrden){
+            createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,0,0,0,0,0,0,0,0,0); 
+        }
+       
         $reg=preparaReporte($conn,$_POST["idCliente"]);
         createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],'default',$_POST["numFact"],null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
         $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,null, $reg->divisa,null);
     }
 
+    function prepararFolio($conn,$folio){
+        $query = "SELECT * FROM ArticuloVendido WHERE folio= $folio";
+        $sql= mysqli_query($conn,$query);
+        $reg=mysqli_fetch_object($sql);
+        if($reg==mysqli_fetch_array($sql)){
+            return false;
+        }
+        else{
+            return true;
+            
+        }
+    }
 
     function prepararOrden($conn,$idOrden){
         $query = "SELECT * FROM Orden WHERE idOrden= $idOrden";
