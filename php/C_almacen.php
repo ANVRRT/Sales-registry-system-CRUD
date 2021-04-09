@@ -5,7 +5,6 @@
     <?php
         include("../includes/header.php");
         require_once("../includes/dbh.inc.php");
-	    require_once("../includes/functions_catalogos.php");
     ?>
     <link rel="stylesheet" href="../css/stylesForms.css">
 	<link rel="stylesheet" href="../css/normalize.css">
@@ -21,7 +20,8 @@
 		<div >
 			
 			<?php
-				include("../includes/sidebar.php")
+				include("../includes/sidebar.php");
+                require_once("../includes/functions_catalogos.php");
 			?>
 			
 			
@@ -93,11 +93,15 @@
                                 {
                                     if($_GET["error"] == "success")
                                     {
-                                        echo "<p style='color: black;'> ¡Artículo dado de alta exitosamente! </p>";
+                                        echo "<p style='color: black;'> ¡Almacen dado de alta exitosamente! </p>";
+                                    }
+                                    if($_GET["error"] == "success2")
+                                    {
+                                        echo "<p style='color: black;'> ¡Almacen dado de baja exitosamente! </p>";
                                     }
                                     if($_GET["error"] == "sqlerror")
                                     {
-                                        echo "<p style='color: black;'> ¡Algo ocurrio mal! </p>";
+                                        echo "<p style='color: black;'> ¡Algo salió mal! </p>";
                                     }
 
                                 }
