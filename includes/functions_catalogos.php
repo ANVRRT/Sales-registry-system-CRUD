@@ -78,7 +78,7 @@ if(isset($_POST["A_inventario"])){ //Inventario
     createInventario($conn,$_POST["idCompania"],$_POST["idAlmacen"],$_POST["idArticulo"],$_POST["stock"]);
 }
 if(isset($_POST["B_inventario"])){
-    deleteInventario($conn,$_POST["idArticulo"],$_POST["idCompania"]);
+    deleteInventario($conn,$_POST["idArticulo"],$_POST["idCompania"],$_SESSION["idUsuario"]);
 }
 if(isset($_POST["A_listPrecios"])){ //Lista Precios
      createListPrecios($conn,$_POST["idCompania"],$_POST["idLista"],$_POST["idArticulo"],$_POST["descuento"],$_POST["precio"],
@@ -785,15 +785,17 @@ function deleteAlmacen($conn,$idAlmacen){
     }
 }
 function createInventario($conn,$idCompania,$idAlmacen,$idArticulo,$stock){
-    $sql = "INSERT INTO Inventario VALUES(?,?,?,?);";
+    $sql = "INSERT INTO Inventario VALUES(?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
+    $estatus = 1;
+    $idBaja = null;
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"sssd",$idCompania,$idAlmacen,$idArticulo,$stock);
+    mysqli_stmt_bind_param($stmt,"sssdis",$idCompania,$idAlmacen,$idArticulo,$stock,$estatus,$idBaja);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
@@ -807,8 +809,9 @@ function createInventario($conn,$idCompania,$idAlmacen,$idArticulo,$stock){
     }
 }
 
-function deleteInventario($conn,$idArticulo,$idCompania){
-    $sql = "DELETE FROM Inventario WHERE idArticulo = ? AND idCompania = ?";
+function deleteInventario($conn,$idArticulo,$idCompania,$idUsuario){
+    $sql = "UPDATE Inventario SET estatus = ?, idBaja = ? WHERE idArticulo = ? AND idCompania = ?;";
+    $estatus = 0;
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
@@ -816,7 +819,7 @@ function deleteInventario($conn,$idArticulo,$idCompania){
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"ss",$idArticulo,$idCompania);
+    mysqli_stmt_bind_param($stmt,"ssss",$estatus,$idUsuario,$idArticulo,$idCompania);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
