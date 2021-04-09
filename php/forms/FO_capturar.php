@@ -22,7 +22,9 @@
 				echo "<datalist id='cliente'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					echo "<option>".$row["idCliente"]."</option>";
+					if($row["estatus"]!='0'){
+						echo "<option>".$row["idCliente"]."</option>";
+					}
 
 				}
 				echo "</datalist>";
@@ -72,7 +74,10 @@
 				echo "<datalist id='articulo'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					echo "<option>".$row["idArticulo"]."</option>";
+					if($row["estatus"]!='0'){
+						echo "<option>".$row["idArticulo"]."</option>";
+					}
+					
 				}
 				echo "</datalist>";
 			?>

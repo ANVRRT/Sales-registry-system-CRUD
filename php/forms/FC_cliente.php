@@ -14,7 +14,10 @@
 				echo "<datalist id='cliente'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					echo "<option>".$row["idCliente"]."</option>";
+					if($row["estatus"]!='0'){
+						echo "<option>".$row["idCliente"]."</option>";
+					}
+					
 
 				}
 				echo "</datalist>";
@@ -40,7 +43,10 @@
 				echo "<datalist id='representante'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					echo "<option>".$row["idRepresentante"]."</option>";
+					if($row["estatus"]!='0'){
+						echo "<option>".$row["idRepresentante"]."</option>";
+					}
+					
 
 				}
 				
@@ -60,7 +66,10 @@
 				echo "<datalist id='listaPrecio'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					echo "<option>".$row["idLista"]."</option>";
+					if($row["estatus"]!='0'){
+						echo "<option>".$row["idLista"]."</option>";
+					}
+					
 
 				}
 				echo "</datalist>";
@@ -79,7 +88,10 @@
 				echo "<datalist id='almacen'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					echo "<option>".$row["idAlmacen"]."</option>";
+					if($row["estatus"]!='0'){
+						echo "<option>".$row["idAlmacen"]."</option>";
+					}
+					
 
 				}
 				echo "</datalist>";
@@ -92,7 +104,7 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="listPrecios">Estatus</label>
+			<label class="campo__label" for="listPrecios">Estatus de cliente</label>
 			<input class="campo__field" type="number" name="estatus" id="estatus" min="1" max="3">
 		</div>
 
@@ -108,7 +120,10 @@
 				echo "<datalist id='analista'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					echo "<option>".$row["idRepresentante"]."</option>";
+					if($row["estatus"]!='0'){
+						echo "<option>".$row["idRepresentante"]."</option>";
+					}
+					
 
 				}
 				echo "</datalist>";

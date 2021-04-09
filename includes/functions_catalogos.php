@@ -45,16 +45,16 @@ if(isset($_REQUEST['estadoD'])==1){
 if(isset($_POST["A_cliente"])){ //Cliente
     if(isset($_POST["bloqueo"])){
         createCliente($conn,$_POST["idCliente"],$_POST["idCompania"],$_POST["idRepresentante"], $_POST["listaPrecios"],$_POST["idAlmacen"],$_POST["nomCliente"],
-        $_POST["estatus"],$_POST["idAnalista"],$_POST["divisa"],$_POST["limCredito"],$_POST["saldoOrden"],$_POST["saldoFactura"],$_POST["bloqueo"]);
+        $_POST["estatus"],$_POST["idAnalista"],$_POST["divisa"],$_POST["limCredito"],$_POST["saldoOrden"],$_POST["saldoFactura"],$_POST["bloqueo"],'1',null);
     }
     else{
         $bloqueo=0;
         createCliente($conn,$_POST["idCliente"],$_POST["idCompania"],$_POST["idRepresentante"], $_POST["listaPrecios"],$_POST["idAlmacen"],$_POST["nomCliente"],
-        $_POST["estatus"],$_POST["idAnalista"],$_POST["divisa"],$_POST["limCredito"],$_POST["saldoOrden"],$_POST["saldoFactura"],$bloqueo);
+        $_POST["estatus"],$_POST["idAnalista"],$_POST["divisa"],$_POST["limCredito"],$_POST["saldoOrden"],$_POST["saldoFactura"],$bloqueo,'1',null);
     }
 }
 if(isset($_POST["B_cliente"])){
-   deleteCliente($conn,$_POST["idCliente"]);
+   deleteCliente($conn,$_POST["idCliente"],$_POST["idCompania"],$_SESSION["idUsuario"]);
 }
 if(isset($_POST["A_dirEnt"])){ //DirEnt
     createDirEnt($conn,$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$_POST["nombreEntrega"],$_POST["direccion"],$_POST["municipio"],$_POST["estado"],$_POST["telefono"],$_POST["observaciones"],$_POST["codpost"],$_POST["codruta"],$_POST["pais"],$_POST["rfc"]);
@@ -82,10 +82,10 @@ if(isset($_POST["B_inventario"])){
 }
 if(isset($_POST["A_listPrecios"])){ //Lista Precios
      createListPrecios($conn,$_POST["idCompania"],$_POST["idLista"],$_POST["idArticulo"],$_POST["descuento"],$_POST["precio"],
-     $_POST["cantOlmp"],$_POST["nivelDscto"],$_POST["fechaCaducidad"],$_POST["fechaInicio"],$_POST["impDesc"]);
+     $_POST["cantOlmp"],$_POST["nivelDscto"],$_POST["fechaCaducidad"],$_POST["fechaInicio"],$_POST["impDesc"],'1',null);
 }
 if(isset($_POST["B_listPrecios"])){
-     deleteListPrecios($conn,$_POST["idLista"],$_POST["idCompania"],$_POST["idArticulo"],$_POST["nivelDscto"]);
+     deleteListPrecios($conn,$_POST["idLista"],$_POST["idCompania"],$_POST["idArticulo"],$_POST["nivelDscto"],$_SESSION["idUsuario"]);
 }
 // if(isset($_POST["A_artE"])){ //ADM Permisos
 //     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
@@ -433,7 +433,6 @@ function dispFolio($conn, $entrada,$entrada2){
     mysqli_stmt_close($stmt);
 }
 
-
 function dispPrecio($conn, $entrada,$entrada2){
     $sql="SELECT * FROM ListaPrecio WHERE idLista=? AND idArticulo=?";
     
@@ -696,9 +695,9 @@ function deleteCompania($conn, $idCompania){
         exit();
     }
 }
-function createCliente($conn,$idCliente,$idCompania,$idRepresentante,$listaPrecios,$idAlmacen,$nomCliente,$estatus,$idAnalista,$divisa,$limCredito,$saldoOrden,$saldoFactura,$bloqueo)
+function createCliente($conn,$idCliente,$idCompania,$idRepresentante,$listaPrecios,$idAlmacen,$nomCliente,$estatusCliente,$idAnalista,$divisa,$limCredito,$saldoOrden,$saldoFactura,$bloqueo,$estatus,$idBaja)
 {
-    $sql = "INSERT INTO Cliente VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql = "INSERT INTO Cliente VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
@@ -706,7 +705,7 @@ function createCliente($conn,$idCliente,$idCompania,$idRepresentante,$listaPreci
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"ssssssissiddi",$idCliente,$idCompania,$idRepresentante,$listaPrecios,$idAlmacen,$nomCliente,$estatus,$idAnalista,$divisa,$limCredito,$saldoOrden,$saldoFactura,$bloqueo);
+    mysqli_stmt_bind_param($stmt,"ssssssissiddiis",$idCliente,$idCompania,$idRepresentante,$listaPrecios,$idAlmacen,$nomCliente,$estatusCliente,$idAnalista,$divisa,$limCredito,$saldoOrden,$saldoFactura,$bloqueo,$estatus,$idBaja);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
@@ -719,15 +718,16 @@ function createCliente($conn,$idCliente,$idCompania,$idRepresentante,$listaPreci
         exit();
     }
 }
-function deleteCliente($conn,$idCliente){
-    $sql = "DELETE FROM Cliente WHERE idCliente = ?";
+function deleteCliente($conn,$idCliente,$idCompania,$idUsuario){
+    $sql = "UPDATE Cliente SET estatus = ?, idBaja = ? WHERE idCliente = ? AND idCompania = ?;";
+    $estatus = 0;
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"s",$idCliente);
+    mysqli_stmt_bind_param($stmt,"ssss",$estatus,$idUsuario,$idCliente,$idCompania);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
@@ -942,8 +942,8 @@ function dClient($conn, $id){
         exit();
     }
 }
-function createListPrecios($conn,$idCompania,$idLista,$idArticulo,$descuento,$precio,$cantOlmp,$nivelDscto,$fechaCaducidad,$fechaInicio,$impDesc){
-    $sql = "INSERT INTO ListaPrecio VALUES(?,?,?,?,?,?,?,?,?,?);";
+function createListPrecios($conn,$idCompania,$idLista,$idArticulo,$descuento,$precio,$cantOlmp,$nivelDscto,$fechaCaducidad,$fechaInicio,$impDesc,$estatus,$idBaja){
+    $sql = "INSERT INTO ListaPrecio VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
@@ -951,7 +951,7 @@ function createListPrecios($conn,$idCompania,$idLista,$idArticulo,$descuento,$pr
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"sssidiissd",$idCompania,$idLista,$idArticulo,$descuento,$precio,$cantOlmp,$nivelDscto,$fechaCaducidad,$fechaInicio,$impDesc);
+    mysqli_stmt_bind_param($stmt,"sssidiissdis",$idCompania,$idLista,$idArticulo,$descuento,$precio,$cantOlmp,$nivelDscto,$fechaCaducidad,$fechaInicio,$impDesc,$estatus,$idBaja);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
@@ -965,16 +965,16 @@ function createListPrecios($conn,$idCompania,$idLista,$idArticulo,$descuento,$pr
     }
 }
 
-function deleteListPrecios($conn, $idLista,$idCompania,$idArticulo,$nivelDscto){
-    $sql = "DELETE FROM ListaPrecio WHERE idLista = ? AND  idCompania = ? AND idArticulo = ? AND nivelDscto = ?";
+function deleteListPrecios($conn, $idLista,$idCompania,$idArticulo,$nivelDscto,$idUsuario){
+    $sql = "UPDATE ListaPrecio SET estatus = ?, idBaja = ? WHERE idLista = ? AND  idCompania = ? AND idArticulo = ? AND nivelDscto = ?;";
     $stmt = mysqli_stmt_init($conn);
-
+    $estatus=0;
     if (!mysqli_stmt_prepare($stmt, $sql)){
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt, "sssi", $idLista,$idCompania,$idArticulo,$nivelDscto);
+    mysqli_stmt_bind_param($stmt, "issssi",$estatus,$idUsuario, $idLista,$idCompania,$idArticulo,$nivelDscto);
 
     if(mysqli_stmt_execute($stmt))
     {
