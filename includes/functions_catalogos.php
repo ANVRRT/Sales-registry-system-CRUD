@@ -819,7 +819,7 @@ function deleteInventario($conn,$idArticulo,$idCompania,$idUsuario){
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"ssss",$estatus,$idUsuario,$idArticulo,$idCompania);
+    mysqli_stmt_bind_param($stmt,"isss",$estatus,$idUsuario,$idArticulo,$idCompania);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
