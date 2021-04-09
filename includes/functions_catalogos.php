@@ -26,7 +26,7 @@ if(isset($_POST["A_artV"])){ //ARTCLIENTEVendido
     createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["stock"],$_POST["codAviso"],$_POST["udVta"]);
 }
 if(isset($_POST["B_artV"])){ 
-    deleteArtVendido($conn,$_POST["folio"],$_POST["idCompania"]);
+    deleteArtVendido($conn,$_POST["folio"],$_POST["idCompania"],$_SESSION["idUsuario"]);
 }
 if(isset($_REQUEST['estadoB'])==2){//BLOQUEO CLIENTE
     bClient($conn, $_GET['idB']);
@@ -564,15 +564,17 @@ function deleteArtExistente($conn,$idArticulo,$idCompania,$idUsuario){
 }
 
 function createArtVendido($conn,$folio,$idArticulo,$idCompania,$idCliente,$stock,$codAviso,$udVta){
-    $sql = "INSERT INTO ArticuloVendido VALUES(?,?,?,?,?,?,?);";
+    $sql = "INSERT INTO ArticuloVendido VALUES(?,?,?,?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
+    $estatus = "1";
+    $idBaja = null;
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"isssdss",$folio,$idArticulo,$idCompania,$idCliente,$stock,$codAviso,$udVta);
+    mysqli_stmt_bind_param($stmt,"isssdssis",$folio,$idArticulo,$idCompania,$idCliente,$stock,$codAviso,$udVta,$estatus,$idBaja);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
@@ -585,15 +587,17 @@ function createArtVendido($conn,$folio,$idArticulo,$idCompania,$idCliente,$stock
         exit();
     }
 }
-function deleteArtVendido($conn,$folio,$idCompania){
-    $sql = "DELETE FROM ArticuloVendido WHERE folio = ? AND idCompania = ? ";
+function deleteArtVendido($conn,$folio,$idCompania,$idUsuario){
+    $sql = "UPDATE ArticuloVendido SET estatus = ?, idBaja = ? WHERE idArticulo = ? AND idCompania = ? AND folio = ?;";
+    $estatus = 0;
+    // $sql = "DELETE FROM ArticuloVendido WHERE folio = ? AND idCompania = ? ";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"ss",$folio,$idCompania);
+    mysqli_stmt_bind_param($stmt,"ssss",$estatus,$idUsuario,$idArticulo,$idCompania,$folio);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
