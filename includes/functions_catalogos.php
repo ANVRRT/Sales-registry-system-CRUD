@@ -66,7 +66,7 @@ if(isset($_POST["A_Compania"])){ //Compañia
     createCompania($conn,$_POST["idCompania"],$_POST["nombre"]);
 }
 if(isset($_POST["B_Compania"])){
-    deleteCompania($conn,$_POST["idCompania"]);
+    deleteCompania($conn,$_POST["idCompania"],$_SESSION["idUsuario"]);
 }
 if(isset($_POST["A_Facs"])){ //Factura
     createFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_POST["idOrden"],$_POST["idArticulo"],$_POST["idCliente"],$_POST["idFolio"],$_POST["entrega"],$_POST["tipoTrans"],$_POST["fechaFac"]);
@@ -655,14 +655,16 @@ function deleteAgente($conn,$idRepresentante,$idCompania){
     }
 }
 function createCompania($conn, $idCompania, $nombre){
-    $sql = "INSERT INTO Compania VALUES(?,?)";
+    $sql = "INSERT INTO Compania VALUES(?,?,?,?)";
     $stmt = mysqli_stmt_init($conn);
+    $estatus = "1";
+    $iBaja = null;
     if (!mysqli_stmt_prepare($stmt, $sql)){
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt, "ss", $idCompania, $nombre);
+    mysqli_stmt_bind_param($stmt, "ssis", $idCompania, $nombre, $estatus, $idBaja);
     
     if(mysqli_stmt_execute($stmt))
     {
@@ -677,8 +679,9 @@ function createCompania($conn, $idCompania, $nombre){
     }
 }
 
-function deleteCompania($conn, $idCompania){
-    $sql = "DELETE FROM Compania WHERE idCompania = ?";
+function deleteCompania($conn, $idCompania, $idUsuario){
+    $sql = "UPDATE Compania SET estatus = ?, idBaja = ? WHERE idCompania = ?;";
+    $estatus = 0;
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)){
@@ -686,7 +689,7 @@ function deleteCompania($conn, $idCompania){
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt, "s", $idCompania);
+    mysqli_stmt_bind_param($stmt, "iss", $estatus, $idUsuario, $idCompania);
 
     if(mysqli_stmt_execute($stmt))
     {
