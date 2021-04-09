@@ -22,7 +22,9 @@
 				echo "<datalist id='articulos'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					echo "<option>".$row["idArticulo"]."</option>";
+					if($row["estatus"]==1){
+						echo "<option>".$row["idArticulo"]."</option>";
+					}
 
 				}
 				
