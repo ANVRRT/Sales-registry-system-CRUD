@@ -78,12 +78,14 @@
                                                         
                                                         <tbody>";
                                     while ($row=mysqli_fetch_assoc($reg)){
-                                                            echo "  <tr>
-                                                                        <td align='center'>".$row["idCompania"]."</td>
-                                                                        <td align='center'>".$row["idArticulo"]."</td>
-                                                                        <td align='center'>".$row["descripcion"]."</td>
-                                                                        <td align='center'>".$row["costosEstandar"]."</td>
-                                                                    </tr>";
+                                                        if ($row["estatus"] == 1){
+                                                                echo "  <tr>
+                                                                            <td align='center'>".$row["idCompania"]."</td>
+                                                                            <td align='center'>".$row["idArticulo"]."</td>
+                                                                            <td align='center'>".$row["descripcion"]."</td>
+                                                                            <td align='center'>".$row["costosEstandar"]."</td>
+                                                                        </tr>";
+                                                            }
                                                         }
 
                                     echo " 

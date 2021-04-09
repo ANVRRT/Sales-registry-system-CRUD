@@ -81,18 +81,20 @@
                                                         
                                                         <tbody>";
                                     while ($row=mysqli_fetch_assoc($reg)){
-                                                            echo "  <tr>
-                                                                        <td align='center'>".$row["idCompania"]."</td>
-                                                                        <td align='center'>".$row["idLista"]."</td>
-                                                                        <td align='center'>".$row["idArticulo"]."</td>
-                                                                        <td align='center'>".$row["descuento"]."</td>
-                                                                        <td align='center'>".$row["precio"]."</td>
-                                                                        <td align='center'>".$row["cantOlmp"]."</td>
-                                                                        <td align='center'>".$row["nivelDscto"]."</td>
-                                                                        <td align='center'>".$row["fechaInicio"]."</td>
-                                                                        <td align='center'>".$row["fechaCaducidad"]."</td>
-                                                                        <td align='center'>".$row["impDesc"]."</td>
-                                                                    </tr>";
+                                                        if ($row["estatus"] == 1){
+                                                                echo "  <tr>
+                                                                            <td align='center'>".$row["idCompania"]."</td>
+                                                                            <td align='center'>".$row["idLista"]."</td>
+                                                                            <td align='center'>".$row["idArticulo"]."</td>
+                                                                            <td align='center'>".$row["descuento"]."</td>
+                                                                            <td align='center'>".$row["precio"]."</td>
+                                                                            <td align='center'>".$row["cantOlmp"]."</td>
+                                                                            <td align='center'>".$row["nivelDscto"]."</td>
+                                                                            <td align='center'>".$row["fechaInicio"]."</td>
+                                                                            <td align='center'>".$row["fechaCaducidad"]."</td>
+                                                                            <td align='center'>".$row["impDesc"]."</td>
+                                                                        </tr>";
+                                                                    }
                                                         }
 
                                     echo " 
