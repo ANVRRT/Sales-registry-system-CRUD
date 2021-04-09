@@ -12,8 +12,10 @@
 				echo "<datalist id='almacen'>";
 				
 				while($row = mysqli_fetch_assoc($reg))
-				{
-					echo "<option>".$row["idAlmacen"]."</option>";
+				{	
+					if($row["estatus"]==1){
+						echo "<option>".$row["idAlmacen"]."</option>";
+					}
 
 				}
 

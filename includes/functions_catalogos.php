@@ -14,13 +14,13 @@ if(isset($_POST["A_agente"])){ //AGENTE
     createAgente($conn,$_POST["idRepresentante"],$_POST["nomRepresentante"],$_POST["idCompania"]);
 }
 if(isset($_POST["B_agente"])){ 
-    deleteAgente($conn,$_POST["idRepresentante"],$_POST["idCompania"]);
+    deleteAgente($conn,$_POST["idRepresentante"],$_POST["idCompania"],$_SESSION["idUsuario"]);
 }
 if(isset($_POST["A_almacen"])){ //ALMACEN
     createAlmacen($conn,$_POST["idAlmacen"],$_POST["descripcion"],$_POST["idCompania"]);
 }
 if(isset($_POST["B_almacen"])){
-    deleteAlmacen($conn,$_POST["idAlmacen"]);
+    deleteAlmacen($conn,$_POST["idAlmacen"],$_SESSION["idUsuario"],$_SESSION["idCompania"]);
 }
 if(isset($_POST["A_artV"])){ //ARTCLIENTEVendido
     createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["stock"],$_POST["codAviso"],$_POST["udVta"]);
@@ -612,15 +612,17 @@ function deleteArtVendido($conn,$folio,$idCompania,$idUsuario){
 }
 
 function createAgente($conn,$idRepresentante,$nomRepresentante,$idCompania){
-    $sql = "INSERT INTO Agente VALUES(?,?,?);";
+    $sql = "INSERT INTO Agente VALUES(?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
+    $estatus = "1";
+    $idBaja = null;
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"sss",$idRepresentante,$nomRepresentante,$idCompania);
+    mysqli_stmt_bind_param($stmt,"sssis",$idRepresentante,$nomRepresentante,$idCompania,$estatus,$idBaja);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
@@ -633,15 +635,16 @@ function createAgente($conn,$idRepresentante,$nomRepresentante,$idCompania){
         exit();
     }
 }
-function deleteAgente($conn,$idRepresentante,$idCompania){
-    $sql = "DELETE FROM Agente WHERE idRepresentante = ? AND idCompania = ?";
+function deleteAgente($conn,$idRepresentante,$idCompania,$idUsuario){
+    $sql = "UPDATE Agente SET estatus = ?, idBaja = ? WHERE idRepresentante = ? AND idCompania = ?";
+    $estatus = 0;
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"ss",$idRepresentante,$idCompania);
+    mysqli_stmt_bind_param($stmt,"isss",$estatus,$idUsuario,$idRepresentante,$idCompania);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
@@ -749,19 +752,21 @@ function deleteCliente($conn,$idCliente){
 }
 
 function createAlmacen($conn,$idAlmacen,$descripcion,$idCompania){
-    $sql = "INSERT INTO Almacen VALUES(?,?,?);";
+    $sql = "INSERT INTO Almacen VALUES(?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
+    $estatus = "1";
+    $idBaja = null;
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"sss",$idAlmacen,$descripcion,$idCompania);
+    mysqli_stmt_bind_param($stmt,"sssis",$idAlmacen,$descripcion,$idCompania,$estatus,$idBaja);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
-        header("location: ../php/C_almacen.php?error=success");
+        header("location: ../php/C_almacen.php?error=success2");
         exit();
     }
     else{
@@ -770,19 +775,20 @@ function createAlmacen($conn,$idAlmacen,$descripcion,$idCompania){
         exit();
     }
 }
-function deleteAlmacen($conn,$idAlmacen){
-    $sql = "DELETE FROM Almacen WHERE idAlmacen = ?";
+function deleteAlmacen($conn,$idAlmacen,$idUsuario,$idCompania){
+    $sql = "UPDATE Almacen SET estatus = ?, idBaja = ? WHERE idAlmacen = ? AND idCompania = ?";
+    $estatus = 0;
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"s",$idAlmacen);
+    mysqli_stmt_bind_param($stmt,"isss",$estatus,$idUsuario,$idAlmacen,$idCompania);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
-        header("location: ../php/C_almacen.php?error=success");
+        header("location: ../php/C_almacen.php?error=success2");
         exit();
     }
     else{
