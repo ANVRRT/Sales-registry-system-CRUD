@@ -75,13 +75,12 @@
                                                                 <th>Entrega</th>
                                                                 <th>Tipo de Transacción</th>
                                                                 <th>Fecha de facturación</th>
-                                                                <th> Estatus </th>
-                                                                <th> ID Baja </th>
                                                             </tr>
                                                         </thead>
                                                         
                                                         <tbody>";
                                     while ($row=mysqli_fetch_assoc($reg)){
+                                                            if ($row["estatus"] == 1){
                                                             echo "  <tr>
                                                                         <td align='center'>".$row["idCompania"]."</td>
                                                                         <td align='center'>".$row["numFact"]."</td>
@@ -92,9 +91,8 @@
                                                                         <td align='center'>".$row["entrega"]."</td>
                                                                         <td align='center'>".$row["tipoTrans"]."</td>
                                                                         <td align='center'>".$row["fechaFac"]."</td>
-                                                                        <td align='center'>".$row["estatus"]."</td>
-                                                                        <td align='center'>".$row["idBaja"]."</td>
                                                                     </tr>";
+                                                            }
                                                         }
 
                                     echo " 
