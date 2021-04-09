@@ -2,28 +2,27 @@
     require_once("dbh.inc.php");
 
     if(isset($_POST["A_Orden"]) || isset($_POST["A_articulo"])){
-        $banderaFolio=prepararFolio($conn,$_POST["folio"]);
         $banderaOrden=prepararOrden($conn,$_POST["idOrden"]);
         $total=$_POST["precio"]*$_POST["cantidad"];
         $estatus=0;
-        if($banderaFolio){
-            if(!$banderaOrden){
-                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,0,0,0,0,0,0,0,0,0);
+        if(strlen($_POST["folio"])>0){
+            $banderaFolio=prepararFolio($conn,$_POST["folio"]);
+            if(!$banderaFolio){
+                createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"]);
             }
+            
         }
         else{
-            createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"]);
-            if(!$banderaOrden){
-                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,0,0,0,0,0,0,0,0,0); 
-            }
+            createArtVendido($conn,'default',$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"]);
         }
+        if(!$banderaOrden){
+            createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,0,0,0,0,0,0,0,0,0); 
+        }
+       
         $reg=preparaReporte($conn,$_POST["idCliente"]);
         createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],'default',$_POST["numFact"],null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
         $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,null, $reg->divisa,null);
     }
-
-    
-
 
     function prepararFolio($conn,$folio){
         $query = "SELECT * FROM ArticuloVendido WHERE folio= $folio";

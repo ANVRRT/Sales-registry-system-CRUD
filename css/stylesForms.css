@@ -50,10 +50,18 @@ body {
 	margin-top: 2rem;
 }
 
+.campo--aside {
+	display: flex;
+}
+
 .campo__label {
 	font-size: 1.8rem;
 	margin-right: 0.8rem;
 	margin-bottom: -0.8rem;
+}
+
+.campo__label--icon {
+	margin-bottom: -0.1rem;
 }
 
 .campo__field {
@@ -77,6 +85,12 @@ body {
 	color: #000;
 }
 
+.campo__checkbox {
+	margin-top: 0.8rem;
+	width: 1.3rem;
+	height: 1.3rem;
+}
+
 .campo__text {
 	display: grid;
 	align-items: center;
@@ -85,10 +99,6 @@ body {
 .campo__icon {
 	display: flex;
 	align-items: center;
-}
-
-.campo__icon--icon:hover {
-	cursor: pointer;
 }
 
 .campo--button {
@@ -111,7 +121,7 @@ body {
 
 .campo__3--button {
 	display: grid;
-	grid-template-columns: repeat(1, 1fr);
+	grid-template-columns: 1fr;
 	column-gap: 3rem;
 	margin-bottom: 2.3rem;
 }
@@ -161,4 +171,22 @@ body {
 .button--red:hover {
 	background-color:#a13228;
 	cursor: pointer;
+}
+
+.consultas--button {
+	background-color: #09a745;
+	padding: 1.1rem 0;
+	font-size: 1.1rem;
+}
+
+@media (min-width: 700px) {
+	.consultas--button {
+		font-size: 1.5rem;
+	}
+}
+
+@media (min-width: 600px) {
+	.consultas {
+		padding: 0 5rem;
+	}
 }

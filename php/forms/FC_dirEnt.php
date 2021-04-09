@@ -1,12 +1,5 @@
 <div class="fix-margin">
-	<form method="POST" action="../php/C_dirEnt.php" style="overflow: hidden">
-		<table width="100%">
-			<tr>
-				<td width="50%"><h1 class="h1-mine" style="margin-top:1.6rem">Dirección de Entrega</h1></td>
-				<td><input class="campo__field button--blue" type="submit" value="Consultar las Direcciones de Entrega" name="C_dirEnt" style="margin-top:0rem"></td>
-			</tr>
-		</table>
-	</form>
+	<h1 class="h1-mine" style="margin-top:1.6rem">Dirección de Entrega</h1>
 
 	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">
@@ -68,7 +61,7 @@
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="observacion-orden">Observaciones de la Orden</label>
-			<input  type="text" class="campo__field" name="observaciones" id="observaciones">
+			<textarea class="campo__field campo__field--textarea" name="observaciones" id="observaciones"></textarea>
 		</div>
 
 		<div class="campo">
@@ -96,5 +89,11 @@
 			<input class="campo__field button--blue" type="submit" name="B_dirEnt" value="Baja">
 			<input class="campo__field button--blue" type="submit" name="A_dirEnt"value="Alta">
 		</div>
+	</form>
+
+	<form method="POST" action="../php/C_dirEnt.php" style="overflow: hidden">
+		<div class="consultas">
+			<input class="campo__field consultas--button button--blue" type="submit" value="Consultar Todo" name="C_dirEnt">
+		</div>		
 	</form>
 </div>

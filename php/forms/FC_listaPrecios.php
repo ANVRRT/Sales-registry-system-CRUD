@@ -1,12 +1,5 @@
 <div class="fix-margin">
-	<form method="POST" action="../php/C_listaPrecios.php" style="overflow: hidden">
-		<table width="100%">
-			<tr>
-				<td width="50%"><h1 class="h1-mine" style="margin-top:1.6rem">Listas de Precios</h1></td>
-				<td><input class="campo__field button--blue" type="submit" value="Consultar las Listas" name="C_listaPrecios" style="margin-top:0rem"></td>
-			</tr>
-		</table>
-	</form>
+	<h1 class="h1-mine">Listas de Precios</h1>
 
 	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">
@@ -21,7 +14,6 @@
 			<input class="campo__field" type="text" name="idLista" id="idLista" required>
 		</div>
 
-		
 		<div class="campo">
 			<label class="campo__label" for="idArticulo">Id Artículo</label>
 			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos" required>
@@ -35,9 +27,7 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					echo "<option>".$row["idArticulo"]."</option>";
-
 				}
-				
 				echo "</datalist>";
 			?>
 		</div>
@@ -82,6 +72,12 @@
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
 			<input class="campo__field button--blue" name="B_listPrecios" type="submit" value="Baja">
 			<input class="campo__field button--blue"  name="A_listPrecios" type="submit" value="Alta">
+		</div>
+	</form>
+
+	<form method="POST" action="../php/C_listaPrecios.php" style="overflow: hidden">
+		<div class="consultas">
+			<input class="campo__field consultas--button button--blue" type="submit" value="Consultar Todo" name="C_listaPrecios">
 		</div>
 	</form>
 </div>
