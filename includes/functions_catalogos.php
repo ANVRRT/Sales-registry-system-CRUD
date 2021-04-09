@@ -685,7 +685,7 @@ function deleteCompania($conn, $idCompania, $idUsuario){
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt, "sss", $estatus, $idUsuario, $idCompania);
+    mysqli_stmt_bind_param($stmt, "iss", $estatus, $idUsuario, $idCompania);
 
     if(mysqli_stmt_execute($stmt))
     {
