@@ -23,7 +23,7 @@
                         <td>
                             <table style="width: 100%;">
                             <?php
-                                $clientesD = disClients($conn, 0, $_SESSION["idCompania"]);
+                                $clientesD = disClients($conn, 0, $_SESSION["idCompania"], 1);
                                 $check=mysqli_fetch_assoc($clientesD);
                                 if($check){
                                     echo"<tr>";
@@ -51,7 +51,7 @@
                             <td>
                             <table style="width: 100%;">
                             <?php
-                                $clientesB = disClients($conn, 1, $_SESSION["idCompania"]);
+                                $clientesB = disClients($conn, 1, $_SESSION["idCompania"], 1);
                                 $check=mysqli_fetch_assoc($clientesB);
                                 if($check){
                                     echo"<tr>";
@@ -82,4 +82,3 @@
         </div>
     </body>
 </html>
-
