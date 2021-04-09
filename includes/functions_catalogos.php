@@ -587,7 +587,7 @@ function createArtVendido($conn,$folio,$idArticulo,$idCompania,$idCliente,$stock
         exit();
     }
 }
-function deleteArtVendido($conn,$folio,$idCompania){
+function deleteArtVendido($conn,$folio,$idCompania,$idUsuario){
     $sql = "UPDATE ArticuloVendido SET estatus = ?, idBaja = ? WHERE idArticulo = ? AND idCompania = ? AND folio = ?;";
     $estatus = 0;
     // $sql = "DELETE FROM ArticuloVendido WHERE folio = ? AND idCompania = ? ";
