@@ -14,7 +14,7 @@
 				echo "<datalist id='cliente'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					if($row["estatus"]!='0'){
+					if($row["estatus"]==1){
 						echo "<option>".$row["idCliente"]."</option>";
 					}
 					
@@ -43,7 +43,7 @@
 				echo "<datalist id='representante'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					if($row["estatus"]!='0'){
+					if($row["estatus"]==1){
 						echo "<option>".$row["idRepresentante"]."</option>";
 					}
 					
@@ -66,7 +66,7 @@
 				echo "<datalist id='listaPrecio'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					if($row["estatus"]!='0'){
+					if($row["estatus"]==1){
 						echo "<option>".$row["idLista"]."</option>";
 					}
 					
@@ -88,7 +88,7 @@
 				echo "<datalist id='almacen'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					if($row["estatus"]!='0'){
+					if($row["estatus"]==1){
 						echo "<option>".$row["idAlmacen"]."</option>";
 					}
 					
@@ -120,7 +120,7 @@
 				echo "<datalist id='analista'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					if($row["estatus"]!='0'){
+					if($row["estatus"]==1){
 						echo "<option>".$row["idRepresentante"]."</option>";
 					}
 					
