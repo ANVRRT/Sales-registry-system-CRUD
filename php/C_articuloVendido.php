@@ -21,7 +21,8 @@
 		<div >
 			
 			<?php
-				include("../includes/sidebar.php")
+				include("../includes/sidebar.php");
+                require_once("../includes/functions_catalogos.php");
 			?>
 			
 			
