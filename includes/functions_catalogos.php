@@ -60,7 +60,7 @@ if(isset($_POST["A_dirEnt"])){ //DirEnt
     createDirEnt($conn,$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$_POST["nombreEntrega"],$_POST["direccion"],$_POST["municipio"],$_POST["estado"],$_POST["telefono"],$_POST["observaciones"],$_POST["codpost"],$_POST["codruta"],$_POST["pais"],$_POST["rfc"]);
 }
 if(isset($_POST["B_dirEnt"])){
-    deleteDirEnt($conn,$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"]);
+    deleteDirEnt($conn,$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$_SESSION["idUsuario"]);
 }
 if(isset($_POST["A_Compania"])){ //Compañia
     createCompania($conn,$_POST["idCompania"],$_POST["nombre"]);
@@ -877,8 +877,8 @@ function deleteFactura($conn,$numFact,$idCompania){
 
 }
 
-function disClients($conn, $estado, $compania){
-    $sql="SELECT * FROM Cliente WHERE bloqueo = ? AND idCompania = ?";
+function disClients($conn, $estado, $compania, $estatus){
+    $sql="SELECT * FROM Cliente WHERE estatus = ? AND bloqueo = ? AND idCompania = ?";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -886,7 +886,7 @@ function disClients($conn, $estado, $compania){
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"is", $estado, $compania);
+    mysqli_stmt_bind_param($stmt,"iis", $estatus, $estado, $compania);
     mysqli_stmt_execute($stmt);
 
     $resultData = mysqli_stmt_get_result($stmt);
@@ -990,15 +990,17 @@ function deleteListPrecios($conn, $idLista,$idCompania,$idArticulo,$nivelDscto){
 }
 
 function createDirEnt($conn,$idCompania,$idCliente,$dirEnt,$nombreEntrega,$direccion,$municipio,$estado,$telefono,$observaciones,$codpost,$codruta,$pais,$rfc){
-    $sql = "INSERT INTO DirEnt VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql = "INSERT INTO DirEnt VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
+    $estatus = 1;
+    $idBaja = null;
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"sssssssssssss",$idCompania,$idCliente,$dirEnt,$nombreEntrega,$direccion,$municipio,$estado,$telefono,$observaciones,$codpost,$codruta,$pais,$rfc);
+    mysqli_stmt_bind_param($stmt,"sssssssssssssis",$idCompania,$idCliente,$dirEnt,$nombreEntrega,$direccion,$municipio,$estado,$telefono,$observaciones,$codpost,$codruta,$pais,$rfc,$estatus,$idBaja);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
@@ -1011,8 +1013,9 @@ function createDirEnt($conn,$idCompania,$idCliente,$dirEnt,$nombreEntrega,$direc
         exit();
     }
 }
-function deleteDirEnt($conn,$idCompania,$idCliente,$dirEnt){
-    $sql = "DELETE FROM DirEnt WHERE idCompania = ? AND idCliente = ? AND dirEnt = ?";
+function deleteDirEnt($conn,$idCompania,$idCliente,$dirEnt,$idUsuario){
+    $sql = "UPDATE DirEnt SET estatus = ?, idBaja = ? WHERE idCompania = ? AND idCliente = ? AND dirEnt = ?";
+    $estatus = 0;
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)){
@@ -1020,7 +1023,7 @@ function deleteDirEnt($conn,$idCompania,$idCliente,$dirEnt){
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt, "sss",$idCompania,$idCliente,$dirEnt);
+    mysqli_stmt_bind_param($stmt, "issss",$estatus,$idUsuario,$idCompania,$idCliente,$dirEnt);
 
     if(mysqli_stmt_execute($stmt))
     {
