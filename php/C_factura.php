@@ -75,6 +75,8 @@
                                                                 <th>Entrega</th>
                                                                 <th>Tipo de Transacción</th>
                                                                 <th>Fecha de facturación</th>
+                                                                <th> Estatus </th>
+                                                                <th> ID Baja </th>
                                                             </tr>
                                                         </thead>
                                                         
@@ -90,6 +92,8 @@
                                                                         <td align='center'>".$row["entrega"]."</td>
                                                                         <td align='center'>".$row["tipoTrans"]."</td>
                                                                         <td align='center'>".$row["fechaFac"]."</td>
+                                                                        <td align='center'>".$row["estatus"]."</td>
+                                                                        <td align='center'>".$row["idBaja"]."</td>
                                                                     </tr>";
                                                         }
 
