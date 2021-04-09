@@ -14,7 +14,7 @@ require_once("../includes/dbh.inc.php");
         <title>Document</title>
     </head>
     <body>
-    <button onclick="generatePDF()">Download as PDF</button>
+    <button onclick="generatePDF()">Descargar reporte</button>
 
         <div id="canvas-holder" name="grafica">
             <canvas id="myBarChart" width="100" height="600"></canvas>
