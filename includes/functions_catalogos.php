@@ -841,7 +841,7 @@ function createFactura($conn,$numFact,$idCompania,$idOrden,$idArticulo,$idClient
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"sssssiissss",$numFact,$idCompania,$idOrden,$idArticulo,$idCliente,$folio,$entrega,$tipoTrans,$fechaFac,$estatus,$idBaja);
+    mysqli_stmt_bind_param($stmt,"sssssiissis",$numFact,$idCompania,$idOrden,$idArticulo,$idCliente,$folio,$entrega,$tipoTrans,$fechaFac,$estatus,$idBaja);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
@@ -865,7 +865,7 @@ function deleteFactura($conn,$numFact,$idCompania,$idUsuario){
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"ssss",$estatus,$idUsuario,$numFact,$idCompania);
+    mysqli_stmt_bind_param($stmt,"isss",$estatus,$idUsuario,$numFact,$idCompania);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
