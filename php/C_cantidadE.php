@@ -20,7 +20,7 @@
 			
 			<?php
 				include("../includes/sidebar.php");
-                require_once("../includes/functions_catalogos.php");
+               			require_once("../includes/functions_catalogos.php");
 
 			?>
 			
