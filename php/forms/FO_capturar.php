@@ -44,7 +44,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="idList">Lista de precios a utilizar</label>
-			<input class="campo__field" type="text" name="idList" id="idList" list="listaPrecio" required>
+			<input class="campo__field" type="text" name="idList" id="idList" list="listaPrecio" onblur="AjaxFunction('dispArtByList','idList','articuloList')" required>
 			<datalist id="listaPrecio" >
 			</datalist>
 		</div>
@@ -61,21 +61,9 @@
 					</svg>
 				</button>
 			</div>
-			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulo" onblur="AjaxFunction2('dispFolio','idCliente','idArticulo','folioList');AjaxFunction2('dispPrecio','idList','idArticulo','precioList')" required>
-			<?php
-				
-				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
-				
-				echo "<datalist id='articulo'>";
-				while($row = mysqli_fetch_assoc($reg))
-				{
-					if($row["estatus"]==1){
-						echo "<option>".$row["idArticulo"]."</option>";
-					}
-					
-				}
-				echo "</datalist>";
-			?>
+			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articuloList" onblur="AjaxFunction2('dispFolio','idCliente','idArticulo','folioList');AjaxFunction2('dispPrecio','idList','idArticulo','precioList')" required>
+			<datalist id="articuloList" >
+			</datalist>
 		</div>
 
 		<div class="campo">

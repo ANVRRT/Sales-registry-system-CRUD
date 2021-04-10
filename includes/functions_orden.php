@@ -6,6 +6,7 @@
         $total=$_POST["precio"]*$_POST["cantidad"];
         $reg=preparaReporte($conn,$_POST["idCliente"]);
         $estatus=0;
+        $costo=obtenerCosto($conn,$_POST["idArticulo"]);
         if(strlen($_POST["folio"])>0){
             $banderaFolio=prepararFolio($conn,$_POST["folio"]);
             if(!$banderaFolio){
@@ -20,7 +21,7 @@
                 updateOrden($conn,$_POST["idOrden"],$newTotal);
             }
             createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["folio"],null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
-            $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,null, $reg->divisa,null,'1',null);
+            $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
               
         }
         else{
@@ -36,12 +37,25 @@
             }
             $regArt=consultarFolio($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"]);
             createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$regArt->folio,null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
-            $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,null, $reg->divisa,null,'1',null);
+            $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
             
         }
         
     }
 
+    function obtenerCosto($conn,$idArticulo){
+        $query = "SELECT * FROM ArticuloExistente WHERE idArticulo = $idArticulo";
+        $sql= mysqli_query($conn,$query);
+        $reg=mysqli_fetch_object($sql);
+        if($reg==mysqli_fetch_array($sql)){
+            #echo "No se encontró el registro";
+            exit();
+        }
+        else{
+            return $reg->costosEstandar;
+            
+        }
+    }
     function consultaTotal($conn,$idOrden){
         $query = "SELECT * FROM Orden WHERE idOrden = $idOrden";
         $sql= mysqli_query($conn,$query);
@@ -168,7 +182,8 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            
+            header("location: ../php/O_Capturar.php?error=succes");
+            exit();
         }
         else{
             mysqli_stmt_close($stmt);
