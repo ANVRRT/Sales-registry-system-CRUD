@@ -26,7 +26,6 @@
 
 
         </div>
-
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->

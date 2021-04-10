@@ -72,7 +72,7 @@ if(isset($_POST["A_Facs"])){ //Factura
     createFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_POST["idOrden"],$_POST["idArticulo"],$_POST["idCliente"],$_POST["idFolio"],$_POST["entrega"],$_POST["tipoTrans"],$_POST["fechaFac"]);
 }
 if(isset($_POST["B_Facs"])){
-    deleteFactura($conn,$_POST["numFac"],$_POST["idCompania"]);
+    deleteFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_SESSION["idUsuario"]);
 }
 if(isset($_POST["A_inventario"])){ //Inventario
     createInventario($conn,$_POST["idCompania"],$_POST["idAlmacen"],$_POST["idArticulo"],$_POST["stock"]);
@@ -847,15 +847,17 @@ function deleteInventario($conn,$idArticulo,$idCompania,$idUsuario){
 }
 function createFactura($conn,$numFact,$idCompania,$idOrden,$idArticulo,$idCliente,$folio,$entrega,$tipoTrans,$fechaFac)
 {
-    $sql = "INSERT INTO Factura VALUES(?,?,?,?,?,?,?,?,?);";
+    $sql = "INSERT INTO Factura VALUES(?,?,?,?,?,?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
+    $estatus = 1;
+    $idBaja = null;
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"sssssiiss",$numFact,$idCompania,$idOrden,$idArticulo,$idCliente,$folio,$entrega,$tipoTrans,$fechaFac);
+    mysqli_stmt_bind_param($stmt,"sssssiissis",$numFact,$idCompania,$idOrden,$idArticulo,$idCliente,$folio,$entrega,$tipoTrans,$fechaFac,$estatus,$idBaja);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
@@ -870,15 +872,16 @@ function createFactura($conn,$numFact,$idCompania,$idOrden,$idArticulo,$idClient
     }
 }
 
-function deleteFactura($conn,$numFact,$idCompania){
-    $sql = "DELETE FROM Factura WHERE numFact = ? AND idCompania = ?";
+function deleteFactura($conn,$numFact,$idCompania,$idUsuario){
+    $sql = "UPDATE Factura SET estatus = ?, idBaja = ? WHERE numFact = ? AND idCompania = ?;";
+    $estatus = 0;
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"ss",$numFact,$idCompania);
+    mysqli_stmt_bind_param($stmt,"isss",$estatus,$idUsuario,$numFact,$idCompania);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
