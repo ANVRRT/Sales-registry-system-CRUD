@@ -181,48 +181,40 @@
                                             echo "<td style='text-align: center;'><input  type='checkbox' name='estatus' id='estatus' ".$estatus." disabled></td>";
                                             echo "<td id='ordCompra' style='text-align: center;'>". $row["ordenCompra"] ."</td>";
                                             echo "<td style='text-align: center;'><input  type='date' name='fechaOrden' id='fechaOrden' value='".$row["fechaOrden"]."' readonly></td>";
-                                            switch ($_SESSION["rol"]) {
-                                                case "ADM":
-                                                    echo "<td align='center'><input  type='checkbox' name='vFacturas'   id='vFacturas' ".$vFacturas_chked." disabled></td>";
-                                                    echo "<td align='center'><input  type='checkbox' name='vCxC'        id='vCxC' ".$vCXC_chked." disabled></td>";
-                                                    echo "<td align='center'><input  type='checkbox' name='vPrecios'    id='vPrecios' ".$vPrecios_chked." disabled></td>";
-                                                    echo "<td align='center'><input  type='checkbox' name='vCST'        id='vCostos' ".$vCostos_chked." disabled></td>";
-                                                    echo "<td align='center'><input  type='checkbox' name='vIng'        id='vIng' ".$vIng_chked." disabled></td>";
-                                                    echo "<td align='center'><input  type='checkbox' name='vPLN'        id='vPLN' ".$vPlaneacion_chked." disabled></td>";
-                                                    echo "<td align='center'><input  type='checkbox' name='vFEC'        id='vFEC' ".$vFEC_chked." disabled></td>";
-                                                    break;
-                                                case "FAC":
 
-                                                    echo "<td align='center'><input  type='checkbox' name='vFacturas'   id='vFacturas' ".$vFacturas_chked." disabled></td>";
-                                                    break;
-
-                                                case "CXC":
-
-                                                    echo "<td align='center'><input  type='checkbox' name='vCxC'        id='vCxC' ".$vCXC_chked." disabled></td>";
-                                                    break;
-
-                                                case "VTA":
-
-                                                    echo "<td align='center'><input  type='checkbox' name='vPrecios'    id='vPrecios' ".$vPrecios_chked." disabled></td>";
-                                                    break;
-
-                                                case "CST":
-                                                    echo "<td align='center'><input  type='checkbox' name='vCST'        id='vCostos' ".$vCostos_chked." disabled></td>";
-                                                    break;
-
-                                                case "ING":
-                                                    echo "<td align='center'><input  type='checkbox' name='vIng'        id='vIng' ".$vIng_chked." disabled></td>";
-                                                    break;
-
-                                                case "PLN":
-                                                    echo "<td align='center'><input  type='checkbox' name='vPLN'        id='vPLN' ".$vPlaneacion_chked." disabled></td>";
-                                                    break;
-
-                                                case "FEC":
-                                                    echo "<td align='center'><input  type='checkbox' name='vFEC'        id='vFEC' ".$vFEC_chked." disabled></td>";
-
-                                                    break;
+                                            if($_SESSION["rol"]=="ADM"){
+                                                echo "<td align='center'><input  type='checkbox' name='vFacturas'   id='vFacturas' ".$vFacturas_chked." disabled></td>";
+                                                echo "<td align='center'><input  type='checkbox' name='vCxC'        id='vCxC' ".$vCXC_chked." disabled></td>";
+                                                echo "<td align='center'><input  type='checkbox' name='vPrecios'    id='vPrecios' ".$vPrecios_chked." disabled></td>";
+                                                echo "<td align='center'><input  type='checkbox' name='vCST'        id='vCostos' ".$vCostos_chked." disabled></td>";
+                                                echo "<td align='center'><input  type='checkbox' name='vIng'        id='vIng' ".$vIng_chked." disabled></td>";
+                                                echo "<td align='center'><input  type='checkbox' name='vPLN'        id='vPLN' ".$vPlaneacion_chked." disabled></td>";
+                                                echo "<td align='center'><input  type='checkbox' name='vFEC'        id='vFEC' ".$vFEC_chked." disabled></td>";
                                             }
+                                                
+                                            if($_SESSION["rol"]=="FAC"){
+                                                echo "<td align='center'><input  type='checkbox' name='vFacturas'   id='vFacturas' ".$vFacturas_chked." disabled></td>";
+                                            }
+                                            if($_SESSION["rol"]=="CXC"){
+                                                echo "<td align='center'><input  type='checkbox' name='vCxC'        id='vCxC' ".$vCXC_chked." disabled></td>";
+                                            }
+
+                                            if($_SESSION["rol"]=="VTA"){
+                                                echo "<td align='center'><input  type='checkbox' name='vPrecios'    id='vPrecios' ".$vPrecios_chked." disabled></td>";
+                                            }
+                                            if($_SESSION["rol"]=="CST"){
+                                                echo "<td align='center'><input  type='checkbox' name='vCST'        id='vCostos' ".$vCostos_chked." disabled></td>";
+                                            }
+                                            if($_SESSION["rol"]=="ING"){
+                                                echo "<td align='center'><input  type='checkbox' name='vIng'        id='vIng' ".$vIng_chked." disabled></td>";
+                                            }
+                                            if($_SESSION["rol"]=="PLN"){
+                                                echo "<td align='center'><input  type='checkbox' name='vPLN'        id='vPLN' ".$vPlaneacion_chked." disabled></td>";
+                                            }
+                                            if($_SESSION["rol"]=="FEC"){
+                                                echo "<td align='center'><input  type='checkbox' name='vFEC'        id='vFEC' ".$vFEC_chked." disabled></td>";
+                                            }
+
                                             echo "<td align='center'><input  type='checkbox' name='vServCli'    id='vServCli' ".$vServCli_chked." disabled></td>";
                                             echo "<td align='center'><input  type='checkbox' name='vREP'        id='vREP' ".$vREP_chked." disabled></td>";
                                             // echo "<td align='center'><input name='detalle' type='button' value='Ver detalle' class='btn btn-primary'></td>";
