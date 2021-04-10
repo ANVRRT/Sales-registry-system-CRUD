@@ -21,7 +21,7 @@
 			
 			<?php
 				include("../includes/sidebar.php");
-				require_once("../includes/functions_catalogos.php");
+                		require_once("../includes/functions_catalogos.php");
 			?>
 			
 			
@@ -80,6 +80,7 @@
                                                         
                                                         <tbody>";
                                     while ($row=mysqli_fetch_assoc($reg)){
+                                                            if ($row["estatus"] == 1){
                                                             echo "  <tr>
                                                                         <td align='center'>".$row["idCompania"]."</td>
                                                                         <td align='center'>".$row["numFact"]."</td>
@@ -91,6 +92,7 @@
                                                                         <td align='center'>".$row["tipoTrans"]."</td>
                                                                         <td align='center'>".$row["fechaFac"]."</td>
                                                                     </tr>";
+                                                            }
                                                         }
 
                                     echo " 
