@@ -117,8 +117,7 @@
 					if($row["estatus"]==1){
 						echo "<option>".$row["idRepresentante"]."</option>";
 					}
-					
-
+	
 				}
 				echo "</datalist>";
 			?>
