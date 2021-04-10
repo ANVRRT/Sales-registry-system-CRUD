@@ -143,7 +143,7 @@ function buscarArticuloCliente($conn, $idCliente, $idCompania){
 
 
 function dispCompania($conn){
-    $sql="SELECT * FROM Compania";
+    $sql="SELECT * FROM Compania WHERE estatus = 1";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -162,7 +162,7 @@ function dispCompania($conn){
 }
 
 function dispInventario($conn, $idCompania){
-    $sql="SELECT * FROM Inventario WHERE idCompania = ?";
+    $sql="SELECT * FROM Inventario WHERE idCompania = ? AND estatus = 1";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -181,7 +181,7 @@ function dispInventario($conn, $idCompania){
 }
 
 function dispArticuloVendido($conn, $idCompania){
-    $sql="SELECT * FROM ArticuloVendido WHERE idCompania = ?";
+    $sql="SELECT * FROM ArticuloVendido WHERE idCompania = ? AND estatus = 1";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
@@ -199,7 +199,7 @@ function dispArticuloVendido($conn, $idCompania){
 }
 
 function dispOrden($conn, $idCompania){
-    $sql="SELECT * FROM Orden WHERE idCompania = ?";
+    $sql="SELECT * FROM Orden WHERE idCompania = ? AND estatusDB = 1";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
@@ -217,7 +217,7 @@ function dispOrden($conn, $idCompania){
 }
 
 function dispDirEnt($conn, $idCompania){
-    $sql="SELECT * FROM DirEnt WHERE idCompania = ?";
+    $sql="SELECT * FROM DirEnt WHERE idCompania = ? AND estatus = 1";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -236,7 +236,7 @@ function dispDirEnt($conn, $idCompania){
 }
 
 function dispFactura($conn, $idCompania){
-    $sql="SELECT * FROM Factura WHERE idCompania = ?";
+    $sql="SELECT * FROM Factura WHERE idCompania = ? AND estatus = 1";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -255,7 +255,7 @@ function dispFactura($conn, $idCompania){
 }
 
 function dispCantidadE($conn, $idCompania){
-    $sql="SELECT * FROM CantEntregada WHERE idCompania = ?";
+    $sql="SELECT * FROM CantEntregada WHERE idCompania = ? AND estatus = 1";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -274,7 +274,7 @@ function dispCantidadE($conn, $idCompania){
 }
 
 function dispArticulos($conn, $idCompania){
-    $sql="SELECT * FROM ArticuloExistente WHERE idCompania = ?";
+    $sql="SELECT * FROM ArticuloExistente WHERE idCompania = ? AND estatus = 1";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -292,7 +292,7 @@ function dispArticulos($conn, $idCompania){
     mysqli_stmt_close($stmt);
 }
 function dispRepresentante($conn, $idCompania){
-    $sql="SELECT * FROM Agente WHERE idCompania = ?";
+    $sql="SELECT * FROM Agente WHERE idCompania = ? AND estatus = 1";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -311,7 +311,7 @@ function dispRepresentante($conn, $idCompania){
 }
 
 function dispListaPrecioCompleta($conn, $idCompania){
-    $sql="SELECT * FROM ListaPrecio WHERE idCompania = ?";
+    $sql="SELECT * FROM ListaPrecio WHERE idCompania = ? AND estatus = 1";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -349,7 +349,7 @@ function dispListaPrecios($conn, $idCompania){
     mysqli_stmt_close($stmt);
 }
 function dispListaPreciosByCliente($conn, $entrada){
-    $sql="SELECT * FROM Cliente WHERE idCliente=?";
+    $sql="SELECT * FROM Cliente WHERE idCliente=? AND estatus = 1";
     
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -371,7 +371,7 @@ function dispListaPreciosByCliente($conn, $entrada){
 
 }
 function dispOrdenByCliente($conn, $entrada){
-    $sql="SELECT * FROM Orden WHERE idCliente=?";
+    $sql="SELECT * FROM Orden WHERE idCliente=? AND estatusDB = 1";
     
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -393,7 +393,7 @@ function dispOrdenByCliente($conn, $entrada){
 }
 
 function dispDirEntByCLiente($conn, $entrada){
-    $sql="SELECT * FROM DirEnt WHERE idCliente=?";
+    $sql="SELECT * FROM DirEnt WHERE idCliente=? AND estatus = 1";
     
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -414,7 +414,7 @@ function dispDirEntByCLiente($conn, $entrada){
 }
 
 function dispFolio($conn, $entrada,$entrada2){
-    $sql="SELECT * FROM ArticuloVendido WHERE idCliente=? AND idArticulo=?";
+    $sql="SELECT * FROM ArticuloVendido WHERE idCliente=? AND idArticulo=? AND estatus = 1";
     
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -435,7 +435,7 @@ function dispFolio($conn, $entrada,$entrada2){
 }
 
 function dispPrecio($conn, $entrada,$entrada2){
-    $sql="SELECT * FROM ListaPrecio WHERE idLista=? AND idArticulo=?";
+    $sql="SELECT * FROM ListaPrecio WHERE idLista=? AND idArticulo=? AND estatus = 1";
     
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -457,7 +457,7 @@ function dispPrecio($conn, $entrada,$entrada2){
 
 
 function dispAlmacen($conn, $idCompania){
-    $sql="SELECT * FROM Almacen WHERE idCompania = ?";
+    $sql="SELECT * FROM Almacen WHERE idCompania = ? AND estatus = 1";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -476,7 +476,7 @@ function dispAlmacen($conn, $idCompania){
 }
 function dispClientes($conn, $idCompania)
 {
-    $sql="SELECT * FROM Cliente WHERE idCompania=?";
+    $sql="SELECT * FROM Cliente WHERE idCompania=? AND estatus = 1";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -497,7 +497,7 @@ function dispClientes($conn, $idCompania)
 
 function dispFolios($conn, $idCliente)
 {
-    $sql="SELECT folio FROM ArticuloVendido WHERE idCliente=?";
+    $sql="SELECT folio FROM ArticuloVendido WHERE idCliente=? AND estatus = 1";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
