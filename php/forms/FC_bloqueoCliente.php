@@ -34,12 +34,15 @@
                                         echo"</tr>";
                                     while($row = mysqli_fetch_assoc($clientesD))
                                     {
-                                        echo"<tr>";
-                                            echo"<td>".$row["nombreCliente"]."</td>";
-                                            echo"<td>";
-                                                echo"<a href='../includes/functions_catalogos.php?estadoB=2&idB=".$row["idCliente"]."'class='btn btn-danger'>Bloquear</a></th>";
-                                            echo"</td>";
-                                        echo"</tr>";
+                                        if ($row["estatus"] == 1)
+                                        {
+                                            echo"<tr>";
+                                                echo"<td>".$row["nombreCliente"]."</td>";
+                                                echo"<td>";
+                                                    echo"<a href='../includes/functions_catalogos.php?estadoB=2&idB=".$row["idCliente"]."'class='btn btn-danger'>Bloquear</a></th>";
+                                                echo"</td>";
+                                            echo"</tr>";
+                                        }
                                     }
                                 }
                                 else{
@@ -62,12 +65,15 @@
                                         echo"</tr>";
                                     while($row = mysqli_fetch_assoc($clientesB))
                                     {
-                                        echo"<tr>";
-                                            echo"<td>".$row["nombreCliente"]."</td>";
-                                            echo"<td>";
-                                                echo"<a href='../includes/functions_catalogos.php?estadoD=1&idD=".$row["idCliente"]."'class='btn btn-success'>Desbloquear</a></th>";
-                                            echo"</td>";
-                                        echo"</tr>";
+                                        if ($row["estatus"] == 1)
+                                        {
+                                            echo"<tr>";
+                                                echo"<td>".$row["nombreCliente"]."</td>";
+                                                echo"<td>";
+                                                    echo"<a href='../includes/functions_catalogos.php?estadoD=1&idD=".$row["idCliente"]."'class='btn btn-success'>Desbloquear</a></th>";
+                                                echo"</td>";
+                                            echo"</tr>";
+                                        }
                                     }
                                 }
                                 else{

@@ -79,15 +79,17 @@
                                                         
                                                         <tbody>";
                                     while ($row=mysqli_fetch_assoc($reg)){
-                                                            echo "  <tr>
-                                                                        <td align='center'>".$row["idCompania"]."</td>
-                                                                        <td align='center'>".$row["folio"]."</td>
-                                                                        <td align='center'>".$row["idArticulo"]."</td>
-                                                                        <td align='center'>".$row["idCliente"]."</td>
-                                                                        <td align='center'>".$row["stock"]."</td>
-                                                                        <td align='center'>".$row["codAviso"]."</td>
-                                                                        <td align='center'>".$row["udVta"]."</td>
-                                                                    </tr>";
+                                                            if ($row["estatus"] == 1){
+                                                                echo "  <tr>
+                                                                            <td align='center'>".$row["idCompania"]."</td>
+                                                                            <td align='center'>".$row["folio"]."</td>
+                                                                            <td align='center'>".$row["idArticulo"]."</td>
+                                                                            <td align='center'>".$row["idCliente"]."</td>
+                                                                            <td align='center'>".$row["stock"]."</td>
+                                                                            <td align='center'>".$row["codAviso"]."</td>
+                                                                            <td align='center'>".$row["udVta"]."</td>
+                                                                        </tr>";
+                                                                    }
                                                         }
 
                                     echo " 

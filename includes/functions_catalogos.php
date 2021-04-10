@@ -766,7 +766,7 @@ function createAlmacen($conn,$idAlmacen,$descripcion,$idCompania){
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
-        header("location: ../php/C_almacen.php?error=success2");
+        header("location: ../php/C_almacen.php?error=success");
         exit();
     }
     else{

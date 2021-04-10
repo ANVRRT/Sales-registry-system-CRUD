@@ -84,21 +84,23 @@
                                                         
                                                         <tbody>";
                                     while ($row=mysqli_fetch_assoc($reg)){
-                                                            echo "  <tr>
-                                                                        <td align='center'>".$row["idCompania"]."</td>
-                                                                        <td align='center'>".$row["idCliente"]."</td>
-                                                                        <td align='center'>".$row["dirEnt"]."</td>
-                                                                        <td align='center'>".$row["nombreEntrega"]."</td>
-                                                                        <td align='center'>".$row["direccion"]."</td>
-                                                                        <td align='center'>".$row["municipio"]."</td>
-                                                                        <td align='center'>".$row["estado"]."</td>
-                                                                        <td align='center'>".$row["telefono"]."</td>
-                                                                        <td align='center'>".$row["observaciones"]."</td>
-                                                                        <td align='center'>".$row["codPost"]."</td>
-                                                                        <td align='center'>".$row["codRuta"]."</td>
-                                                                        <td align='center'>".$row["pais"]."</td>
-                                                                        <td align='center'>".$row["rfc"]."</td>
-                                                                    </tr>";
+                                                            if ($row["estatus"] == 1){
+                                                                echo "  <tr>
+                                                                            <td align='center'>".$row["idCompania"]."</td>
+                                                                            <td align='center'>".$row["idCliente"]."</td>
+                                                                            <td align='center'>".$row["dirEnt"]."</td>
+                                                                            <td align='center'>".$row["nombreEntrega"]."</td>
+                                                                            <td align='center'>".$row["direccion"]."</td>
+                                                                            <td align='center'>".$row["municipio"]."</td>
+                                                                            <td align='center'>".$row["estado"]."</td>
+                                                                            <td align='center'>".$row["telefono"]."</td>
+                                                                            <td align='center'>".$row["observaciones"]."</td>
+                                                                            <td align='center'>".$row["codPost"]."</td>
+                                                                            <td align='center'>".$row["codRuta"]."</td>
+                                                                            <td align='center'>".$row["pais"]."</td>
+                                                                            <td align='center'>".$row["rfc"]."</td>
+                                                                        </tr>";
+                                                                    }
                                                         }
 
                                     echo " 
