@@ -727,7 +727,7 @@ function deleteCliente($conn,$idCliente,$idCompania,$idUsuario){
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"ssss",$estatus,$idUsuario,$idCliente,$idCompania);
+    mysqli_stmt_bind_param($stmt,"isss",$estatus,$idUsuario,$idCliente,$idCompania);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);

@@ -20,7 +20,7 @@
 				echo "<datalist id='cliente'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					if($row["estatus"]!='0'){
+					if($row["estatus"]==1){
 						echo "<option>".$row["idCliente"]."</option>";
 					}
 
@@ -70,7 +70,7 @@
 				echo "<datalist id='articulo'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					if($row["estatus"]!='0'){
+					if($row["estatus"]==1){
 						echo "<option>".$row["idArticulo"]."</option>";
 					}
 					
