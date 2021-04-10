@@ -435,6 +435,7 @@ function dispArtByList($conn, $entrada){
 
     }
     mysqli_stmt_close($stmt);
+    
 }
 
 function dispFolio($conn, $entrada,$entrada2){
@@ -517,7 +518,6 @@ function dispClientes($conn, $idCompania)
 
     mysqli_stmt_close($stmt);
 }
-
 
 function dispFolios($conn, $idCliente)
 {

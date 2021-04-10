@@ -65,7 +65,7 @@
 			<datalist id="articuloList" >
 			</datalist>
 		</div>
-
+ 
 		<div class="campo">
 			<label class="campo__label" for="folio">Folio</label>
 			<input class="campo__field" type="text" name="folio" id="folio" list="folioList">

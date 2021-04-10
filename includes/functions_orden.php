@@ -7,6 +7,7 @@
         $reg=preparaReporte($conn,$_POST["idCliente"]);
         $estatus=0;
         $costo=obtenerCosto($conn,$_POST["idArticulo"]);
+        
         if(strlen($_POST["folio"])>0){
             $banderaFolio=prepararFolio($conn,$_POST["folio"]);
             if(!$banderaFolio){
