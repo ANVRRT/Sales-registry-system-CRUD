@@ -330,7 +330,8 @@ function dispListaPrecioCompleta($conn, $idCompania){
 }
 
 function dispListaPrecios($conn, $idCompania){
-    $sql="SELECT DISTINCT idLista FROM ListaPrecio WHERE idCompania = ?";
+    $sql="SELECT DISTINCT idLista FROM ListaPrecio WHERE idCompania = ? AND estatus = ?";
+    $estatus = 1;
     
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -338,7 +339,7 @@ function dispListaPrecios($conn, $idCompania){
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_bind_param($stmt,"si", $idCompania,$estatus);
     mysqli_stmt_execute($stmt);
 
     $resultData = mysqli_stmt_get_result($stmt);
