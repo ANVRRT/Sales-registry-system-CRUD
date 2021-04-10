@@ -6,9 +6,7 @@
 			<label class="campo__label" for="cliente"> id Cliente</label>
 			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="cliente" required>
 			<?php
-				require_once("../includes/dbh.inc.php");
-
-				require_once("../includes/functions_catalogos.php");
+				
 				$reg = dispClientes($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='cliente'>";
@@ -58,9 +56,7 @@
 			<label class="campo__label" for="idAlmacen">Lista de  precios a utilizar</label>
 			<input class="campo__field" type="text" name="listaPrecios" id="listaPrecios" list="listaPrecio">
 			<?php
-				require_once("../includes/dbh.inc.php");
-
-				require_once("../includes/functions_catalogos.php");
+				
 				$reg = dispListaPrecios($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='listaPrecio'>";
@@ -80,9 +76,7 @@
 			<label class="campo__label" for="idAlmacen">Almacen</label>
 			<input class="campo__field" type="text" name="idAlmacen" id="idAlmacen" list="almacen">
 			<?php
-				require_once("../includes/dbh.inc.php");
-
-				require_once("../includes/functions_catalogos.php");
+				
 				$reg = dispAlmacen($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='almacen'>";

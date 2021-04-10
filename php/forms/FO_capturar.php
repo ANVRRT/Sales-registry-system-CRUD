@@ -14,9 +14,7 @@
 			<label class="campo__label" for="cliente"> id Cliente</label>
 			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="cliente" onblur="AjaxFunction('dispDirEntByCLiente','idCliente','dirEntList');AjaxFunction('dispListaPreciosByCliente','idCliente','listaPrecio'); AjaxFunction('dispOrdenByCliente','idCliente','idOrdenlist')"  required>
 			<?php
-				require_once("../includes/dbh.inc.php");
-
-				require_once("../includes/functions_catalogos.php");
+				
 				$reg = dispClientes($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='cliente'>";
@@ -66,9 +64,7 @@
 			</div>
 			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulo" onblur="AjaxFunction2('dispFolio','idCliente','idArticulo','folioList');AjaxFunction2('dispPrecio','idList','idArticulo','precioList')" required>
 			<?php
-				require_once("../includes/dbh.inc.php");
-
-				require_once("../includes/functions_catalogos.php");
+				
 				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='articulo'>";
