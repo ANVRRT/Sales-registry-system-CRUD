@@ -6,7 +6,6 @@
     <?php
     include("../includes/header.php");
     require_once("../includes/dbh.inc.php");
-    require_once("../includes/functions_catalogos.php");
     ?>
 
     <!-- Custom styles for this page -->
@@ -22,6 +21,8 @@
         <!-- Sidebar -->
         <?php
         include("../includes/sidebar.php");
+        require_once("../includes/functions_catalogos.php");
+
 
         ?>
         <!-- End of Sidebar -->
