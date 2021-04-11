@@ -13,8 +13,7 @@
 			<label class="campo__label" for="idCliente">Id Cliente</label>
 			<input class="campo__field" type="text"  name="idCliente" id="idCliente" list="cliente" required>
 			<?php
-			    //require_once("../includes/dbh.inc.php");
-				//require_once("../includes/functions_catalogos.php");
+			    
 				$reg = dispClientes($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='cliente'>";
@@ -60,7 +59,7 @@
 		</div>
 
 		<div class="campo campo__text">
-			<label class="campo__label" for="observacion-orden">Observaciones de la Orden</label>
+			<label class="campo__label" for="observacion-orden">Observaciones</label>
 			<textarea class="campo__field campo__field--textarea" name="observaciones" id="observaciones"></textarea>
 		</div>
 
@@ -76,7 +75,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="pais">País</label>
-			<input class="campo__field" type="text" name="pais" id="pais">
+			<input class="campo__field" type="text" name="pais" id="pais" maxlength="3">
 		</div>
 
 		<div class="campo">

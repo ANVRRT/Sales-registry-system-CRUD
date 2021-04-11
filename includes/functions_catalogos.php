@@ -1036,7 +1036,7 @@ function deleteListPrecios($conn, $idLista,$idCompania,$idArticulo,$nivelDscto,$
 function createDirEnt($conn,$idCompania,$idCliente,$dirEnt,$nombreEntrega,$direccion,$municipio,$estado,$telefono,$observaciones,$codpost,$codruta,$pais,$rfc){
     $sql = "INSERT INTO DirEnt VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
-    $estatus = 1;
+    $estatus = '1';
     $idBaja = null;
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
