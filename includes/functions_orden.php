@@ -14,7 +14,7 @@
                 createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
             }
             if(!$banderaOrden){
-                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,0,0,0,0,0,0,0,0,0,'1',null); 
+                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],'1',null,null,null,null,null,'1',$total,0,0,0,0,0,0,0,0,0,'1',null); 
             }
             else{
                 $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
@@ -29,7 +29,7 @@
             createArtVendido($conn,'default',$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
             
             if(!$banderaOrden){
-                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,0,0,0,0,0,0,0,0,0,'1',null); 
+                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],'1',null,null,null,null,null,'1',$total,0,0,0,0,0,0,0,0,0,'1',null); 
             }
             else{
                 $totalOrden=consultaTotal($conn,$_POST["idOrden"]);

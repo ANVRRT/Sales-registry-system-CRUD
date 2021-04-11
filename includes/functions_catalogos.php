@@ -417,7 +417,7 @@ function dispDirEntByCLiente($conn, $entrada){
 }
 
 function dispArtByList($conn, $entrada){
-    $sql="SELECT * FROM ListaPrecio WHERE idLista=? AND estatus = 1";
+    $sql="SELECT DISTINCT * FROM ListaPrecio WHERE idLista=? AND estatus = 1";
     
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
