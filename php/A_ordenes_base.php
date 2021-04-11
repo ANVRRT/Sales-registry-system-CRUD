@@ -270,9 +270,12 @@
                                                 }
                                                 if($_SESSION["rol"]=="CST"){
                                                     echo "<td align='center'><input  type='checkbox' name='vCST_".$row["idOrden"]."'        id='vCostos_".$row["idOrden"]."' ".$vCostos_chked." disabled></td>";
-                                                    echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary'>
+                                                    echo "<td align='center'>
+                                                    <input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' 
+                                                    onClick='autorizacion_cst(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
                                                     <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
-                                                    onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'></td>";
+                                                    onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'>
+                                                    </td>";
                                                 }
                                                 if($_SESSION["rol"]=="ING"){
                                                     echo "<td align='center'><input  type='checkbox' name='vIng_".$row["idOrden"]."'        id='vIng_".$row["idOrden"]."' ".$vIng_chked." disabled></td>";

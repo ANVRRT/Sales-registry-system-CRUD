@@ -10,3 +10,10 @@ function autorizacion_cxc(idOrden,idCliente){
     location.href= url;
 
 }
+
+function autorizacion_cst(idOrden,idCliente){
+
+    var url = "../includes/functions_autorizaciones.php?A_CST=1&idOrden="+idOrden+"&idCliente="+idCliente;
+    location.href= url;
+
+}
