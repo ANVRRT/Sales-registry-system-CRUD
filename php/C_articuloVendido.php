@@ -5,7 +5,6 @@
     <?php
         include("../includes/header.php");
         require_once("../includes/dbh.inc.php");
-        require_once("../includes/functions_catalogos.php");
     ?>
 	<link rel="stylesheet" href="../css/stylesForms.css">
 	<link rel="stylesheet" href="../css/normalize.css">
@@ -21,7 +20,8 @@
 		<div >
 			
 			<?php
-				include("../includes/sidebar.php")
+				include("../includes/sidebar.php");
+                		require_once("../includes/functions_catalogos.php");
 			?>
 			
 			
@@ -79,15 +79,17 @@
                                                         
                                                         <tbody>";
                                     while ($row=mysqli_fetch_assoc($reg)){
-                                                            echo "  <tr>
-                                                                        <td align='center'>".$row["idCompania"]."</td>
-                                                                        <td align='center'>".$row["folio"]."</td>
-                                                                        <td align='center'>".$row["idArticulo"]."</td>
-                                                                        <td align='center'>".$row["idCliente"]."</td>
-                                                                        <td align='center'>".$row["stock"]."</td>
-                                                                        <td align='center'>".$row["codAviso"]."</td>
-                                                                        <td align='center'>".$row["udVta"]."</td>
-                                                                    </tr>";
+                                                            if ($row["estatus"] == 1){
+                                                                echo "  <tr>
+                                                                            <td align='center'>".$row["idCompania"]."</td>
+                                                                            <td align='center'>".$row["folio"]."</td>
+                                                                            <td align='center'>".$row["idArticulo"]."</td>
+                                                                            <td align='center'>".$row["idCliente"]."</td>
+                                                                            <td align='center'>".$row["stock"]."</td>
+                                                                            <td align='center'>".$row["codAviso"]."</td>
+                                                                            <td align='center'>".$row["udVta"]."</td>
+                                                                        </tr>";
+                                                                    }
                                                         }
 
                                     echo " 

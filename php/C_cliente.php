@@ -4,7 +4,7 @@
 <head>
     <?php
         include("../includes/header.php");
-        require_once("../includes/functions_catalogos.php");
+        require_once("../includes/dbh.inc.php");
     ?>
 	<link rel="stylesheet" href="../css/stylesForms.css">
 	<link rel="stylesheet" href="../css/normalize.css">
@@ -20,7 +20,8 @@
 		<div >
 			
 			<?php
-				include("../includes/sidebar.php")
+				include("../includes/sidebar.php");
+                require_once("../includes/functions_catalogos.php");
 			?>
 			
 			
@@ -83,26 +84,28 @@
                                                         
                                                         <tbody>";
                                     while ($row=mysqli_fetch_assoc($reg)){
-                                                            echo "  <tr>
-                                                                        <td align='center'>".$row["idCompania"]."</td>
-                                                                        <td align='center'>".$row["idCliente"]."</td>
-                                                                        <td align='center'>".$row["idRepresentante"]."</td>
-                                                                        <td align='center'>".$row["idLista"]."</td>
-                                                                        <td align='center'>".$row["idAlmacen"]."</td>
-                                                                        <td align='center'>".$row["nombreCliente"]."</td>
-                                                                        <td align='center'>".$row["estatusCliente"]."</td>
-                                                                        <td align='center'>".$row["analista"]."</td>
-                                                                        <td align='center'>".$row["divisa"]."</td>
-                                                                        <td align='center'>".$row["limCredito"]."</td>
-                                                                        <td align='center'>".$row["saldoOrden"]."</td>
-                                                                        <td align='center'>".$row["saldoFactura"]."</td>";
-                                                                        if ($row["bloqueo"] == 0){
-                                                                            echo "<td align='center'><button value='".$row["bloqueo"]."'class='btn btn-success'>Desbloqueado</a></td>";
-                                                                        }
-                                                                        else{
-                                                                            echo "<td align='center'><button value='".$row["bloqueo"]."'class='btn btn-danger'>Bloqueado</a></td>";
-                                                                        }
-                                                                    echo "</tr>";
+                                                            if ($row["estatus"] == 1){
+                                                                echo "  <tr>
+                                                                            <td align='center'>".$row["idCompania"]."</td>
+                                                                            <td align='center'>".$row["idCliente"]."</td>
+                                                                            <td align='center'>".$row["idRepresentante"]."</td>
+                                                                            <td align='center'>".$row["idLista"]."</td>
+                                                                            <td align='center'>".$row["idAlmacen"]."</td>
+                                                                            <td align='center'>".$row["nombreCliente"]."</td>
+                                                                            <td align='center'>".$row["estatusCliente"]."</td>
+                                                                            <td align='center'>".$row["analista"]."</td>
+                                                                            <td align='center'>".$row["divisa"]."</td>
+                                                                            <td align='center'>".$row["limCredito"]."</td>
+                                                                            <td align='center'>".$row["saldoOrden"]."</td>
+                                                                            <td align='center'>".$row["saldoFactura"]."</td>";
+                                                                            if ($row["bloqueo"] == 0){
+                                                                                echo "<td align='center'><button value='".$row["bloqueo"]."'class='btn btn-success'>Desbloqueado</a></td>";
+                                                                            }
+                                                                            else{
+                                                                                echo "<td align='center'><button value='".$row["bloqueo"]."'class='btn btn-danger'>Bloqueado</a></td>";
+                                                                            }
+                                                                        echo "</tr>";
+                                                                    }
                                                         }
 
                                     echo " 

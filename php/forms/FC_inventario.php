@@ -19,7 +19,9 @@
 				echo "<datalist id='almacen'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					echo "<option>".$row["idAlmacen"]."</option>";
+					if($row["estatus"]==1){
+						echo "<option>".$row["idAlmacen"]."</option>";
+					}
 
 				}
 
@@ -36,8 +38,9 @@
 				echo "<datalist id='articulos'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					// echo $row["idArticulo"]."<br>";
-					echo "<option>".$row["idArticulo"]."</option>";
+					if($row["estatus"]==1){
+						echo "<option>".$row["idArticulo"]."</option>";
+					}
 
 				}
 

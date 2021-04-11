@@ -51,9 +51,10 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr align="center">
+                                            <th>Orden</th><!---->
+                                            <th>Compania</th><!---->
                                             <th>Cliente</th><!---->
                                             <th>Nombre</th><!---->
-                                            <th>Orden</th><!---->
                                             <th>Fecha Orden</th><!---->
                                             <th>Artículo</th><!---->
                                             <th>Descripción</th><!---->

@@ -13,16 +13,16 @@
 			<label class="campo__label" for="idCliente">Id Cliente</label>
 			<input class="campo__field" type="text"  name="idCliente" id="idCliente" list="cliente" required>
 			<?php
-				require_once("../includes/dbh.inc.php");
-
-				require_once("../includes/functions_catalogos.php");
+			    //require_once("../includes/dbh.inc.php");
+				//require_once("../includes/functions_catalogos.php");
 				$reg = dispClientes($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='cliente'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					echo "<option>".$row["idCliente"]."</option>";
-
+					if($row["estatus"]==1){
+						echo "<option>".$row["idCliente"]."</option>";
+					}
 				}
 				
 				echo "</datalist>";

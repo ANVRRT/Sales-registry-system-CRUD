@@ -11,22 +11,35 @@
 
 		<div class="campo">
 			<label class="campo__label" for="cliente"> Id Lista de precios</label>
-			<input class="campo__field" type="text" name="idLista" id="idLista" required>
+			<input class="campo__field" type="text" name="idLista" id="idLista" list="listaPrecio"required>
+			<?php
+				
+				$reg = dispListaPrecios($conn, $_SESSION["idCompania"]);
+				echo "<datalist id='listaPrecio'>";
+				while($row = mysqli_fetch_assoc($reg))
+				{
+					if($row["estatus"]==1){
+						echo "<option>".$row["idLista"]."</option>";
+					}
+					
+				}
+				echo "</datalist>";
+			?>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="idArticulo">Id Artículo</label>
 			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos" required>
 			<?php
-				require_once("../includes/dbh.inc.php");
-
-				require_once("../includes/functions_catalogos.php");
+				
 				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
 				
 				echo "<datalist id='articulos'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					echo "<option>".$row["idArticulo"]."</option>";
+					if($row["estatus"]==1){
+						echo "<option>".$row["idArticulo"]."</option>";
+					}
 				}
 				echo "</datalist>";
 			?>

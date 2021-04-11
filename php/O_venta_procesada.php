@@ -2,14 +2,14 @@
 <html lang="es">
 
 <head>
+
     <?php
     include("../includes/header.php");
+    require_once("../includes/dbh.inc.php");
     ?>
 
     <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <title>Ordenes de Venta Procesadas</title>
-    
+    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -18,9 +18,14 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
+        <!-- Sidebar -->
         <?php
-            include("../includes/sidebar.php");
+        include("../includes/sidebar.php");
+        require_once("../includes/functions_catalogos.php");
+
+
         ?>
+        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -30,7 +35,7 @@
 
                 <!-- Topbar -->
                 <?php
-                    include("../includes/topbar.php");
+                include("../includes/topbar.php");
                 ?>
                 <!-- End of Topbar -->
 
@@ -38,76 +43,190 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Ordenes de Venta Procesadas</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Autorización de Ordenes</h1>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Tabla de Ordenes de Venta Procesadas</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Ordenes</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" style="width:100%">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr>
-                                            <th scope="col">Cliente</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Orden</th>
-                                            <th scope="col">Fec.Ord.</th>
-                                            <th scope="col">Fec.Sol.</th>
-                                            <th scope="col">Fec.Ent.</th>
-                                            <th scope="col">Articulo</th>
-                                            <th scope="col">Descripción</th>
-                                            <th scope="col">Ord.Baan.</th>
-                                            <th scope="col">Cantidad</th>
-                                            <th scope="col">Producido</th>
-                                            <th scope="col">Entregado</th>
+                                        <tr align="center">
+
+                                            <?php
+
+                                            echo "<th>Orden</th>";
+                                            echo "<th>Compañia</th>";
+                                            echo "<th>Cliente</th>";
+                                            echo "<th>Dirección Entrega</th>";
+                                            echo "<th>Estatus</th>";
+                                            echo "<th>Num. Orden compra</th>";
+                                            echo "<th>Fecha Orden</th>";
+
+                                            switch ($_SESSION["rol"]) {
+                                                case "ADM":
+                                                    echo "<th>vFac</th>";
+                                                    echo "<th>vCxC</th>";
+                                                    echo "<th>vPRE</th>";
+                                                    echo "<th>vCST</th>";
+                                                    echo "<th>vING</th>";
+                                                    echo "<th>vPLN</th>";
+                                                    echo "<th>vFEC</th>";
+                                                    break;
+                                                case "FAC":
+                                                    echo "<th>vFac</th>";
+                                                    break;
+                                                case "CXC":
+                                                    echo "<th>vCxC</th>";
+                                                    break;
+
+                                                case "VTA":
+                                                    echo "<th>vPRE</th>";
+                                                    break;
+
+                                                case "CST":
+                                                    echo "<th>vCST</th>";
+                                                    break;
+
+                                                case "ING":
+                                                    echo "<th>vING</th>";
+                                                    break;
+
+                                                case "PLN":
+                                                    echo "<th>vPLN</th>";
+                                                    break;
+
+                                                case "FEC":
+                                                    echo "<th>vFEC</th>";
+                                                    break;
+                                            }
+                                            echo "<th>vServCli</th>";
+                                            echo "<th>vREP</th>";
+
+                                            ?>
+                                            <!-- <th>tFac</th>
+                                            <th>tCxC</th>
+                                            <th>tPRE</th>
+                                            <th>tCST</th>
+                                            <th>tING</th>
+                                            <th>tPLN</th>
+                                            <th>tFEC</th>
+                                            <th>Total</th> -->
+
+
+
+
+
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th scope="col">Cliente</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Orden</th>
-                                            <th scope="col">Fec.Ord.</th>
-                                            <th scope="col">Fec.Sol.</th>
-                                            <th scope="col">Fec.Ent.</th>
-                                            <th scope="col">Articulo</th>
-                                            <th scope="col">Descripción</th>
-                                            <th scope="col">Ord.Baan.</th>
-                                            <th scope="col">Cantidad</th>
-                                            <th scope="col">Producido</th>
-                                            <th scope="col">Entregado</th>
-                                        </tr>
-                                    </tfoot>
-                                    </tbody>
-                                   		<tr style="margin:auto">
-                                            <td>792</td>
-                                            <td>INDUSTRIA DE ALIMENTOS NUTRIWELL</td>
-                                            <td>47843</td>
-                                            <td>29-ene-2021</td>
-                                            <td>19-feb-2021</td>
-                                            <td>19-ene-2021</td>
-                                            <td>KD420117102</td>
-                                            <td>303060000 DIV.LARGA</td>
-                                            <td>185956</td>
-                                            <td>1.800</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr style="margin:auto">
-                                            <td>792</td>
-                                            <td>INDUSTRIA DE ALIMENTOS NUTRIWELL</td>
-                                            <td>47843</td>
-                                            <td>29-ene-2021</td>
-                                            <td>19-feb-2021</td>
-                                            <td>19-ene-2021</td>
-                                            <td>KD420117102</td>
-                                            <td>303060000 DIV.LARGA</td>
-                                            <td>185956</td>
-                                            <td>1.800</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
+
+                                    <tbody>
+
+
+                                        <?php
+
+
+                                        $reg = dispOrden($conn, $_SESSION["idCompania"]);
+
+                                        
+                                        while ($row = mysqli_fetch_assoc($reg)) {
+                                            if($row["estatus"]=="1"){
+                                                $estatus = "";
+                                                $vFacturas_chked = "";
+                                                $vCXC_chked = "";
+                                                $vPrecios_chked = "";
+                                                $vCostos_chked = "";
+                                                $vIng_chked = "";
+                                                $vPlaneacion_chked = "";
+                                                $vServCli_chked = "";
+                                                $vREP_chked = "";
+                                                $vFEC_chked = "";
+                                                
+                                                if($row["vFacturas"]=="1"){
+                                                    $vFacturas_chked = "checked";
+                                                }
+                                                if($row["vCxC"]=="1"){
+                                                    $vCXC_chked = "checked";
+                                                }
+                                                if($row["vPrecios"]=="1"){
+                                                    $vPrecios_chked = "checked";
+                                                }
+                                                if($row["vCostos"]=="1"){
+                                                    $vCostos_chked = "checked";
+                                                }
+                                                if($row["vIng"]=="1"){
+                                                    $vIng_chked = "checked";
+                                                }
+                                                if($row["vPlaneacion"]=="1"){
+                                                    $vPlaneacion_chked = "checked";
+                                                }
+                                                if($row["vServCli"]=="1"){
+                                                    $vServCli_chked = "checked";
+                                                }
+                                                if($row["vREP"]=="1"){
+                                                    $vREP_chked = "checked";
+                                                }
+                                                if($row["vFEC"]=="1"){
+                                                    $vFEC_chked = "checked";
+                                                }
+                                                echo "<tr>";
+                                                echo "<td id='idOrden' style='text-align: center;'>". $row["idOrden"] ."</td>";
+                                                echo "<td id='compania' style='text-align: center;'>". $row["idCompania"] ."</td>";
+                                                echo "<td id='idCliente' style='text-align: center;'>". $row["idCliente"] ."</td>";
+                                                echo "<td id='dirEnt' style='text-align: center;'>". $row["dirEnt"] ."</td>";
+                                                echo "<td style='text-align: center;'><input  type='checkbox' name='estatus' id='estatus' checked disabled></td>";
+                                                echo "<td id='ordCompra' style='text-align: center;'>". $row["ordenCompra"] ."</td>";
+                                                echo "<td style='text-align: center;'><input  type='date' name='fechaOrden' id='fechaOrden' value='".$row["fechaOrden"]."' readonly></td>";
+
+                                                echo "<td align='center'><input  type='checkbox' name='vFacturas'   id='vFacturas' ".$vFacturas_chked." disabled></td>";
+                                                echo "<td align='center'><input  type='checkbox' name='vCxC'        id='vCxC' ".$vCXC_chked." disabled></td>";
+                                                echo "<td align='center'><input  type='checkbox' name='vPrecios'    id='vPrecios' ".$vPrecios_chked." disabled></td>";
+                                                echo "<td align='center'><input  type='checkbox' name='vCST'        id='vCostos' ".$vCostos_chked." disabled></td>";
+                                                echo "<td align='center'><input  type='checkbox' name='vIng'        id='vIng' ".$vIng_chked." disabled></td>";
+                                                echo "<td align='center'><input  type='checkbox' name='vPLN'        id='vPLN' ".$vPlaneacion_chked." disabled></td>";
+                                                echo "<td align='center'><input  type='checkbox' name='vFEC'        id='vFEC' ".$vFEC_chked." disabled></td>";
+                                                
+                                                echo "<td align='center'><input  type='checkbox' name='vServCli'    id='vServCli' ".$vServCli_chked." disabled></td>";
+                                                echo "<td align='center'><input  type='checkbox' name='vREP'        id='vREP' ".$vREP_chked." disabled></td>";
+
+                                                echo "</tr>";
+                                            }
+                                            // echo "<option>" . $row["idRepresentante"] . "</option>";
+                                            
+                                        }
+
+                                        
+                                        
+                                        ?>
+                                        <!-- echo "<th>Orden</th>";
+                                        echo "<th>Compañia</th>";
+                                        echo "<th>Cliente</th>";
+                                        echo "<th>Dirección Entrega</th>";
+                                        echo "<th>Estatus</th>";
+                                        echo "<th>Num. Orden compra</th>";
+                                        echo "<th>Fecha Orden</th>"; -->
+                                        <!-- <td>2021/04/02</td>
+                                        <td>2021/04/01</td>
+                                        <td>2021/04/05</td>
+                                        <td>2021/04/04</td>
+                                        <td>2021/03/31</td>
+                                        <td>2021/04/02</td>
+                                        <td>2021/04/02</td> -->
+                                        <!-- <td>3</td> -->
+                                        <!-- <td align="center"><input  type="checkbox" name="vFacturas"   id="vFacturas"></td>
+                                        <td align="center"><input  type="checkbox" name="vCxC"        id="vCxC" ></td>
+                                        <td align="center"><input  type="checkbox" name="vPrecios"    id="vPrecios"></td>
+                                        <td align="center"><input  type="checkbox" name="vCostos"     id="vCostos" ></td>
+                                        <td align="center"><input  type="checkbox" name="vIng"        id="vIng"></td>
+                                        <td align="center"><input  type="checkbox" name="vPlaneacion" id="vPlaneacion"></td>
+                                        <td align="center"><input  type="checkbox" name="vServCli"    id="vServCli" ></td>
+                                        <td align="center"><input  type="checkbox" name="vREP"        id="vREP"></td>
+                                        <td align="center"><input  type="checkbox" name="vFEC"        id="vFEC"></td> -->
+
+
+
                                     </tbody>
                                 </table>
                             </div>
@@ -138,12 +257,11 @@
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
-        <em class="fas fa-angle-up"></em>
+        <i class="fas fa-angle-up"></i>
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

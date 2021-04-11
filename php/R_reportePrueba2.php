@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+
 <head>
     <?php
-         include("../includes/header.php");
-         require_once("../includes/dbh.inc.php");
+        include("../includes/header.php");
+        require_once("../includes/dbh.inc.php");
+        require_once("../includes/functions_catalogos.php");
     ?>
-	<link rel="stylesheet" href="../css/stylesForms.css">
-	<link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/styles-capOrden.css">
+    <link rel="stylesheet" href="../css/normalize.css">
 </head>
 
 <body id="page-top">
@@ -15,15 +17,14 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-		<div >
-			
-			<?php
-				include("../includes/sidebar.php");
-                require_once("../includes/functions_catalogos.php");
-			?>
-			
-			
-		</div>
+        <div >
+            
+            <?php
+                include("../includes/sidebar.php")
+            ?>
+            
+            
+        </div>
         
         <!-- End of Sidebar -->
 
@@ -42,21 +43,29 @@
                 <!-- Begin Page Content -->
                 <!-- <div class="container-fluid">
 
-					
+                    
                     Page Heading
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
 
                 </div> -->
-				<div class="container-fluid"> 
+
+                <div class="container-fluid"> 
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("forms/FO_capturar.php");
+                            	if(isset($_POST["Generar"])){
+                                    echo "<div class='fix-margin'>";
+                            		include("R_graficaEjemplo.php");
+                                    echo "</div>";
+                            	}
+                                else{
+                                    include("forms/FR_seleccionReporte.php");
+                                }
                             ?>
                         </div>
                     </div>
-				</div>
-				
+                </div>
+                
                 <!-- /.container-fluid -->
 
             </div>
@@ -66,7 +75,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Cartones Corrugados 2020</span>
+                        <span>Copyright &copy; Your Website 2020</span>
                     </div>
                 </div>
             </footer>

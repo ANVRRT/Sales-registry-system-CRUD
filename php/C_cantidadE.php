@@ -4,7 +4,6 @@
 <head>
     <?php
         include("../includes/header.php");
-        require_once("../includes/functions_catalogos.php");
     ?>
 	<link rel="stylesheet" href="../css/stylesForms.css">
 	<link rel="stylesheet" href="../css/normalize.css">
@@ -20,7 +19,9 @@
 		<div >
 			
 			<?php
-				include("../includes/sidebar.php")
+				include("../includes/sidebar.php");
+               			require_once("../includes/functions_catalogos.php");
+
 			?>
 			
 			
@@ -80,6 +81,7 @@
                                                         
                                                         <tbody>";
                                     while ($row=mysqli_fetch_assoc($reg)){
+                                                    if ($row["estatus"] == 1){
                                                             echo "  <tr>
                                                                         <td align='center'>".$row["idCompania"]."</td>
                                                                         <td align='center'>".$row["idOrden"]."</td>
@@ -93,6 +95,7 @@
                                                                         <td align='center'>".$row["posicion"]."</td>
                                                                     </tr>";
                                                         }
+                                                    }
 
                                     echo " 
                                                             

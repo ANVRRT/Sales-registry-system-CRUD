@@ -5,7 +5,6 @@
     <?php
     include("../includes/header.php");
     require_once("../includes/dbh.inc.php");
-	require_once("../includes/functions_catalogos.php");
     ?>
     <link rel="stylesheet" href="../css/stylesForms.css">
     <link rel="stylesheet" href="../css/normalize.css">
@@ -22,6 +21,7 @@
 
             <?php
             include("../includes/sidebar.php");
+            require_once("../includes/functions_catalogos.php");
             ?>
 
 
@@ -54,6 +54,7 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
+
                                 include("forms/FC_agente.php");
                                 if(isset($_POST["C_agente"])){
                                     $idCompania = $_SESSION["idCompania"];
@@ -75,11 +76,13 @@
                                                         
                                                         <tbody>";
                                     while ($row=mysqli_fetch_assoc($reg)){
-                                                            echo "  <tr>
-                                                                        <td align='center'>".$row["idCompania"]."</td>
-                                                                        <td align='center'>".$row["idRepresentante"]."</td>
-                                                                        <td align='center'>".$row["nomRepresentante"]."</td>
-                                                                    </tr>";
+                                                            if ($row["estatus"] == 1){
+                                                                echo "  <tr>
+                                                                            <td align='center'>".$row["idCompania"]."</td>
+                                                                            <td align='center'>".$row["idRepresentante"]."</td>
+                                                                            <td align='center'>".$row["nomRepresentante"]."</td>
+                                                                        </tr>";
+                                                                }
                                                         }
 
                                     echo " 
