@@ -7,6 +7,9 @@ if(isset($_GET["A_CXC"])){
 if(isset($_GET["A_CST"])){
     A_CST($conn,$_GET["idOrden"],$_GET["idCliente"]);
 }
+if(isset($_GET["A_ING"])){
+    A_ING($conn,$_GET["idOrden"],$_GET["idCliente"]);
+}
 
 
 // if(isset($_POST["A_VTA"])){
@@ -64,6 +67,30 @@ function A_CXC($conn,$idOrden,$idCliente){
 
 function A_CST($conn,$idOrden,$idCliente){
     $sql= "UPDATE Orden SET vCostos= 1 WHERE idOrden = ? AND idCliente= ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"ss",$idOrden,$idCliente);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/A_ordenes_base.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_bloqueoCliente.php?error=sqlerror");
+        exit();
+    }
+}
+
+function A_ING($conn,$idOrden,$idCliente){
+    $sql= "UPDATE Orden SET vIng= 1 WHERE idOrden = ? AND idCliente= ?";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))

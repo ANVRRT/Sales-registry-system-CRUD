@@ -17,3 +17,10 @@ function autorizacion_cst(idOrden,idCliente){
     location.href= url;
 
 }
+
+function autorizacion_ing(idOrden,idCliente){
+
+    var url = "../includes/functions_autorizaciones.php?A_ING=1&idOrden="+idOrden+"&idCliente="+idCliente;
+    location.href= url;
+
+}
