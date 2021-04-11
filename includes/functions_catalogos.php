@@ -110,6 +110,9 @@ if(isset($_GET["listado"])){
     if($_GET["listado"] == "dispDirEntByCLiente"){
         dispDirEntByCLiente($conn,$entrada);
     }
+    if($_GET["listado"] == "dispArtByList"){
+        dispArtByList($conn,$entrada);
+    }
     if($_GET["listado"] == "dispFolio"){
         $entrada2 = $_GET["entrada2"];
         dispFolio($conn,$entrada,$entrada2);
@@ -413,6 +416,28 @@ function dispDirEntByCLiente($conn, $entrada){
     mysqli_stmt_close($stmt);
 }
 
+function dispArtByList($conn, $entrada){
+    $sql="SELECT DISTINCT * FROM ListaPrecio WHERE idLista=? AND estatus = 1";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $entrada);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    while($row = mysqli_fetch_assoc($resultData))
+    {
+        echo "<option>".$row["idArticulo"]."</option>";
+
+    }
+    mysqli_stmt_close($stmt);
+    
+}
+
 function dispFolio($conn, $entrada,$entrada2){
     $sql="SELECT * FROM ArticuloVendido WHERE idCliente=? AND idArticulo=? AND estatus = 1";
     
@@ -493,7 +518,6 @@ function dispClientes($conn, $idCompania)
 
     mysqli_stmt_close($stmt);
 }
-
 
 function dispFolios($conn, $idCliente)
 {
