@@ -20,9 +20,27 @@
 	</form>
 
 
-	<form class="formulario" id="f_orden" method="POST" action="../includes/functions_orden.php" autocomplete="off">
+	<form class="formulario" id="f_orden" method="POST" action="../includes/functions_orden.php" autocomplete="off" enctype="multipart/form-data">
 		<div class="campo">
-			<label class="campo__label" for="agente">Agente</label>
+			<div class="campo__icon">
+				<label class="campo__label" for="agente">Agente</label>
+
+				<div class="upload">
+					<label for="uploadFileAgente" style="margin-bottom: 0">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-plus campo__icon--icon" style="margin-top: 0.6rem;" width="32" height="32" viewBox="0 0 24 24" stroke-width="2" stroke="#36b9cc" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+							<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+							<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+							<line x1="12" y1="11" x2="12" y2="17" />
+							<line x1="9" y1="14" x2="15" y2="14" />
+						</svg>
+					</label>
+
+					<input type="submit" name="submitFileAgente" style="display:none" id="submitAgente">
+					<input class="campo__field" type="file" name="uploadFileAgente" id="uploadFileAgente" onchange="document.getElementById('submitAgente').click()">
+				</div>
+			</div>
+			
 			<input class="campo__field" type="text" name="agente" id="agente">
 		</div>
 

@@ -101,6 +101,10 @@ body {
 	align-items: center;
 }
 
+.campo__icon--icon {
+	cursor: pointer;
+}
+
 .campo--button {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
@@ -193,12 +197,4 @@ body {
 
 .upload>input {
 	display: none;
-}
-
-.upload--icon {
-	margin-left: 1rem;
-}
-
-.upload--icon:hover {
-	cursor: pointer;
 }
