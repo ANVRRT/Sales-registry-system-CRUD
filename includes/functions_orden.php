@@ -6,13 +6,15 @@
         $total=$_POST["precio"]*$_POST["cantidad"];
         $reg=preparaReporte($conn,$_POST["idCliente"]);
         $estatus=0;
+        $costo=obtenerCosto($conn,$_POST["idArticulo"]);
+        
         if(strlen($_POST["folio"])>0){
             $banderaFolio=prepararFolio($conn,$_POST["folio"]);
             if(!$banderaFolio){
                 createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
             }
             if(!$banderaOrden){
-                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,0,0,0,0,0,0,0,0,0,'1',null); 
+                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],'1',null,null,null,null,null,'1',$total,0,0,0,0,0,0,0,0,0,'1',null); 
             }
             else{
                 $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
@@ -20,14 +22,14 @@
                 updateOrden($conn,$_POST["idOrden"],$newTotal);
             }
             createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["folio"],null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
-            $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,null, $reg->divisa,null,'1',null);
+            $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
               
         }
         else{
             createArtVendido($conn,'default',$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
             
             if(!$banderaOrden){
-                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,0,0,0,0,0,0,0,0,0,'1',null); 
+                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],'1',null,null,null,null,null,'1',$total,0,0,0,0,0,0,0,0,0,'1',null); 
             }
             else{
                 $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
@@ -36,12 +38,25 @@
             }
             $regArt=consultarFolio($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"]);
             createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$regArt->folio,null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
-            $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,null, $reg->divisa,null,'1',null);
+            $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
             
         }
         
     }
 
+    function obtenerCosto($conn,$idArticulo){
+        $query = "SELECT * FROM ArticuloExistente WHERE idArticulo = $idArticulo";
+        $sql= mysqli_query($conn,$query);
+        $reg=mysqli_fetch_object($sql);
+        if($reg==mysqli_fetch_array($sql)){
+            #echo "No se encontró el registro";
+            exit();
+        }
+        else{
+            return $reg->costosEstandar;
+            
+        }
+    }
     function consultaTotal($conn,$idOrden){
         $query = "SELECT * FROM Orden WHERE idOrden = $idOrden";
         $sql= mysqli_query($conn,$query);
@@ -168,7 +183,8 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            
+            header("location: ../php/O_Capturar.php?error=succes");
+            exit();
         }
         else{
             mysqli_stmt_close($stmt);
@@ -199,5 +215,40 @@
             header("location: ../php/C_ListaPrecios.php?error=sqlerror");
             exit();
         }
+    }
+
+    function dispReporteOrdenByOrden($conn,$idOrden,$idCompania){
+        $sql="SELECT * FROM ReporteOrden WHERE idCompania = ? AND idOrden = ? AND estatus= 1";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt,$sql))
+        {
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt,"ss", $idCompania,$idOrden);
+        mysqli_stmt_execute($stmt);
+
+        $resultData = mysqli_stmt_get_result($stmt);
+        return $resultData;
+
+
+        mysqli_stmt_close($stmt);
+    }
+    function dispOrdenByOrden($conn,$idOrden,$idCompania){
+        $sql="SELECT * FROM Orden WHERE idCompania = ? AND idOrden = ? AND estatusDB = 1";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt,$sql))
+        {
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt,"ss", $idCompania,$idOrden);
+        mysqli_stmt_execute($stmt);
+
+        $resultData = mysqli_stmt_get_result($stmt);
+        return $resultData;
+
+
+        mysqli_stmt_close($stmt);
     }
 ?>
