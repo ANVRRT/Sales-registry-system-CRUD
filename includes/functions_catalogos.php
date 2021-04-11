@@ -23,7 +23,13 @@ if(isset($_POST["B_almacen"])){
     deleteAlmacen($conn,$_POST["idAlmacen"],$_SESSION["idUsuario"],$_SESSION["idCompania"]);
 }
 if(isset($_POST["A_artV"])){ //ARTCLIENTEVendido
-    createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["stock"],$_POST["codAviso"],$_POST["udVta"]);
+    if(strlen($_POST["folio"])>0){
+        createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["stock"],$_POST["codAviso"],$_POST["udVta"]);
+    }
+    else{
+        createArtVendido($conn,'default',$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["stock"],$_POST["codAviso"],$_POST["udVta"]);
+    }
+    
 }
 if(isset($_POST["B_artV"])){ 
     deleteArtVendido($conn,$_POST["folio"],$_POST["idCompania"],$_SESSION["idUsuario"]);
@@ -621,7 +627,7 @@ function deleteArtVendido($conn,$folio,$idCompania,$idUsuario){
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"ssss",$estatus,$idUsuario,$idArticulo,$idCompania,$folio);
+    mysqli_stmt_bind_param($stmt,"isssi",$estatus,$idUsuario,$idArticulo,$idCompania,$folio);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
