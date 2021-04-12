@@ -55,6 +55,7 @@ if(isset($_POST["A_CantE"])){ //CantEnt
 }
 if(isset($_POST["B_CantE"])){
     bajaCantEnt($conn,$_POST["idOrden"],$_POST["folio"],$_SESSION["idUsuario"]);
+    updateReOrdenBaja($conn,$_POST["idOrden"],$_POST["folio"],$_POST["cantidad"]);
 }
 if(isset($_POST["A_cliente"])){ //Cliente
     if(isset($_POST["bloqueo"])){
@@ -856,6 +857,38 @@ function updateReOrden($conn,$idOrden,$folio,$cantidad){
         exit();
     }
 }
+function updateReOrdenBaja($conn,$idOrden,$folio,$cantidad){
+    $sql = "UPDATE ReporteOrden SET entregado = ?, acumulado = ? WHERE idOrden = ? AND folioRO = ?;";
+    $reg= especificacionesOrden($conn,$idOrden,$folio);
+    if(is_null($reg->acumulado) && is_null($reg->entregado)){
+        $entregado=$cantidad;
+        $acumulado=$cantidad;
+    }
+    else{
+        $entregado=$reg->entregado - $cantidad;
+        $acumulado=$reg->acumulado - $cantidad;
+    }
+
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "iiii", $entregado, $acumulado, $idOrden,$folio);
+
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        updateOrdenRO($conn,$idOrden,$acumulado);
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_cantidadE.php?error=sqlerror2");
+        exit();
+    }
+}
 
 function updateOrdenRO($conn,$idOrden,$acumulado){
     $sql = "UPDATE ReporteOrden SET acumulado = ? WHERE idOrden = ?;";
@@ -912,8 +945,7 @@ function bajaCantEnt($conn,$idOrden,$folio,$idUsuario){
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
-        header("location: ../php/C_cantidadE.php?error=success;");
-        exit();
+        
     }
     else{
         mysqli_stmt_close($stmt);
