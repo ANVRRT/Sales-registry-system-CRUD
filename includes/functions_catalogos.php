@@ -809,21 +809,22 @@ function createCantEnt($conn,$idCompania,$idOrden,$folio,$fechaMov,$hora,$secuen
     if(mysqli_stmt_execute($stmt) && ($tipoReg==1))
     {
         mysqli_stmt_close($stmt);
-        
     }
-    if(mysqli_stmt_execute($stmt) && (($tipoReg==2)||($tipoReg==3) ))
-    {
-        header("location: ../php/C_cantidadE.php?error=success");
-        exit();
-        mysqli_stmt_close($stmt);
-        
-    }
-
     else{
         mysqli_stmt_close($stmt);
         header("location: ../php/C_cantidadE.php?error=sqlerror");
         exit();
     }
+    
+    if(mysqli_stmt_execute($stmt) && (($tipoReg==2)||($tipoReg==3)))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_cantidadE.php?error=success");
+        exit();
+        
+        
+    }
+    
 }
 
 function updateReOrden($conn,$idOrden,$folio,$cantidad){
