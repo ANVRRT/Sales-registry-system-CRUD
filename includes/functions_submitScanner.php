@@ -23,6 +23,17 @@
         }
     }
 
+    function execArtExistente($conn, $idArticulo, $idCompania, $descripcion, $costosEstandar, $estatus, $idBaja){
+        $sql = "INSERT INTO Almacen(idArticulo, idCompania, descripcion, costosEstandar, estatus, idBaja) VALUES('$idArticulo', '$idCompania', '$descripcion', '$costosEstandar', $estatus, '$idBaja')";
+
+        if (mysqli_query($conn, $sql)) {
+            echo "New record created successfully";
+        } 
+        else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
+    }
+
 
     function FilerReader($conn, $typeM) {
         $getPathFile = "";
@@ -32,6 +43,10 @@
                 break;
             case "almacen":
                 $getPathFile = "uploadFileAlmacen";
+                break;
+
+            case "artExistente":
+                $getPathFile = "uploadFileArtExistente";
                 break;
         }
 
@@ -51,26 +66,34 @@
                 $temp_name = $_FILES[$getPathFile]['tmp_name'];
                 $path_filename_ext = $target_dir.$filename.".".$ext;
                 
-                move_uploaded_file($temp_name,$path_filename_ext);
+                if (file_exists($path_filename_ext)) {
+                    echo "Sorry, file already exists.";
+                }
+                else {
+                    move_uploaded_file($temp_name,$path_filename_ext);
+                    //operation
+                    $data = file($path_filename_ext, FILE_SKIP_EMPTY_LINES);
 
-                //operation
-                $data = file($path_filename_ext, FILE_SKIP_EMPTY_LINES);
+                    for ($i = 0; $i<count($data); $i++) {
+                        $mscData = explode("||", $data[$i]);
 
-                for ($i = 0; $i<count($data); $i++) {
-                    $mscData = explode("||", $data[$i]);
+                        for ($j = 0; $j<count($mscData); $j++) {
+                            $mscData[$j] = trim($mscData[$j]);
+                        }
+                        
+                        switch ($typeM){
+                            case "agente":
+                                execAgente($conn, $mscData[0], $mscData[1], $mscData[2], intval($mscData[3]), $mscData[4]);
+                                break;
 
-                    for ($j = 0; $j<count($mscData); $j++) {
-                        $mscData[$j] = trim($mscData[$j]);
-                    }
-                    
-                    switch ($typeM){
-                        case "agente":
-                            execAgente($conn, $mscData[0], $mscData[1], $mscData[2], intval($mscData[3]), $mscData[4]);
-                            break;
+                            case "almacen":
+                                execAlmacen($conn, $mscData[0], $mscData[1], $mscData[2], intval($mscData[3]), $mscData[4]);
+                                break;
 
-                        case "almacen":
-                            execAlmacen($conn, $mscData[0], $mscData[1], $mscData[2], intval($mscData[3]), $mscData[4]);
-                            break;
+                            case "artExistente":
+                                execAlmacen($conn, $mscData[0], $mscData[1], $mscData[2], $mscData[3], intval($mscData[4]), $mscData[5]);
+                                break;
+                        }
                     }
                 }
             }
