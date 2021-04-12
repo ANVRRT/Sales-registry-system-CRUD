@@ -14,14 +14,14 @@
                 createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
             }
             if(!$banderaOrden){
-                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],1,null,null,null,null,null,1,$total,0,0,0,0,0,0,0,0,0,1,null); 
+                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,1,0,0,0,0,0,0,0,1,'1',null);   
             }
             else{
                 $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
                 $newTotal= $totalOrden + $total;
                 updateOrden($conn,$_POST["idOrden"],$newTotal);
             }
-            createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["folio"],null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
+            createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["folio"],'default',null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
             $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
               
         }
@@ -29,15 +29,14 @@
             createArtVendido($conn,'default',$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
             
             if(!$banderaOrden){
-                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],1,null,null,null,null,null,1,$total,0,0,0,0,0,0,0,0,0,1,null); 
-            }
+                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,1,0,0,0,0,0,0,0,1,'1',null);            }
             else{
                 $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
-                $newTotal= $totalOrden - $total;
+                $newTotal= $totalOrden + $total;
                 updateOrden($conn,$_POST["idOrden"],$newTotal);
             }
             $regArt=consultarFolio($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"]);
-            createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$regArt->folio,null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
+            createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$regArt->folio,'default',null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
             $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
             
         }
@@ -170,8 +169,8 @@
 
     }
 
-    function createReporte($conn,$idOrden,$idCompania,$folio,$numFact,$ordenBaan,$idCliente,$nombreCliente,$dirEnt,$idArticulo,$ordenCompra,$cantidad,$precio,$descripcion,$fechaSolicitud,$fechaEntrega,$producido,$entregado,$acumulado,$total,$costo,$moneda,$nota,$estatus,$idBaja){
-        $sql = "INSERT INTO ReporteOrden VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    function createReporte($conn,$idOrden,$idCompania,$folio,$folioRO,$numFact,$ordenBaan,$idCliente,$nombreCliente,$dirEnt,$idArticulo,$ordenCompra,$cantidad,$precio,$descripcion,$fechaSolicitud,$fechaEntrega,$producido,$entregado,$acumulado,$total,$costo,$moneda,$nota,$estatus,$idBaja){
+        $sql = "INSERT INTO ReporteOrden VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt,$sql))
         {
@@ -179,7 +178,7 @@
             exit();
         }
     
-        mysqli_stmt_bind_param($stmt,"ssiiissssiddssdiiiddssis",$idOrden,$idCompania,$folio,$numFact,$ordenBaan,$idCliente,$nombreCliente,$dirEnt,$idArticulo,$ordenCompra,$cantidad,$precio,$descripcion,$fechaSolicitud,$fechaEntrega,$producido,$entregado,$acumulado,$total,$costo,$moneda,$nota,$estatus,$idBaja);
+        mysqli_stmt_bind_param($stmt,"isiiiissssiddsssiiiddssis",$idOrden,$idCompania,$folio,$folioRO,$numFact,$ordenBaan,$idCliente,$nombreCliente,$dirEnt,$idArticulo,$ordenCompra,$cantidad,$precio,$descripcion,$fechaSolicitud,$fechaEntrega,$producido,$entregado,$acumulado,$total,$costo,$moneda,$nota,$estatus,$idBaja);
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
