@@ -42,12 +42,21 @@ if(isset($_REQUEST['estadoD'])==1){
     dClient($conn, $_REQUEST['idD']);
     //echo($_REQUEST['idD']);
 }
-// if(isset($_POST["A_artE"])){ //CantEnt
-//     createArtExistente($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["descripcion"],$_POST["costo"]);
-// }
-// if(isset($_POST["B_artE"])){
-//     deleteArtExistente($conn,$_POST["idArticulo"]);
-// }
+if(isset($_POST["A_CantE"])){ //CantEnt
+    if($_POST["tipoReg"]==1){
+        createCantEnt($conn,$_POST["idCompania"],$_POST["idOrden"],$_POST["folio"],$_POST["fechaMov"],$_POST["hora"],$_POST["secuencia"],$_POST["tipoReg"],$_POST["cantidad"],
+        $_POST["idArticulo"],$_POST["posicion"],1,null);
+        updateReOrden($conn,$_POST["idOrden"],$_POST["folio"],$_POST["cantidad"]);
+    }
+    else{
+        createCantEnt($conn,$_POST["idCompania"],$_POST["idOrden"],$_POST["folio"],$_POST["fechaMov"],$_POST["hora"],$_POST["secuencia"],$_POST["tipoReg"],null,
+        $_POST["idArticulo"],$_POST["posicion"],1,null);
+    }
+}
+if(isset($_POST["B_CantE"])){
+    bajaCantEnt($conn,$_POST["idOrden"],$_POST["folio"],$_SESSION["idUsuario"]);
+    updateReOrdenBaja($conn,$_POST["idOrden"],$_POST["folio"],$_POST["cantidad"]);
+}
 if(isset($_POST["A_cliente"])){ //Cliente
     if(isset($_POST["bloqueo"])){
         createCliente($conn,$_POST["idCliente"],$_POST["idCompania"],$_POST["idRepresentante"], $_POST["listaPrecios"],$_POST["idAlmacen"],$_POST["nomCliente"],
@@ -118,6 +127,12 @@ if(isset($_GET["listado"])){
     }
     if($_GET["listado"] == "dispArtByList"){
         dispArtByList($conn,$entrada);
+    }
+    if($_GET["listado"] == "dispFolioByOrden"){
+        dispFolioByOrden($conn,$entrada);
+    }
+    if($_GET["listado"] == "dispArticuloRO"){
+        dispArticuloRO($conn,$entrada);
     }
     if($_GET["listado"] == "dispFolio"){
         $entrada2 = $_GET["entrada2"];
@@ -444,6 +459,46 @@ function dispArtByList($conn, $entrada){
     
 }
 
+function dispFolioByOrden($conn,$entrada){
+    $sql="SELECT  * FROM ReporteOrden WHERE idOrden=? AND estatus = 1";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $entrada);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    while($row = mysqli_fetch_assoc($resultData))
+    {
+        echo "<option>".$row["folioRO"]."</option>";
+
+    }
+    mysqli_stmt_close($stmt);
+}
+function dispArticuloRO($conn,$entrada){
+    $sql="SELECT  * FROM ReporteOrden WHERE folioRO=? AND estatus = 1";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"i", $entrada);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    while($row = mysqli_fetch_assoc($resultData))
+    {
+        echo "<option>".$row["idArticulo"]."</option>";
+
+    }
+    mysqli_stmt_close($stmt);
+}
 function dispFolio($conn, $entrada,$entrada2){
     $sql="SELECT * FROM ArticuloVendido WHERE idCliente=? AND idArticulo=? AND estatus = 1";
     
@@ -736,6 +791,169 @@ function deleteCompania($conn, $idCompania, $idUsuario){
         exit();
     }
 }
+
+function createCantEnt($conn,$idCompania,$idOrden,$folio,$fechaMov,$hora,$secuencia,$tipoReg,$cantidad,$idArticulo,$posicion,$estatus,$idBaja){
+    
+    
+    $sql = "INSERT INTO CantEntregada VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "siissiidsiis",$idCompania,$idOrden,$folio,$fechaMov,$hora,$secuencia,$tipoReg,$cantidad,$idArticulo,$posicion,$estatus,$idBaja);
+    
+    if(mysqli_stmt_execute($stmt) && ($tipoReg==1))
+    {
+        mysqli_stmt_close($stmt);
+        
+    }
+    if(mysqli_stmt_execute($stmt) && (($tipoReg==2)||($tipoReg==3) ))
+    {
+        header("location: ../php/C_cantidadE.php?error=success");
+        exit();
+        mysqli_stmt_close($stmt);
+        
+    }
+
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_cantidadE.php?error=sqlerror");
+        exit();
+    }
+}
+
+function updateReOrden($conn,$idOrden,$folio,$cantidad){
+    $sql = "UPDATE ReporteOrden SET entregado = ?, acumulado = ? WHERE idOrden = ? AND folioRO = ?;";
+    $reg= especificacionesOrden($conn,$idOrden,$folio);
+    if(is_null($reg->acumulado) && is_null($reg->entregado)){
+        $entregado=$cantidad;
+        $acumulado=$cantidad;
+    }
+    else{
+        $entregado=$reg->entregado + $cantidad;
+        $acumulado=$reg->acumulado + $cantidad;
+    }
+
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "iiii", $entregado, $acumulado, $idOrden,$folio);
+
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        updateOrdenRO($conn,$idOrden,$acumulado);
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_cantidadE.php?error=sqlerror2");
+        exit();
+    }
+}
+function updateReOrdenBaja($conn,$idOrden,$folio,$cantidad){
+    $sql = "UPDATE ReporteOrden SET entregado = ?, acumulado = ? WHERE idOrden = ? AND folioRO = ?;";
+    $reg= especificacionesOrden($conn,$idOrden,$folio);
+    if(is_null($reg->acumulado) && is_null($reg->entregado)){
+        $entregado=$cantidad;
+        $acumulado=$cantidad;
+    }
+    else{
+        $entregado=$reg->entregado - $cantidad;
+        $acumulado=$reg->acumulado - $cantidad;
+    }
+
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "iiii", $entregado, $acumulado, $idOrden,$folio);
+
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        updateOrdenRO($conn,$idOrden,$acumulado);
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_cantidadE.php?error=sqlerror2");
+        exit();
+    }
+}
+
+function updateOrdenRO($conn,$idOrden,$acumulado){
+    $sql = "UPDATE ReporteOrden SET acumulado = ? WHERE idOrden = ?;";
+    
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ii", $acumulado, $idOrden,);
+
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_cantidadE.php?error=success;");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_cantidadE.php?error=sqlerror");
+        exit();
+    }
+}
+
+function especificacionesOrden($conn,$idOrden,$folio){
+    $query = "SELECT * FROM ReporteOrden WHERE idOrden = $idOrden AND folioRO = $folio";
+    $sql= mysqli_query($conn,$query);
+    $reg=mysqli_fetch_object($sql);
+    if($reg==mysqli_fetch_array($sql)){
+        echo "No se encontró el registro";
+        header("location: ../php/C_cantidadE.php?error=erroresp");
+        exit();
+    }
+    else{
+        
+        return $reg;
+        
+    }
+}
+function bajaCantEnt($conn,$idOrden,$folio,$idUsuario){
+    $sql = "UPDATE CantEntregada SET estatus = ?, idBaja = ? WHERE idOrden = ? AND folio = ?;";
+    $estatus=0;
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "isii",$estatus,$idUsuario,$idOrden, $folio);
+
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_cantidadE.php?error=sqlerror");
+        exit();
+    }
+}
+
 function createCliente($conn,$idCliente,$idCompania,$idRepresentante,$listaPrecios,$idAlmacen,$nomCliente,$estatusCliente,$idAnalista,$divisa,$limCredito,$saldoOrden,$saldoFactura,$bloqueo,$estatus,$idBaja)
 {
     $sql = "INSERT INTO Cliente VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
