@@ -4,12 +4,25 @@
 	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="idCompania">Id Compañia</label>
-			<input class="campo__field" type="text" name="idCompania" id="idCompania">
+			<input class="campo__field" type="text" name="idCompania" id="idCompania" list="companias" maxlength="4" required>
+			<?php
+			    
+				$reg = dispCompania($conn);
+				
+				echo "<datalist id='companias'>";
+				while($row = mysqli_fetch_assoc($reg))
+				{
+					echo "<option>".$row["idCompania"]."</option>";
+					
+				}
+				
+				echo "</datalist>";
+			?>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="nom_compania">Nombre de Compañia</label>
-			<input class="campo__field" type="text" name="nombre" id="nombre">
+			<input class="campo__field" type="text" name="nombre" id="nombre" maxlength="70">
 		</div>
 
 		

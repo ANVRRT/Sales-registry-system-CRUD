@@ -4,7 +4,7 @@
 	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="cliente"> id Cliente</label>
-			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="cliente" required>
+			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="cliente" maxlength="10" required>
 			<?php
 				
 				$reg = dispClientes($conn, $_SESSION["idCompania"]);
@@ -90,17 +90,17 @@
 
 		<div class="campo">
 			<label class="campo__label" for="nomCliente">Nombre del cliente</label>
-			<input class="campo__field" type="text" name="nomCliente" id="nomCliente">
+			<input class="campo__field" type="text" name="nomCliente" id="nomCliente" required>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="listPrecios">Estatus de cliente</label>
-			<input class="campo__field" type="number" name="estatus" id="estatus" min="1" max="3">
+			<input class="campo__field" type="number" name="estatus" id="estatus" min="1" max="3" required>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="analista">Analista</label>
-			<input class="campo__field" type="text" name="idAnalista" id="idAnalista" list="analista" >
+			<input class="campo__field" type="text" name="idAnalista" id="idAnalista" list="analista" required>
 			<?php
 
 				$reg = dispRepresentante($conn, $_SESSION["idCompania"]);
@@ -119,22 +119,22 @@
 
 		<div class="campo">
 			<label class="campo__label" for="divisa">Divisa</label>
-			<input class="campo__field" type="text" name="divisa" id="divisa" >
+			<input class="campo__field" type="text" name="divisa" id="divisa" required>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="lim_credito">Límite de crédito</label>
-			<input class="campo__field" type="number" name="limCredito" id="limCredito" >
+			<input class="campo__field" type="number" name="limCredito" id="limCredito" required>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="saldoOrden">Saldo orden</label>
-			<input class="campo__field" type="number" name="saldoOrden" id="saldoOrden" >
+			<input class="campo__field" type="number" name="saldoOrden" id="saldoOrden" required >
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="saldoFact">Saldo factura</label>
-			<input class="campo__field" type="number" name="saldoFactura" id="saldoFactura" >
+			<input class="campo__field" type="number" name="saldoFactura" id="saldoFactura" required>
 		</div>
 
 		<div class="campo campo--aside">

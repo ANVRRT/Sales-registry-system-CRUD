@@ -2,14 +2,29 @@
 	<h1 class="h1-mine">Cantidad Entregada</h1>
 
 	<form class="formulario" autocomplete="off">
-		<div class="campo">
-			<label class="campo__label" for="id_com">ID Compañia</label>
-			<input class="campo__field" type="text" id="id_com">
+	<div class="campo">
+			<label class="campo__label" for="compania">Compañía</label>
+			<?php
+			
+				echo "<input class='campo__field' type='text'name='idCompania' id='idCompania' value='".$_SESSION["idCompania"]."' readonly>";
+			?>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="id_or">ID Orden</label>
-			<input class="campo__field" type="text" id="id_or">
+			<input class="campo__field" type="text" id="id_or" list="ordenes">
+			<?php
+				
+				$reg = dispOrden($conn, $_SESSION["idCompania"]);
+				
+				echo "<datalist id='ordenes'>";
+				while($row = mysqli_fetch_assoc($reg))
+				{
+					echo "<option>".$row["idOrden"]."</option>";
+
+				}
+				echo "</datalist>";
+			?>
 		</div>
 
 		<div class="campo">

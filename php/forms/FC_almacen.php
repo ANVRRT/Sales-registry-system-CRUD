@@ -4,7 +4,7 @@
 	<form class="formulario"  method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="idAlmacen">ID Almacen</label>
-			<input class="campo__field" type="text" id="idAlmacen" name="idAlmacen" list="almacen" required>
+			<input class="campo__field" type="text" id="idAlmacen" name="idAlmacen" list="almacen" maxlength="4"required>
 			<?php
 				
 				$reg = dispAlmacen($conn, $_SESSION["idCompania"]);
@@ -32,7 +32,7 @@
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="descripcion">Descripción</label>
-			<textarea class="campo__field campo__field--textarea" name="descripcion" id="descripcion"></textarea>
+			<textarea class="campo__field campo__field--textarea" name="descripcion" id="descripcion" maxlength="70"></textarea>
 		</div>
 
 

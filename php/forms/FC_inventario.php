@@ -11,7 +11,7 @@
 
 		<div class="campo">
 		<label class="campo__label" for="idAlmacen">ID Almacen</label>
-			<input class="campo__field" type="text" id="idAlmacen" name="idAlmacen" list="almacen">
+			<input class="campo__field" type="text" id="idAlmacen" name="idAlmacen" list="almacen" maxlength="4">
 			<?php
 				
 				$reg = dispAlmacen($conn, $_SESSION["idCompania"]);
@@ -38,9 +38,9 @@
 				echo "<datalist id='articulos'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					if($row["estatus"]==1){
-						echo "<option>".$row["idArticulo"]."</option>";
-					}
+					
+					echo "<option>".$row["idArticulo"]."</option>";
+				
 
 				}
 
