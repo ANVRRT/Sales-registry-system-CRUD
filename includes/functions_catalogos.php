@@ -85,9 +85,11 @@ if(isset($_POST["B_Compania"])){
 }
 if(isset($_POST["A_Facs"])){ //Factura
     createFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_POST["idOrden"],$_POST["idArticulo"],$_POST["idCliente"],$_POST["idFolio"],$_POST["entrega"],$_POST["tipoTrans"],$_POST["fechaFac"]);
+    updateReOrdenFact($conn,$_POST["idOrden"],$_POST["numFac"],$_POST["idFolio"]);
 }
 if(isset($_POST["B_Facs"])){
     deleteFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_SESSION["idUsuario"]);
+    updateReOrdenFact($conn,$_POST["idOrden"],null,$_POST["idFolio"]);
 }
 if(isset($_POST["A_inventario"])){ //Inventario
     createInventario($conn,$_POST["idCompania"],$_POST["idAlmacen"],$_POST["idArticulo"],$_POST["stock"]);
@@ -917,6 +919,31 @@ function updateOrdenRO($conn,$idOrden,$acumulado){
     }
 }
 
+function updateReOrdenFact($conn,$idOrden,$numFac,$folio){
+    $sql = "UPDATE ReporteOrden SET numFact = ? WHERE idOrden = ? AND folioRO = ?;";
+    $stmt = mysqli_stmt_init($conn);
+
+
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "iii", $numFac, $idOrden, $folio);
+
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_factura.php?error=success;");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_factura.php?error=sqlerror");
+        exit();
+    }
+}
+
 function especificacionesOrden($conn,$idOrden,$folio){
     $query = "SELECT * FROM ReporteOrden WHERE idOrden = $idOrden AND folioRO = $folio";
     $sql= mysqli_query($conn,$query);
@@ -1096,6 +1123,7 @@ function deleteInventario($conn,$idArticulo,$idCompania,$idUsuario){
         exit();
     }
 }
+
 function createFactura($conn,$numFact,$idCompania,$idOrden,$idArticulo,$idCliente,$folio,$entrega,$tipoTrans,$fechaFac)
 {
     $sql = "INSERT INTO Factura VALUES(?,?,?,?,?,?,?,?,?,?,?);";
@@ -1112,8 +1140,6 @@ function createFactura($conn,$numFact,$idCompania,$idOrden,$idArticulo,$idClient
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
-        header("location: ../php/C_factura.php?error=success");
-        exit();
     }
     else{
         //echo mysqli_error($conn);
@@ -1136,8 +1162,6 @@ function deleteFactura($conn,$numFact,$idCompania,$idUsuario){
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
-        header("location: ../php/C_factura.php?error=success");
-        exit();
     }
     else{
         mysqli_stmt_close($stmt);
