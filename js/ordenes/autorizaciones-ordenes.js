@@ -24,3 +24,10 @@ function autorizacion_ing(idOrden,idCliente){
     location.href= url;
 
 }
+
+function autorizacion_vta(idOrden,idCliente){
+
+    var url = "../includes/functions_autorizaciones.php?A_VTA=1&idOrden="+idOrden+"&idCliente="+idCliente;
+    location.href= url;
+
+}
