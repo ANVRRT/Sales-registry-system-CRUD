@@ -36,7 +36,19 @@
 
 		<div class="campo">
 			<label class="campo__label" for="idCliente">Cliente</label>
-			<input class="campo__field" name="idCliente" type="text" id="idCliente">
+			<input class="campo__field" name="idCliente" type="text" id="idCliente" list="clientes">
+			<?php
+				$reg = dispClientes($conn,$_SESSION["idCompania"]);
+				
+				echo "<datalist id='clientes'>";
+				while($row = mysqli_fetch_assoc($reg))
+				{
+					if($row["estatus"]==1){
+						echo "<option>".$row["idCliente"]."</option>";
+					}
+				}
+				echo "</datalist>";
+			?>
 		</div>
 		
 		<div class="campo">
