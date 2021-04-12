@@ -56,7 +56,7 @@
                                         <tr align="center">
 
                                             <?php
-
+                                            
                                             echo "<th>Orden</th>";
                                             echo "<th>Compañia</th>";
                                             echo "<th>Cliente</th>";
@@ -65,45 +65,48 @@
                                             echo "<th>Num. Orden compra</th>";
                                             echo "<th>Fecha Orden</th>";
 
-                                            switch ($_SESSION["rol"]) {
-                                                case "ADM":
-                                                    echo "<th>vFac</th>";
-                                                    echo "<th>vCxC</th>";
-                                                    echo "<th>vPRE</th>";
-                                                    echo "<th>vCST</th>";
-                                                    echo "<th>vING</th>";
-                                                    echo "<th>vPLN</th>";
-                                                    echo "<th>vFEC</th>";
-                                                    break;
-                                                case "FAC":
-                                                    echo "<th>vFac</th>";
-                                                    break;
-                                                case "CXC":
-                                                    echo "<th>vCxC</th>";
-                                                    break;
-
-                                                case "VTA":
-                                                    echo "<th>vPRE</th>";
-                                                    break;
-
-                                                case "CST":
-                                                    echo "<th>vCST</th>";
-                                                    break;
-
-                                                case "ING":
-                                                    echo "<th>vING</th>";
-                                                    break;
-
-                                                case "PLN":
-                                                    echo "<th>vPLN</th>";
-                                                    break;
-
-                                                case "FEC":
-                                                    echo "<th>vFEC</th>";
-                                                    break;
+                                            if($_SESSION["rol"]=="ADM"){
+                                                echo "<th>vFac</th>";
+                                                echo "<th>vCxC</th>";
+                                                echo "<th>vPREC</th>";
+                                                echo "<th>vCST</th>";
+                                                echo "<th>vING</th>";
+                                                echo "<th>vPLN</th>";
+                                                echo "<th>vFEC</th>";
                                             }
-                                            echo "<th>vServCli</th>";
-                                            echo "<th>vREP</th>";
+                                                
+                                            if($_SESSION["rol"]=="FAC"){
+                                                echo "<th>vFac</th>";
+                                            }
+                                            if($_SESSION["rol"]=="CXC"){
+
+                                                echo "<th>vCxC</th>";
+                                            }
+
+                                            if($_SESSION["rol"]=="VTA"){
+
+                                                echo "<th>vPREC</th>";
+                                            }
+                                            if($_SESSION["rol"]=="CST"){
+
+                                                echo "<th>vCST</th>";
+                                            }
+                                            if($_SESSION["rol"]=="ING"){
+
+                                                echo "<th>vING</th>";
+                                            }
+                                            if($_SESSION["rol"]=="PLN"){
+
+                                                echo "<th>vPLN</th>";
+                                            }
+                                            if($_SESSION["rol"]=="FEC"){
+                                                echo "<th>vFEC</th>";
+
+                                            }
+                                            // echo "<th>vServCli</th>";
+                                            // echo "<th>vREP</th>";
+                                            echo "<th>Opciones</th>";
+
 
                                             ?>
                                             <!-- <th>tFac</th>
@@ -118,7 +121,6 @@
 
 
 
-                                            <th>Opciones</th>
                                         </tr>
                                     </thead>
 
@@ -132,8 +134,7 @@
 
                                         
                                         while ($row = mysqli_fetch_assoc($reg)) {
-                                            // echo "<option>" . $row["idRepresentante"] . "</option>";
-                                            $estatus = "";
+                                            $skey = true;
                                             $vFacturas_chked = "";
                                             $vCXC_chked = "";
                                             $vPrecios_chked = "";
@@ -143,9 +144,6 @@
                                             $vServCli_chked = "";
                                             $vREP_chked = "";
                                             $vFEC_chked = "";
-                                            if($row["estatus"]=="1"){
-                                                $estatus = "checked";
-                                            }
                                             if($row["vFacturas"]=="1"){
                                                 $vFacturas_chked = "checked";
                                             }
@@ -173,83 +171,149 @@
                                             if($row["vFEC"]=="1"){
                                                 $vFEC_chked = "checked";
                                             }
-                                            echo "<tr>";
-                                            echo "<td id='idOrden_".$row["idOrden"]."' style='text-align: center;'>". $row["idOrden"] ."</td>";
-                                            echo "<td id='compania_".$row["idOrden"]."' style='text-align: center;'>". $row["idCompania"] ."</td>";
-                                            echo "<td id='idCliente_".$row["idOrden"]."' style='text-align: center;'>". $row["idCliente"] ."</td>";
-                                            echo "<td id='dirEnt_".$row["idOrden"]."' style='text-align: center;'>". $row["dirEnt"] ."</td>";
-                                            echo "<td style='text-align: center;'><input  type='checkbox' name='estatus' id='estatus_".$row["idOrden"]."' ".$estatus." disabled></td>";
-                                            echo "<td id='ordCompra_".$row["idOrden"]."' style='text-align: center;'>". $row["ordenCompra"] ."</td>";
-                                            echo "<td style='text-align: center;'><input  type='date' name='fechaOrden' id='fechaOrden_".$row["idOrden"]."' value='".$row["fechaOrden"]."' readonly></td>";
+                                            switch($_SESSION["rol"]){
+                                                case "ADM":
+                                                    $skey = true;
+                                                    break;
+                                                // case "FAC":
+                                                //     if($row["vFacturas"]=="1"){
+                                                //         $skey = false;
+                                                //     }
+                                                //     break;
+                                                case "CXC":
+                                                    if($row["vCxC"]=="1"){
+                                                        $skey = false;
+                                                    }
+                                                    break;
+                                                case "VTA":
+                                                    if($row["vPrecios"]=="1"){
+                                                        $skey = false;
+                                                    }
+                                                    
+                                                    break;
 
-                                            if($_SESSION["rol"]=="ADM"){
-                                                echo "<td align='center'><input  type='checkbox' name='vFacturas_".$row["idOrden"]."'   id='vFacturas_".$row["idOrden"]."' ".$vFacturas_chked." disabled></td>";
-                                                echo "<td align='center'><input  type='checkbox' name='vCxC_".$row["idOrden"]."'        id='vCxC_".$row["idOrden"]."' ".$vCXC_chked." disabled></td>";
-                                                echo "<td align='center'><input  type='checkbox' name='vPrecios_".$row["idOrden"]."'    id='vPrecios_".$row["idOrden"]."' ".$vPrecios_chked." disabled></td>";
-                                                echo "<td align='center'><input  type='checkbox' name='vCST_".$row["idOrden"]."'        id='vCostos_".$row["idOrden"]."' ".$vCostos_chked." disabled></td>";
-                                                echo "<td align='center'><input  type='checkbox' name='vIng_".$row["idOrden"]."'        id='vIng_".$row["idOrden"]."' ".$vIng_chked." disabled></td>";
-                                                echo "<td align='center'><input  type='checkbox' name='vPLN_".$row["idOrden"]."'        id='vPLN_".$row["idOrden"]."' ".$vPlaneacion_chked." disabled></td>";
-                                                echo "<td align='center'><input  type='checkbox' name='vFEC_".$row["idOrden"]."'        id='vFEC_".$row["idOrden"]."' ".$vFEC_chked." disabled></td>";
+                                                case "CST":
+                                                    if($row["vCostos"]=="1"){
+                                                        $skey = false;
+                                                    }
+                                                    
+                                                    break;
+
+                                                case "ING":
+                                                    if($row["vIng"]=="1"){
+                                                        $skey = false;
+                                                    }
+                                                    
+                                                    break;
+
+                                                case "PLN":
+                                                    if($row["vPlaneacion"]=="1"){
+                                                        $skey = false;
+                                                    }
+                                                    break;
+
+                                                // case "FEC":
+                                                //     if($row["vFEC"]=="1"){
+                                                //         $skey = false;;
+                                                //     }
+                                                    
+                                                //     break;
                                             }
+                                            if(($row["estatus"]==0) && $skey){
+                                                // echo "<option>" . $row["idRepresentante"] . "</option>";
                                                 
-                                            if($_SESSION["rol"]=="FAC"){
-                                                echo "<td align='center'><input  type='checkbox' name='vFacturas_".$row["idOrden"]."'   id='vFacturas_".$row["idOrden"]."' ".$vFacturas_chked." disabled></td>";
-                                            }
-                                            if($_SESSION["rol"]=="CXC"){
-                                                echo "<td align='center'><input  type='checkbox' name='vCxC_".$row["idOrden"]."'        id='vCxC_".$row["idOrden"]."' ".$vCXC_chked." disabled></td>";
-                                            }
+                                                
+                                                
+                                                echo "<tr>";
+                                                echo "<td id='idOrden_".$row["idOrden"]."' style='text-align: center;'>". $row["idOrden"] ."</td>";
+                                                echo "<td id='compania_".$row["idOrden"]."' style='text-align: center;'>". $row["idCompania"] ."</td>";
+                                                echo "<td id='idCliente_".$row["idOrden"]."' style='text-align: center;'>". $row["idCliente"] ."</td>";
+                                                echo "<td id='dirEnt_".$row["idOrden"]."' style='text-align: center;'>". $row["dirEnt"] ."</td>";
+                                                echo "<td style='text-align: center;'><input  type='checkbox' name='estatus' id='estatus_".$row["idOrden"]."' disabled></td>";
+                                                echo "<td id='ordCompra_".$row["idOrden"]."' style='text-align: center;'>". $row["ordenCompra"] ."</td>";
+                                                echo "<td style='text-align: center;'><input  type='date' name='fechaOrden' id='fechaOrden_".$row["idOrden"]."' value='".$row["fechaOrden"]."' readonly></td>";
 
-                                            if($_SESSION["rol"]=="VTA"){
-                                                echo "<td align='center'><input  type='checkbox' name='vPrecios_".$row["idOrden"]."'    id='vPrecios_".$row["idOrden"]."' ".$vPrecios_chked." disabled></td>";
-                                            }
-                                            if($_SESSION["rol"]=="CST"){
-                                                echo "<td align='center'><input  type='checkbox' name='vCST_".$row["idOrden"]."'        id='vCostos_".$row["idOrden"]."' ".$vCostos_chked." disabled></td>";
-                                            }
-                                            if($_SESSION["rol"]=="ING"){
-                                                echo "<td align='center'><input  type='checkbox' name='vIng_".$row["idOrden"]."'        id='vIng_".$row["idOrden"]."' ".$vIng_chked." disabled></td>";
-                                            }
-                                            if($_SESSION["rol"]=="PLN"){
-                                                echo "<td align='center'><input  type='checkbox' name='vPLN_".$row["idOrden"]."'        id='vPLN_".$row["idOrden"]."' ".$vPlaneacion_chked." disabled></td>";
-                                            }
-                                            if($_SESSION["rol"]=="FEC"){
-                                                echo "<td align='center'><input  type='checkbox' name='vFEC_".$row["idOrden"]."'        id='vFEC_".$row["idOrden"]."' ".$vFEC_chked." disabled></td>";
-                                            }
+                                                if($_SESSION["rol"]=="ADM"){
+                                                    echo "<td align='center'><input  type='checkbox' name='vFacturas_".$row["idOrden"]."'   id='vFacturas_".$row["idOrden"]."' ".$vFacturas_chked." disabled></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vCxC_".$row["idOrden"]."'        id='vCxC_".$row["idOrden"]."' ".$vCXC_chked." disabled></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vPrecios_".$row["idOrden"]."'    id='vPrecios_".$row["idOrden"]."' ".$vPrecios_chked." disabled></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vCST_".$row["idOrden"]."'        id='vCostos_".$row["idOrden"]."' ".$vCostos_chked." disabled></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vIng_".$row["idOrden"]."'        id='vIng_".$row["idOrden"]."' ".$vIng_chked." disabled></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vPLN_".$row["idOrden"]."'        id='vPLN_".$row["idOrden"]."' ".$vPlaneacion_chked." disabled></td>";
+                                                    echo "<td align='center'><input  type='checkbox' name='vFEC_".$row["idOrden"]."'        id='vFEC_".$row["idOrden"]."' ".$vFEC_chked." disabled></td>";
+                                                    echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary'>
+                                                    <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
+                                                    onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'></td>";
+                                                }
+                                                    
+                                                if($_SESSION["rol"]=="FAC"){
+                                                    echo "<td align='center'><input  type='checkbox' name='vFacturas_".$row["idOrden"]."'   id='vFacturas_".$row["idOrden"]."' ".$vFacturas_chked." disabled></td>";
+                                                    echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary'>
+                                                    <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
+                                                    onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'></td>";
+                                                }
+                                                if($_SESSION["rol"]=="CXC"){
+                                                    echo "<td align='center'><input  type='checkbox' name='vCxC_".$row["idOrden"]."'        id='vCxC_".$row["idOrden"]."' ".$vCXC_chked." disabled></td>";
+                                                    echo "<td align='center'>
+                                                    <input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' 
+                                                    onClick='autorizacion_cxc(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
+                                                    <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
+                                                    onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'>
+                                                    </td>";
+                                                }
 
-                                            echo "<td align='center'><input  type='checkbox' name='vServCli_".$row["idOrden"]."'    id='vServCli_".$row["idOrden"]."' ".$vServCli_chked." disabled></td>";
-                                            echo "<td align='center'><input  type='checkbox' name='vREP_".$row["idOrden"]."'        id='vREP_".$row["idOrden"]."' ".$vREP_chked." disabled></td>";
-                                            // echo "<td align='center'><input name='detalle' type='button' value='Ver detalle' class='btn btn-primary'></td>";
-                                            echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary'>
-                                            <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'></td>";
-                                            echo "</tr>";
+                                                if($_SESSION["rol"]=="VTA"){
+                                                    echo "<td align='center'><input  type='checkbox' name='vPrecios_".$row["idOrden"]."'    id='vPrecios_".$row["idOrden"]."' ".$vPrecios_chked." disabled></td>";
+                                                    echo "<td align='center'>
+                                                    <input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' 
+                                                    onClick='autorizacion_vta(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
+                                                    <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
+                                                    onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'>
+                                                    </td>";
+                                                }
+                                                if($_SESSION["rol"]=="CST"){
+                                                    echo "<td align='center'><input  type='checkbox' name='vCST_".$row["idOrden"]."'        id='vCostos_".$row["idOrden"]."' ".$vCostos_chked." disabled></td>";
+                                                    echo "<td align='center'>
+                                                    <input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' 
+                                                    onClick='autorizacion_cst(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
+                                                    <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
+                                                    onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'>
+                                                    </td>";
+                                                }
+                                                if($_SESSION["rol"]=="ING"){
+                                                    echo "<td align='center'><input  type='checkbox' name='vIng_".$row["idOrden"]."'        id='vIng_".$row["idOrden"]."' ".$vIng_chked." disabled></td>";
+                                                    echo "<td align='center'>
+                                                    <input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' 
+                                                    onClick='autorizacion_ing(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
+                                                    <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
+                                                    onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'>
+                                                    </td>";
+                                                }
+                                                if($_SESSION["rol"]=="PLN"){
+                                                    echo "<td align='center'><input  type='checkbox' name='vPLN_".$row["idOrden"]."'        id='vPLN_".$row["idOrden"]."' ".$vPlaneacion_chked." disabled></td>";
+                                                    echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary'>
+                                                    <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
+                                                    onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'></td>";
+                                                }
+                                                if($_SESSION["rol"]=="FEC"){
+                                                    echo "<td align='center'><input  type='checkbox' name='vFEC_".$row["idOrden"]."'        id='vFEC_".$row["idOrden"]."' ".$vFEC_chked." disabled></td>";
+                                                    echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary'>
+                                                    <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
+                                                    onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'></td>";
+                                                }
+
+                                                // echo "<td align='center'><input  type='checkbox' name='vServCli_".$row["idOrden"]."'    id='vServCli_".$row["idOrden"]."' ".$vServCli_chked." disabled></td>";
+                                                // echo "<td align='center'><input  type='checkbox' name='vREP_".$row["idOrden"]."'        id='vREP_".$row["idOrden"]."' ".$vREP_chked." disabled></td>";
+                                                // echo "<td align='center'><input name='detalle' type='button' value='Ver detalle' class='btn btn-primary'></td>";
+                                                
+                                                echo "</tr>";
+                                            }
+                                            
                                         }
 
                                         
                                         
                                         ?>
-                                        <!-- echo "<th>Orden</th>";
-                                        echo "<th>Compañia</th>";
-                                        echo "<th>Cliente</th>";
-                                        echo "<th>Dirección Entrega</th>";
-                                        echo "<th>Estatus</th>";
-                                        echo "<th>Num. Orden compra</th>";
-                                        echo "<th>Fecha Orden</th>"; -->
-                                        <!-- <td>2021/04/02</td>
-                                        <td>2021/04/01</td>
-                                        <td>2021/04/05</td>
-                                        <td>2021/04/04</td>
-                                        <td>2021/03/31</td>
-                                        <td>2021/04/02</td>
-                                        <td>2021/04/02</td> -->
-                                        <!-- <td>3</td> -->
-                                        <!-- <td align="center"><input  type="checkbox" name="vFacturas"   id="vFacturas"></td>
-                                        <td align="center"><input  type="checkbox" name="vCxC"        id="vCxC" ></td>
-                                        <td align="center"><input  type="checkbox" name="vPrecios"    id="vPrecios"></td>
-                                        <td align="center"><input  type="checkbox" name="vCostos"     id="vCostos" ></td>
-                                        <td align="center"><input  type="checkbox" name="vIng"        id="vIng"></td>
-                                        <td align="center"><input  type="checkbox" name="vPlaneacion" id="vPlaneacion"></td>
-                                        <td align="center"><input  type="checkbox" name="vServCli"    id="vServCli" ></td>
-                                        <td align="center"><input  type="checkbox" name="vREP"        id="vREP"></td>
-                                        <td align="center"><input  type="checkbox" name="vFEC"        id="vFEC"></td> -->
 
 
 

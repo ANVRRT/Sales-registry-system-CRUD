@@ -43,7 +43,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Autorización de Ordenes</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Ordenes en Proceso</h1>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -64,44 +64,51 @@
                                             echo "<th>Estatus</th>";
                                             echo "<th>Num. Orden compra</th>";
                                             echo "<th>Fecha Orden</th>";
+                                            echo "<th>vFac</th>";
+                                            echo "<th>vCxC</th>";
+                                            echo "<th>vPRE</th>";
+                                            echo "<th>vCST</th>";
+                                            echo "<th>vING</th>";
+                                            echo "<th>vPLN</th>";
+                                            echo "<th>vFEC</th>";
 
-                                            switch ($_SESSION["rol"]) {
-                                                case "ADM":
-                                                    echo "<th>vFac</th>";
-                                                    echo "<th>vCxC</th>";
-                                                    echo "<th>vPRE</th>";
-                                                    echo "<th>vCST</th>";
-                                                    echo "<th>vING</th>";
-                                                    echo "<th>vPLN</th>";
-                                                    echo "<th>vFEC</th>";
-                                                    break;
-                                                case "FAC":
-                                                    echo "<th>vFac</th>";
-                                                    break;
-                                                case "CXC":
-                                                    echo "<th>vCxC</th>";
-                                                    break;
+                                            // switch ($_SESSION["rol"]) {
+                                            //     case "ADM":
+                                            //         echo "<th>vFac</th>";
+                                            //         echo "<th>vCxC</th>";
+                                            //         echo "<th>vPRE</th>";
+                                            //         echo "<th>vCST</th>";
+                                            //         echo "<th>vING</th>";
+                                            //         echo "<th>vPLN</th>";
+                                            //         echo "<th>vFEC</th>";
+                                            //         break;
+                                            //     case "FAC":
+                                            //         echo "<th>vFac</th>";
+                                            //         break;
+                                            //     case "CXC":
+                                            //         echo "<th>vCxC</th>";
+                                            //         break;
 
-                                                case "VTA":
-                                                    echo "<th>vPRE</th>";
-                                                    break;
+                                            //     case "VTA":
+                                            //         echo "<th>vPRE</th>";
+                                            //         break;
 
-                                                case "CST":
-                                                    echo "<th>vCST</th>";
-                                                    break;
+                                            //     case "CST":
+                                            //         echo "<th>vCST</th>";
+                                            //         break;
 
-                                                case "ING":
-                                                    echo "<th>vING</th>";
-                                                    break;
+                                            //     case "ING":
+                                            //         echo "<th>vING</th>";
+                                            //         break;
 
-                                                case "PLN":
-                                                    echo "<th>vPLN</th>";
-                                                    break;
+                                            //     case "PLN":
+                                            //         echo "<th>vPLN</th>";
+                                            //         break;
 
-                                                case "FEC":
-                                                    echo "<th>vFEC</th>";
-                                                    break;
-                                            }
+                                            //     case "FEC":
+                                            //         echo "<th>vFEC</th>";
+                                            //         break;
+                                            // }
                                             echo "<th>vServCli</th>";
                                             echo "<th>vREP</th>";
 
