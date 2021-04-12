@@ -246,12 +246,12 @@
                                                     onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'></td>";
                                                 }
                                                     
-                                                if($_SESSION["rol"]=="FAC"){
-                                                    echo "<td align='center'><input  type='checkbox' name='vFacturas_".$row["idOrden"]."'   id='vFacturas_".$row["idOrden"]."' ".$vFacturas_chked." disabled></td>";
-                                                    echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary'>
-                                                    <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
-                                                    onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'></td>";
-                                                }
+                                                // if($_SESSION["rol"]=="FAC"){
+                                                //     echo "<td align='center'><input  type='checkbox' name='vFacturas_".$row["idOrden"]."'   id='vFacturas_".$row["idOrden"]."' ".$vFacturas_chked." disabled></td>";
+                                                //     echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary'>
+                                                //     <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
+                                                //     onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'></td>";
+                                                // }
                                                 if($_SESSION["rol"]=="CXC"){
                                                     echo "<td align='center'><input  type='checkbox' name='vCxC_".$row["idOrden"]."'        id='vCxC_".$row["idOrden"]."' ".$vCXC_chked." disabled></td>";
                                                     echo "<td align='center'>
@@ -295,12 +295,12 @@
                                                     <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
                                                     onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'></td>";
                                                 }
-                                                if($_SESSION["rol"]=="FEC"){
-                                                    echo "<td align='center'><input  type='checkbox' name='vFEC_".$row["idOrden"]."'        id='vFEC_".$row["idOrden"]."' ".$vFEC_chked." disabled></td>";
-                                                    echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary'>
-                                                    <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
-                                                    onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'></td>";
-                                                }
+                                                // if($_SESSION["rol"]=="FEC"){
+                                                //     echo "<td align='center'><input  type='checkbox' name='vFEC_".$row["idOrden"]."'        id='vFEC_".$row["idOrden"]."' ".$vFEC_chked." disabled></td>";
+                                                //     echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary'>
+                                                //     <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
+                                                //     onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'></td>";
+                                                // }
 
                                                 // echo "<td align='center'><input  type='checkbox' name='vServCli_".$row["idOrden"]."'    id='vServCli_".$row["idOrden"]."' ".$vServCli_chked." disabled></td>";
                                                 // echo "<td align='center'><input  type='checkbox' name='vREP_".$row["idOrden"]."'        id='vREP_".$row["idOrden"]."' ".$vREP_chked." disabled></td>";

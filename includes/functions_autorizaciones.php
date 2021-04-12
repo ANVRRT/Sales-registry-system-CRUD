@@ -154,7 +154,15 @@ function A_VTA($conn,$idOrden,$idCliente){
 }
 // MA_VTA($conn,$_GET["idOrden"],$_GET["folio"],$_GET["articulo"],$_GET["cantidad"],$_GET["precio"],$_GET["fsolicitud"],$_GET["fentrega"])
 function MA_VTA($conn,$idOrden,$folioRO,$cantidad,$precio,$fsolicitud,$fentrega){
-    $sql= "UPDATE ReporteOrden SET cantidad = ?, precio = ?, fechaSolicitud = ?, fechaEntrega = ? WHERE folioRO = ?";
+    $Orden = getOrden($conn,$idOrden);
+    $ROrden = getReporteOrden($conn,$folioRO);
+    $totalO = $Orden["total"];
+    $totalRO = $ROrden["total"];
+    $AtotalO = $totalO - $totalRO;
+    $NtotalRO = $cantidad * $precio;
+    $NtotalO = $AtotalO + $NtotalRO;
+
+    $sql= "UPDATE ReporteOrden SET cantidad = ?, precio = ?, fechaSolicitud = ?, fechaEntrega = ?, total = ? WHERE folioRO = ?";
     //Cantidad, precio FSolicitud, FEntrega
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -163,18 +171,78 @@ function MA_VTA($conn,$idOrden,$folioRO,$cantidad,$precio,$fsolicitud,$fentrega)
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"ddssi",$cantidad,$precio,$fsolicitud,$fentrega,$folioRO);
+    mysqli_stmt_bind_param($stmt,"ddssdi",$cantidad,$precio,$fsolicitud,$fentrega,$NtotalRO,$folioRO);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
-        header("location: ../php/A_ordenes_detalle.php?idOrden=$idOrden");
+        updatetOrden($conn,$idOrden,$NtotalO);
+        
+        header("location: ../php/A_ordenes_detalle.php?idOrden=$idOrden/$totalO/$totalRO/$NtotalO/$NtotalRO");
         exit();
     }
     else{
         mysqli_stmt_close($stmt);
-        header("location: ../php/C_bloqueoCliente.php?error=sqlerror");
+        header("location: ../php/A_ordenes_detalle.php?error=$NtotalRO");
         exit();
     }
 }
 
+function getOrden($conn,$idOrden){
+    $sql="SELECT * FROM Orden WHERE idOrden = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"i", $idOrden);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    if($row = mysqli_fetch_assoc($resultData)){
+        return $row;
+    }
+
+
+    mysqli_stmt_close($stmt);
+
+}
+
+function getReporteOrden($conn,$folioRO){
+    $sql="SELECT * FROM ReporteOrden WHERE folioRO = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"i", $folioRO);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    if($row = mysqli_fetch_assoc($resultData)){
+        return $row;
+    }
+
+
+    mysqli_stmt_close($stmt);
+
+}
+
+function updatetOrden($conn,$idOrden,$total){
+    $sql= "UPDATE Orden SET total = ? WHERE idOrden = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"ds",$total, $idOrden);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+}
 ?>

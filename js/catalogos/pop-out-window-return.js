@@ -1,6 +1,6 @@
 function returnDataIntoPOW(folioRO,idOrden,folio,idArticulo,cantidad,precio,fSolicitud,fEntrega){
     // alert(fSolicitud);
-    alert(folioRO);
+    // alert(folioRO);
     document.getElementById("PO_ORD").value = idOrden;
     document.getElementById("PO_FOLRO").value = folioRO;
     document.getElementById("PO_FOL").value = folio;
