@@ -35,20 +35,17 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="cliente"> id Cliente</label>
-			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="cliente" maxlength="10" required>
+			<label class="campo__label" for="idCliente">Cliente</label>
+			<input class="campo__field" name="idCliente" type="text" id="idCliente" list="clientes" maxlength="10" required>
 			<?php
+				$reg = dispClientes($conn,$_SESSION["idCompania"]);
 				
-				$reg = dispClientes($conn, $_SESSION["idCompania"]);
-				
-				echo "<datalist id='cliente'>";
+				echo "<datalist id='clientes'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
 						echo "<option>".$row["idCliente"]."</option>";
 					}
-					
-
 				}
 				echo "</datalist>";
 			?>
