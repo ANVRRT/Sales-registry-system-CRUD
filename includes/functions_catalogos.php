@@ -624,6 +624,7 @@ function createArtExistente($conn,$idArticulo,$idCompania,$descripcion,$costo){
         exit();
     }
 }
+
 function deleteArtExistente($conn,$idArticulo,$idCompania,$idUsuario){
     $sql = "UPDATE ArticuloExistente SET estatus = ?, idBaja = ? WHERE idArticulo = ? AND idCompania = ?;";
     $estatus = 0;
