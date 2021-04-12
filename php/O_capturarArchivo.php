@@ -51,9 +51,11 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                if(isset($_POST['submitFile'])) {
-                                    test();
-                                    
+                                if(isset($_POST['submitFileAgente'])) {
+                                    FilerReader($conn, "agente");
+                                }
+                                if(isset($_POST['submitFileAlmacen'])) {
+                                    FilerReader($conn, "almacen");
                                 }
                                 include("forms/FO_capturarArchivo.php");
 

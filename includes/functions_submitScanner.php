@@ -1,27 +1,80 @@
 <?php
     require_once("dbh.inc.php");
 
+    function execAgente($conn, $idRepresentante, $nomRepresentante, $idCompania, $estatus, $idBaja){
+        $sql = "INSERT INTO Agente(idRepresentante, nomRepresentante, idCompania, estatus, idBaja) VALUES('$idRepresentante', '$nomRepresentante', '$idCompania', $estatus, '$idBaja')";
 
-    function consultaTotal($conn,$idOrden){
-        $query = "SELECT * FROM Orden WHERE idOrden = $idOrden";
-        $sql= mysqli_query($conn,$query);
-        $reg=mysqli_fetch_object($sql);
-        if($reg==mysqli_fetch_array($sql)){
-            #echo "No se encontró el registro";
-            exit();
+        if (mysqli_query($conn, $sql)) {
+            echo "New record created successfully";
+        } 
+        else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
-        else{
-            return $reg->total;
-            
+    }
+
+    function execAlmacen($conn, $idAlmacen, $descripcion, $idCompania, $estatus, $idBaja){
+        $sql = "INSERT INTO Almacen(idAlmacen, descripcion, idCompania, estatus, idBaja) VALUES('$idAlmacen', '$descripcion', '$idCompania', $estatus, '$idBaja')";
+
+        if (mysqli_query($conn, $sql)) {
+            echo "New record created successfully";
+        } 
+        else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
     }
 
 
-    function test() {
-        echo $_FILES['uploadFile']['name'];
-        echo $_FILES['uploadFile']['tmp_name'];
-        echo $_FILES['uploadFile']['size'];
-        echo $_FILES['uploadFile']['type'];
+    function FilerReader($conn, $typeM) {
+        $getPathFile = "";
+        switch ($typeM) {
+            case "agente":
+                $getPathFile = "uploadFileAgente";
+                break;
+            case "almacen":
+                $getPathFile = "uploadFileAlmacen";
+                break;
+        }
+
+        if (($_FILES[$getPathFile]['name']!="")){
+            //File size limiter
+            if ($_FILES["uploadFileAgente"]["size"] > 500000) {
+                echo "Sorry, your file is too large.";
+            }
+
+            else {
+                // Where the file is going to be stored
+                $target_dir = "uploadedFiles/";
+                $file = $_FILES[$getPathFile]['name'];
+                $path = pathinfo($file);
+                $filename = $path['filename'];
+                $ext = $path['extension'];
+                $temp_name = $_FILES[$getPathFile]['tmp_name'];
+                $path_filename_ext = $target_dir.$filename.".".$ext;
+                
+                move_uploaded_file($temp_name,$path_filename_ext);
+
+                //operation
+                $data = file($path_filename_ext, FILE_SKIP_EMPTY_LINES);
+
+                for ($i = 0; $i<count($data); $i++) {
+                    $mscData = explode("||", $data[$i]);
+
+                    for ($j = 0; $j<count($mscData); $j++) {
+                        $mscData[$j] = trim($mscData[$j]);
+                    }
+                    
+                    switch ($typeM){
+                        case "agente":
+                            execAgente($conn, $mscData[0], $mscData[1], $mscData[2], intval($mscData[3]), $mscData[4]);
+                            break;
+
+                        case "almacen":
+                            execAlmacen($conn, $mscData[0], $mscData[1], $mscData[2], intval($mscData[3]), $mscData[4]);
+                            break;
+                    }
+                }
+            }
+        }
     }
 
 ?>
