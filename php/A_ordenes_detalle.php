@@ -159,7 +159,7 @@
                                                 echo "<th>vCxC</th>";
                                                 echo "<th>Orden Compra</th>";
 
-                                                echo "<th>Opciones</th>";
+                                                // echo "<th>Opciones</th>";
                                             }
                                             //ING
                                             //vcxc, vprec,
@@ -265,7 +265,7 @@
                                             echo "<td id='idCliente_".$row2["folioRO"]."' style='text-align: center;'>". $row["idCliente"] ."</td>";
                                             echo "<td id='nombreCliente_".$row2["folioRO"]."' style='text-align: center;'>". $row2["nombreCliente"] ."</td>";
                                             echo "<td style='text-align: center;'><input  type='date' name='fechaOrden' id='fechaOrden_".$row2["folioRO"]."' value='".$row["fechaOrden"]."' readonly></td>";
-                                            echo "<td style='text-align: center;'><input  type='date' name='fechaOrden' id='fechaOrden_".$row2["folioRO"]."' value='".$row2["fechaEntrega"]."' readonly></td>";
+                                            echo "<td style='text-align: center;'><input  type='date' name='fechaOrden' id='fechaEntrega_".$row2["folioRO"]."' value='".$row2["fechaEntrega"]."' readonly></td>";
                                             echo "<td id='folioArticulo_".$row2["folioRO"]."' style='text-align: center;'>". $row2["folio"] ."</td>";
                                             echo "<td id='idArticulo_".$row2["folioRO"]."' style='text-align: center;'>". $row2["idArticulo"] ."</td>";
                                             echo "<td id='descripcion_".$row2["folioRO"]."' style='text-align: center;'>". $row2["descripcion"] ."</td>";
@@ -358,7 +358,6 @@
                                                 // echo "<th>Orden Compra</th>";
                                                 echo "<td id='ordenCompra_".$row2["folioRO"]."' style='text-align: center;'>". $row2["ordenCompra"] ."</td>";
 
-                                                echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'></td>";
                                             }
                                             if($_SESSION["rol"]=="ING"){
                                                 // echo "<th>Costo</th>";
@@ -385,7 +384,8 @@
                                                 echo "<td align='center'><input  type='checkbox' name='vPLN_".$row2["folioRO"]."'        id='vPLN_".$row2["folioRO"]."' ".$vPlaneacion_chked." disabled></td>";
                                                 // echo "<th>Nota</th>";
                                                 echo "<td id='nota_".$row2["folioRO"]."' style='text-align: center;'>". $row2["nota"] ."</td>";
-                                                echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'></td>";
+                                                // echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'></td>";
+                                                echo "<td align='center'><input type='button' class='btn btn-primary'  data-toggle='modal' data-target='#ventana' value='Modificar Orden' onClick='returnDataIntoPOW2(\"".$row2["folioRO"]."\",document.getElementById(\"idOrden_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"folioArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"idArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"fechaEntrega_".$row2["folioRO"]."\").value);'></td> ";
                                             }
                                             // if($_SESSION["rol"]=="FEC"){
                                             //     echo "<td align='center'><input  type='checkbox' name='vFEC_".$row["idOrden"]."'        id='vFEC_".$row["idOrden"]."' ".$vFEC_chked." disabled></td>";
@@ -508,7 +508,55 @@
                                         <div>
                                             <tr>
                                                 <td style='text-align: center;'><button class='btn btn-secondary' type='button' data-dismiss='modal'>Cancel</button></td>
-                                                <td style='text-align: center;'><input type='button' name='A_VTA' class='btn btn-primary' value='Actualizar' onClick='Autorizar_VTA()'></td>
+                                                <td style='text-align: center;'><input type='button' name='A_VTA' class='btn btn-primary' value='Actualizar' onClick='Modificar_VTA()'></td>
+                                                
+                                                <!-- <input class='campo__field button--blue' name='A_almacen' type='submit' value='Alta'> -->
+
+                                            </tr>
+
+                                        </div>
+                                    </form>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>";
+        }
+
+        if($_SESSION["rol"]=="PLN"){
+            echo "<div class='modal fade' id='ventana' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog' role='document'>
+                        <div class='modal-content'>
+
+                            <div class='modal-body'>
+                                <table width='100%'>
+                                    <form name='f_popup' method='POST' action='../includes/functions_autorizaciones.php'>
+                                        <div class='modal-header'>
+                                            <h5 class='titlePop' align='center'>¿Estas seguro que deseas ACEPTAR la orden
+                                                <input style='text-align: center;' class='titleorden' name='PO_ORD' id='PO_ORD' size='12%' readonly> con folioRO
+                                                <input style='text-align: center;' class='titleorden' name='PO_FOLRO' id='PO_FOLRO' size='12%' readonly> con folio
+                                                <input style='text-align: center;' class='titleorden' name='PO_FOL' id='PO_FOL' size='12%' readonly> de artículo
+                                                <input style='text-align: center;' class='titleorden' name='PO_ART' id='PO_ART' size='12%' readonly>?
+                                            </h5>
+                                            <button class='close' type='button' data-dismiss='modal' aria-label='Close'>
+                                                <span aria-hidden='true'>×</span>
+                                            </button>
+                                        </div>
+                                        <div>
+
+                                            <tr align='center'>
+                                                <td style='text-align: center;'>
+                                                    <p class='textPop'>Fecha Cliente</p><input style='text-align: center;' class='bloquePop' size='10' type='date' name='PO_FCLIENTE' id='PO_FCLIENTE'>
+                                                </td>
+                                            </tr>
+
+                                        </div>
+                                        <div>
+                                            <tr>
+                                                <td style='text-align: center;'><button class='btn btn-secondary' type='button' data-dismiss='modal'>Cancel</button></td>
+                                                <td style='text-align: center;'><input type='button' name='A_VTA' class='btn btn-primary' value='Actualizar' onClick='Modificar_PLN()'></td>
                                                 
                                                 <!-- <input class='campo__field button--blue' name='A_almacen' type='submit' value='Alta'> -->
 

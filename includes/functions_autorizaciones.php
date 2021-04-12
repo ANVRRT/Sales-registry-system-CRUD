@@ -22,6 +22,18 @@ if(isset($_GET["MA_VTA"])){
 if(isset($_GET["A_VTA"])){
     A_VTA($conn,$_GET["idOrden"],$_GET["idCliente"]);
 }
+if(isset($_GET["MA_PLN"])){
+    // location.href="../includes/functions_autorizaciones.php?A_VTA=1&idOrden="+orden+"&folio="+folio+"&articulo="+articulo+"&cantidad="+cantidad+"&precio="+precio+"&fsolicitud="+fsolicitud+"&fentrega="+fentrega;
+    // echo "HOLA";
+    // echo "FolioRO".$_GET["folioRO"]."Orden: ".$_GET["idOrden"]." Folio: ".$_GET["folio"]." Artículo: ".$_GET["articulo"]." FEntrega:".$_GET["fentrega"];
+    // echo "FolioRO".$_GET["folioRO"]." FEntrega:".$_GET["fentrega"]."Orden: ".$_GET["idOrden"];
+    
+    MA_PLN($conn,$_GET["folioRO"],$_GET["fentrega"],$_GET["idOrden"]);
+
+}
+if(isset($_GET["A_PLN"])){
+    A_PLN($conn,$_GET["idOrden"],$_GET["idCliente"]);
+}
 
 
 // if(isset($_POST["A_VTA"])){
@@ -152,6 +164,30 @@ function A_VTA($conn,$idOrden,$idCliente){
         exit();
     }
 }
+function A_PLN($conn,$idOrden,$idCliente){
+    $sql= "UPDATE Orden SET vPlaneacion= 1, tPLN = ? WHERE idOrden = ? AND idCliente= ?";
+    $date = date('Y-m-d');
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sss",$date,$idOrden,$idCliente);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/A_ordenes_base.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_bloqueoCliente.php?error=sqlerror");
+        exit();
+    }
+}
 // MA_VTA($conn,$_GET["idOrden"],$_GET["folio"],$_GET["articulo"],$_GET["cantidad"],$_GET["precio"],$_GET["fsolicitud"],$_GET["fentrega"])
 function MA_VTA($conn,$idOrden,$folioRO,$cantidad,$precio,$fsolicitud,$fentrega){
     $Orden = getOrden($conn,$idOrden);
@@ -177,12 +213,36 @@ function MA_VTA($conn,$idOrden,$folioRO,$cantidad,$precio,$fsolicitud,$fentrega)
         mysqli_stmt_close($stmt);
         updatetOrden($conn,$idOrden,$NtotalO);
         
-        header("location: ../php/A_ordenes_detalle.php?idOrden=$idOrden/$totalO/$totalRO/$NtotalO/$NtotalRO");
+        header("location: ../php/A_ordenes_detalle.php?idOrden=$idOrden");
         exit();
     }
     else{
         mysqli_stmt_close($stmt);
         header("location: ../php/A_ordenes_detalle.php?error=$NtotalRO");
+        exit();
+    }
+}
+
+function MA_PLN($conn,$folioRO,$fEntrega,$idOrden){
+    $sql= "UPDATE ReporteOrden SET fechaEntrega = ? WHERE folioRO = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"si",$fEntrega,$folioRO);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/A_ordenes_detalle.php?idOrden=$idOrden");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_bloqueoCliente.php?error=sqlerror");
         exit();
     }
 }

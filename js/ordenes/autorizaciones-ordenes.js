@@ -31,3 +31,10 @@ function autorizacion_vta(idOrden,idCliente){
     location.href= url;
 
 }
+
+function autorizacion_pln(idOrden,idCliente){
+
+    var url = "../includes/functions_autorizaciones.php?A_PLN=1&idOrden="+idOrden+"&idCliente="+idCliente;
+    location.href= url;
+
+}
