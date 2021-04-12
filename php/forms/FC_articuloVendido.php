@@ -4,12 +4,12 @@
 	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="folio">Folio</label>
-			<input class="campo__field" name="folio" type="text" id="folio" require>
+			<input class="campo__field" name="folio" type="number" id="folio" min="0" max="99999999999"required>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="idArticulo">ID Artículo</label>
-			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos" require>
+			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos" required>
 			<?php
 
 				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
@@ -36,7 +36,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="idCliente">Cliente</label>
-			<input class="campo__field" name="idCliente" type="text" id="idCliente" list="clientes">
+			<input class="campo__field" name="idCliente" type="text" id="idCliente" list="clientes" maxlength="10" required>
 			<?php
 				$reg = dispClientes($conn,$_SESSION["idCompania"]);
 				
@@ -58,7 +58,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="codAviso">Código Aviso</label>
-			<input class="campo__field" name="codAviso" type="text" id="codAviso" require>
+			<input class="campo__field" name="codAviso" type="text" id="codAviso" required>
 		</div>
 
 		<div class="campo">

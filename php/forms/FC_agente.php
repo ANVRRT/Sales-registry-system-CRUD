@@ -4,7 +4,7 @@
 	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="idRepresentante">ID Representante</label>
-			<input class="campo__field" type="text" name="idRepresentante" id="idRepresentante" list="representante" required>
+			<input class="campo__field" type="text" name="idRepresentante" id="idRepresentante" list="representante" maxlength="10 "required>
 			<?php
 				$reg = dispRepresentante($conn, $_SESSION["idCompania"]);
 				

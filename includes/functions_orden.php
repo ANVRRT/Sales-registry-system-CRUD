@@ -14,7 +14,7 @@
                 createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
             }
             if(!$banderaOrden){
-                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],'1',null,null,null,null,null,'1',$total,0,0,0,0,0,0,0,0,0,'1',null); 
+                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],1,null,null,null,null,null,1,$total,0,0,0,0,0,0,0,0,0,1,null); 
             }
             else{
                 $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
@@ -29,7 +29,7 @@
             createArtVendido($conn,'default',$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
             
             if(!$banderaOrden){
-                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],'1',null,null,null,null,null,'1',$total,0,0,0,0,0,0,0,0,0,'1',null); 
+                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],1,null,null,null,null,null,1,$total,0,0,0,0,0,0,0,0,0,1,null); 
             }
             else{
                 $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
@@ -207,8 +207,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/C_ListaPrecios.php?error=success2");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
