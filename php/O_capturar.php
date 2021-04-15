@@ -51,7 +51,7 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                if ( (roles($_SESSION["rol"], array("ADM","AGE"))) || (array("po_capturar")) ) {
+                                if ( (roles($_SESSION["rol"], array("ADM","AGE"))) || (permissions($_SESSION["permisos"],array("h"))) ) {
                                     include("forms/FO_capturar.php");
                                 }
                                 else{
