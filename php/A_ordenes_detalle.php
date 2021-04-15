@@ -308,7 +308,9 @@
                                                     echo "<td align='center'><input  type='checkbox' name='vREP_".$row2["folioRO"]."'        id='vREP_".$row2["folioRO"]."' ".$vREP_chked." disabled></td>";
                                                     // echo "<th>Nota</th>";
                                                     echo "<td id='nota_".$row2["folioRO"]."' style='text-align: center;'>". $row2["nota"] ."</td>";
-                                                    echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'></td>";
+                                                    // echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'></td>";
+                                                    echo "<td align='center'><input type='button' class='btn btn-primary'  data-toggle='modal' data-target='#ventana' value='Modificar Artículo' onClick='returnDataIntoPOW(\"".$row2["folioRO"]."\",document.getElementById(\"idOrden_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"folioArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"idArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"cantidad_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"precio_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"fechaOrden_".$row2["folioRO"]."\").value,document.getElementById(\"fechaEntrega_".$row2["folioRO"]."\").value);'></td> ";
+
 
                                                     
                                                 }
@@ -348,7 +350,7 @@
                                                     // echo "<th>Nota</th>";
                                                     echo "<td id='nota_".$row2["folioRO"]."' style='text-align: center;'>". $row2["nota"] ."</td>";
                                                     // echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'></td>";
-                                                    echo "<td align='center'><input type='button' class='btn btn-primary'  data-toggle='modal' data-target='#ventana' value='Modificar Orden' onClick='returnDataIntoPOW(\"".$row2["folioRO"]."\",document.getElementById(\"idOrden_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"folioArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"idArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"cantidad_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"precio_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"fechaOC_".$row2["folioRO"]."\").value,document.getElementById(\"fechaEnt_".$row2["folioRO"]."\").value);'></td> ";
+                                                    echo "<td align='center'><input type='button' class='btn btn-primary'  data-toggle='modal' data-target='#ventana' value='Modificar Artículo' onClick='returnDataIntoPOW(\"".$row2["folioRO"]."\",document.getElementById(\"idOrden_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"folioArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"idArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"cantidad_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"precio_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"fechaOC_".$row2["folioRO"]."\").value,document.getElementById(\"fechaEnt_".$row2["folioRO"]."\").value);'></td> ";
                                             }
                                                 if($_SESSION["rol"]=="CST"){
                                                     // echo "<th>Precio</th>";
@@ -387,7 +389,7 @@
                                                     // echo "<th>Nota</th>";
                                                     echo "<td id='nota_".$row2["folioRO"]."' style='text-align: center;'>". $row2["nota"] ."</td>";
                                                     // echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'></td>";
-                                                    echo "<td align='center'><input type='button' class='btn btn-primary'  data-toggle='modal' data-target='#ventana' value='Modificar Orden' onClick='returnDataIntoPOW2(\"".$row2["folioRO"]."\",document.getElementById(\"idOrden_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"folioArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"idArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"fechaEntrega_".$row2["folioRO"]."\").value);'></td> ";
+                                                    echo "<td align='center'><input type='button' class='btn btn-primary'  data-toggle='modal' data-target='#ventana' value='Modificar Artículo' onClick='returnDataIntoPOW2(\"".$row2["folioRO"]."\",document.getElementById(\"idOrden_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"folioArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"idArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"fechaEntrega_".$row2["folioRO"]."\").value);'></td> ";
                                                 }
                                                 // if($_SESSION["rol"]=="FEC"){
                                                 //     echo "<td align='center'><input  type='checkbox' name='vFEC_".$row["idOrden"]."'        id='vFEC_".$row["idOrden"]."' ".$vFEC_chked." disabled></td>";
@@ -462,7 +464,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
     <?php
-        if($_SESSION["rol"]=="VTA"){
+        if((roles($_SESSION["rol"], array("ADM","VTA")))){
             echo "<div class='modal fade' id='ventana' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
                     <div class='modal-dialog' role='document'>
                         <div class='modal-content'>

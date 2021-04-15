@@ -129,8 +129,13 @@
 
                                         <?php
 
+                                        if(isset($_GET["idOrden"])){
+                                            //AQUÍ LLAMA A TU FUNCIÓN TOMÁS
+                                        }
+                                        else{
+                                            $reg = dispOrden($conn, $_SESSION["idCompania"]);
 
-                                        $reg = dispOrden($conn, $_SESSION["idCompania"]);
+                                        }
 
                                         
                                         while ($row = mysqli_fetch_assoc($reg)) {
@@ -241,7 +246,17 @@
                                                     echo "<td align='center'><input  type='checkbox' name='vIng_".$row["idOrden"]."'        id='vIng_".$row["idOrden"]."' ".$vIng_chked." disabled></td>";
                                                     echo "<td align='center'><input  type='checkbox' name='vPLN_".$row["idOrden"]."'        id='vPLN_".$row["idOrden"]."' ".$vPlaneacion_chked." disabled></td>";
                                                     echo "<td align='center'><input  type='checkbox' name='vFEC_".$row["idOrden"]."'        id='vFEC_".$row["idOrden"]."' ".$vFEC_chked." disabled></td>";
-                                                    echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary'>
+                                                    echo "<td align='center'>
+                                                    <input style='margin-top: 5px;' name='autorizar' type='button' value='Autorizar CXC' class='btn btn-primary' 
+                                                    onClick='autorizacion_cxc(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
+                                                    <input style='margin-top: 5px;' name='autorizar' type='button' value='Autorizar VTA' class='btn btn-primary' 
+                                                    onClick='autorizacion_vta(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
+                                                    <input style='margin-top: 5px;' name='autorizar' type='button' value='Autorizar CST' class='btn btn-primary' 
+                                                    onClick='autorizacion_cst(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
+                                                    <input style='margin-top: 5px;' name='autorizar' type='button' value='Autorizar ING' class='btn btn-primary' 
+                                                    onClick='autorizacion_ing(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
+                                                    <input style='margin-top: 5px;' name='autorizar' type='button' value='Autorizar PLN' class='btn btn-primary' 
+                                                    onClick='autorizacion_pln(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
                                                     <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
                                                     onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'></td>";
                                                 }
