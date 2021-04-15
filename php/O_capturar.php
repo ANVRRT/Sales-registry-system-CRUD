@@ -51,16 +51,11 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                if (($_SESSION["rol"] == "ADM") || ($_SESSION["rol"] == "AGE")) {
+                                if ( (roles($_SESSION["rol"], array("ADM","AGE"))) || (array("po_capturar")) ) {
                                     include("forms/FO_capturar.php");
                                 }
                                 else{
-                                    if(permissions($_SESSION["permisos"],"po_capturar")){
-                                        include("forms/FO_capturar.php");
-                                    }
-                                    else{
-                                        include("404.php");
-                                    }
+                                    include("404.php");
                                 }
                             ?>
                         </div>
