@@ -48,9 +48,19 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Ordenes de venta con todas las autorizaciones</h6>
                         </div>
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Fitrar por Fecha de Orden</h6>
+
+                            <h5>Fecha Inicial</h5>
+                            <input type="date" id="fechaInicial">
+                            <h5>Fecha Final</h5>
+                            <input type="date" id="fechaFinal" onblur="AjaxFunction2('dispOrdenesByFechas','fechaInicial','fechaFinal','tableBodyFechas')">
+                            
+
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="fechasTabla" width="100%" cellspacing="0">
                                     <thead>
                                         <tr align="center">
                                             <th>Orden</th>
@@ -68,16 +78,15 @@
                                         </tr>
                                     </thead>
                                     
-                                    <tbody>
+                                    <tbody id = "tableBodyFechas">
                                     <?php
                                         //Getting authorised data from server at functions_reportes
                                         dispOrdenes($conn,$_SESSION["idCompania"]);
 
                                         
-                                        ?>
+                                    ?>
                                     </tbody>
                                 </table>
-                                
                             </div>
                         </div>
                     </div>
