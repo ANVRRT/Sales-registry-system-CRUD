@@ -91,3 +91,10 @@ function AjaxFunction2(listado,inputFieldGet,inputFieldGetO,inputFieldPrint)
     httpxml.send(null);
 
 }
+
+function Jdescuento() {
+    var descuento = document.getElementById("descuento").value;
+    var precio    = document.getElementById("precio").value;
+    var impDesc   = (descuento/100) * precio;
+    document.getElementById("impDesc").value = impDesc;
+}
