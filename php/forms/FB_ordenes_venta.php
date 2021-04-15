@@ -27,10 +27,10 @@
 			</datalist>
         </div>
 
-        <div class="campo">
+        <!--<div class="campo">
             <label class="campo__label" for="ord">Ord Baan</label>
             <input class="campo__field" type="text" id="ord">
-        </div>
+        </div>-->
 
         
 

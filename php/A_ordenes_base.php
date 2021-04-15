@@ -130,7 +130,6 @@
                                         <?php
 
                                         if(isset($_GET["idOrden"])){
-                                            //AQUÍ LLAMA A TU FUNCIÓN TOMÁS
                                             $reg = dispOrdenByID($conn,$_GET["idOrden"]);
                                         }
                                         else{
