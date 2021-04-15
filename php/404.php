@@ -1,6 +1,8 @@
 <div class="container-fluid">
     <!-- 404 Error Text -->
     <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Semi+Condensed:100,200,300,400" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style-404.css">
+
 
     <div class="text-center">
         <div class="error mx-auto" data-text="404">404</div>
