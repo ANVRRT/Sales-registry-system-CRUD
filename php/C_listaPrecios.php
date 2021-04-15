@@ -75,7 +75,7 @@
                                                                 <th>Nivel de Descuento</th>
                                                                 <th>Fecha de Inicio</th>
                                                                 <th>Fecha de Caducidad</th>
-                                                                <th>Imp. Desc.</th>
+                                                                <th>Importe de Descuento</th>
                                                             </tr>
                                                         </thead>
                                                         

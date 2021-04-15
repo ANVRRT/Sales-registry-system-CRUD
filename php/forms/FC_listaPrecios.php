@@ -1,3 +1,5 @@
+
+
 <div class="fix-margin">
 	<h1 class="h1-mine">Listas de Precios</h1>
 
@@ -52,7 +54,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="precio">Precio</label>
-			<input class="campo__field" type="text" name="precio" id="precio">
+			<input class="campo__field" type="text" name="precio" id="precio" onblur="Jdescuento()">
 		</div>
 
 		<div class="campo">
@@ -77,8 +79,8 @@
 		</div>
 
 		<div class="campo campo__text">
-			<label class="campo__label" for="impDesc">ImpDesc</label>
-			<input class="campo__field" type="number" name="impDesc" id="impDesc">
+			<label class="campo__label" for="impDesc">Importe de Descuento</label>
+			<input class="campo__field" type="number" name="impDesc" id="impDesc" readonly>
 		</div>
 
 		<div class="campo__3--button">
@@ -94,3 +96,5 @@
 		</div>
 	</form>
 </div>
+
+
