@@ -134,7 +134,7 @@
 
                                         
                                         while ($row = mysqli_fetch_assoc($reg)) {
-                                            $skey = true;
+                                            $skey = false;
                                             $vFacturas_chked = "";
                                             $vCXC_chked = "";
                                             $vPrecios_chked = "";
@@ -181,34 +181,34 @@
                                                 //     }
                                                 //     break;
                                                 case "CXC":
-                                                    if($row["vCxC"]=="1"){
-                                                        $skey = false;
+                                                    if($row["vCxC"]!="1"){
+                                                        $skey = true;
                                                     }
                                                     break;
                                                 case "VTA":
-                                                    if($row["vPrecios"]=="1"){
-                                                        $skey = false;
+                                                    if(($row["vPrecios"]!="1") && ($row["vCxC"]=="1")){
+                                                        $skey = true;
                                                     }
                                                     
                                                     break;
 
                                                 case "CST":
-                                                    if($row["vCostos"]=="1"){
-                                                        $skey = false;
+                                                    if(($row["vCostos"]!="1") && ($row["vIng"]=="1")){
+                                                        $skey = true;
                                                     }
                                                     
                                                     break;
 
                                                 case "ING":
-                                                    if($row["vIng"]=="1"){
-                                                        $skey = false;
+                                                    if(($row["vIng"]!="1")  && ($row["vPrecios"]=="1")){
+                                                        $skey = true;
                                                     }
                                                     
                                                     break;
 
                                                 case "PLN":
-                                                    if($row["vPlaneacion"]=="1"){
-                                                        $skey = false;
+                                                    if(($row["vPlaneacion"]!="1") && ($row["vCostos"]=="1")){
+                                                        $skey = true;
                                                     }
                                                     break;
 
