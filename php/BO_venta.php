@@ -3,6 +3,7 @@
 
 <head>
     <?php
+        require_once("../includes/dbh.inc.php");
         include("../includes/header.php");
     ?>
 	<link rel="stylesheet" href="../css/stylesForms.css">
@@ -18,7 +19,8 @@
 		<div >
 			
 			<?php
-				include("../includes/sidebar.php")
+				include("../includes/sidebar.php");
+                require_once("../includes/functions_catalogos.php");
 			?>
 			
 			
