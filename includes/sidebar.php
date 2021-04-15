@@ -4,6 +4,15 @@ if (!isset($_SESSION["idUsuario"])) {
     header("location: ../php/login.php");
     exit();
 }
+
+function permissions($permissions,$permisochck){
+    foreach($permissions as $permiso){
+        if($permiso == $permisochck){
+            return true;
+        }
+    }
+    return false;
+}
 ?>
 <ul style="height: 100%; vertical-align:middle;" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" ">
 
