@@ -134,6 +134,7 @@ function roles($role,$roleschck){
                 <div class='bg-white py-2 collapse-inner rounded'>
                     <h6 class='collapse-header'>Altas y bajas:</h6>
                     <a class='collapse-item' href='ADM_permisos.php'>Permisos</a>
+                    <a class='collapse-item' href='ADM_roles.php'>Roles de Usuarios</a>
                 </div>
             </div>
         </li>
