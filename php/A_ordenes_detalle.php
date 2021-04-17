@@ -101,7 +101,7 @@
                                             //PLN
                                             // vPLN, nota, !maquina, acumulado.
                                             //Ya puestos en ADM: Precio CXC
-                                            if($_SESSION["rol"]=="ADM"){
+                                            if($_SESSION["rol"]=="ADM" || "DIR"){
                                                 echo "<th>Precio</th>";
                                                 echo "<th>Costo</th>";
                                                 echo "<th>Acumulado</th>";
@@ -276,7 +276,7 @@
 
                                                 
 
-                                                if($_SESSION["rol"]=="ADM"){
+                                                if($_SESSION["rol"]=="ADM" || "DIR"){
 
                                                     // echo "<th>Precio</th>";
                                                     echo "<td id='precio_".$row2["folioRO"]."' style='text-align: center;'>". $row2["precio"] ."</td>";
@@ -464,7 +464,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
     <?php
-        if((roles($_SESSION["rol"], array("ADM","VTA")))){
+        if((roles($_SESSION["rol"], array("ADM","VTA","DIR")))){
             echo "<div class='modal fade' id='ventana' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
                     <div class='modal-dialog' role='document'>
                         <div class='modal-content'>

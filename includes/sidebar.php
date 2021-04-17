@@ -73,7 +73,8 @@ function roles($role, $roleschck)
 
     <!-- if ((($_SESSION["rol"] == "ADM") || ($_SESSION["rol"] == "AGE")) || (permissions($_SESSION["permisos"],"po_capturar")) ) { -->
     <?php
-    if ((roles($_SESSION["rol"], array("ADM", "AGE", "CXC", "PNL", "ING", "CST", "VTA"))) || (permissions($_SESSION["permisos"], array("po_capturar")))) {
+
+    if ((roles($_SESSION["rol"], array("ADM", "CXC","PLN", "ING", "CST", "VTA","DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
         echo "
         <li class='nav-item'>
             <a class='nav-link collapsed' href='#' data-toggle='collapse' data-target='#collapseA' aria-expanded='true' aria-controls='collapseA'>
@@ -84,7 +85,7 @@ function roles($role, $roleschck)
                 <div class='bg-white py-2 collapse-inner rounded'>
                     <h6 class='collapse-header'>Autorizaciones:</h6>
         ";
-        if ((roles($_SESSION["rol"], array("ADM", "CXC", "PNL", "ING", "CST", "VTA"))) || (array("po_capturar"))) {
+        if ((roles($_SESSION["rol"], array("ADM", "CXC", "PLN", "ING", "CST", "VTA","DIR"))) || (permissions($_SESSION["permisos"], array("po_capturar")))) {
             echo "<a class='collapse-item' href='A_ordenes_base.php'>Listado ordenes base</a>";
         }
         echo "  </div>
@@ -113,9 +114,6 @@ function roles($role, $roleschck)
         if ((roles($_SESSION["rol"], array("ADM", "AGE"))) || (permissions($_SESSION["permisos"], array("h")))) {
             echo "<a class='collapse-item' href='O_capturar.php'>Capturar Orden</a>";
         }
-        if ((roles($_SESSION["rol"], array("ADM", "ADC", "AGE", "ING", "CST", "VTA", "EMB", "DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
-            echo "<a class='collapse-item' href='BO_venta.php'>Buscar Orden</a>";
-        }
         echo "
             </div>
             </div>
@@ -128,73 +126,150 @@ function roles($role, $roleschck)
         <li class='nav-item'>
             <a class='nav-link collapsed' href='#' data-toggle='collapse' data-target='#admin' aria-expanded='true' aria-controls='collapseUtilities'>
                 <i class='fas fa-users-cog'></i>
-                <span>Administracion</span>
+                <span>Administracion: </span>
             </a>
             <div id='admin' class='collapse' aria-labelledby='headingUtilities' data-parent='#accordionSidebar'>
                 <div class='bg-white py-2 collapse-inner rounded'>
                     <h6 class='collapse-header'>Altas y bajas:</h6>
                     <a class='collapse-item' href='ADM_permisos.php'>Permisos</a>
-                    <a class='collapse-item' href='ADM_roles.php'>Roles de Usuarios</a>
+                    <a class='collapse-item' href='ADM_roles.php'>Usuarios y <br> Roles de Usuarios</a>
                     <a class='collapse-item' href='register.php'>Creación de Usuarios</a>
                 </div>
             </div>
         </li>
         ";
     }
+    if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
+
+        echo "
+        <li class='nav-item'>
+            <a class='nav-link collapsed' href='#' data-toggle='collapse' data-target='#collapseSA' aria-expanded='true' aria-controls='collapseUtilities'>
+                <i class='fas fa-user-tie'></i>
+                <span>Super Admin</span>
+            </a>
+            <div id='collapseSA' class='collapse' aria-labelledby='headingUtilities' data-parent='#accordionSidebar'>
+                <div class='bg-white py-2 collapse-inner rounded'>
+                    <h6 class='collapse-header'>Super Usuario:</h6>
+                    <a class='collapse-item' href='ADM_sadmin.php'>Control de Administrador</a>
+                </div>
+            </div>
+        </li>
+        ";
+    }
+
+    if ((roles($_SESSION["rol"], array("ADM","ADC","AGE","CST","ING","VTA","EMB","DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
+        echo "
+        <li class='nav-item'>
+            <a class='nav-link collapsed' href='#' data-toggle='collapse' data-target='#collapseB' aria-expanded='true' aria-controls='collapseUtilities'>
+                <i class='fas fa-search'></i>
+                <span>Busquedas</span>
+            </a>
+            <div id='collapseB' class='collapse' aria-labelledby='headingUtilities' data-parent='#accordionSidebar'>
+                <div class='bg-white py-2 collapse-inner rounded'>
+                    <h6 class='collapse-header'>Busquedas:</h6>
+            ";
+        if ((roles($_SESSION["rol"], array("ADM","ING"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='BC_articuloCliente.php'>Busqueda Artículo <br> Cliente</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM", "ADC","AGE","CST","ING","VTA","EMB","DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='BO_venta.php'>Buscar Orden</a>";
+        }
+        echo "
+                </div>
+            </div>
+        </li>
+        ";
+
+    }
+    if ((roles($_SESSION["rol"], array("ADM","CXC","REA"))) || (permissions($_SESSION["permisos"], array("h")))) {
+        echo "
+        <li class='nav-item'>
+            <a class='nav-link collapsed' href='#' data-toggle='collapse' data-target='#collapseUtilities' aria-expanded='true' aria-controls='collapseUtilities'>
+                <i class='fas fa-book'></i>
+                <span>Catálogos</span>
+            </a>
+            <div id='collapseUtilities' class='collapse' aria-labelledby='headingUtilities' data-parent='#accordionSidebar'>
+                <div class='bg-white py-2 collapse-inner rounded'>
+                    <h6 class='collapse-header'>Altas y bajas:</h6>
+            ";
+        if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='C_compania.php'>Compañia</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='C_inventario.php'>Inventario</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='C_almacen.php'>Almacen</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='C_cliente.php'>Cliente</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='C_agente.php'>Agente</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='C_articuloExistente.php'>Artículo Existente</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM","REA"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='C_articuloVendido.php'>Artículo Vendido</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='C_dirEnt.php'>Dir. Entrega</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='C_listaPrecios.php'>Lista Precios</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='C_factura.php'>Facturas</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='C_cantidadE.php'>Cant. Entregada</a>";
+        } 
+        if ((roles($_SESSION["rol"], array("ADM","CXC"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='C_bloqueoCliente.php'>Bloqueo Cliente</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='O_capturarArchivo.php'>Archivo</a>";
+        }
+
+            
+        echo "
+                </div>
+            </div>
+        </li>
+        ";
+    }
+    
+    if ((roles($_SESSION["rol"], array("ADM","AGE","PLN","CST","VTA","DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
+        echo "
+        <li class='nav-item'>
+            <a class='nav-link collapsed' href='#' data-toggle='collapse' data-target='#collapseR' aria-expanded='true' aria-controls='collapseUtilities'>
+                <i class='fas fa-file-pdf'></i>
+                <span>Reportes</span>
+            </a>
+            <div id='collapseR' class='collapse' aria-labelledby='headingUtilities' data-parent='#accordionSidebar'>
+                <div class='bg-white py-2 collapse-inner rounded'>
+                    <h6 class='collapse-header'>Reportes:</h6>
+            ";
+        if ((roles($_SESSION["rol"], array("ADM","PLN","DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='R_tiempo_Departamento.php'>Reporte por tiempo <br> departamento</a>";
+        }
+        echo "
+                </div>
+            </div>
+        </li>
+        ";
+    }
+    
+
     ?>
 
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSA" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-user-tie"></i>
-            <span>Super Admin</span>
-        </a>
-        <div id="collapseSA" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Super Usuario:</h6>
-                <a class="collapse-item" href="ADM_sadmin.php">Control de Administrador</a>
-            </div>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseB" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-search"></i>
-            <span>Busquedas</span>
-        </a>
-        <div id="collapseB" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Busquedas:</h6>
-                <a class="collapse-item" href="BC_articuloCliente.php">Busqueda Artículo <br> Cliente</a>
-                <a class="collapse-item" href="BO_venta.php">Buscar Orden</a>
-            </div>
-        </div>
-    </li>
+
+
 
 
     <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-book"></i>
-            <span>Catálogos</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Altas y bajas:</h6>
-                <a class="collapse-item" href="C_compania.php">Compañia</a>
-                <a class="collapse-item" href="C_inventario.php">Inventario</a>
-                <a class="collapse-item" href="C_almacen.php">Almacen</a>
-                <a class="collapse-item" href="C_cliente.php">Cliente</a>
-                <a class="collapse-item" href="C_agente.php">Agente</a>
-                <a class="collapse-item" href="C_articuloExistente.php">Artículo Existente</a>
-                <a class="collapse-item" href="C_articuloVendido.php">Artículo Vendido</a>
-                <a class="collapse-item" href="C_dirEnt.php">Dir. Entrega</a>
-                <a class="collapse-item" href="C_listaPrecios.php">Lista Precios</a>
-                <a class="collapse-item" href="C_factura.php">Facturas</a>
-                <a class="collapse-item" href="C_cantidadE.php">Cant. Entregada</a>
-                <a class="collapse-item" href="C_bloqueoCliente.php">Bloqueo Cliente</a>
-                <a class="collapse-item" href="O_capturarArchivo.php">Archivo</a>
-            </div>
-        </div>
-    </li>
+    
 
     <!-- Divider -->
     <hr class="sidebar-divider">

@@ -153,7 +153,7 @@ if(isset($_GET["listado"])){
 
 
 function buscarArticuloCliente($conn, $idCliente, $idCompania){
-    $sql="SELECT ArticuloVendido.idArticulo, ArticuloExistente.descripcion FROM ArticuloVendido, ArticuloExistente WHERE ArticuloVendido.idCliente=? AND ArticuloVendido.idArticulo = ArticuloExistente.idArticulo AND ArticuloExistente.idCompania=?";
+    $sql="SELECT ArticuloVendido.idArticulo, ArticuloExistente.descripcion, ArticuloVendido.folio, ArticuloVendido.stock, ArticuloVendido.udVta, ArticuloVendido.codAviso FROM ArticuloVendido, ArticuloExistente WHERE ArticuloVendido.idCliente=? AND ArticuloVendido.idArticulo = ArticuloExistente.idArticulo AND ArticuloExistente.idCompania=?";
 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
