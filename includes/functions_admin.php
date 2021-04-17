@@ -15,6 +15,10 @@ if(isset($_POST["A_Rol"])){
     //Función de Rol
     updateRol($conn,$_POST["idUsuario"],$_POST["idCompania"],$_POST["rolN"]);
 }
+if(isset($_POST["A_CompADM"])){
+    //Función de Rol
+    setCompaniaADM($_POST["idCompaniaN"]);
+}
 if(isset($_GET["listado"])){
     $entrada = $_GET["entrada"];
     if($_GET["listado"] == "dispRolActual"){
@@ -39,6 +43,7 @@ function dispUsuarios($conn,$idCompania){
 
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispRoles($conn,$idCompania){
@@ -58,6 +63,7 @@ function dispRoles($conn,$idCompania){
 
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispPermiso($conn, $idCompania){
@@ -77,6 +83,7 @@ function dispPermiso($conn, $idCompania){
     return $resultData;
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 function dispRolActual($conn, $entrada){
     $sql="SELECT * FROM Usuario WHERE idUsuario=?";
@@ -169,6 +176,14 @@ function updateRol($conn,$idUsuario,$idCompania,$rol){
         header("location: ../php/ADM_roles.php?error=sqlerror");
         exit();
     }
+}
+
+function setCompaniaADM($idCompania){
+
+    $_SESSION["idCompania"] = $idCompania;
+    header("location: ../php/ADM_sadmin.php?error=success/".$_SESSION["idCompania"]);
+
+    exit();
 }
 
 ?>

@@ -21,6 +21,7 @@
             <?php
             include("../includes/sidebar.php");
             require_once("../includes/functions_admin.php");
+            require_once("../includes/functions_catalogos.php");
 
             ?>
 
