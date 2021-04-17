@@ -169,6 +169,7 @@ function buscarArticuloCliente($conn, $idCliente, $idCompania){
 
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 
@@ -189,6 +190,7 @@ function dispCompania($conn){
 
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispInventario($conn, $idCompania){
@@ -208,6 +210,7 @@ function dispInventario($conn, $idCompania){
 
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispArticuloVendido($conn, $idCompania){
@@ -226,6 +229,7 @@ function dispArticuloVendido($conn, $idCompania){
 
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispOrden($conn, $idCompania){
@@ -244,6 +248,7 @@ function dispOrden($conn, $idCompania){
 
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispDirEnt($conn, $idCompania){
@@ -263,6 +268,7 @@ function dispDirEnt($conn, $idCompania){
 
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispFactura($conn, $idCompania){
@@ -282,6 +288,7 @@ function dispFactura($conn, $idCompania){
 
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispCantidadE($conn, $idCompania){
@@ -301,6 +308,7 @@ function dispCantidadE($conn, $idCompania){
 
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispArticulos($conn, $idCompania){
@@ -320,6 +328,7 @@ function dispArticulos($conn, $idCompania){
 
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 function dispRepresentante($conn, $idCompania){
     $sql="SELECT * FROM Agente WHERE idCompania = ? AND estatus = 1";
@@ -338,6 +347,7 @@ function dispRepresentante($conn, $idCompania){
 
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispListaPrecioCompleta($conn, $idCompania){
@@ -357,6 +367,7 @@ function dispListaPrecioCompleta($conn, $idCompania){
 
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispListaPrecios($conn, $idCompania){
@@ -377,6 +388,7 @@ function dispListaPrecios($conn, $idCompania){
 
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 function dispListaPreciosByCliente($conn, $entrada){
     $sql="SELECT * FROM Cliente WHERE idCliente=? AND estatus = 1";
@@ -441,6 +453,7 @@ function dispDirEntByCLiente($conn, $entrada){
 
     }
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispArtByList($conn, $entrada){
@@ -463,6 +476,7 @@ function dispArtByList($conn, $entrada){
     }
     mysqli_stmt_close($stmt);
     
+    exit();
 }
 
 function dispFolioByOrden($conn,$entrada){
@@ -484,6 +498,7 @@ function dispFolioByOrden($conn,$entrada){
 
     }
     mysqli_stmt_close($stmt);
+    exit();
 }
 function dispArticuloRO($conn,$entrada){
     $sql="SELECT  * FROM ReporteOrden WHERE folioRO=? AND estatus = 1";
@@ -504,6 +519,7 @@ function dispArticuloRO($conn,$entrada){
 
     }
     mysqli_stmt_close($stmt);
+    exit();
 }
 function dispFolio($conn, $entrada,$entrada2){
     $sql="SELECT * FROM ArticuloVendido WHERE idCliente=? AND idArticulo=? AND estatus = 1";
@@ -524,6 +540,7 @@ function dispFolio($conn, $entrada,$entrada2){
 
     }
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispPrecio($conn, $entrada,$entrada2){
@@ -545,6 +562,7 @@ function dispPrecio($conn, $entrada,$entrada2){
 
     }
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 
@@ -565,6 +583,7 @@ function dispAlmacen($conn, $idCompania){
     return $resultData;
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 function dispClientes($conn, $idCompania)
 {
@@ -584,6 +603,7 @@ function dispClientes($conn, $idCompania)
     return $resultData;
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function dispFolios($conn, $idCliente)
@@ -604,6 +624,7 @@ function dispFolios($conn, $idCliente)
     return $resultData;
 
     mysqli_stmt_close($stmt);
+    exit();
 }
 
 function createArtExistente($conn,$idArticulo,$idCompania,$descripcion,$costo){
