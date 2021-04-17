@@ -135,6 +135,7 @@ function roles($role,$roleschck){
                     <h6 class='collapse-header'>Altas y bajas:</h6>
                     <a class='collapse-item' href='ADM_permisos.php'>Permisos</a>
                     <a class='collapse-item' href='ADM_roles.php'>Roles de Usuarios</a>
+                    <a class='collapse-item' href='register.php'>Creación de Usuarios</a>
                 </div>
             </div>
         </li>
