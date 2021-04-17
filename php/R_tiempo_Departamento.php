@@ -10,30 +10,7 @@
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/styles-capOrden.css">
     <script src="../js/reportes/html2pdf.bundle.min.js"></script>
-    <script>
-        function generatePDF_TD() {
-            const element = document.getElementById("fechasTabla");
-
-            html2pdf()
-            .set({
-                margin: 1,
-                filename: 'ReporteTiempoDepartamento.pdf',
-                image: {
-                    type: 'jpeg',
-                    quality: 0.98
-                },
-                html2canvas: {
-                    scale: 2, // A mayor escala, mejores gráficos, pero más peso
-                    letterRendering: true,
-                },
-                jsPDF: {
-                    unit: "in",
-                    format: "a3",
-                    orientation: 'landscape' // landscape o portrait
-                }
-            }).from(element).save();
-        }
-    </script>
+    <script src="../js/reportes/conversionPDF.js"></script>
 
 </head>
 
