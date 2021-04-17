@@ -149,11 +149,6 @@ if(isset($_GET["listado"])){
         $ffinal = $_GET["entrada2"];
         dispOrdenesByFechas($conn,$_SESSION["idCompania"],$finicial,$ffinal);
     }
-    if($_GET["listado"] == "dispOrdenesByFechaInicial"){
-        $finicial = $_GET["entrada"];
-        dispOrdenesByFechaInicial($conn,$_SESSION["idCompania"],$finicial);
-    }
-
 }
 
 
