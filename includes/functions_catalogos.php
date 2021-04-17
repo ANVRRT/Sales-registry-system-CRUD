@@ -817,23 +817,19 @@ function createCantEnt($conn,$idCompania,$idOrden,$folio,$fechaMov,$hora,$secuen
 
     mysqli_stmt_bind_param($stmt, "siissiidsiis",$idCompania,$idOrden,$folio,$fechaMov,$hora,$secuencia,$tipoReg,$cantidad,$idArticulo,$posicion,$estatus,$idBaja);
     
-    if(mysqli_stmt_execute($stmt) && ($tipoReg==1))
+    if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
+        if(($tipoReg==2)||($tipoReg==3)){
+            header("location: ../php/C_cantidadE.php?error=success");
+            exit();
+        }
+        
     }
     else{
         mysqli_stmt_close($stmt);
         header("location: ../php/C_cantidadE.php?error=sqlerror");
         exit();
-    }
-    
-    if(mysqli_stmt_execute($stmt) && (($tipoReg==2)||($tipoReg==3)))
-    {
-        mysqli_stmt_close($stmt);
-        header("location: ../php/C_cantidadE.php?error=success");
-        exit();
-        
-        
     }
     
 }
