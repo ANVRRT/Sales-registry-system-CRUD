@@ -8,7 +8,6 @@
     ?>
     <link rel="stylesheet" href="../css/stylesForms.css">
     <link rel="stylesheet" href="../css/normalize.css">
-
 </head>
 
 <body id="page-top">
@@ -21,11 +20,13 @@
 
             <?php
             include("../includes/sidebar.php");
-            require_once("../includes/functions_catalogos.php");
+            require_once("../includes/functions_admin.php");
+
             ?>
 
 
         </div>
+
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -52,47 +53,39 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                            include("forms/FC_factura.php");
-                            if (isset($_POST["C_factura"])) {
-                                $idCompania = $_SESSION["idCompania"];
-                                $reg = dispFactura($conn, $idCompania);
-                                echo "<br><br><div class='card shadow mb-4'>
+                            include("forms/FADM_roles.php");
+                            if (isset($_POST["ADM_roles"])) {
+                                $reg = dispUsuarios($conn, $_SESSION["idCompania"]);
+                                echo "<div class='card shadow mb-4'>
                                             <div class='card-header py-3'>
-                                                <h6 class='m-0 font-weight-bold text-primary'>Listado de Facturas</h6>
+                                                <h6 class='m-0 font-weight-bold text-primary'>Listado de Usuarios</h6>
                                             </div>
                                             <div class='card-body'>
-                                                <div class='table-responsive'>
+                                                <div class='table-responsive'>                                                
                                                     <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
                                                         <thead>
                                                             <tr align='center'>
-                                                                <th>ID Compañía</th>
-                                                                <th>Núm. de Factura</th><!---->
-                                                                <th>ID Orden</th><!---->
-                                                                <th>ID Artículo</th>
-                                                                <th>ID Cliente</th>
-                                                                <th>Folio</th>
-                                                                <th>Entrega</th>
-                                                                <th>Tipo de Transacción</th>
-                                                                <th>Fecha de facturación</th>
+                                                                <th>Usuario</th>
+                                                                <th>Nombre de Usuario</th>
+                                                                <th>Rol</th>
+                                                                <th>Compañia</th>
+                                                                <th>Opciones</th>
                                                             </tr>
                                                         </thead>
                                                         
                                                         <tbody>";
-                                while ($row = mysqli_fetch_assoc($reg)) {
-                                    if ($row["estatus"] == 1) {
-                                        echo "  <tr>
-                                                                        <td align='center'>" . $row["idCompania"] . "</td>
-                                                                        <td align='center'>" . $row["numFact"] . "</td>
-                                                                        <td align='center'>" . $row["idOrden"] . "</td>
-                                                                        <td align='center'>" . $row["idArticulo"] . "</td>
-                                                                        <td align='center'>" . $row["idCliente"] . "</td>
-                                                                        <td align='center'>" . $row["folio"] . "</td>
-                                                                        <td align='center'>" . $row["entrega"] . "</td>
-                                                                        <td align='center'>" . $row["tipoTrans"] . "</td>
-                                                                        <td align='center'>" . $row["fechaFac"] . "</td>
-                                                                    </tr>";
-                                    }
-                                }
+                                                        while ($row = mysqli_fetch_assoc($reg)) {
+                                                            echo "  
+                                                            <tr>
+                                                                <td align='center'>" . $row["idUsuario"] . "</td>
+                                                                <td align='center'>" . $row["nomUsuario"] . "</td>
+                                                                <td align='center'>" . $row["rol"] . "</td>
+                                                                <td align='center'>" . $row["idCompania"] . "</td>
+                                                                <td align='center'><a href='../includes/functions_admin.php?B_Usuario=1&idUsuario=".$row["idUsuario"]."'class='btn btn-danger'>Eliminar Usuario</a></td>
+                                                                
+
+                                                            </tr>";
+                                                        }
 
                                 echo " 
                                                             
@@ -104,10 +97,13 @@
                             }
                             if (isset($_GET["error"])) {
                                 if ($_GET["error"] == "success") {
-                                    echo "<p style='color: black;'> ¡Operación exitosa! </p>";
+                                    echo "<p style='color: black;'> ¡Rol actualizado exitosamente! </p>";
+                                }
+                                if ($_GET["error"] == "success2") {
+                                    echo "<p style='color: black;'> ¡Rol actualizado exitosamente! </p>";
                                 }
                                 if ($_GET["error"] == "sqlerror") {
-                                    echo "<p style='color: black;'> ¡Algo ocurrio mal! </p>";
+                                    echo "<p style='color: black;'> ¡Algo salió mal! </p>";
                                 }
                             }
                             ?>

@@ -5,7 +5,6 @@
     <?php
         include("../includes/header.php");
         require_once("../includes/dbh.inc.php");
-        require_once("../includes/functions_catalogos.php");
     ?>
     <link rel="stylesheet" href="../css/stylesForms.css">
     <link rel="stylesheet" href="../css/normalize.css">
@@ -20,7 +19,9 @@
         <div >
             
             <?php
-                include("../includes/sidebar.php")
+                include("../includes/sidebar.php");
+                require_once("../includes/functions_catalogos.php");
+
             ?>
             
             
@@ -67,16 +68,24 @@
 					                                <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
 					                                    <thead>
 					                                        <tr align='center'>
+					                                            <th>Folio</th><!---->
 					                                            <th>ID Artículo</th><!---->
 					                                            <th>Descripción</th><!---->
+					                                            <th>Stock</th><!---->
+					                                            <th>Unidad de Venta</th><!---->
+					                                            <th>Código Aviso</th><!---->
 					                                        </tr>
 					                                    </thead>
 					                                    
 					                                    <tbody>";
 					                while ($row=mysqli_fetch_assoc($reg)){
 					                                        echo "	<tr>
+					                                        			<td align='center'>".$row["folio"]."</td>
 					                                        			<td align='center'>".$row["idArticulo"]."</td>
 					                                        			<td align='center'>".$row["descripcion"]."</td>
+					                                        			<td align='center'>".$row["stock"]."</td>
+					                                        			<td align='center'>".$row["udVta"]."</td>
+					                                        			<td align='center'>".$row["codAviso"]."</td>
 					                                        		</tr>";
 					                                    }
 
@@ -118,26 +127,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>

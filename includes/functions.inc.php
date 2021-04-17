@@ -74,8 +74,8 @@ function idcompExists($conn, $idCompania){
     exit();
 }
 
-// function rolExists($conn, $rol){
-//     $sql = "SELECT * FROM Rol WHERE rol = ? ;";
+// function rolExists($conn, $rol,$idCompania){
+//     $sql = "SELECT * FROM Rol WHERE rol = ? AND idCompania = $idCompania ;";
 //     $stmt = mysqli_stmt_init($conn);
 //     if (!mysqli_stmt_prepare($stmt,$sql))
 //     {
@@ -163,10 +163,13 @@ function loginUser($conn, $idUsuario, $pswrd)
         mysqli_stmt_execute($stmt);
 
         $resultData = mysqli_stmt_get_result($stmt);
+        $_SESSION["permisos"] = array(" "," ");
 
         if($row = mysqli_fetch_assoc($resultData))
         {
-            $_SESSION["permisos"] = array($row["Permiso"]);
+            // $_SESSION["permisos"] = array($row["Permiso"]);
+            array_push($_SESSION["permisos"],$row["Permiso"] );
+
             while($row2 = mysqli_fetch_assoc($resultData))
             {
                 array_push($_SESSION["permisos"],$row2["Permiso"] );

@@ -3,11 +3,11 @@
 
 <head>
     <?php
-        include("../includes/header.php");
-        require_once("../includes/dbh.inc.php");
+    require_once("../includes/dbh.inc.php");
+    include("../includes/header.php");
     ?>
-	<link rel="stylesheet" href="../css/stylesForms.css">
-	<link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/stylesForms.css">
+    <link rel="stylesheet" href="../css/normalize.css">
 </head>
 
 <body id="page-top">
@@ -16,16 +16,18 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-		<div >
-			
-			<?php
-				include("../includes/sidebar.php");
-                require_once("../includes/functions_catalogos.php");
-			?>
-			
-			
-		</div>
-        
+        <div>
+
+            <?php
+            include("../includes/sidebar.php");
+            require_once("../includes/functions_admin.php");
+            require_once("../includes/functions_catalogos.php");
+
+            ?>
+
+
+        </div>
+
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -36,7 +38,7 @@
 
                 <!-- Topbar -->
                 <?php
-                    include("../includes/topbar.php");
+                include("../includes/topbar.php");
                 ?>
                 <!-- End of Topbar -->
 
@@ -48,16 +50,16 @@
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
 
                 </div> -->
-				<div class="container-fluid"> 
+                <div class="container-fluid">
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("forms/FC_bloqueoCliente.php");
+                            include("forms/FADM_sadmin.php");
                             ?>
                         </div>
                     </div>
-				</div>
-				
+                </div>
+
                 <!-- /.container-fluid -->
 
             </div>

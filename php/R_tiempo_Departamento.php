@@ -2,15 +2,15 @@
 <html lang="es">
 
 <head>
-
     <?php
-    include("../includes/header.php");
     require_once("../includes/dbh.inc.php");
-    require_once("../includes/functions_reportes.php");
+    include("../includes/header.php");
     ?>
-
-    <!-- Custom styles for this page -->
-    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/stylesForms.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/styles-capOrden.css">
+    <script src="../js/reportes/html2pdf.bundle.min.js"></script>
+    <script src="../js/reportes/conversionPDF.js"></script>
 
 </head>
 
@@ -20,10 +20,16 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?php
-        include("../includes/sidebar.php");
+        <div>
 
-        ?>
+            <?php
+            include("../includes/sidebar.php");
+            require_once("../includes/functions_catalogos.php");
+            require_once("../includes/functions_reportes.php");
+            ?>
+
+
+        </div>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -34,23 +40,43 @@
 
                 <!-- Topbar -->
                 <?php
-                    include("../includes/topbar.php");
+                include("../includes/topbar.php");
                 ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
+                <!-- <div class="container-fluid">
+
+					
+                    Page Heading
+                    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+
+                </div> -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Reporte de Promedio de Tiempo por Departamento</h1>
+                    <h1 >Reporte de Promedio de Tiempo por Departamento</h1>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Ordenes de venta con todas las autorizaciones</h6>
+                            <input type="button" style="background: blue; color: white; border-radius: 15px; border:0px; width: 150px; height:30px;" value="Generar PDF" onclick="generatePDF_TD()">
+                        </div>
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Fitrar por Fecha de Orden</h6>
+
+                            <h5>Fecha Inicial</h5>
+                            <input type="date" id="fechaInicial" onblur="AjaxFunction2('dispOrdenesByFechas','fechaInicial','fechaFinal','tableBodyFechas')">
+                            <h5>Fecha Final</h5>
+                            <input type="date" id="fechaFinal" onblur="AjaxFunction2('dispOrdenesByFechas','fechaInicial','fechaFinal','tableBodyFechas')">
+
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered" id="fechasTabla" width="100%" cellspacing="0">
+                                    <caption style="caption-side:top">
+                                        <p align="center" style="font-weight:bold;">Reporte de Tiempo por Departamento</p>
+                                    </caption>
                                     <thead>
                                         <tr align="center">
                                             <th>Orden</th>
@@ -68,16 +94,52 @@
                                         </tr>
                                     </thead>
                                     
-                                    <tbody>
+                                    <tbody id = "tableBodyFechas">
                                     <?php
                                         //Getting authorised data from server at functions_reportes
-                                        dispOrdenes($conn,$_SESSION["idCompania"]);
+                                        $reg = dispOrdenes($conn,$_SESSION["idCompania"]);
+
+                                        while($orders = mysqli_fetch_assoc($reg))
+                                        {
+                                            //Order Info
+                                            $noOrden       = $orders["idOrden"];
+                                            $idCliente     = $orders["idCliente"];
+                                            $nombreCliente = $orders["nombreCliente"];
+                                            $fechaOrden    = $orders["fechaOrden"];
+
+                                            //Tiempo por departamento
+                                            $fac =  tiempoPorDepartamento($orders["tFac"],$fechaOrden);
+                                            $cxc =  tiempoPorDepartamento($orders["tCXC"],$fechaOrden);
+                                            $pre =  tiempoPorDepartamento($orders["tPRE"],$fechaOrden);
+                                            $cst =  tiempoPorDepartamento($orders["tCST"],$fechaOrden);
+                                            $ing =  tiempoPorDepartamento($orders["tING"],$fechaOrden);
+                                            $pln =  tiempoPorDepartamento($orders["tPLN"],$fechaOrden);
+                                            $fec =  tiempoPorDepartamento($orders["tFEC"],$fechaOrden);
+
+                                            $total = $orders["total"];
+
+                                            //Creating table
+                                            echo "<tr>";
+                                            echo "<td> $noOrden </td>";
+                                            echo "<td> $idCliente </td>";
+                                            echo "<td> $nombreCliente </td>";
+                                            echo "<td> $fechaOrden </td>";
+                                            echo "<td> $fac </td>";
+                                            echo "<td> $cxc </td>";
+                                            echo "<td> $pre </td>";
+                                            echo "<td> $cst </td>";
+                                            echo "<td> $ing </td>";
+                                            echo "<td> $pln </td>";
+                                            echo "<td> $fec </td>";
+                                            echo "<td> $total </td>";
+                                            echo "</tr>";
+
+                                        }
 
                                         
-                                        ?>
+                                    ?>
                                     </tbody>
                                 </table>
-                                
                             </div>
                         </div>
                     </div>
@@ -109,26 +171,6 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -138,13 +180,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../js/demo/datatables-demo.js"></script>
 
 </body>
 

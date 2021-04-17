@@ -65,7 +65,7 @@
                                             echo "<th>Num. Orden compra</th>";
                                             echo "<th>Fecha Orden</th>";
 
-                                            if($_SESSION["rol"]=="ADM"){
+                                            if($_SESSION["rol"]=="ADM" || "DIR"){
                                                 echo "<th>vFac</th>";
                                                 echo "<th>vCxC</th>";
                                                 echo "<th>vPREC</th>";
@@ -129,12 +129,17 @@
 
                                         <?php
 
+                                        if(isset($_GET["idOrden"])){
+                                            $reg = dispOrdenByID($conn,$_GET["idOrden"]);
+                                        }
+                                        else{
+                                            $reg = dispOrden($conn, $_SESSION["idCompania"]);
 
-                                        $reg = dispOrden($conn, $_SESSION["idCompania"]);
+                                        }
 
                                         
                                         while ($row = mysqli_fetch_assoc($reg)) {
-                                            $skey = true;
+                                            $skey = false;
                                             $vFacturas_chked = "";
                                             $vCXC_chked = "";
                                             $vPrecios_chked = "";
@@ -175,40 +180,43 @@
                                                 case "ADM":
                                                     $skey = true;
                                                     break;
+                                                case "DIR":
+                                                    $skey = true;
+                                                    break;
                                                 // case "FAC":
                                                 //     if($row["vFacturas"]=="1"){
                                                 //         $skey = false;
                                                 //     }
                                                 //     break;
                                                 case "CXC":
-                                                    if($row["vCxC"]=="1"){
-                                                        $skey = false;
+                                                    if($row["vCxC"]!="1"){
+                                                        $skey = true;
                                                     }
                                                     break;
                                                 case "VTA":
-                                                    if($row["vPrecios"]=="1"){
-                                                        $skey = false;
+                                                    if(($row["vPrecios"]!="1") && ($row["vCxC"]=="1")){
+                                                        $skey = true;
                                                     }
                                                     
                                                     break;
 
                                                 case "CST":
-                                                    if($row["vCostos"]=="1"){
-                                                        $skey = false;
+                                                    if(($row["vCostos"]!="1") && ($row["vIng"]=="1")){
+                                                        $skey = true;
                                                     }
                                                     
                                                     break;
 
                                                 case "ING":
-                                                    if($row["vIng"]=="1"){
-                                                        $skey = false;
+                                                    if(($row["vIng"]!="1")  && ($row["vPrecios"]=="1")){
+                                                        $skey = true;
                                                     }
                                                     
                                                     break;
 
                                                 case "PLN":
-                                                    if($row["vPlaneacion"]=="1"){
-                                                        $skey = false;
+                                                    if(($row["vPlaneacion"]!="1") && ($row["vCostos"]=="1")){
+                                                        $skey = true;
                                                     }
                                                     break;
 
@@ -233,7 +241,7 @@
                                                 echo "<td id='ordCompra_".$row["idOrden"]."' style='text-align: center;'>". $row["ordenCompra"] ."</td>";
                                                 echo "<td style='text-align: center;'><input  type='date' name='fechaOrden' id='fechaOrden_".$row["idOrden"]."' value='".$row["fechaOrden"]."' readonly></td>";
 
-                                                if($_SESSION["rol"]=="ADM"){
+                                                if($_SESSION["rol"]=="ADM" || "DIR"){
                                                     echo "<td align='center'><input  type='checkbox' name='vFacturas_".$row["idOrden"]."'   id='vFacturas_".$row["idOrden"]."' ".$vFacturas_chked." disabled></td>";
                                                     echo "<td align='center'><input  type='checkbox' name='vCxC_".$row["idOrden"]."'        id='vCxC_".$row["idOrden"]."' ".$vCXC_chked." disabled></td>";
                                                     echo "<td align='center'><input  type='checkbox' name='vPrecios_".$row["idOrden"]."'    id='vPrecios_".$row["idOrden"]."' ".$vPrecios_chked." disabled></td>";
@@ -241,7 +249,17 @@
                                                     echo "<td align='center'><input  type='checkbox' name='vIng_".$row["idOrden"]."'        id='vIng_".$row["idOrden"]."' ".$vIng_chked." disabled></td>";
                                                     echo "<td align='center'><input  type='checkbox' name='vPLN_".$row["idOrden"]."'        id='vPLN_".$row["idOrden"]."' ".$vPlaneacion_chked." disabled></td>";
                                                     echo "<td align='center'><input  type='checkbox' name='vFEC_".$row["idOrden"]."'        id='vFEC_".$row["idOrden"]."' ".$vFEC_chked." disabled></td>";
-                                                    echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary'>
+                                                    echo "<td align='center'>
+                                                    <input style='margin-top: 5px;' name='autorizar' type='button' value='Autorizar CXC' class='btn btn-primary' 
+                                                    onClick='autorizacion_cxc(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
+                                                    <input style='margin-top: 5px;' name='autorizar' type='button' value='Autorizar VTA' class='btn btn-primary' 
+                                                    onClick='autorizacion_vta(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
+                                                    <input style='margin-top: 5px;' name='autorizar' type='button' value='Autorizar CST' class='btn btn-primary' 
+                                                    onClick='autorizacion_cst(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
+                                                    <input style='margin-top: 5px;' name='autorizar' type='button' value='Autorizar ING' class='btn btn-primary' 
+                                                    onClick='autorizacion_ing(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
+                                                    <input style='margin-top: 5px;' name='autorizar' type='button' value='Autorizar PLN' class='btn btn-primary' 
+                                                    onClick='autorizacion_pln(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$row["idCliente"].")'>
                                                     <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
                                                     onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'></td>";
                                                 }
@@ -351,25 +369,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
