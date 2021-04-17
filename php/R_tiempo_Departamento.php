@@ -10,6 +10,9 @@
 
     <!-- Custom styles for this page -->
     <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/stylesForms.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <script src="../js/reportes/html2pdf.bundle.min.js"></script>
 
 </head>
 
@@ -49,20 +52,50 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Ordenes de venta con todas las autorizaciones</h6>
+                            <input type="button" style="background: blue; color: white; border-radius: 15px; border:0px; width: 150px; height:30px;" value="Generar PDF" onclick="generatePDF_TD()">
                         </div>
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Fitrar por Fecha de Orden</h6>
 
                             <h5>Fecha Inicial</h5>
-                            <input type="date" id="fechaInicial">
+                            <input type="date" id="fechaInicial" onblur="AjaxFunction2('dispOrdenesByFechas','fechaInicial','fechaFinal','tableBodyFechas')">
                             <h5>Fecha Final</h5>
                             <input type="date" id="fechaFinal" onblur="AjaxFunction2('dispOrdenesByFechas','fechaInicial','fechaFinal','tableBodyFechas')">
                             
+                            <script>
+                                function generatePDF_TD() {
+                                    const element = document.getElementById("fechasTabla");
+                                    
+                                    html2pdf()
+                                    .set({
+                                        margin: 1,
+                                        filename: 'ReporteTiempoDepartamento.pdf',
+                                        image: {
+                                            type: 'jpeg',
+                                            quality: 0.98
+                                        },
+                                        html2canvas: {
+                                            scale: 2, // A mayor escala, mejores gráficos, pero más peso
+                                            letterRendering: true,
+                                        },
+                                        jsPDF: {
+                                            unit: "in",
+                                            format: "a3",
+                                            orientation: 'landscape' // landscape o portrait
+                                        }
+                                    })
+                                    .from(element)
+                                    .save();
+}
+                            </script>
 
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="fechasTabla" width="100%" cellspacing="0">
+                                    <caption style="caption-side:top">
+                                        <p align="center" style="font-weight:bold;">Reporte de Tiempo por Departamento</p>
+                                    </caption>
                                     <thead>
                                         <tr align="center">
                                             <th>Orden</th>

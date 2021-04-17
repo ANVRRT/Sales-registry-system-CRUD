@@ -149,6 +149,10 @@ if(isset($_GET["listado"])){
         $ffinal = $_GET["entrada2"];
         dispOrdenesByFechas($conn,$_SESSION["idCompania"],$finicial,$ffinal);
     }
+    if($_GET["listado"] == "dispOrdenesByFechaInicial"){
+        $finicial = $_GET["entrada"];
+        dispOrdenesByFechaInicial($conn,$_SESSION["idCompania"],$finicial);
+    }
 
 }
 
@@ -1364,7 +1368,14 @@ function tiempoPorDepartamento($fechaDepartamento, $fechaInicial)
 }
 
 function dispOrdenesByFechas($conn,$idCompania,$fechaInicial,$fechaFinal){
-    $sql = "SELECT * FROM Orden JOIN Cliente ON Orden.idCliente = Cliente.idCliente WHERE Orden.estatus = 1 AND Orden.idCompania = ? AND fechaOrden >= ? AND fechaOrden <= ?";
+
+    if(strlen($fechaFinal)<1)
+    {
+        date_default_timezone_set('UTC');
+        $fechaFinal = date("Y-m-d");
+    }
+    
+    $sql = "SELECT * FROM Orden JOIN Cliente ON Orden.idCliente = Cliente.idCliente WHERE Orden.estatus = 1 AND Orden.idCompania = ? AND fechaOrden >= ? AND fechaOrden <= ? ORDER BY fechaOrden";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
@@ -1374,8 +1385,6 @@ function dispOrdenesByFechas($conn,$idCompania,$fechaInicial,$fechaFinal){
     mysqli_stmt_bind_param($stmt,"sss", $idCompania,$fechaInicial,$fechaFinal);
     mysqli_stmt_execute($stmt);
     $resultData = mysqli_stmt_get_result($stmt);
-
-    $tableBody = "";
 
     while($orders = mysqli_fetch_assoc($resultData))
     {
@@ -1414,9 +1423,6 @@ function dispOrdenesByFechas($conn,$idCompania,$fechaInicial,$fechaFinal){
 
     }
     mysqli_stmt_close($stmt);
-
     exit();
 }
-
-
 ?>
