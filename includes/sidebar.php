@@ -178,7 +178,7 @@ function roles($role,$roleschck){
                 <a class="collapse-item" href="C_factura.php">Facturas</a>
                 <a class="collapse-item" href="C_cantidadE.php">Cant. Entregada</a>
                 <a class="collapse-item" href="C_bloqueoCliente.php">Bloqueo Cliente</a>
-                <a class="collapse-item" href="O_capturarArchivo.php">Archivo</a>
+                <a class="collapse-item" href="O_capturarArchivo.php">Capturar desde Archivos</a>
             </div>
         </div>
     </li>
