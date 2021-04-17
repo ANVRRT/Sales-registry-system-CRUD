@@ -229,7 +229,7 @@ function roles($role, $roleschck)
             echo "<a class='collapse-item' href='C_bloqueoCliente.php'>Bloqueo Cliente</a>";
         }
         if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
-            echo "<a class='collapse-item' href='O_capturarArchivo.php'>Archivo</a>";
+            echo "<a class='collapse-item' href='O_capturarArchivo.php'>Capturar desde Archivo</a>";
         }
 
             

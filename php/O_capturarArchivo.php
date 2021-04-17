@@ -7,6 +7,7 @@
     ?>
 	<link rel="stylesheet" href="../css/stylesForms.css">
 	<link rel="stylesheet" href="../css/normalize.css">
+    <script src="../js/capturarArchivo.js"></script>
 </head>
 
 <body id="page-top">
