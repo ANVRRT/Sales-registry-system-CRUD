@@ -14,7 +14,7 @@
             </select>
         </div>
         <div class="campo__3--button">
-            <input class="campo__field button--blue" type="submit" value="Generar reporte" name="Generar">
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Generar reporte" name="Generar">
         </div>
     </form>
 </div>

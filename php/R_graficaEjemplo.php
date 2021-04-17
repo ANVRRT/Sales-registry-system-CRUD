@@ -1,126 +1,85 @@
-<?php
-require_once("../includes/dbh.inc.php");
-?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <script src="../vendor/chart.js/Chart.min.js"></script>
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
         <script src="../js/reportes/html2pdf.bundle.min.js"></script>
         <script src="../js/reportes/conversionPDF.js"></script>
-        <title>Document</title>
+        <script src="../js/reportes/functions_charts_reportes.js"></script>
+
+        <link rel="stylesheet" href="../vendor/datatables/dataTables.bootstrap4.min.css">
+
+        <title>Reporte por artículo</title>
     </head>
+
     <body>
-    <button onclick="generatePDF()">Descargar reporte</button>
+    <button class="btn btn-primary" onclick="generatePDF()">Descargar reporte</button>
+    <br><br>
+      <div class="input-group input-group-lg">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-lg">Filtros adicionales</span>
+          <button class="btn btn-outline-secondary" onclick="filtroTabla()">Aplicar filtro</button>
+        </div>
+        <input type="text" id="F_cliente" onkeyup="filtroCliente()" placeholder="Por ID de cliente" name="cliente" title="Ingresa un ID de cliente" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+        <input type="text" id="F_rep" onkeyup="filtroRepresentante()" placeholder="Por ID de representante" name="rep" title="Ingresa un ID de representante" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+        <input type="text" id="F_articulo" onkeyup="filtroArticulo()" placeholder="Por ID de artículo" name="art" title="Ingresa un ID de art" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+        <input type="text" id="F_factura" onkeyup="filtroFactura()" placeholder="Por fecha de factura" name="fac" title="Ingresa fecha de factura" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+        <input type="text" id="F_forden" onkeyup="filtroOrden()" placeholder="Por fecha de orden" name="ord" title="Ingresa fecha de orden" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+      </div>
+    <br><br>
+      <div class="container mb-5 mt-3">
+        <table class="table table-bordered mydataTable" style="width: 100%" id="dataTable">
+          <thead>
+            <th>IdArt</th>
+            <th>IdCliente</th>
+            <th>IdCompañia</th>
+            <th>Fecha de factura</th>
+            <th>ID Representante_agente</th>
+            <th>U Venta</th>
+            <th>Divisa</th>
+            <th>Descripción</th>
+            <th>Nventa</th>
+          </thead>
+          <tbody>
+            <?php reporteArticulo($conn)?>
+          </tbody>
+        </table>
+      </div>
 
         <div id="canvas-holder" name="grafica">
             <canvas id="myBarChart" width="100" height="600"></canvas>
         </div>
 
         <script>
-        // Set new default font family and font color to mimic Bootstrap's default styling
-Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = '#858796';
+          var json=lecturaTabla();
+          console.log(json);
+          // Map json values back to label array
+          var labels = json.map(function (e) {
+              return e.idart;
+          });
+          console.log(labels);
+          // Map json values back to values array
+          var values = json.map(function (e) {
+              return e.nventa;
+          });
+          console.log(values);
 
-// Bar Chart Example
-var ctx = document.getElementById("myBarChart");
-var myBarChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: [
-        <?php
-                        $sql="SELECT * FROM ArticuloExistente";
-                        //$sql="SELECT * FROM Factura,ArticuloExistente WHERE ArticuloExistente.idArticulo=Factura.idArticulo";
-                        $stmt = mysqli_stmt_init($conn);
-                        if (!mysqli_stmt_prepare($stmt,$sql))
-                        {
-                            header("location: ../php/index.php?error=stmtfailed");
-                            exit();
-                        }
-                        //mysqli_stmt_bind_param($stmt,"is", $estado, $compania);
-                        mysqli_stmt_execute($stmt);
+          //var reporte=grafica(labels,parseInt(values),"N ventas");
+          var reporte=BuildChart(labels,values,"N ventas");
+          //reporte=BuildChart(labels, values, "prueba");
 
-                        $resultData = mysqli_stmt_get_result($stmt);
-                        mysqli_stmt_close($stmt);
-                        //return $resultData;
-                        while($row = mysqli_fetch_assoc($resultData))
-                        {
-                        ?>
-                            '<?php echo $row["descripcion"];?>',
-                        <?php
-                        }
-                        ?>
-    ],
-    datasets: [{
-      label: "Revenue",
-      backgroundColor: "#4e73df",
-      hoverBackgroundColor: "#2e59d9",
-      borderColor: "#4e73df",
-      data: [
-        <?php
-                        $sql="SELECT * FROM ArticuloExistente";
-                        //$sql="SELECT * FROM Factura,ArticuloExistente WHERE ArticuloExistente.idArticulo=Factura.idArticulo";
-                        $stmt = mysqli_stmt_init($conn);
-                        if (!mysqli_stmt_prepare($stmt,$sql))
-                        {
-                            header("location: ../php/index.php?error=stmtfailed");
-                            exit();
-                        }
-                        //mysqli_stmt_bind_param($stmt,"is", $estado, $compania);
-                        mysqli_stmt_execute($stmt);
-
-                        $resultData = mysqli_stmt_get_result($stmt);
-                        mysqli_stmt_close($stmt);
-                        //return $resultData;
-                        while($row = mysqli_fetch_assoc($resultData))
-                        {
-                        ?>
-                            '<?php echo $row["idArticulo"];?>',
-                        <?php
-                        }
-                        ?>
-      ],
-    }],
-  },
-  options: {
-      indexAxis: 'y',
-    maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 10,
-        right: 10,
-        top: 25,
-        bottom: 0
-      }
-    },
-    scales: {
-      datasets:[{
-          maxBarThickness: 10
-      }]
-    },
-    legend: {
-      display: false
-    },
-    tooltips: {
-      titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
-      titleFontSize: 14,
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      caretPadding: 10,
-      callbacks: {
-      }
-    },
-  }
-});
+        </script>
+        <script>
+          $('.mydataTable').DataTable({
+            //searching: false
+          });
         </script>
     </body>
 </html>
