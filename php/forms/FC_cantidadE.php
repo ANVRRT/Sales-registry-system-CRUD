@@ -46,7 +46,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="hora">Hora</label>
-			<input class="campo__field" type="text" name="hora" id="hora" required>
+			<input class="campo__field" type="time" name="hora" id="hora" required>
 		</div>
 
 		<div class="campo">
