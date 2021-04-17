@@ -55,7 +55,7 @@
                             <?php
                                 include("forms/FR_seleccionReporte.php");
                             	if(isset($_POST["Generar"])){
-                            		include("R_graficaEjemplo.php");
+                            		include("R_reporteArticulo.php");
                             	}
                             ?>
                         </div>
