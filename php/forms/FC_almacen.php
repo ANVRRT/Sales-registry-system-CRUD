@@ -38,6 +38,7 @@
 
 		<div class="campo__3--button">
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
+			<input style="background-color:#E2CD01" class="campo__field button--blue" type="submit" value="Actualizar" name="U_almacen">
 			<input class="campo__field button--blue" name="B_almacen" type="submit" value="Baja">
 			<input class="campo__field button--blue" name="A_almacen" type="submit" value="Alta">
 		</div>

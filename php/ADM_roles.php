@@ -69,6 +69,7 @@
                                                                 <th>Nombre de Usuario</th>
                                                                 <th>Rol</th>
                                                                 <th>Compañia</th>
+                                                                <th>Opciones</th>
                                                             </tr>
                                                         </thead>
                                                         
@@ -80,6 +81,8 @@
                                                                 <td align='center'>" . $row["nomUsuario"] . "</td>
                                                                 <td align='center'>" . $row["rol"] . "</td>
                                                                 <td align='center'>" . $row["idCompania"] . "</td>
+                                                                <td align='center'><a href='../includes/functions_admin.php?B_Usuario=1&idUsuario=".$row["idUsuario"]."'class='btn btn-danger'>Eliminar Usuario</a></td>
+                                                                
 
                                                             </tr>";
                                                         }

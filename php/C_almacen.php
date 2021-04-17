@@ -68,7 +68,7 @@
                                                             <tr align='center'>
                                                                 <th>ID Compañía</th>
                                                                 <th>ID Almacen</th><!---->
-                                                                <th>ID Artículo</th><!---->
+                                                                <th>Descripción</th><!---->
                                                             </tr>
                                                         </thead>
                                                         
