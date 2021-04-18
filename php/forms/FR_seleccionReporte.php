@@ -1,7 +1,7 @@
 <div class="fix-margin">
     <h1 class="h1-mine">Creación de reportes</h1>
 
-    <form class="formulario" style="min-height:18rem" method="POST" action="../php/R_reportePrueba2.php" autocomplete="off">
+    <form class="formulario" style="min-height:18rem" method="POST" action="../php/R_reporteArticulo.php" autocomplete="off">
     <br>
         <div class="form-group">
             <label for="seleccionReporte">Selección de reporte</label>
