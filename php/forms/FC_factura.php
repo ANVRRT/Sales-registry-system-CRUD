@@ -4,7 +4,7 @@
 	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="idCliente">ID Cliente</label>
-			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="clientes" onblur="AjaxFunction('dispOrdenByCliente','idCliente','idOrdenlist')">
+			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="clientes" onblur="AjaxFunction('dispOrdenByCliente','idCliente','idOrdenlist')" required>
 			<?php
 				$reg = dispClientes($conn,$_SESSION["idCompania"]);
 				
@@ -28,7 +28,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="idOrden">ID Orden</label>
-			<input class="campo__field" type="text" name="idOrden" id="idOrden" maxlength="10" list="idOrdenlist">
+			<input class="campo__field" type="text" name="idOrden" id="idOrden" maxlength="10" list="idOrdenlist" required>
 			<datalist id="idOrdenlist" >
 			</datalist>
 		</div>
@@ -50,7 +50,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="numFac">Número de Factura</label>
-			<input class="campo__field" type="text" name="numFac" maxlength="10" required>
+			<input class="campo__field" type="number" name="numFac" min="0" required>
 		</div>
 
 		<div class="campo">
@@ -60,7 +60,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="articulo">Artículo</label>
-			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos">
+			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos" required>
 			<?php
 				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
 				

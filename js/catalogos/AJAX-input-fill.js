@@ -156,6 +156,7 @@ function updateCliente(){
     var lp=$("#listaPrecios").val();
     var nom=$("#nomCliente").val();
     var estatus=$("#estatus").val();
+    var rep=$("#idRepresentante").val();
     var analista=$("#idAnalista").val();
     var lim=$("#limCredito").val();
     var bloq=$("#bloqueo").val();
@@ -164,7 +165,7 @@ function updateCliente(){
     $.ajax({
         type:"POST",
         url:"../includes/functions_catalogos.php",
-        data:{funcion:fun,listaPrecios:lp,nombreCliente:nom,estatusCliente:estatus,idAnalista:analista,limCredito:lim,idCliente:cliente},
+        data:{funcion:fun,listaPrecios:lp,nombreCliente:nom,estatusCliente:estatus,idRepresentante:rep,idAnalista:analista,limCredito:lim,idCliente:cliente},
         success:function(response){
             
             if(response=="Actualizado exitosamente"){
@@ -207,3 +208,32 @@ function updateArtV(){
     });
 }
 
+function updateCantEnt(){
+    $("posicion").removeAttr("required");
+    $("fechaMov").removeAttr("required");
+    $("hora").removeAttr("required");
+    $("secuencia").removeAttr("required");
+    var ord=$("#idOrden").val();
+    var fol=$("#folio").val();
+    var tipo=$("#tipoReg").val();
+    var pos=$("#posicion").val();
+    var fech=$("#fechaMov").val();
+    var hor=$("#hora").val();
+    var sec=$("#secuencia").val();
+    var fun='updateCantEnt'; 
+    $.ajax({
+        type:"POST",
+        url:"../includes/functions_catalogos.php",
+        data:{funcion:fun,idOrden:ord,folio:fol,tipoReg:tipo,posicion:pos,fechaMov:fech,hora:hor,secuencia:sec},
+        success:function(response){
+            
+            if(response=="Actualizado exitosamente"){
+                window.location.href = "../php/C_cantidadE.php?error=success";
+            }
+            else{
+                window.location.href = "../php/C_cantidadE.php?error=error";
+            }
+            
+        }
+    });
+}

@@ -69,6 +69,7 @@ if(isset($_REQUEST['estadoD'])==1){
     dClient($conn, $_REQUEST['idD']);
     //echo($_REQUEST['idD']);
 }
+
 //CANTIDAD ENTREGADA FUNCTIONS
 if(isset($_POST["A_CantE"])){ 
     if($_POST["tipoReg"]==1){
@@ -85,6 +86,28 @@ if(isset($_POST["B_CantE"])){
     bajaCantEnt($conn,$_POST["idOrden"],$_POST["folio"],$_SESSION["idUsuario"]);
     updateReOrdenBaja($conn,$_POST["idOrden"],$_POST["folio"],$_POST["cantidad"]);
 }
+if(isset($_POST["funcion"])){
+    if($_POST["funcion"]=="updateCantEnt"){
+        if(strlen($_POST["posicion"])>0){
+            $msg= updateCantEPos($conn,$_POST["posicion"],$_POST["idOrden"],$_POST["folio"],$_POST["tipoReg"]);
+            die($msg);
+        }
+        if(strlen($_POST["fechaMov"])>0){
+            $msg= updateCantEFech($conn,$_POST["fechaMov"],$_POST["idOrden"],$_POST["folio"],$_POST["tipoReg"]);
+            die($msg);
+        }
+        if(strlen($_POST["hora"])>0){
+            $msg= updateCantEHor($conn,$_POST["hora"],$_POST["idOrden"],$_POST["folio"],$_POST["tipoReg"]);
+            die($msg);
+        }
+        if(strlen($_POST["secuencia"])>0){
+            $msg= updateCantESec($conn,$_POST["secuencia"],$_POST["idOrden"],$_POST["folio"],$_POST["tipoReg"]);
+            die($msg);
+        }
+
+    }
+}
+
 //CLIENTE FUNCTIONS
 if(isset($_POST["A_cliente"])){ 
     if(isset($_POST["bloqueo"])){
@@ -116,6 +139,10 @@ if(isset($_POST["funcion"])){
         }
         if(strlen($_POST["idAnalista"])>0){
             $msg= updateClienteRepre($conn,$_POST["idAnalista"],$_POST["idCliente"]);
+            die($msg);
+        }
+        if(strlen($_POST["idRepresentante"])>0){
+            $msg= updateClienteRepre($conn,$_POST["idRepresentante"],$_POST["idCliente"]);
             die($msg);
         }
         if(strlen($_POST["limCredito"])>0){
@@ -155,6 +182,9 @@ if(isset($_POST["A_Facs"])){
 if(isset($_POST["B_Facs"])){
     deleteFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_SESSION["idUsuario"]);
     updateReOrdenFact($conn,$_POST["idOrden"],null,$_POST["idFolio"]);
+}
+if(isset($_POST["U_factura"])){
+    updateFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_POST["idOrden"],$_POST["idArticulo"],$_POST["idCliente"]);
 }
 //INVENTARIO FUNCTIONS
 if(isset($_POST["A_inventario"])){ 
@@ -812,7 +842,7 @@ function deleteArtVendido($conn,$folio,$idCompania,$idUsuario){
         exit();
     }
 }
-//updateArtVCod
+
 function updateArtVCod($conn,$codAviso,$folio,$idArticulo,$idCliente){
     $sql = "UPDATE ArticuloVendido SET codAviso= ? WHERE folio = ? AND idArticulo = ? AND idCliente = ?;";
 
@@ -1185,6 +1215,100 @@ function bajaCantEnt($conn,$idOrden,$folio,$idUsuario){
         exit();
     }
 }
+
+function updateCantEPos($conn,$posicion,$idOrden,$folio,$tipoReg){
+    $sql = "UPDATE CantEntregada SET posicion = ? WHERE idOrden = ? AND folio = ? AND tipoReg = ?;";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"iiii",$posicion,$idOrden,$folio,$tipoReg);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        
+        $msg="Actualizado exitosamente";
+        
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        $msg="Error al actualizar";
+    }
+    return $msg;
+}
+function updateCantEFech($conn,$fechaMov,$idOrden,$folio,$tipoReg){
+    $sql = "UPDATE CantEntregada SET fechaMov = ? WHERE idOrden = ? AND folio = ? AND tipoReg = ?;";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"siii",$fechaMov,$idOrden,$folio,$tipoReg);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        
+        $msg="Actualizado exitosamente";
+        
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        $msg="Error al actualizar";
+    }
+    return $msg;
+}
+
+function updateCantEHor($conn,$hora,$idOrden,$folio,$tipoReg){
+    $sql = "UPDATE CantEntregada SET hora = ? WHERE idOrden = ? AND folio = ? AND tipoReg = ?;";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"siii",$hora,$idOrden,$folio,$tipoReg);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        
+        $msg="Actualizado exitosamente";
+        
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        $msg="Error al actualizar";
+    }
+    return $msg;
+}
+function updateCantESec($conn,$secuencia,$idOrden,$folio,$tipoReg){
+    $sql = "UPDATE CantEntregada SET secuencia = ? WHERE idOrden = ? AND folio = ? AND tipoReg = ?;";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"iiii",$secuencia,$idOrden,$folio,$tipoReg);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        
+        $msg="Actualizado exitosamente";
+        
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        $msg="Error al actualizar";
+    }
+    return $msg;
+}
 //CLIENTE METHODS
 
 function createCliente($conn,$idCliente,$idCompania,$idRepresentante,$listaPrecios,$idAlmacen,$nomCliente,$estatusCliente,$idAnalista,$divisa,$limCredito,$saldoOrden,$saldoFactura,$bloqueo,$estatus,$idBaja)
@@ -1541,6 +1665,29 @@ function deleteFactura($conn,$numFact,$idCompania,$idUsuario){
         exit();
     }
 
+}
+//updateFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_POST["idOrden"],$_POST["idArticulo"],$_POST["idCliente"]);
+function updateFactura($conn,$numFac,$idCompania,$idOrden,$idArticulo,$idCliente){
+    $sql = "UPDATE Factura SET numFact = ? WHERE idCompania = ? AND idOrden = ? AND idArticulo = ? AND idCliente = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"isiss",$numFac,$idCompania,$idOrden,$idArticulo,$idCliente);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_factura.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/C_factura.php?error=sqlerror");
+        exit();
+    }
 }
 
 function disClients($conn, $estado, $compania, $estatus){

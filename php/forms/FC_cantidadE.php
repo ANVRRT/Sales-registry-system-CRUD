@@ -79,7 +79,7 @@
 			<input class="campo__field button--blue" name="A_CantE" type="submit" value="Alta">
 		</div>
 		<div class="campo__3--button">
-		<input style="background-color:#E2CD01" class="campo__field button--blue" type="submit" value="Actualizar" name="U_cantEnt">
+		<input style="background-color:#E2CD01" class="campo__field button--blue" type="button" value="Actualizar" name="U_cantEnt" onclick="updateCantEnt()">
 		</div>
 	</form>
 
