@@ -80,6 +80,9 @@
 			<input class="campo__field button--blue" type="submit" value="Baja" name ="B_Facs">
 			<input class="campo__field button--blue" type="submit" value="Alta" name ="A_Facs">
 		</div>
+		<div class="campo__3--button">
+		<input style="background-color:#E2CD01" class="campo__field button--blue" type="submit" value="Actualizar" name="U_factura">
+		</div>
 	</form>
 
 	<form method="POST" action="../php/C_factura.php" style="overflow: hidden">
