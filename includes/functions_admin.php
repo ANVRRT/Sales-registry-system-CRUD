@@ -17,6 +17,16 @@ if(isset($_GET["B_Usuario"])){
 }
 if(isset($_POST["A_Rol"])){
     //Función de Rol
+    // updateRol($conn,$_POST["idUsuario"],$_POST["idCompania"],$_POST["rolN"]);
+    createRol($conn,$_POST["idCompania"],$_POST["rol"]);
+}
+if(isset($_POST["B_Rol"])){
+    //Función de Rol
+    // updateRol($conn,$_POST["idUsuario"],$_POST["idCompania"],$_POST["rolN"]);
+    deleteRol($conn,$_POST["idCompania"],$_POST["rol"]);
+}
+if(isset($_POST["U_Rol"])){
+    //Función de Rol
     updateRol($conn,$_POST["idUsuario"],$_POST["idCompania"],$_POST["rolN"]);
 }
 if(isset($_POST["A_CompADM"])){
@@ -182,6 +192,50 @@ function deleteUsuario($conn,$idUsuario){
     }
 }
 
+function createRol($conn,$idCompania,$rol){
+    $sql = "INSERT INTO Rol VALUES(?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"ss",$idCompania,$rol);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/ADM_roles.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/ADM_roles.php?error=sqlerror");
+        exit();
+    }
+}
+function deleteRol($conn,$idCompania,$rol){
+    $sql = "DELETE FROM Rol WHERE idCompania = ? AND rol = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"ss",$idCompania,$rol);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/ADM_roles.php?error=success2");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/ADM_roles.php?error=sqlerror");
+        exit();
+    }
+}
 function updateRol($conn,$idUsuario,$idCompania,$rol){
     $sql = "UPDATE Usuario SET rol = ? WHERE idCompania = ? AND idUsuario = ?";
     $estatus = 0;
@@ -195,12 +249,12 @@ function updateRol($conn,$idUsuario,$idCompania,$rol){
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
-        header("location: ../php/ADM_roles.php?error=success");
+        header("location: ../php/ADM_usuarios.php?error=success");
         exit();
     }
     else{
         mysqli_stmt_close($stmt);
-        header("location: ../php/ADM_roles.php?error=sqlerror");
+        header("location: ../php/ADM_usuarios.php?error=sqlerror");
         exit();
     }
 }
