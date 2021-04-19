@@ -139,7 +139,7 @@
         $GLOBALnoErrorFlag =        ["NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL"];
         $GLOBALstrCombinedArrays =  ["NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", "NULL"];
 
-        for($z = 0; $z<3; $z++) {
+        for($z = 0; $z<count($getPathFiles); $z++) {
             if (($_FILES[$getPathFiles[$z]]['name']!="")){
                 //File size limiter
                 if ($_FILES[$getPathFiles[$z]]['size'] > 500000) {
