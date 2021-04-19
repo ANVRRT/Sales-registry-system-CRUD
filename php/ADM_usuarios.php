@@ -53,31 +53,39 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                            include("forms/FADM_roles.php");
-                            if (isset($_POST["ADM_roles"])) {
-                                $reg = dispRoles($conn, $_SESSION["idCompania"]);
+                            include("forms/FADM_usuarios.php");
+                            if (isset($_POST["ADM_usuarios"])) {
+                                $reg = dispUsuarios($conn, $_SESSION["idCompania"]);
                                 echo "<div class='card shadow mb-4'>
                                             <div class='card-header py-3'>
-                                                <h6 class='m-0 font-weight-bold text-primary'>Listado de Permisos</h6>
+                                                <h6 class='m-0 font-weight-bold text-primary'>Listado de Usuarios</h6>
                                             </div>
                                             <div class='card-body'>
-                                                <div class='table-responsive'>
+                                                <div class='table-responsive'>                                                
                                                     <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
                                                         <thead>
                                                             <tr align='center'>
-                                                                <th>Compania</th>
+                                                                <th>Usuario</th>
+                                                                <th>Nombre de Usuario</th>
                                                                 <th>Rol</th>
+                                                                <th>Compañia</th>
+                                                                <th>Opciones</th>
                                                             </tr>
                                                         </thead>
                                                         
                                                         <tbody>";
-                                while ($row = mysqli_fetch_assoc($reg)) {
-                                    echo "  
-                                    <tr>
-                                        <td align='center'>" . $row["idCompania"] . "</td>
-                                        <td align='center'>" . $row["rol"] . "</td>
-                                    </tr>";
-                                }
+                                                        while ($row = mysqli_fetch_assoc($reg)) {
+                                                            echo "  
+                                                            <tr>
+                                                                <td align='center'>" . $row["idUsuario"] . "</td>
+                                                                <td align='center'>" . $row["nomUsuario"] . "</td>
+                                                                <td align='center'>" . $row["rol"] . "</td>
+                                                                <td align='center'>" . $row["idCompania"] . "</td>
+                                                                <td align='center'><a href='../includes/functions_admin.php?B_Usuario=1&idUsuario=".$row["idUsuario"]."'class='btn btn-danger'>Eliminar Usuario</a></td>
+                                                                
+
+                                                            </tr>";
+                                                        }
 
                                 echo " 
                                                             
@@ -89,10 +97,10 @@
                             }
                             if (isset($_GET["error"])) {
                                 if ($_GET["error"] == "success") {
-                                    echo "<p style='color: black;'> ¡Rol dado de alta exitosamente! </p>";
+                                    echo "<p style='color: black;'> ¡Rol actualizado exitosamente! </p>";
                                 }
                                 if ($_GET["error"] == "success2") {
-                                    echo "<p style='color: black;'> ¡Rol dado de baja exitosamente! </p>";
+                                    echo "<p style='color: black;'> ¡Rol actualizado exitosamente! </p>";
                                 }
                                 if ($_GET["error"] == "sqlerror") {
                                     echo "<p style='color: black;'> ¡Algo salió mal! </p>";

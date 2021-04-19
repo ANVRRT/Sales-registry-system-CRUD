@@ -344,6 +344,24 @@ function dispOrden($conn, $idCompania){
     exit();
 }
 
+function dispOrdenERP($conn, $idCompania){
+    $sql="SELECT * FROM Orden WHERE idCompania = ? AND estatusDB = 1 AND vREP = 1";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    return $resultData;
+
+
+    mysqli_stmt_close($stmt);
+}
+
 function dispDirEnt($conn, $idCompania){
     $sql="SELECT * FROM DirEnt WHERE idCompania = ? AND estatus = 1";
 
@@ -1153,7 +1171,7 @@ function updateOrdenRO($conn,$idOrden,$acumulado){
 }
 
 function updateReOrdenFact($conn,$idOrden,$numFac,$folio){
-    $sql = "UPDATE ReporteOrden SET numFact = ? WHERE idOrden = ? AND folioRO = ?;";
+    $sql = "UPDATE ReporteOrden SET numFact = ? WHERE idOrden = ? AND folio = ?;";
     $stmt = mysqli_stmt_init($conn);
 
 
