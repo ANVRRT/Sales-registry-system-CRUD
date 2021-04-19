@@ -36,6 +36,23 @@ function fetchUdVta($conn, $idOrden) {
     return $articuloVendido;
 }
 
+function fetchUdVtaFol($conn,$folio){
+    $sql="SELECT * FROM ArticuloVendido WHERE folio = ?;";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"i", $folio);
+    mysqli_stmt_execute($stmt);
+    $articuloVendido = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt)) ;
+    
+
+    return $articuloVendido["udVta"];
+}
+
 function fetchAddress($conn, $idOrden) {
     $sql1="SELECT * FROM Orden WHERE idOrden = ?";
     
@@ -122,5 +139,93 @@ function fetchReporteOrden($conn, $idOrden){
     mysqli_stmt_close($stmt);
 
     return $resultData;
+}
+
+function generateTxtERP($conn,$idOrden){
+
+    $result = fetchReporteOrden($conn,$idOrden);
+    $consecutivo = fetchCount($conn, $idOrden);
+    $direccionFull = fetchAddress($conn, $idOrden);
+    $articuloVendido = fetchUdVta($conn, $idOrden);
+
+    $myresult = mysqli_fetch_assoc($result);
+    
+    
+
+    $myordenR = $myresult["idOrden"];
+    $myorden = mb_strtoupper(uniqid($myordenR));
+
+    $mycliente = $myresult["idCliente"];
+    $myfolio = $myresult["idOrden"];
+    $myOrdenCompra = "";
+    $mydirEnt = $myresult["dirEnt"];
+    $myfechaEntrega = $myresult["fechaEntrega"];
+
+    $myfechaFull = explode('-', $myfechaEntrega);
+
+    $myyear = $myfechaFull[0];
+    $mymonth = $myfechaFull[1];
+    $myday = $myfechaFull[2];
+
+    $mydescripcion = $myresult["descripcion"];
+    $myidArticulo = $myresult["idArticulo"];
+    $mycantidad = $myresult["cantidad"];
+    $myprecio = $myresult["precio"];
+    $mymoneda = $myresult["moneda"];
+    $mynombreCliente = $myresult["nombreCliente"];
+
+    $myconsecutivo = mysqli_fetch_assoc($consecutivo);
+        
+    $mycount = $myconsecutivo["COUNT(idOrden)"] +1;
+    $folloupcount = $myconsecutivo["COUNT(idOrden)"] +2;
+
+    $mydireccionFull = mysqli_fetch_assoc($direccionFull);
+    
+    $mydireccion = $mydireccionFull["direccion"];
+    $mymunicipio = $mydireccionFull["municipio"];
+    $mycodPost = $mydireccionFull["codPost"];
+
+    $myarticuloVendido = mysqli_fetch_assoc($articuloVendido);
+
+    $myudVta = $myarticuloVendido["udVta"];
+        
+    $myfile = fopen("../txtBaan/ReporteOrden$idOrden.txt", "w") or die ("Unable to open file!");
+    $lineENV = 'ENV' . '|' . $myorden . '|WWWapps|WWW|ORDER||' . "\n";
+    $lineHDR = 'HDR' . '|' . $myorden . '|' . $mycliente . '|' . 'PDA' . '-' . $mycount . '-' . $mycliente . '|' . $myfolio . '|' . date("Ymd") . '||'.$myOrdenCompra.'|MOD|'.$mymoneda.'|MEX||0' . "\n";
+    $lineHAD1 = 'HAD' . '|' . $myorden . '|' . 'DEL' . '|||' . $mynombreCliente . '||' . $mydireccion . '||' . $mymunicipio . '||' . $mycodPost . '|MEXICO|MEX||' . "\n";
+    $lineHAD2 = 'HAD' . '|' . $myorden . '|' . 'INV' . '|||' . $mynombreCliente . '||' . $mydireccion . '||' . $mymunicipio . '||' . $mycodPost . '|MEXICO|MEX||' . "\n";
+    $lineHTX = 'HTX' . '|' . $myorden . '|(Fecha de Entrega: ' . $myday . '/' . $mymonth . '/' . $myyear . ') ' . $mydescripcion  . "\n";
+    $lineLIN1 = 'LIN' . '|' . $myorden . '|' . $mycount . '|' . $myidArticulo . '|ZZ|' . $mycantidad . '|' . $myudVta . '|' . $myyear . $mymonth . $myday . '|0|' . $myprecio . '||' . "\t" . $myidArticulo . "\n";
+    // $lineLIN2 = 'LIN' . '|' . $myorden . '|' . $folloupcount . '|' . $myidArticulo . '|ZZ|' . $mycantidad . '|' . $myudVta . '|' . $myyear . $mymonth . $myday . '|0|' . $myprecio . '||' . "\t" . $myidArticulo . "\n";
+
+    fwrite($myfile, $lineENV);
+    fwrite($myfile, $lineHDR);
+    fwrite($myfile, $lineHAD1);
+    fwrite($myfile, $lineHAD2);
+    fwrite($myfile, $lineHTX);
+    fwrite($myfile, $lineLIN1);
+    while($row = mysqli_fetch_assoc($result)){
+    
+        $mycount = $mycount+1;
+        $myidArticulo = $row["idArticulo"];
+        $mycantidad = $row["cantidad"];
+        
+        $myudVta = fetchUdVtaFol($conn,$row["folio"]);
+        $myfechaEntrega = $row["fechaEntrega"];
+        $myfechaFull = explode('-', $myfechaEntrega);
+        $myyear = $myfechaFull[0];
+        $mymonth = $myfechaFull[1];
+        $myday = $myfechaFull[2];
+        $myprecio = $row["precio"];
+        $myidArticulo = $row["idArticulo"];
+
+        $lineLIN = 'LIN' . '|' . $myorden . '|' . $mycount . '|' . $myidArticulo . '|ZZ|' . $mycantidad . '|' . $myudVta . '|' . $myyear . $mymonth . $myday . '|0|' . $myprecio . '||' . "\t" . $myidArticulo . "\n";
+        
+        fwrite($myfile, $lineLIN);                                        
+    }
+    // fwrite($myfile, $lineLIN2);
+    fclose($myfile);
+
+    
 }
 ?>

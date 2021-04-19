@@ -1,5 +1,6 @@
 <?php
 require_once("dbh.inc.php");
+require_once("functions_reporteOrden.php");
 
 if(isset($_GET["A_CXC"])){
     A_CXC($conn,$_GET["idOrden"],$_GET["idCliente"]);
@@ -165,7 +166,7 @@ function A_VTA($conn,$idOrden,$idCliente){
     }
 }
 function A_PLN($conn,$idOrden,$idCliente){
-    $sql= "UPDATE Orden SET vPlaneacion= 1, tPLN = ? WHERE idOrden = ? AND idCliente= ?";
+    $sql= "UPDATE Orden SET vPlaneacion= 1, vREP = 1, tPLN = ? WHERE idOrden = ? AND idCliente= ?";
     $date = date('Y-m-d');
 
     $stmt = mysqli_stmt_init($conn);
@@ -179,6 +180,7 @@ function A_PLN($conn,$idOrden,$idCliente){
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
+        generateTxtERP($conn,$idOrden);
         header("location: ../php/A_ordenes_base.php?error=success");
         exit();
     }
