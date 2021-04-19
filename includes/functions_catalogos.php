@@ -242,7 +242,21 @@ if(isset($_GET["listado"])){
         $ffinal = $_GET["entrada2"];
         dispOrdenesByFechas($conn,$_SESSION["idCompania"],$finicial,$ffinal);
     }
-    
+    if($_GET["listado"] == "dispAllOrdenesByFiltro"){
+        $finicial = $_GET["entrada"];
+        $ffinal = $_GET["entrada2"];
+
+        $baanInicial = $_GET["entrada3"];
+        $baanFinal   = $_GET["entrada4"];
+
+        $clienteInicial = $_GET["entrada5"];
+        $clienteFinal   = $_GET["entrada6"];
+
+        $articuloInicial = $_GET["entrada7"];
+        $articuloFinal   = $_GET["entrada8"];
+
+        dispAllOrdenesByFiltro($conn,$_SESSION["idCompania"],$finicial,$ffinal,$baanInicial,$baanFinal,$clienteInicial,$clienteFinal,$articuloInicial,$articuloFinal);
+    }
 }
 
 
@@ -1998,6 +2012,166 @@ function dispOrdenesByFechas($conn,$idCompania,$fechaInicial,$fechaFinal){
         echo "</tr>";
 
     }
+    mysqli_stmt_close($stmt);
+    exit();
+}
+
+function dispAllOrdenesByFiltro($conn,$idCompania,$finicial,$ffinal,$baanInicial,$baanFinal,$clienteInicial,$clienteFinal,$articuloInicial,$articuloFinal)
+{
+
+    $f1 = "";
+    $f2 = "";
+    $b1 = "";
+    $b2 = "";
+    $c = "";
+    $a = "";
+
+    if(strlen($finicial)>0){$f1 = "AND Orden.fechaOrden >= '$finicial'";}
+    if(strlen($ffinal)>0)  {$f2 = "AND Orden.fechaOrden <= '$ffinal'";}
+    if(strlen($baanInicial)>0){$b1 = "AND ReporteOrden.ordenBaan >= '$baanInicial'";}
+    if(strlen($baanFinal)>0){$b2 = "AND ReporteOrden.ordenBaan <= '$baanFinal'";}
+    if(strlen($clienteInicial)>0){
+        if(strlen($clienteFinal)>0){
+            $c = "AND ReporteOrden.idCliente BETWEEN '$clienteInicial' AND '$clienteFinal'";
+        }
+        else
+        {
+            $c = "AND ReporteOrden.idCliente >= '$clienteInicial'";
+        }
+    }
+    else if(strlen($clienteFinal)>0)
+    {
+        $c = "AND ReporteOrden.idCliente <= '$clienteFinal'";
+    }
+    
+    if(strlen($articuloInicial)>0){
+        if(strlen($articuloFinal)>0){
+            $c = "AND ReporteOrden.idArticulo BETWEEN '$articuloInicial' AND '$articuloFinal'";
+        }
+        else
+        {
+            $c = "AND ReporteOrden.idArticulo >= '$articuloInicial'";
+        }
+    }
+    else if(strlen($articuloFinal)>0)
+    {
+        $c = "AND ReporteOrden.idArticulo <= '$articuloFinal'";
+    }
+
+
+    $sql ="SELECT * FROM Orden JOIN ReporteOrden ON Orden.idOrden = ReporteOrden.idOrden JOIN ArticuloVendido ON ReporteOrden.folio = ArticuloVendido.folio WHERE Orden.idCompania = ? ".$f1.$f2.$b1.$b2.$c.$a." ORDER BY Orden.idOrden";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        //header("location: ../php/index.php?error=stmtfailed");
+        echo "Statement error: $sql";
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    while($orders = mysqli_fetch_assoc($resultData))
+    {
+        //Order Info
+        $idOrden       = $orders["idOrden"];
+        $ordBaan       = $orders["ordenBaan"];
+        $idCliente     = $orders["idCliente"];
+        $nombreCliente = $orders["nombreCliente"];
+        $dirEnt        = $orders["dirEnt"];
+        $fechaOrden    = $orders["fechaOrden"];
+        $fechaSol      = $orders["fechaSolicitud"];
+        $fechaEnt      = $orders["fechaEntrega"];
+        $estatus       = $orders["estatus"];
+        $idArticulo    = $orders["idArticulo"];
+        $cantidad      = $orders["cantidad"];
+        $udVta         = $orders["udVta"];
+        $precio        = $orders["precio"];
+        
+        $fac     =  $orders["vFacturas"];
+        $cxc     =  $orders["vCxC"];
+        $pre     =  $orders["vPrecios"];
+        $cst     =  $orders["vCostos"];
+        $ing     =  $orders["vIng"];
+        $pln     =  $orders["vPlaneacion"];
+        $servCli =  $orders["vServCli"];
+        $rep     =  $orders["vREP"];
+        $fec     =  $orders["vFEC"];
+
+        $total         = $orders["total"];
+        $observaciones = $orders["descripcion"];
+
+        //Checkboxes
+        $facCheck = "";
+        $cxcCheck = "";
+        $preCheck = "";
+        $cstCheck = "";
+        $ingCheck = "";
+        $plnCheck = "";
+        $sClCheck = "";
+        $repCheck = "";
+        $fecCheck = "";
+
+
+        if($fac == '1'){$facCheck = "checked";}
+        if($cxc == '1'){$cxcCheck = "checked";}
+        if($pre == '1'){$preCheck = "checked";}
+        if($cst == '1'){$cstCheck = "checked";}
+        if($ing == '1'){$ingCheck = "checked";}
+        if($pln == '1'){$plnCheck = "checked";}
+        if($servCli == '1'){$sClCheck = "checked";}
+        if($rep == '1'){$repCheck = "checked";}
+        if($fec == '1'){$fecCheck = "checked";}
+
+        //Creating table
+        echo "<tr>";
+        echo "<td> $idOrden </td>";
+        echo "<td> $ordBaan </td>";
+        echo "<td> $idCliente </td>";
+        echo "<td> $nombreCliente </td>";
+        echo "<td> $dirEnt </td>";
+        echo "<td> $fechaOrden </td>";
+        echo "<td> $fechaSol </td>";
+        echo "<td> $fechaEnt </td>";
+        echo "<td> $estatus </td>";
+        
+        echo "<td> <input  type='checkbox' name='fac_".$idOrden."'  id='fac_".$idOrden."' ".$facCheck." disabled> </td>";
+        echo "<td> <input  type='checkbox' name='cxc_".$idOrden."'  id='cxc_".$idOrden."' ".$cxcCheck." disabled> </td>";
+        echo "<td> <input  type='checkbox' name='pre_".$idOrden."'  id='pre_".$idOrden."' ".$preCheck." disabled> </td>";
+        echo "<td> <input  type='checkbox' name='cst_".$idOrden."'  id='cst_".$idOrden."' ".$cstCheck." disabled> </td>";
+        echo "<td> <input  type='checkbox' name='ing_".$idOrden."'  id='ing_".$idOrden."' ".$ingCheck." disabled> </td>";
+        echo "<td> <input  type='checkbox' name='pln_".$idOrden."'  id='pln_".$idOrden."' ".$plnCheck." disabled> </td>";
+        echo "<td> <input  type='checkbox' name='sCl_".$idOrden."'  id='sCl_".$idOrden."' ".$sClCheck." disabled> </td>";
+        echo "<td> <input  type='checkbox' name='rep_".$idOrden."'  id='rep_".$idOrden."' ".$repCheck." disabled> </td>";
+        echo "<td> <input  type='checkbox' name='fec_".$idOrden."'  id='fec_".$idOrden."' ".$fecCheck." disabled> </td>";
+
+        echo "<td> $idArticulo </td>";
+        echo "<td> $cantidad </td>";
+        echo "<td> $udVta </td>";
+        echo "<td> $precio </td>";
+        echo "<td> $total </td>";
+        echo "<td> $observaciones </td>";
+        echo "</tr>";
+    }
+    mysqli_stmt_close($stmt);
+    exit();
+}
+
+function dispOrdenBaan($conn, $idCompania){
+    $sql="SELECT DISTINCT ordenBaan FROM ReporteOrden WHERE ordenBaan IN (SELECT ordenBaan FROM ReporteOrden WHERE idCompania=?)";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    return $resultData;
     mysqli_stmt_close($stmt);
     exit();
 }
