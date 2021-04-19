@@ -122,10 +122,6 @@
                                             <th>tFEC</th>
                                             <th>Total</th> -->
 
-
-
-
-                                            <th>Cancelación</th>
                                         </tr>
                                     </thead>
 
@@ -198,7 +194,6 @@
                                                 echo "<td align='center'><input  type='checkbox' name='vServCli'    id='vServCli' ".$vServCli_chked." disabled></td>";
                                                 echo "<td align='center'><input  type='checkbox' name='vREP'        id='vREP' ".$vREP_chked." disabled></td>";
 
-                                                echo "<td align='center'><input name='cancelar' type='button' value='Cancelar orden' class='btn btn-primary'></td>";
                                                 echo "</tr>";
                                             }
                                             // echo "<option>" . $row["idRepresentante"] . "</option>";

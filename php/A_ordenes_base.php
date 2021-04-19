@@ -131,9 +131,12 @@
 
                                         if(isset($_GET["idOrden"])){
                                             $reg = dispOrdenByID($conn,$_GET["idOrden"]);
+                                            $bToken = 1;
                                         }
                                         else{
                                             $reg = dispOrden($conn, $_SESSION["idCompania"]);
+                                            $bToken = 0;
+
 
                                         }
 
@@ -189,33 +192,33 @@
                                                 //     }
                                                 //     break;
                                                 case "CXC":
-                                                    if($row["vCxC"]!="1"){
+                                                    if(($row["vCxC"]!="1") || ($bToken == 1)){
                                                         $skey = true;
                                                     }
                                                     break;
                                                 case "VTA":
-                                                    if(($row["vPrecios"]!="1") && ($row["vCxC"]=="1")){
+                                                    if((($row["vPrecios"]!="1") && ($row["vCxC"]=="1")) || ($bToken == 1)){
                                                         $skey = true;
                                                     }
                                                     
                                                     break;
 
                                                 case "CST":
-                                                    if(($row["vCostos"]!="1") && ($row["vIng"]=="1")){
+                                                    if((($row["vCostos"]!="1") && ($row["vIng"]=="1")) || ($bToken == 1)){
                                                         $skey = true;
                                                     }
                                                     
                                                     break;
 
                                                 case "ING":
-                                                    if(($row["vIng"]!="1")  && ($row["vPrecios"]=="1")){
+                                                    if((($row["vIng"]!="1")  && ($row["vPrecios"]=="1")) || ($bToken == 1)){
                                                         $skey = true;
                                                     }
                                                     
                                                     break;
 
                                                 case "PLN":
-                                                    if(($row["vPlaneacion"]!="1") && ($row["vCostos"]=="1")){
+                                                    if((($row["vPlaneacion"]!="1") && ($row["vCostos"]=="1")) || ($bToken == 1)){
                                                         $skey = true;
                                                     }
                                                     break;
