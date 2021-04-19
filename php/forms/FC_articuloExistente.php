@@ -33,12 +33,12 @@
 		</div>
 
 		<div class="campo campo__text">
-			<label class="campo__label" for="descripcion">Descripción</label>
+			<label class="campo__label" for="descripcion">Descripción*</label>
 			<textarea class="campo__field campo__field--textarea" name="descripcion" id="descripcion" required></textarea>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="unidad">Costo estándar</label>
+			<label class="campo__label" for="unidad">Costo estándar*</label>
 			<input class="campo__field" type="number" name="costo" id="costo" required>
 		</div>
 

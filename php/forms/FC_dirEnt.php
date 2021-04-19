@@ -69,7 +69,7 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="codruta">Código de ruta</label>
+			<label class="campo__label" for="codruta">Código de ruta*</label>
 			<input class="campo__field" type="text" name="codruta" id="codruta" required>
 		</div>
 

@@ -21,7 +21,7 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="nom_compania">Nombre de Compañia</label>
+			<label class="campo__label" for="nom_compania">Nombre de Compañia*</label>
 			<input class="campo__field" type="text" name="nombre" id="nombre" maxlength="70">
 		</div>
 

@@ -29,7 +29,7 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="nomRepresentante">Nombre del representante</label>
+			<label class="campo__label" for="nomRepresentante">Nombre del representante*</label>
 			<input class="campo__field" type="text" name="nomRepresentante" id="nomRepresentante">
 		</div>
 
