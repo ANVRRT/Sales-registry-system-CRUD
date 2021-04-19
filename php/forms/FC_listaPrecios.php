@@ -48,12 +48,12 @@
 		</div>
 	
 		<div class="campo">
-			<label class="campo__label" for="descuento">Descuento</label>
+			<label class="campo__label" for="descuento">Descuento*</label>
 			<input class="campo__field" type="number" name="descuento" id="descuento" min="0" max="100" required>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="precio">Precio</label>
+			<label class="campo__label" for="precio">Precio*</label>
 			<input class="campo__field" type="text" name="precio" id="precio" onblur="Jdescuento()" required>
 		</div>
 
@@ -63,7 +63,7 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="nivelDscto">Nivel de descuento</label>
+			<label class="campo__label" for="nivelDscto">Nivel de descuento*</label>
 			<input class="campo__field" type="number" name="nivelDscto" id="nivelDscto" required>
 			
 		</div>

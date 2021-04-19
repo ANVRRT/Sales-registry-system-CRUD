@@ -31,7 +31,7 @@
 		</div>
 
 		<div class="campo campo__text">
-			<label class="campo__label" for="descripcion">Descripción</label>
+			<label class="campo__label" for="descripcion">Descripción*</label>
 			<textarea class="campo__field campo__field--textarea" name="descripcion" id="descripcion" maxlength="70"></textarea>
 		</div>
 

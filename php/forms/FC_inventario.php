@@ -49,7 +49,7 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="stockInventario">Stock</label>
+			<label class="campo__label" for="stockInventario">Stock*</label>
 			<input class="campo__field" type="number" name="stock" id="stock">
 		</div>
 		

@@ -116,6 +116,7 @@ function roles($role, $roleschck)
         }
         if ((roles($_SESSION["rol"], array("ADM", "AGE"))) || (permissions($_SESSION["permisos"], array("h")))) {
             echo "<a class='collapse-item' href='O_capturar.php'>Capturar Orden</a>";
+            echo "<a class='collapse-item' href='O_actualizar.php'>Modificar Orden</a>";
         }
         echo "
             </div>

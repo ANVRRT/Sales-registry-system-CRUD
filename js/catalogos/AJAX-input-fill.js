@@ -289,3 +289,20 @@ function updateCantEnt(){
         }
     });
 }
+
+function estatusValidaciones(idOrden){
+    alert("Llegamos a ajax");
+    var fun='checkValidaciones';
+    var orden=idOrden;
+    $.ajax({
+        type:"POST",
+        url:"../includes/functions_catalogos.php",
+        data:{funcion:fun,idOrden:orden},
+        success:function(data){
+            var res = $.parseJSON(data);
+            alert(res.result)
+            
+        }
+    });
+
+}
