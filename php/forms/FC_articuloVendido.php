@@ -57,12 +57,12 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="codAviso">Código Aviso</label>
+			<label class="campo__label" for="codAviso">Código Aviso*</label>
 			<input class="campo__field" name="codAviso" type="text" id="codAviso" maxlength="3" required>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="udVta">Unidad de venta</label>
+			<label class="campo__label" for="udVta">Unidad de venta*</label>
 			<input class="campo__field" name="udVta" type="text" id="udVta" required>
 		</div>
 

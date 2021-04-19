@@ -49,7 +49,7 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="numFac">Número de Factura</label>
+			<label class="campo__label" for="numFac">Número de Factura*</label>
 			<input class="campo__field" type="number" name="numFac" min="0" required>
 		</div>
 

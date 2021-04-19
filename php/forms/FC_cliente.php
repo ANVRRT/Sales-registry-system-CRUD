@@ -30,7 +30,7 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="idRepresentante">Representante</label>
+			<label class="campo__label" for="idRepresentante">Representante*</label>
 			<input class="campo__field" type="text" name="idRepresentante" id="idRepresentante" list="representante" >
 			<?php
 
@@ -51,7 +51,7 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="idAlmacen">Lista de  precios a utilizar</label>
+			<label class="campo__label" for="idAlmacen">Lista de  precios a utilizar*</label>
 			<input class="campo__field" type="text" name="listaPrecios" id="listaPrecios" list="listaPrecio" required>
 			<?php
 				
@@ -89,17 +89,17 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="nomCliente">Nombre del cliente</label>
+			<label class="campo__label" for="nomCliente">Nombre del cliente*</label>
 			<input class="campo__field" type="text" name="nomCliente" id="nomCliente" required>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="listPrecios">Estatus de cliente</label>
+			<label class="campo__label" for="listPrecios">Estatus de cliente*</label>
 			<input class="campo__field" type="number" name="estatus" id="estatus" min="1" max="3" required>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="analista">Analista</label>
+			<label class="campo__label" for="analista">Analista*</label>
 			<input class="campo__field" type="text" name="idAnalista" id="idAnalista" list="analista" >
 			<?php
 
@@ -123,7 +123,7 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="lim_credito">Límite de crédito</label>
+			<label class="campo__label" for="lim_credito">Límite de crédito*</label>
 			<input class="campo__field" type="number" name="limCredito" id="limCredito" required>
 		</div>
 
