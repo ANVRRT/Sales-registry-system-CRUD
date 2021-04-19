@@ -92,6 +92,58 @@ function AjaxFunction2(listado,inputFieldGet,inputFieldGetO,inputFieldPrint)
 
 }
 
+function AjaxFunction8(listado,inputFieldGet,inputFieldGetO,inputFieldGet1,inputFieldGet2,inputFieldGet3,inputFieldGet4,inputFieldGet5,inputFieldGet6,inputFieldPrint)
+{  
+    var httpxml;
+    try
+    {
+        // Firefox, Opera 8.0+, Safari
+        httpxml=new XMLHttpRequest();
+    }
+    catch (e)
+    {
+    // Internet Explorer
+        try
+        {
+            httpxml=new ActiveXObject("Msxml2.XMLHTTP");
+        }
+        catch (e)
+        {
+            try
+            {
+                httpxml=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            catch (e)
+            {
+                alert("Your browser does not support AJAX!");
+                return false;
+            }
+        }
+    }
+    function stateck() 
+    {
+        if(httpxml.readyState==4)
+        {
+            document.getElementById(inputFieldPrint).innerHTML=httpxml.responseText;
+            // alert(inputFieldPrint.innerHTML=httpxml.responseText);
+        }
+    }
+    var url="../includes/functions_catalogos.php";
+    var entrada = document.getElementById(inputFieldGet).value;
+    var entrada2 = document.getElementById(inputFieldGetO).value;
+    var entrada3 = document.getElementById(inputFieldGet1).value;
+    var entrada4 = document.getElementById(inputFieldGet2).value;
+    var entrada5 = document.getElementById(inputFieldGet3).value;
+    var entrada6 = document.getElementById(inputFieldGet4).value;
+    var entrada7 = document.getElementById(inputFieldGet5).value;
+    var entrada8 = document.getElementById(inputFieldGet6).value;
+    url=url+"?listado="+listado+"&entrada="+entrada+"&entrada2="+entrada2+"&entrada3="+entrada3+"&entrada4="+entrada4+"&entrada5="+entrada5+"&entrada6="+entrada6+"&entrada7="+entrada7+"&entrada8="+entrada8;
+    httpxml.onreadystatechange=stateck;
+    httpxml.open("GET",url,true);
+    httpxml.send(null);
+
+}
+
 function Jdescuento() {
     var descuento = document.getElementById("descuento").value;
     var precio    = document.getElementById("precio").value;
@@ -239,16 +291,36 @@ function updateCantEnt(){
 }
 
 function estatusValidaciones(idOrden){
-    alert("Llegamos a ajax");
     var fun='checkValidaciones';
-    var orden=idOrden;
+    var orden=document.getElementById(idOrden).value;
+    
     $.ajax({
         type:"POST",
         url:"../includes/functions_catalogos.php",
         data:{funcion:fun,idOrden:orden},
-        success:function(data){
-            var res = $.parseJSON(data);
-            alert(res.result)
+        success:function(validaciones){
+            var res = validaciones.split(",");
+            if(res[0]=='1'){
+                $("#vFac").prop( "checked", true );
+            }
+            if(res[1]=='1'){
+                $("#vCxC").prop( "checked", true );
+            }
+            if(res[2]=='1'){
+                $("#vVta").prop( "checked", true );
+            }
+            if(res[3]=='1'){
+                $("#vCst").prop( "checked", true );
+            }
+            if(res[4]=='1'){
+                $("#vIng").prop( "checked", true );
+            }
+            if(res[5]=='1'){
+                $("#vPln").prop( "checked", true );
+            }
+            if(res[6]=='1'){
+                $("#vFEC").prop( "checked", true );
+            }
             
         }
     });

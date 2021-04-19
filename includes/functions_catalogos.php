@@ -248,13 +248,17 @@ if(isset($_GET["listado"])){
 if(isset($_POST["funcion"])){
     if($_POST["funcion"]=="checkValidaciones"){
         $val=getValidaciones($conn,$_POST["idOrden"]);
-        $data=array($val->vFacturas,$val->vCxC,$val->vPrecios,$val->vCostos,$val->vIng,$val->vPlaneacion);
-        echo json_encode($data);
-        exit;
+        
+        $a=$val->vFacturas.",".$val->vCxC.",".$val->vPrecios.",".$val->vCostos.",".$val->vIng.",".$val->vPlaneacion.",".$val->vFEC;
+        
+        die($a);
+        
     }
 }
+//APOYO FORMULARIOS
 function getValidaciones($conn,$idOrden){
-    $query = "SELECT * FROM Orden WHERE idArticulo = $idOrden";
+    
+    $query = "SELECT * FROM Orden WHERE idOrden = $idOrden";
         $sql= mysqli_query($conn,$query);
         $reg=mysqli_fetch_object($sql);
         if($reg==mysqli_fetch_array($sql)){
