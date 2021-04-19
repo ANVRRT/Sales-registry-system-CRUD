@@ -5,21 +5,6 @@
     <form class="formulario" style="min-height:18rem" method="POST" action="../php/O_estatus.php" autocomplete="off">
 
         <div class="campo">
-            <?php
-                require_once("../includes/dbh.inc.php");
-
-                require_once("../includes/functions_catalogos.php");
-                $reg = dispClientes($conn, $_SESSION["idCompania"]);
-                
-                echo "<datalist id='cliente'>";
-                while($row = mysqli_fetch_assoc($reg))
-                {
-                    echo "<option>".$row["idCliente"]."</option>";
-
-                }
-                
-                echo "</datalist>";
-            ?>
             <label class="campo__label" for="estatus">Estatus</label>
             <select name="estatus" class="campo__field">
                 <option></option>
