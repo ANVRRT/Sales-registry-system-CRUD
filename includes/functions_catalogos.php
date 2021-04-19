@@ -1017,7 +1017,7 @@ function updateOrdenRO($conn,$idOrden,$acumulado){
 }
 
 function updateReOrdenFact($conn,$idOrden,$numFac,$folio){
-    $sql = "UPDATE ReporteOrden SET numFact = ? WHERE idOrden = ? AND folioRO = ?;";
+    $sql = "UPDATE ReporteOrden SET numFact = ? WHERE idOrden = ? AND folio = ?;";
     $stmt = mysqli_stmt_init($conn);
 
 
