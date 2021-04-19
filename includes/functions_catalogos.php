@@ -244,8 +244,27 @@ if(isset($_GET["listado"])){
     }
     
 }
-
-
+//APOYO FORMULARIOS
+if(isset($_POST["funcion"])){
+    if($_POST["funcion"]=="checkValidaciones"){
+        $val=getValidaciones($conn,$_POST["idOrden"]);
+        $data=array($val->vFacturas,$val->vCxC,$val->vPrecios,$val->vCostos,$val->vIng,$val->vPlaneacion);
+        echo json_encode($data);
+        exit;
+    }
+}
+function getValidaciones($conn,$idOrden){
+    $query = "SELECT * FROM Orden WHERE idArticulo = $idOrden";
+        $sql= mysqli_query($conn,$query);
+        $reg=mysqli_fetch_object($sql);
+        if($reg==mysqli_fetch_array($sql)){
+            $val="notFound";
+            return $val;
+        }
+        else{
+            return $reg;
+        }
+}
 function buscarArticuloCliente($conn, $idCliente, $idCompania){
     $sql="SELECT ArticuloVendido.idArticulo, ArticuloExistente.descripcion, ArticuloVendido.folio, ArticuloVendido.stock, ArticuloVendido.udVta, ArticuloVendido.codAviso FROM ArticuloVendido, ArticuloExistente WHERE ArticuloVendido.idCliente=? AND ArticuloVendido.idArticulo = ArticuloExistente.idArticulo AND ArticuloExistente.idCompania=?";
 
