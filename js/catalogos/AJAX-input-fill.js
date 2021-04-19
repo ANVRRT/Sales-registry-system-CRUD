@@ -145,3 +145,95 @@ function AjaxFunctionValue(listado,inputFieldGet,inputFieldPrint)
     httpxml.send(null);
 
 }
+
+function updateCliente(){
+    $("listaPrecios").removeAttr("required");
+    $("nomCliente").removeAttr("required");
+    $("estatus").removeAttr("required");
+    $("divisa").removeAttr("required");
+    $("limCredito").removeAttr("required");
+    $("saldoFactura").removeAttr("required");
+    var lp=$("#listaPrecios").val();
+    var nom=$("#nomCliente").val();
+    var estatus=$("#estatus").val();
+    var rep=$("#idRepresentante").val();
+    var analista=$("#idAnalista").val();
+    var lim=$("#limCredito").val();
+    var bloq=$("#bloqueo").val();
+    var cliente=$("#idCliente").val();
+    var fun='updateCliente'; 
+    $.ajax({
+        type:"POST",
+        url:"../includes/functions_catalogos.php",
+        data:{funcion:fun,listaPrecios:lp,nombreCliente:nom,estatusCliente:estatus,idRepresentante:rep,idAnalista:analista,limCredito:lim,idCliente:cliente},
+        success:function(response){
+            
+            if(response=="Actualizado exitosamente"){
+                window.location.href = "../php/C_cliente.php?error=success";
+            }
+            else{
+                window.location.href = "../php/C_cliente.php?error=error";
+            }
+            
+        }
+    });
+
+    
+}
+
+function updateArtV(){
+    $("stock").removeAttr("required");
+    $("codAviso").removeAttr("required");
+    $("udVta").removeAttr("required");
+    var fol=$("#folio").val();
+    var art=$("#idArticulo").val();
+    var cliente=$("#idCliente").val();
+    var cod=$("#codAviso").val();
+    var uni=$("#udVta").val();
+    var fun='updateArtV'; 
+    $.ajax({
+        type:"POST",
+        url:"../includes/functions_catalogos.php",
+        data:{funcion:fun,folio:fol,artV:art,codAviso:cod,udVta:uni,idCliente:cliente},
+        success:function(response){
+            
+            if(response=="Actualizado exitosamente"){
+                window.location.href = "../php/C_articuloVendido.php?error=success";
+            }
+            else{
+                window.location.href = "../php/C_articuloVendido.php?error=error";
+            }
+            
+        }
+    });
+}
+
+function updateCantEnt(){
+    $("posicion").removeAttr("required");
+    $("fechaMov").removeAttr("required");
+    $("hora").removeAttr("required");
+    $("secuencia").removeAttr("required");
+    var ord=$("#idOrden").val();
+    var fol=$("#folio").val();
+    var tipo=$("#tipoReg").val();
+    var pos=$("#posicion").val();
+    var fech=$("#fechaMov").val();
+    var hor=$("#hora").val();
+    var sec=$("#secuencia").val();
+    var fun='updateCantEnt'; 
+    $.ajax({
+        type:"POST",
+        url:"../includes/functions_catalogos.php",
+        data:{funcion:fun,idOrden:ord,folio:fol,tipoReg:tipo,posicion:pos,fechaMov:fech,hora:hor,secuencia:sec},
+        success:function(response){
+            
+            if(response=="Actualizado exitosamente"){
+                window.location.href = "../php/C_cantidadE.php?error=success";
+            }
+            else{
+                window.location.href = "../php/C_cantidadE.php?error=error";
+            }
+            
+        }
+    });
+}

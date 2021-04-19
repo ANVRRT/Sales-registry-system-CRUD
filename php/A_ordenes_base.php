@@ -65,7 +65,7 @@
                                             echo "<th>Num. Orden compra</th>";
                                             echo "<th>Fecha Orden</th>";
 
-                                            if($_SESSION["rol"]=="ADM" || "DIR"){
+                                            if(($_SESSION["rol"]=="ADM") || ($_SESSION["rol"]=="DIR")){
                                                 echo "<th>vFac</th>";
                                                 echo "<th>vCxC</th>";
                                                 echo "<th>vPREC</th>";
@@ -241,7 +241,7 @@
                                                 echo "<td id='ordCompra_".$row["idOrden"]."' style='text-align: center;'>". $row["ordenCompra"] ."</td>";
                                                 echo "<td style='text-align: center;'><input  type='date' name='fechaOrden' id='fechaOrden_".$row["idOrden"]."' value='".$row["fechaOrden"]."' readonly></td>";
 
-                                                if($_SESSION["rol"]=="ADM" || "DIR"){
+                                                if(($_SESSION["rol"]=="ADM") || ($_SESSION["rol"]=="DIR")){
                                                     echo "<td align='center'><input  type='checkbox' name='vFacturas_".$row["idOrden"]."'   id='vFacturas_".$row["idOrden"]."' ".$vFacturas_chked." disabled></td>";
                                                     echo "<td align='center'><input  type='checkbox' name='vCxC_".$row["idOrden"]."'        id='vCxC_".$row["idOrden"]."' ".$vCXC_chked." disabled></td>";
                                                     echo "<td align='center'><input  type='checkbox' name='vPrecios_".$row["idOrden"]."'    id='vPrecios_".$row["idOrden"]."' ".$vPrecios_chked." disabled></td>";

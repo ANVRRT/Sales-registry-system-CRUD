@@ -34,19 +34,21 @@
 
 		<div class="campo campo__text">
 			<label class="campo__label" for="descripcion">Descripción</label>
-			<textarea class="campo__field campo__field--textarea" name="descripcion" id="descripcion"></textarea>
+			<textarea class="campo__field campo__field--textarea" name="descripcion" id="descripcion" required></textarea>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="unidad">Costo estándar</label>
-			<input class="campo__field" type="number" name="costo" id="costo">
+			<input class="campo__field" type="number" name="costo" id="costo" required>
 		</div>
 
 		<div class="campo__3--button">
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
-			<input style="background-color:#E2CD01" class="campo__field button--blue" type="submit" value="Actualizar" name="U_artE">
 			<input class="campo__field button--blue" name="B_artE" type="submit" value="Baja">
 			<input class="campo__field button--blue" name="A_artE" type="submit" value="Alta">
+		</div>
+		<div class="campo__3--button">
+		<input style="background-color:#E2CD01" class="campo__field button--blue" type="submit" value="Actualizar" name="U_artExistente">
 		</div>
 	</form>
 
