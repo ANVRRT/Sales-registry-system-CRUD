@@ -32,17 +32,22 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" >
+                    <!-- <img src="https://www.papelescorrugados.com.mx/images/logotipo.png" alt="login" class="login-card-img"> -->
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Sistema La Moderna</h1>
+                        <?php
+                            echo "<h1 class='h1 mb-1 text-gray-800' style='text-align: center'>Bienvenido <strong>".$_SESSION["nombre"]."</strong> al nuevo sistema de La Moderna</h1>";
+                        ?>
+                        
+                        <!-- <h1 class="h3 mb-0 text-gray-800" style="text-align: center"> :)</h1> -->
                         
                         
                     </div>
 
                     <!-- Content Row -->
-                    <div class="row">
+                    <div class="row" >
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
@@ -59,7 +64,8 @@
                                             
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                            <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                                            <i class="fas fa-user-alt fa-2x text-gray-300""></i>
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +87,8 @@
                                             ?>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <!-- <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> -->
+                                            <i class="fas fa-address-card fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -103,7 +110,8 @@
                                             ?>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <!-- <i class="fas fa-comments fa-2x text-gray-300"></i> -->
+                                            <i class="fas fa-building fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
