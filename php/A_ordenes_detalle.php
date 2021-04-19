@@ -101,7 +101,7 @@
                                             //PLN
                                             // vPLN, nota, !maquina, acumulado.
                                             //Ya puestos en ADM: Precio CXC
-                                            if($_SESSION["rol"]=="ADM" || "DIR"){
+                                            if(($_SESSION["rol"]=="ADM") || ($_SESSION["rol"]=="DIR")){
                                                 echo "<th>Precio</th>";
                                                 echo "<th>Costo</th>";
                                                 echo "<th>Acumulado</th>";
@@ -276,7 +276,7 @@
 
                                                 
 
-                                                if($_SESSION["rol"]=="ADM" || "DIR"){
+                                                if(($_SESSION["rol"]=="ADM") || ($_SESSION["rol"]=="DIR")){
 
                                                     // echo "<th>Precio</th>";
                                                     echo "<td id='precio_".$row2["folioRO"]."' style='text-align: center;'>". $row2["precio"] ."</td>";

@@ -78,6 +78,9 @@
 			<input class="campo__field button--blue" name="B_CantE" type="submit" value="Baja">
 			<input class="campo__field button--blue" name="A_CantE" type="submit" value="Alta">
 		</div>
+		<div class="campo__3--button">
+		<input style="background-color:#E2CD01" class="campo__field button--blue" type="button" value="Actualizar" name="U_cantEnt" onclick="updateCantEnt()">
+		</div>
 	</form>
 
 	<form method="POST" action="../php/C_cantidadE.php" style="overflow: hidden">
