@@ -93,7 +93,7 @@ function roles($role, $roleschck)
         </li>";
     }
 
-    if ((roles($_SESSION["rol"], array("ADM", "AGE", "ING", "PLN", "VTA", "EMB", "DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
+    if ((roles($_SESSION["rol"], array("ADM", "AGE", "CXC","ING", "PLN", "VTA", "EMB", "DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
         echo "
         <li class='nav-item'>
         <a class='nav-link collapsed' href='#' data-toggle='collapse' data-target='#collapseO' aria-expanded='true' aria-controls='collapseO'>
@@ -105,7 +105,7 @@ function roles($role, $roleschck)
                 <h6 class='collapse-header'>Ordenes:</h6>
         
         ";
-        if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
+        if ((roles($_SESSION["rol"], array("ADM","AGE","CXC","PLN","VTA","EMB","DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
             echo "<a class='collapse-item' href='O_estatus.php'>Estatus de ordenes</a>";
         }
         if ((roles($_SESSION["rol"], array("ADM", "AGE", "PLN", "VTA", "EMB", "DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
@@ -176,7 +176,7 @@ function roles($role, $roleschck)
             echo "<a class='collapse-item' href='BC_articuloCliente.php'>Busqueda Artículo <br> Cliente</a>";
         }
         if ((roles($_SESSION["rol"], array("ADM", "ADC","AGE","CST","ING","VTA","EMB","DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
-            echo "<a class='collapse-item' href='BO_venta.php'>Buscar Orden</a>";
+            echo "<a class='collapse-item' href='BO_venta.php'>Busqueda Orden</a>";
         }
         echo "
                 </div>
@@ -244,7 +244,7 @@ function roles($role, $roleschck)
         ";
     }
     
-    if ((roles($_SESSION["rol"], array("ADM","AGE","PLN","CST","VTA","DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
+    if ((roles($_SESSION["rol"], array("ADM","AGE","PLN","CST","VTA","DIR","EMB"))) || (permissions($_SESSION["permisos"], array("h")))) {
         echo "
         <li class='nav-item'>
             <a class='nav-link collapsed' href='#' data-toggle='collapse' data-target='#collapseR' aria-expanded='true' aria-controls='collapseUtilities'>
@@ -257,6 +257,9 @@ function roles($role, $roleschck)
             ";
         if ((roles($_SESSION["rol"], array("ADM","PLN","DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
             echo "<a class='collapse-item' href='R_tiempo_Departamento.php'>Reporte por tiempo <br> departamento</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM","AGE","CST","VTA","EMB","DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='R_ordenes.php'>Reporte de todas <br> las ordenes</a>";
         }
         echo "
                 </div>
