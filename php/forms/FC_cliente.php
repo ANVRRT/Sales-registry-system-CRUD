@@ -13,7 +13,7 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idCliente"]."</option>";
+						echo "<option value = '".$row["idCliente"]."'>".$row["nombreCliente"]."</option>";
 					}
 					
 
@@ -40,7 +40,7 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idRepresentante"]."</option>";
+						echo "<option value='".$row["idRepresentante"]."'>".$row["nomRepresentante"]."</option>";
 					}
 					
 
@@ -79,7 +79,7 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idAlmacen"]."</option>";
+						echo "<option value='".$row["idAlmacen"]."'>".$row["descripcion"]."</option>";
 					}
 					
 
@@ -109,7 +109,8 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idRepresentante"]."</option>";
+						echo "<option value='".$row["idRepresentante"]."'>".$row["nomRepresentante"]."</option>";
+						// echo "<option>".$row["idRepresentante"]."</option>";
 					}
 	
 				}

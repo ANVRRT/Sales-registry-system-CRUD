@@ -601,7 +601,8 @@ function dispDirEntByCLiente($conn, $entrada){
 }
 
 function dispArtByList($conn, $entrada){
-    $sql="SELECT DISTINCT * FROM ListaPrecio WHERE idLista=? AND estatus = 1";
+    $sql="SELECT ListaPrecio.idArticulo, ArticuloExistente.descripcion FROM ListaPrecio INNER JOIN ArticuloExistente ON ListaPrecio.idArticulo = ArticuloExistente.idArticulo WHERE ListaPrecio.idLista = ?";
+    // $sql="SELECT DISTINCT * FROM ListaPrecio WHERE idLista=? AND estatus = 1";
     
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
@@ -615,7 +616,10 @@ function dispArtByList($conn, $entrada){
 
     while($row = mysqli_fetch_assoc($resultData))
     {
-        echo "<option>".$row["idArticulo"]."</option>";
+        // echo "<option>".$row["idArticulo"]."</option>";
+        echo "<option value = '".$row["idArticulo"]."'>".$row["descripcion"]."</option>";
+
+
 
     }
     mysqli_stmt_close($stmt);
