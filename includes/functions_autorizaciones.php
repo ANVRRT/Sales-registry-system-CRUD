@@ -166,7 +166,7 @@ function A_VTA($conn,$idOrden,$idCliente){
     }
 }
 function A_PLN($conn,$idOrden,$idCliente){
-    $sql= "UPDATE Orden SET vPlaneacion= 1, vREP = 1, tPLN = ? WHERE idOrden = ? AND idCliente= ?";
+    $sql= "UPDATE Orden SET vPlaneacion= 1, vREP = 1, estatus = 1, tPLN = ? WHERE idOrden = ? AND idCliente= ?";
     $date = date('Y-m-d');
 
     $stmt = mysqli_stmt_init($conn);

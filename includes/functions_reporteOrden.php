@@ -4,7 +4,7 @@ if (!isset($_SESSION["idUsuario"])) {
     session_start();
 }
 
-function fechRep($conn, $idOrden) {
+function fetchRep($conn, $idOrden) {
     $sql="SELECT * FROM ReporteOrden WHERE idOrden = ? AND fechaEntrega IS NOT NULL;";
     
     $stmt = mysqli_stmt_init($conn);
@@ -31,7 +31,7 @@ function fechRep($conn, $idOrden) {
     }
     mysqli_stmt_bind_param($stmt2,"i", $row["idCliente"]);
     mysqli_stmt_execute($stmt2);
-    $representante = mysqli_stmt_get_result($stmt2);
+    $representante = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt2));
 
     return $representante;
 }
@@ -199,18 +199,9 @@ function generateTxtERP($conn,$idOrden){
     }
 
     mysqli_stmt_bind_param($stmt, "si", $myorden, $idOrden);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
 
-    if(mysqli_stmt_execute($stmt))
-    {
-        mysqli_stmt_close($stmt);
-        header("location: ../php/C_cantidadE.php?error=success;");
-        exit();
-    }
-    else{
-        mysqli_stmt_close($stmt);
-        header("location: ../php/C_cantidadE.php?error=sqlerror");
-        exit();
-    }
 
     $mycliente = $myresult["idCliente"];
     $myfolio = $myresult["idOrden"];
@@ -245,8 +236,8 @@ function generateTxtERP($conn,$idOrden){
     $myarticuloVendido = mysqli_fetch_assoc($articuloVendido);
 
     $myudVta = $myarticuloVendido["udVta"];
-        
-    $myfile = fopen("../txtBaan/$idOrden . '-' . $mycliente . '-' . $myrepresentante . '-' . $myidCompania .txt", "w") or die ("Unable to open file!");
+    $txtnameOrden = "PV-$idOrden-$mycliente-$myrepresentante-$myidCompania.txt";
+    $myfile = fopen("../txtBaan/$txtnameOrden", "w") or die ("Unable to open file!");
     $lineENV = 'ENV' . '|' . $myorden . '|WWWapps|WWW|ORDER||' . "\n";
     $lineHDR = 'HDR' . '|' . $myorden . '|' . $mycliente . '|' . 'PDA' . '-' . $mycount . '-' . $mycliente . '|' . $myfolio . '|' . date("Ymd") . '||'.$myOrdenCompra.'|MOD|'.$mymoneda.'|MEX||0' . "\n";
     $lineHAD1 = 'HAD' . '|' . $myorden . '|' . 'DEL' . '|||' . $mynombreCliente . '||' . $mydireccion . '||' . $mymunicipio . '||' . $mycodPost . '|MEXICO|MEX||' . "\n";
