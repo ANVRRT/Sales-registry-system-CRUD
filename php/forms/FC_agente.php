@@ -38,6 +38,9 @@
 			<input class="campo__field button--blue" name="B_agente" type="submit" value="Baja">
 			<input class="campo__field button--blue" name="A_agente" type="submit" value="Alta">
 		</div>
+		<div class="campo__3--button">
+		<input style="background-color:#E2CD01" class="campo__field button--blue" type="submit" value="Actualizar" name="U_agente">
+		</div>
 	</form>
 
 	<form method="POST" action="../php/C_agente.php" style="overflow: hidden">

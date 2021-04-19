@@ -49,12 +49,12 @@
 	
 		<div class="campo">
 			<label class="campo__label" for="descuento">Descuento</label>
-			<input class="campo__field" type="number" name="descuento" id="descuento" min="0" max="100">
+			<input class="campo__field" type="number" name="descuento" id="descuento" min="0" max="100" required>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="precio">Precio</label>
-			<input class="campo__field" type="text" name="precio" id="precio" onblur="Jdescuento()">
+			<input class="campo__field" type="text" name="precio" id="precio" onblur="Jdescuento()" required>
 		</div>
 
 		<div class="campo">
@@ -87,6 +87,9 @@
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
 			<input class="campo__field button--blue" name="B_listPrecios" type="submit" value="Baja">
 			<input class="campo__field button--blue"  name="A_listPrecios" type="submit" value="Alta">
+		</div>
+		<div class="campo__3--button">
+		<input style="background-color:#E2CD01" class="campo__field button--blue" type="submit" value="Actualizar" name="U_listaPrecios">
 		</div>
 	</form>
 

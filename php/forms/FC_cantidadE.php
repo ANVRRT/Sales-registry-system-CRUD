@@ -46,7 +46,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="hora">Hora</label>
-			<input class="campo__field" type="text" name="hora" id="hora" required>
+			<input class="campo__field" type="time" name="hora" id="hora" required>
 		</div>
 
 		<div class="campo">
@@ -77,6 +77,9 @@
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
 			<input class="campo__field button--blue" name="B_CantE" type="submit" value="Baja">
 			<input class="campo__field button--blue" name="A_CantE" type="submit" value="Alta">
+		</div>
+		<div class="campo__3--button">
+		<input style="background-color:#E2CD01" class="campo__field button--blue" type="button" value="Actualizar" name="U_cantEnt" onclick="updateCantEnt()">
 		</div>
 	</form>
 

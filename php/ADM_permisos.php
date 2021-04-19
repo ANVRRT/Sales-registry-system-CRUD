@@ -94,10 +94,10 @@
                             }
                             if (isset($_GET["error"])) {
                                 if ($_GET["error"] == "success") {
-                                    echo "<p style='color: black;'> ¡Almacen dado de alta exitosamente! </p>";
+                                    echo "<p style='color: black;'> ¡Permiso dado de alta exitosamente! </p>";
                                 }
                                 if ($_GET["error"] == "success2") {
-                                    echo "<p style='color: black;'> ¡Almacen dado de baja exitosamente! </p>";
+                                    echo "<p style='color: black;'> ¡Permiso dado de baja exitosamente! </p>";
                                 }
                                 if ($_GET["error"] == "sqlerror") {
                                     echo "<p style='color: black;'> ¡Algo salió mal! </p>";

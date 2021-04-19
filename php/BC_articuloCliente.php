@@ -68,16 +68,24 @@
 					                                <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
 					                                    <thead>
 					                                        <tr align='center'>
+					                                            <th>Folio</th><!---->
 					                                            <th>ID Artículo</th><!---->
 					                                            <th>Descripción</th><!---->
+					                                            <th>Stock</th><!---->
+					                                            <th>Unidad de Venta</th><!---->
+					                                            <th>Código Aviso</th><!---->
 					                                        </tr>
 					                                    </thead>
 					                                    
 					                                    <tbody>";
 					                while ($row=mysqli_fetch_assoc($reg)){
 					                                        echo "	<tr>
+					                                        			<td align='center'>".$row["folio"]."</td>
 					                                        			<td align='center'>".$row["idArticulo"]."</td>
 					                                        			<td align='center'>".$row["descripcion"]."</td>
+					                                        			<td align='center'>".$row["stock"]."</td>
+					                                        			<td align='center'>".$row["udVta"]."</td>
+					                                        			<td align='center'>".$row["codAviso"]."</td>
 					                                        		</tr>";
 					                                    }
 

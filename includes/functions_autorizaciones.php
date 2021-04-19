@@ -268,7 +268,7 @@ function getOrden($conn,$idOrden){
 
 
     mysqli_stmt_close($stmt);
-
+    exit();
 }
 
 function getReporteOrden($conn,$folioRO){
@@ -291,6 +291,7 @@ function getReporteOrden($conn,$folioRO){
 
     mysqli_stmt_close($stmt);
 
+    exit();
 }
 
 function updatetOrden($conn,$idOrden,$total){
@@ -306,5 +307,6 @@ function updatetOrden($conn,$idOrden,$total){
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
+    exit();
 }
 ?>

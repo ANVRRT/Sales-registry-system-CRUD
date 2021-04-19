@@ -3,12 +3,11 @@
 
 <head>
     <?php
-        include("../includes/header.php");
-        require_once("../includes/dbh.inc.php");
+    require_once("../includes/dbh.inc.php");
+    include("../includes/header.php");
     ?>
     <link rel="stylesheet" href="../css/stylesForms.css">
-	<link rel="stylesheet" href="../css/normalize.css">
-    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/normalize.css">
 </head>
 
 <body id="page-top">
@@ -17,16 +16,17 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-		<div >
-			
-			<?php
-				include("../includes/sidebar.php");
-                require_once("../includes/functions_catalogos.php");
-			?>
-			
-			
-		</div>
-        
+        <div>
+
+            <?php
+            include("../includes/sidebar.php");
+            require_once("../includes/functions_admin.php");
+
+            ?>
+
+
+        </div>
+
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -37,7 +37,7 @@
 
                 <!-- Topbar -->
                 <?php
-                    include("../includes/topbar.php");
+                include("../includes/topbar.php");
                 ?>
                 <!-- End of Topbar -->
 
@@ -49,69 +49,60 @@
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
 
                 </div> -->
-				<div class="container-fluid"> 
+                <div class="container-fluid">
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("forms/FC_almacen.php");
-                                if(isset($_POST["C_almacen"])){
-                                    $idCompania = $_SESSION["idCompania"];
-                                    $reg = dispAlmacen($conn,$idCompania);
-                                    echo "<div class='card shadow mb-4'>
+                            include("forms/FADM_roles.php");
+                            if (isset($_POST["ADM_roles"])) {
+                                $reg = dispRoles($conn, $_SESSION["idCompania"]);
+                                echo "<div class='card shadow mb-4'>
                                             <div class='card-header py-3'>
-                                                <h6 class='m-0 font-weight-bold text-primary'>Listado de Almacenes</h6>
+                                                <h6 class='m-0 font-weight-bold text-primary'>Listado de Permisos</h6>
                                             </div>
                                             <div class='card-body'>
                                                 <div class='table-responsive'>
                                                     <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
                                                         <thead>
                                                             <tr align='center'>
-                                                                <th>ID Compañía</th>
-                                                                <th>ID Almacen</th><!---->
-                                                                <th>Descripción</th><!---->
+                                                                <th>Compania</th>
+                                                                <th>Rol</th>
                                                             </tr>
                                                         </thead>
                                                         
                                                         <tbody>";
-                                    while ($row=mysqli_fetch_assoc($reg)){
-                                                            if ($row["estatus"] == 1){
-                                                                echo "  <tr>
-                                                                            <td align='center'>".$row["idCompania"]."</td>
-                                                                            <td align='center'>".$row["idAlmacen"]."</td>
-                                                                            <td align='center'>".$row["descripcion"]."</td>
-                                                                        </tr>";
-                                                                    }
-                                                        }
+                                while ($row = mysqli_fetch_assoc($reg)) {
+                                    echo "  
+                                    <tr>
+                                        <td align='center'>" . $row["idCompania"] . "</td>
+                                        <td align='center'>" . $row["rol"] . "</td>
+                                    </tr>";
+                                }
 
-                                    echo " 
+                                echo " 
                                                             
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>";
+                            }
+                            if (isset($_GET["error"])) {
+                                if ($_GET["error"] == "success") {
+                                    echo "<p style='color: black;'> ¡Rol dado de alta exitosamente! </p>";
                                 }
-                                if(isset($_GET["error"]))
-                                {
-                                    if($_GET["error"] == "success")
-                                    {
-                                        echo "<p style='color: black;'> ¡Almacen dado de alta exitosamente! </p>";
-                                    }
-                                    if($_GET["error"] == "success2")
-                                    {
-                                        echo "<p style='color: black;'> ¡Almacen dado de baja exitosamente! </p>";
-                                    }
-                                    if($_GET["error"] == "sqlerror")
-                                    {
-                                        echo "<p style='color: black;'> ¡Algo salió mal! </p>";
-                                    }
-
+                                if ($_GET["error"] == "success2") {
+                                    echo "<p style='color: black;'> ¡Rol dado de baja exitosamente! </p>";
                                 }
+                                if ($_GET["error"] == "sqlerror") {
+                                    echo "<p style='color: black;'> ¡Algo salió mal! </p>";
+                                }
+                            }
                             ?>
                         </div>
                     </div>
-				</div>
-				
+                </div>
+
                 <!-- /.container-fluid -->
 
             </div>
@@ -148,12 +139,6 @@
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../js/demo/datatables-demo.js"></script>
 </body>
 
 </html>

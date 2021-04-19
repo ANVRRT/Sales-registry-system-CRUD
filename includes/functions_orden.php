@@ -7,42 +7,60 @@
         $reg=preparaReporte($conn,$_POST["idCliente"]);
         $estatus=0;
         $costo=obtenerCosto($conn,$_POST["idArticulo"]);
-        
-        if(strlen($_POST["folio"])>0){
-            $banderaFolio=prepararFolio($conn,$_POST["folio"]);
-            if(!$banderaFolio){
-                createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
-            }
-            if(!$banderaOrden){
-                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,1,0,0,0,0,0,0,0,1,'1',null);   
+        $act=creditoActual($conn,$_POST["idCliente"]);
+        echo "el acumulado es ".$act;
+        $revCst=$total+$act;
+        if($revCst < $reg->limCredito){
+            //echo "se puede hacer registro".$revCst.$reg->limCredito;
+            
+            if(strlen($_POST["folio"])>0){
+                $banderaFolio=prepararFolio($conn,$_POST["folio"]);
+                if(!$banderaFolio){
+                    createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
+                }
+                if(!$banderaOrden){
+                    createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,1,0,0,0,0,0,0,0,1,'1',null);   
+                }
+                else{
+                    $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
+                    $newTotal= $totalOrden + $total;
+                    updateOrden($conn,$_POST["idOrden"],$newTotal);
+                }
+                createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["folio"],'default',null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
+                $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
+                
             }
             else{
-                $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
-                $newTotal= $totalOrden + $total;
-                updateOrden($conn,$_POST["idOrden"],$newTotal);
+                createArtVendido($conn,'default',$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
+                
+                if(!$banderaOrden){
+                    createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,1,0,0,0,0,0,0,0,1,'1',null);            }
+                else{
+                    $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
+                    $newTotal= $totalOrden + $total;
+                    updateOrden($conn,$_POST["idOrden"],$newTotal);
+                }
+                $regArt=consultarFolio($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"]);
+                createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$regArt->folio,'default',null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
+                $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
+                
             }
-            createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["folio"],'default',null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
-            $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
-              
         }
         else{
-            createArtVendido($conn,'default',$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
+            //echo "No se puede hacer registro".$revCst.$reg->limCredito;
             
-            if(!$banderaOrden){
-                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,1,0,0,0,0,0,0,0,1,'1',null);            }
-            else{
-                $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
-                $newTotal= $totalOrden + $total;
-                updateOrden($conn,$_POST["idOrden"],$newTotal);
-            }
-            $regArt=consultarFolio($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"]);
-            createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$regArt->folio,'default',null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
-            $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
-            
+            header("location: ../php/O_capturar.php?error=saldo");
+            exit();
         }
-        
     }
 
+    function creditoActual($conn,$idCliente){
+        $query = "SELECT SUM(total) AS sum FROM Orden WHERE idCliente = $idCliente";
+        $sql= mysqli_query($conn,$query);
+        $row = mysqli_fetch_assoc($sql); 
+        $sum = $row['sum'];
+        return $sum;
+    }
     function obtenerCosto($conn,$idArticulo){
         $query = "SELECT * FROM ArticuloExistente WHERE idArticulo = $idArticulo";
         $sql= mysqli_query($conn,$query);
@@ -53,7 +71,6 @@
         }
         else{
             return $reg->costosEstandar;
-            
         }
     }
     function consultaTotal($conn,$idOrden){
