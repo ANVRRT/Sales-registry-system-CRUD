@@ -4,6 +4,38 @@ if (!isset($_SESSION["idUsuario"])) {
     session_start();
 }
 
+function fetchRep($conn, $idOrden) {
+    $sql="SELECT * FROM ReporteOrden WHERE idOrden = ? AND fechaEntrega IS NOT NULL;";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"i", $idOrden);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    $row = mysqli_fetch_assoc($resultData);
+
+    mysqli_stmt_close($stmt);
+
+    $sql2="SELECT * FROM Cliente WHERE idCliente = ?;";
+    
+    $stmt2 = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt2,$sql2))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt2,"i", $row["idCliente"]);
+    mysqli_stmt_execute($stmt2);
+    $representante = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt2));
+
+    return $representante;
+}
+
 function fetchUdVta($conn, $idOrden) {
     $sql="SELECT * FROM ReporteOrden WHERE idOrden = ? AND fechaEntrega IS NOT NULL;";
     
@@ -147,13 +179,29 @@ function generateTxtERP($conn,$idOrden){
     $consecutivo = fetchCount($conn, $idOrden);
     $direccionFull = fetchAddress($conn, $idOrden);
     $articuloVendido = fetchUdVta($conn, $idOrden);
+    $representante = fetchRep($conn, $idOrden);
 
     $myresult = mysqli_fetch_assoc($result);
     
-    
+    $myrepresentante = $representante["idRepresentante"];
+    $myidCompania = $representante["idCompania"];
 
     $myordenR = $myresult["idOrden"];
     $myorden = mb_strtoupper(uniqid($myordenR));
+
+    $sql = "UPDATE ReporteOrden SET ordenBaan = ? WHERE idOrden = ?;";
+    
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "si", $myorden, $idOrden);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
 
     $mycliente = $myresult["idCliente"];
     $myfolio = $myresult["idOrden"];
@@ -188,8 +236,8 @@ function generateTxtERP($conn,$idOrden){
     $myarticuloVendido = mysqli_fetch_assoc($articuloVendido);
 
     $myudVta = $myarticuloVendido["udVta"];
-        
-    $myfile = fopen("../txtBaan/ReporteOrden$idOrden.txt", "w") or die ("Unable to open file!");
+    $txtnameOrden = "PV-$idOrden-$mycliente-$myrepresentante-$myidCompania.txt";
+    $myfile = fopen("../txtBaan/$txtnameOrden", "w") or die ("Unable to open file!");
     $lineENV = 'ENV' . '|' . $myorden . '|WWWapps|WWW|ORDER||' . "\n";
     $lineHDR = 'HDR' . '|' . $myorden . '|' . $mycliente . '|' . 'PDA' . '-' . $mycount . '-' . $mycliente . '|' . $myfolio . '|' . date("Ymd") . '||'.$myOrdenCompra.'|MOD|'.$mymoneda.'|MEX||0' . "\n";
     $lineHAD1 = 'HAD' . '|' . $myorden . '|' . 'DEL' . '|||' . $mynombreCliente . '||' . $mydireccion . '||' . $mymunicipio . '||' . $mycodPost . '|MEXICO|MEX||' . "\n";
