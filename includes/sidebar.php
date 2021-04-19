@@ -105,6 +105,9 @@ function roles($role, $roleschck)
                 <h6 class='collapse-header'>Ordenes:</h6>
         
         ";
+        if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("h")))) {
+            echo "<a class='collapse-item' href='O_estatus.php'>Estatus de ordenes</a>";
+        }
         if ((roles($_SESSION["rol"], array("ADM", "AGE", "PLN", "VTA", "EMB", "DIR"))) || (permissions($_SESSION["permisos"], array("h")))) {
             echo "<a class='collapse-item' href='O_venta_proceso.php'>Ordenes en proceso</a>";
         }
