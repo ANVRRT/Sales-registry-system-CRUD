@@ -464,7 +464,8 @@
         <i class="fas fa-angle-up"></i>
     </a>
     <?php
-        if((roles($_SESSION["rol"], array("ADM","VTA","DIR")))){
+    
+        if ((roles($_SESSION["rol"], array("ADM", "DIR","VTA"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenADM","po_autorizarOrdenVTA","po_autorizarOrdenDIR")))){
             echo "<div class='modal fade' id='ventana' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
                     <div class='modal-dialog' role='document'>
                         <div class='modal-content'>
