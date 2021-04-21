@@ -124,15 +124,125 @@ function dispRolActual($conn, $entrada){
 }
 
 function createPermiso($conn,$idUsuario,$permiso,$idCompania){
-    $sql = "INSERT INTO Permiso VALUES(?,?,?);";
+    $sql = "INSERT INTO Permiso VALUES(?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
+    if($permiso == "po_autorizarOrdenCXC"){
+        $descripcion = "Autorizar Orden CXC";
+    }
+    if($permiso == "po_autorizarOrdenVTA"){
+        $descripcion = "Autorizar Orden VTA";
+    }
+    if($permiso == "po_autorizarOrdenCST"){
+        $descripcion = "Autorizar Orden CST";
+    }
+    if($permiso == "po_autorizarOrdenING"){
+        $descripcion = "Autorizar Orden ING";
+    }
+    if($permiso == "po_autorizarOrdenPLN"){
+        $descripcion = "Autorizar Orden PLN";
+    }
+    if($permiso == "po_autorizarOrdenADM"){
+        $descripcion = "Autorizar Orden ADM";
+    }
+
+    if($permiso == "po_capturar"){
+        $descripcion = "Capturar orden";
+    }
+    if($permiso == "po_modificar"){
+        $descripcion = "Modificar orden";
+    }
+    if($permiso == "po_estatus"){
+        $descripcion = "Estatus de ordenes";
+    }
+    if($permiso == "po_proceso"){
+        $descripcion = "Ordenes en proceso";
+    }
+    if($permiso == "po_procesadas"){
+        $descripcion = "Ordenes procesadas";
+    }
+
+    if($permiso == "padm_permisos"){
+        $descripcion = "Administración Permisos";
+    }
+    if($permiso == "padm_roles"){
+        $descripcion = "Administración Roles";
+    }
+    if($permiso == "padm_usuarios"){
+        $descripcion = "Administración Usuarios";
+    }
+    if($permiso == "padm_registro"){
+        $descripcion = "Creación de usuarios";
+    }
+
+    if($permiso == "psadm"){
+        $descripcion = "Permiso Super Admin";
+    }
+
+    if($permiso == "pb_artCliente"){
+        $descripcion = "Busqueda Artículo Cliente";
+    }
+    if($permiso == "pb_ordenVenta"){
+        $descripcion = "Busqueda Orden Venta";
+    }
+
+    if($permiso == "pc_compania"){
+        $descripcion = "Catálogo Compania";
+    }
+    if($permiso == "pc_inventario"){
+        $descripcion = "Catálogo Inventario";
+    }
+    if($permiso == "pc_almacen"){
+        $descripcion = "Catálogo Almacen";
+    }
+    if($permiso == "pc_clientes"){
+        $descripcion = "Agregar Cliente";
+    }
+    if($permiso == "pc_agente"){
+        $descripcion = "Catálogo Agente";
+    }
+    if($permiso == "pc_artExistente"){
+        $descripcion = "Catálogo Artículo Existente";
+    }
+    if($permiso == "pc_artVendido"){
+        $descripcion = "Catálogo Artículo Vendido";
+    }
+    if($permiso == "pc_dirEnt"){
+        $descripcion = "Catálogo Dirección Entregada";
+    }
+    if($permiso == "pc_listPrecios"){
+        $descripcion = "Catálogo Lista Precios";
+    }
+    if($permiso == "pc_factura"){
+        $descripcion = "Catálogo Factura";
+    }
+    if($permiso == "pc_cantEntregada"){
+        $descripcion = "Catálogo Cantidad Entregada";
+    }
+    if($permiso == "pc_bloq_Cliente"){
+        $descripcion = "Catálogo Bloqueo Cliente";
+    }
+    if($permiso == "pc_archivos"){
+        $descripcion = "Subir Archivos";
+    }
+
+    if($permiso == "pr_tiempoDepto"){
+        $descripcion = "Reporte Tiempo Departamento";
+    }
+    if($permiso == "pr_ordenes"){
+        $descripcion = "Reporte de todas las ordenes";
+    }
+    if($permiso == "pr_reportes"){
+        $descripcion = "Reportes completos";
+    }
+
+    
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"sss",$idUsuario,$permiso,$idCompania);
+    mysqli_stmt_bind_param($stmt,"ssss",$idUsuario,$permiso,$idCompania,$descripcion);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);

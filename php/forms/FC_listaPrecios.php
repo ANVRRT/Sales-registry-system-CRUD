@@ -20,9 +20,7 @@
 				echo "<datalist id='listaPrecio'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					if($row["estatus"]==1){
-						echo "<option>".$row["idLista"]."</option>";
-					}
+					echo "<option>".$row["idLista"]."</option>";
 					
 				}
 				echo "</datalist>";
@@ -40,7 +38,8 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idArticulo"]."</option>";
+						echo "<option value='".$row["idArticulo"]."'>".$row["descripcion"]."</option>";
+						// echo "<option>".$row["idArticulo"]."</option>";
 					}
 				}
 				echo "</datalist>";

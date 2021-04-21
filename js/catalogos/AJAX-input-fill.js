@@ -291,16 +291,36 @@ function updateCantEnt(){
 }
 
 function estatusValidaciones(idOrden){
-    alert("Llegamos a ajax");
     var fun='checkValidaciones';
-    var orden=idOrden;
+    var orden=document.getElementById(idOrden).value;
+    
     $.ajax({
         type:"POST",
         url:"../includes/functions_catalogos.php",
         data:{funcion:fun,idOrden:orden},
-        success:function(data){
-            var res = $.parseJSON(data);
-            alert(res.result)
+        success:function(validaciones){
+            var res = validaciones.split(",");
+            if(res[0]=='1'){
+                $("#vFac").prop( "checked", true );
+            }
+            if(res[1]=='1'){
+                $("#vCxC").prop( "checked", true );
+            }
+            if(res[2]=='1'){
+                $("#vVta").prop( "checked", true );
+            }
+            if(res[3]=='1'){
+                $("#vCst").prop( "checked", true );
+            }
+            if(res[4]=='1'){
+                $("#vIng").prop( "checked", true );
+            }
+            if(res[5]=='1'){
+                $("#vPln").prop( "checked", true );
+            }
+            if(res[6]=='1'){
+                $("#vFEC").prop( "checked", true );
+            }
             
         }
     });

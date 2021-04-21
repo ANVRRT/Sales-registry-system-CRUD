@@ -12,7 +12,8 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idRepresentante"]."</option>";
+						echo "<option value='".$row["idRepresentante"]."'>".$row["nomRepresentante"]."</option>";
+						// echo "<option>".$row["idRepresentante"]."</option>";
 					}
 
 				}

@@ -5,7 +5,7 @@
 			<label class="campo__label" for="compania">Compañía</label>
 			<?php
 			
-				echo "<input class='campo__field' type='text'name='idCompania' id='idCompania' value='".$_SESSION["idCompania"]."' readonly>";
+				echo "<input class='campo__field' type='text'name='idCompania' id='idCompania' value='".$_SESSION["idCompania"]."' readonly required>";
 			?>
 		</div>
 
@@ -29,7 +29,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="dirEnt">Direccion de Entrega</label>
-			<input class="campo__field" type="text" name="dirEnt" id="dirEnt" list="dirEntList" required>
+			<input class="campo__field" type="text" name="dirEnt" id="dirEnt" list="dirEntList">
 			<?php
 				
 				$reg = dispDirEnt($conn, $_SESSION["idCompania"]);
@@ -37,7 +37,7 @@
 				echo "<datalist id='dirEntList'>";
 				while($row = mysqli_fetch_assoc($reg))
 				{
-					echo "<option>".$row["idLista"]."</option>";
+					echo "<option>".$row["dirEnt"]."</option>";
 
 				}
 				echo "</datalist>";
@@ -46,38 +46,38 @@
         
 		<div class="campo">
 			<label class="campo__label" for="fecha-sol">Fecha de solicitud</label>
-			<input class="campo__field" type="date" name="fechaSol" id="fechaSol" required>
+			<input class="campo__field" type="date" name="fechaSol" id="fechaSol" >
 		</div>
 
         <table>
             <tr>
                <td><label class="campo__label" for="bloqueo">Validación Facturas</label></td>
-               <td align="center"><input class="campo__checkbox" type="checkbox" name="bloqueo" id="bloqueo" value="1" ></td>
+               <td align="center"><input class="campo__checkbox" type="checkbox" name="vFac" id="vFac" value="1" ></td>
             </tr>
-                
+            <tr>
+               <td><label class="campo__label" for="bloqueo">Validación Cuentas por cobrar</label></td>
+               <td align="center"><input class="campo__checkbox" type="checkbox" name="vCxC" id="vCxC" value="1" ></td>
+            </tr>
             <tr>
                 <td><label class="campo__label" for="bloqueo">Validación Precios</label></td>
-                <td align="center"><input class="campo__checkbox" type="checkbox" name="bloqueo" id="bloqueo" value="1" ></td>
+                <td align="center"><input class="campo__checkbox" type="checkbox" name="vVta" id="vVta" value="1" ></td>
             </tr>
             <tr>
                 <td><label class="campo__label" for="bloqueo">Validación Costos</label></td>
-                <td align="center"><input class="campo__checkbox" type="checkbox" name="bloqueo" id="bloqueo" value="1" ></td>
+                <td align="center"><input class="campo__checkbox" type="checkbox" name="vCst" id="vCst" value="1" ></td>
             </tr>
             <tr>
                 <td><label class="campo__label" for="bloqueo">Validación Ingeniería</label></td>
-                <td align="center"><input class="campo__checkbox" type="checkbox" name="bloqueo" id="bloqueo" value="1" ></td>
+                <td align="center"><input class="campo__checkbox" type="checkbox" name="vIng" id="vIng" value="1" ></td>
             </tr>
             <tr>
                 <td><label class="campo__label" for="bloqueo">Validación Planeación</label></td>
-                <td align="center"><input class="campo__checkbox" type="checkbox" name="bloqueo" id="bloqueo" value="1" ></td>
+                <td align="center"><input class="campo__checkbox" type="checkbox" name="vPln" id="vPln" value="1" disabled></td>
             </tr>
-            <tr>
-                <td><label class="campo__label" for="bloqueo">Validación Servicio al cliente</label></td>
-                <td align="center"><input class="campo__checkbox" type="checkbox" name="bloqueo" id="bloqueo" value="1" ></td>
-            </tr>
+			
             <tr>
                 <td><label class="campo__label" for="bloqueo">Validación Fechas</label></td>
-                <td align="center"><input class="campo__checkbox" type="checkbox" name="bloqueo" id="bloqueo" value="1" ></td>
+                <td align="center"><input class="campo__checkbox" type="checkbox" name="vFEC" id="vFEC" value="1" ></td>
             </tr>
         </table>
 

@@ -68,6 +68,7 @@
                                                                 <th>Usuario</th>
                                                                 <th>Permiso</th>
                                                                 <th>Compania</th>
+                                                                <th>Descripción</th>
                                                                 <th>Opciones</th>
                                                             </tr>
                                                         </thead>
@@ -79,6 +80,7 @@
                                         <td align='center'>" . $row["idUsuario"] . "</td>
                                         <td align='center'>" . $row["Permiso"] . "</td>
                                         <td align='center'>" . $row["idCompania"] . "</td>
+                                        <td align='center'>" . $row["descripcion"] . "</td>
                                         <td align='center'><a href='../includes/functions_admin.php?B_Permiso=1&idUsuario=".$row["idUsuario"]."&permiso=". $row["Permiso"] ."&idCompania=". $row["idCompania"] ."'class='btn btn-danger'>Eliminar Permiso</a></td>
 
                                     </tr>";

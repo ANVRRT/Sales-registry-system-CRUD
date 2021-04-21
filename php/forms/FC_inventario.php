@@ -39,7 +39,8 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					
-					echo "<option>".$row["idArticulo"]."</option>";
+						echo "<option value='".$row["idArticulo"]."'>".$row["descripcion"]."</option>";
+						// echo "<option>".$row["idArticulo"]."</option>";
 				
 
 				}
