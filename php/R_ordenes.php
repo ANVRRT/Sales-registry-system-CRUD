@@ -53,6 +53,10 @@
                 </div> -->
                 <div class="container-fluid">
 
+                    <?php
+                        if ((roles($_SESSION["rol"], array("ADM","AGE","CST","VTA","EMB","DIR"))) || (permissions($_SESSION["permisos"], array("pr_ordenes")))) {
+                    ?>
+
                     <!-- Page Heading -->
                     <h1 >Reporte de Todas las Ordenes de Venta</h1>
                     <!-- DataTales Example -->
@@ -286,6 +290,14 @@
                                     ?>
                                     </tbody>
                                 </table>
+
+                            <?php
+                                }
+                                else {
+                                    include("404.php");
+                                }
+                                
+                            ?>
                             </div>
                         </div>
                     </div>

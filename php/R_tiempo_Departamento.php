@@ -54,6 +54,14 @@
                 </div> -->
                 <div class="container-fluid">
 
+                    <?php
+
+                        if ((roles($_SESSION["rol"], array("ADM","PLN","DIR"))) || (permissions($_SESSION["permisos"], array("pr_tiempoDepto")))) {
+                            
+                        
+
+                    ?>
+
                     <!-- Page Heading -->
                     <h1 >Reporte de Promedio de Tiempo por Departamento</h1>
                     <!-- DataTales Example -->
@@ -140,7 +148,15 @@
                                     ?>
                                     </tbody>
                                 </table>
+
                             </div>
+                            <?php
+                                }
+                                else {
+                                    include("404.php");
+                                }
+                                
+                            ?>
                         </div>
                     </div>
 
