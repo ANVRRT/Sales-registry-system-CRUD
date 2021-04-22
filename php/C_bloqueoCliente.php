@@ -52,7 +52,11 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("forms/FC_bloqueoCliente.php");
+                                if ((roles($_SESSION["rol"], array("ADM","CXC"))) || (permissions($_SESSION["permisos"], array("pc_bloqCliente")))) {
+                                    include("forms/FC_bloqueoCliente.php");
+                                }else{
+                                    include("404.php");
+                                }
                             ?>
                         </div>
                     </div>
