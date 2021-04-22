@@ -54,7 +54,12 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("forms/FB_articuloCliente.php");
+                                if ((roles($_SESSION["rol"], array("ADM","ING"))) || (permissions($_SESSION["permisos"], array("pb_artCliente")))) {
+                                    include("forms/FB_articuloCliente.php");
+                                }else{
+                                    include("404.php");
+                                }
+
                             	if(isset($_POST["Buscar_articuloCliente"])){
                             		$idCliente=$_POST["idCliente"];
                             		$idCompania=$_SESSION["idCompania"];

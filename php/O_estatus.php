@@ -54,7 +54,14 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("forms/FO_estatus.php");
+
+                                if ((roles($_SESSION["rol"], array("ADM","AGE","CXC","PLN","VTA","EMB","DIR"))) || (permissions($_SESSION["permisos"], array("po_estatus")))) {
+                                    include("forms/FO_estatus.php");
+                                }else{
+                                    include("404.php");
+                                }
+
+
                             	if(isset($_POST["Buscar"])){
                             		//$idCliente=$_POST["idCliente"];
                             		$idCompania=$_SESSION["idCompania"];
