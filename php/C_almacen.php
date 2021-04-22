@@ -53,7 +53,12 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
+                                if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("pc_almacen")))) {
                                 include("forms/FC_almacen.php");
+                                }else{
+                                    include("404.php");
+                                }
+                                
                                 if(isset($_POST["C_almacen"])){
                                     $idCompania = $_SESSION["idCompania"];
                                     $reg = dispAlmacen($conn,$idCompania);

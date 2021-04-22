@@ -52,7 +52,11 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("forms/FO_capturarArchivo.php");
+                                if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("ps_archivos")))) {
+                                    include("forms/FO_capturarArchivo.php");
+                                }else{
+                                    include("404.php");
+                                }
                             ?>
                         </div>
                     </div>

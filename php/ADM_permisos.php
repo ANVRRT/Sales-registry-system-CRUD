@@ -53,7 +53,12 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                            include("forms/FADM_permisos.php");
+                            if ((roles($_SESSION["rol"], array("ADM", "ADC"))) || (permissions($_SESSION["permisos"], array("padm_permisos")))){
+                                include("forms/FADM_permisos.php");
+                            }else{
+                                include("404.php");
+                            }
+
                             if (isset($_POST["ADM_permisos"])) {
                                 $reg = dispPermiso($conn, $_SESSION["idCompania"]);
                                 echo "<div class='card shadow mb-4'>
@@ -68,6 +73,7 @@
                                                                 <th>Usuario</th>
                                                                 <th>Permiso</th>
                                                                 <th>Compania</th>
+                                                                <th>Descripción</th>
                                                                 <th>Opciones</th>
                                                             </tr>
                                                         </thead>
@@ -79,6 +85,7 @@
                                         <td align='center'>" . $row["idUsuario"] . "</td>
                                         <td align='center'>" . $row["Permiso"] . "</td>
                                         <td align='center'>" . $row["idCompania"] . "</td>
+                                        <td align='center'>" . $row["descripcion"] . "</td>
                                         <td align='center'><a href='../includes/functions_admin.php?B_Permiso=1&idUsuario=".$row["idUsuario"]."&permiso=". $row["Permiso"] ."&idCompania=". $row["idCompania"] ."'class='btn btn-danger'>Eliminar Permiso</a></td>
 
                                     </tr>";

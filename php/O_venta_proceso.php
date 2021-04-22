@@ -41,7 +41,9 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                <?php
+                    if ((roles($_SESSION["rol"], array("ADM", "AGE", "PLN", "VTA", "EMB", "DIR"))) || (permissions($_SESSION["permisos"], array("po_proceso")))) {
+                ?>
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Ordenes en Proceso</h1>
                     <!-- DataTales Example -->
@@ -122,10 +124,6 @@
                                             <th>tFEC</th>
                                             <th>Total</th> -->
 
-
-
-
-                                            <th>Cancelación</th>
                                         </tr>
                                     </thead>
 
@@ -198,7 +196,6 @@
                                                 echo "<td align='center'><input  type='checkbox' name='vServCli'    id='vServCli' ".$vServCli_chked." disabled></td>";
                                                 echo "<td align='center'><input  type='checkbox' name='vREP'        id='vREP' ".$vREP_chked." disabled></td>";
 
-                                                echo "<td align='center'><input name='cancelar' type='button' value='Cancelar orden' class='btn btn-primary'></td>";
                                                 echo "</tr>";
                                             }
                                             // echo "<option>" . $row["idRepresentante"] . "</option>";
@@ -238,6 +235,11 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <?php
+                                }else{
+                                    include("404.php");
+                                }
+                            ?>
                         </div>
                     </div>
 

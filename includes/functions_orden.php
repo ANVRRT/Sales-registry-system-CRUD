@@ -1,6 +1,6 @@
 <?php
     require_once("dbh.inc.php");
-
+    //ALTA ORDENES
     if(isset($_POST["A_Orden"]) || isset($_POST["A_articulo"])){
         $banderaOrden=prepararOrden($conn,$_POST["idOrden"]);
         $total=$_POST["precio"]*$_POST["cantidad"];
@@ -10,6 +10,7 @@
         $act=creditoActual($conn,$_POST["idCliente"]);
         echo "el acumulado es ".$act;
         $revCst=$total+$act;
+        $date = date('Y-m-d');
         if($revCst < $reg->limCredito){
             //echo "se puede hacer registro".$revCst.$reg->limCredito;
             
@@ -19,7 +20,7 @@
                     createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
                 }
                 if(!$banderaOrden){
-                    createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,1,0,0,0,0,0,0,0,1,'1',null);   
+                    createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],$date,null,null,null,null,null,$date,$total,1,0,0,0,0,0,0,0,1,'1',null);   
                 }
                 else{
                     $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
@@ -34,7 +35,7 @@
                 createArtVendido($conn,'default',$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
                 
                 if(!$banderaOrden){
-                    createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],null,null,null,null,null,null,null,$total,1,0,0,0,0,0,0,0,1,'1',null);            }
+                    createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],$date,null,null,null,null,null,$date,$total,1,0,0,0,0,0,0,0,1,'1',null);            }
                 else{
                     $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
                     $newTotal= $totalOrden + $total;
@@ -53,6 +54,298 @@
             exit();
         }
     }
+    //ACTUALIZACION ORDENES
+    if(isset($_POST["U_Orden"])){
+        $reg=getValuesOrden($conn,$_POST["idOrden"]);
+        
+        if(strlen($_POST["dirEnt"])>0){
+            updateDirEnt($conn,$_POST["dirEnt"],$_POST["idOrden"]);
+        }
+        if(strlen($_POST["fechaSol"])>0){
+            updateFecha($conn,$_POST["fechaSol"],$_POST["idOrden"]);
+        }
+        
+        if(isset($_POST["vFac"])){
+            if($_POST["vFac"]!= $reg->vFacturas){
+                $date = date('Y-m-d');
+                updateFacturas($conn,$_POST["vFac"],$date,$_POST["idOrden"]);
+            }
+              
+        }
+        else{
+            $vFac=0;
+            if($vFac != $reg->vFacturas){
+                
+                updateFacturas($conn,$vFac,null,$_POST["idOrden"]);
+            }
+        }
+
+        if(isset($_POST["vCxC"])){
+            if($_POST["vCxC"]!= $reg->vCxC){
+                $date = date('Y-m-d');
+                updateCxC($conn,$_POST["vCxC"],$date,$_POST["idOrden"]);
+            }
+              
+        }
+        else{
+            $vCxC=0;
+            if($vCxC != $reg->vCxC){
+                
+                updateCxC($conn,$vCxC,null,$_POST["idOrden"]);
+            }
+        }
+
+        if(isset($_POST["vVta"])){
+            if($_POST["vVta"]!= $reg->vPrecios){
+                $date = date('Y-m-d');
+                updatevPrecios($conn,$_POST["vVta"],$date,$_POST["idOrden"]);
+            }
+              
+        }
+        else{
+            $vVta=0;
+            if($vVta != $reg->vPrecios){
+                
+                updatevPrecios($conn,$vVta,null,$_POST["idOrden"]);
+            }
+        }
+
+        if(isset($_POST["vCst"])){
+            if($_POST["vCst"]!= $reg->vCostos){
+                $date = date('Y-m-d');
+                updatevCostos($conn,$_POST["vCst"],$date,$_POST["idOrden"]);
+            }
+              
+        }
+        else{
+            $vCst=0;
+            if($vCst != $reg->vCostos){
+                
+                updatevCostos($conn,$vCst,null,$_POST["idOrden"]);
+            }
+        }
+
+        if(isset($_POST["vIng"])){
+            if($_POST["vIng"]!= $reg->vIng){
+                $date = date('Y-m-d');
+                updatevIng($conn,$_POST["vIng"],$date,$_POST["idOrden"]);
+            }
+              
+        }
+        else{
+            $vIng=0;
+            if($vIng != $reg->vIng){
+                
+                updatevIng($conn,$vIng,null,$_POST["idOrden"]);
+            }
+        }
+
+        if(isset($_POST["vFEC"])){
+            if($_POST["vFEC"]!= $reg->vFEC){
+                $date = date('Y-m-d');
+                updatevFEC($conn,$_POST["vFEC"],$date,$_POST["idOrden"]);
+            }
+              
+        }
+        else{
+            $vFEC=0;
+            if($vFEC != $reg->vFEC){
+                
+                updatevFEC($conn,$vFEC,null,$_POST["idOrden"]);
+            }
+        }
+    }
+    //ACTUALIZAR ORDENES
+    function updateDirEnt($conn,$dirEnt,$idOrden){
+        $sql = "UPDATE Orden SET dirEnt = ? WHERE idOrden=?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmt, "ss",$dirEnt,$idOrden);
+
+        if(mysqli_stmt_execute($stmt))
+        {
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=successDirEnt");
+            exit();
+        }
+        else{
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=sqlerror");
+            exit();
+        }
+    }
+    function updateFecha($conn,$fechaSol,$idOrden){
+        $sql = "UPDATE Orden SET fechaOrden = ? WHERE idOrden = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmt, "ss",$fechaSol,$idOrden);
+
+        if(mysqli_stmt_execute($stmt))
+        {
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=successFecha");
+            exit();
+        }
+        else{
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=sqlerror");
+            exit();
+        }
+    }
+    function updateFacturas($conn,$vFacturas,$tFac,$idOrden){
+        $sql = "UPDATE Orden SET vFacturas = ?, tFac = ? WHERE idOrden = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmt, "iss",$vFacturas,$tFac,$idOrden);
+
+        if(mysqli_stmt_execute($stmt))
+        {
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=successvFac");
+            exit();
+        }
+        else{
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=sqlerror");
+            exit();
+        }
+    }
+    function updateCxC($conn,$vCxC,$tCXC,$idOrden){
+        $sql = "UPDATE Orden SET vCxC = ?, tCXC = ? WHERE idOrden = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmt, "iss",$vCxC,$tCXC,$idOrden);
+
+        if(mysqli_stmt_execute($stmt))
+        {
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=successvCxC");
+            exit();
+        }
+        else{
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=sqlerror");
+            exit();
+        }
+    }
+    function updatevPrecios($conn,$vPrecios,$tPRE,$idOrden){
+        $sql = "UPDATE Orden SET vPrecios = ?, tPRE = ? WHERE idOrden = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmt, "iss",$vPrecios,$tPRE,$idOrden);
+
+        if(mysqli_stmt_execute($stmt))
+        {
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=successvPrecios");
+            exit();
+        }
+        else{
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=sqlerror");
+            exit();
+        }
+    }
+
+    function updatevCostos($conn,$vCostos,$tCST,$idOrden){
+        $sql = "UPDATE Orden SET vCostos = ?, tCST = ? WHERE idOrden = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmt, "iss",$vCostos,$tCST,$idOrden);
+
+        if(mysqli_stmt_execute($stmt))
+        {
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=successvCostos");
+            exit();
+        }
+        else{
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=sqlerror");
+            exit();
+        }
+    }
+    function updatevIng($conn,$vIng,$tING,$idOrden){
+        $sql = "UPDATE Orden SET vIng = ?, tING = ? WHERE idOrden = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmt, "iss",$vIng,$tING,$idOrden);
+
+        if(mysqli_stmt_execute($stmt))
+        {
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=successvIng");
+            exit();
+        }
+        else{
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=sqlerror");
+            exit();
+        }
+    }
+    function updatevFEC($conn,$vFEC,$tFEC,$idOrden){
+        $sql = "UPDATE Orden SET vFEC = ?, tFEC = ? WHERE idOrden = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmt, "iss",$vFEC,$tFEC,$idOrden);
+
+        if(mysqli_stmt_execute($stmt))
+        {
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=successvFEC");
+            exit();
+        }
+        else{
+            mysqli_stmt_close($stmt);
+            header("location: ../php/O_actualizar.php?error=sqlerror");
+            exit();
+        }
+    }
+    function getValuesOrden($conn,$idOrden){
+        $query = "SELECT * FROM Orden WHERE idOrden= $idOrden";
+        $sql= mysqli_query($conn,$query);
+        $reg=mysqli_fetch_object($sql);
+        if($reg==mysqli_fetch_array($sql)){
+            return false;
+        }
+        else{
+            return $reg;
+            
+        }
+    }
+    //ALTA ORDENES
 
     function creditoActual($conn,$idCliente){
         $query = "SELECT SUM(total) AS sum FROM Orden WHERE idCliente = $idCliente";

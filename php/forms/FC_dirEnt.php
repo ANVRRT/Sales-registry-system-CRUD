@@ -20,7 +20,8 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idCliente"]."</option>";
+						echo "<option value = '".$row["idCliente"]."'>".$row["nombreCliente"]."</option>";
+						// echo "<option>".$row["idCliente"]."</option>";
 					}
 				}
 				
@@ -35,7 +36,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="nombreentrega">Nombre Entrega</label>
-			<input class="campo__field" type="text" name="nombreEntrega" id="nombreEntrega">
+			<input class="campo__field" type="text" name="nombreEntrega" id="nombreEntrega" >
 		</div>
 
 		<div class="campo">
@@ -69,8 +70,8 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="codruta">Código de ruta</label>
-			<input class="campo__field" type="text" name="codruta" id="codruta">
+			<label class="campo__label" for="codruta">Código de ruta*</label>
+			<input class="campo__field" type="text" name="codruta" id="codruta" required>
 		</div>
 
 		<div class="campo">
@@ -87,6 +88,9 @@
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
 			<input class="campo__field button--blue" type="submit" name="B_dirEnt" value="Baja">
 			<input class="campo__field button--blue" type="submit" name="A_dirEnt"value="Alta">
+		</div>
+		<div class="campo__3--button">
+		<input style="background-color:#E2CD01" class="campo__field button--blue" type="submit" value="Actualizar" name="U_dirEnt">
 		</div>
 	</form>
 

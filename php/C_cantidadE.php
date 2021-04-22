@@ -54,7 +54,12 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("forms/FC_cantidadE.php");
+                                if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("pc_cantEntregada")))) {
+                                    include("forms/FC_cantidadE.php");
+                                }else{
+                                    include("404.php");
+                                }
+
                                 if(isset($_POST["C_cantidadE"])){
                                     $idCompania = $_SESSION["idCompania"];
                                     $reg = dispCantidadE($conn,$idCompania);

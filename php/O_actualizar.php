@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <?php
-        include("../includes/header.php");
-        require_once("../includes/dbh.inc.php");
+         include("../includes/header.php");
+         require_once("../includes/dbh.inc.php");
     ?>
 	<link rel="stylesheet" href="../css/stylesForms.css">
 	<link rel="stylesheet" href="../css/normalize.css">
@@ -52,9 +51,10 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                if ((roles($_SESSION["rol"], array("ADM","CXC"))) || (permissions($_SESSION["permisos"], array("pc_bloqCliente")))) {
-                                    include("forms/FC_bloqueoCliente.php");
-                                }else{
+                                if ( (roles($_SESSION["rol"], array("ADM","AGE"))) || (permissions($_SESSION["permisos"],array("h"))) ) {
+                                    include("forms/FO_actualizar.php");
+                                }
+                                else{
                                     include("404.php");
                                 }
                             ?>

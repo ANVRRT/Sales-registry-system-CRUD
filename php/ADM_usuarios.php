@@ -3,12 +3,11 @@
 
 <head>
     <?php
-    include("../includes/header.php");
     require_once("../includes/dbh.inc.php");
+    include("../includes/header.php");
     ?>
     <link rel="stylesheet" href="../css/stylesForms.css">
     <link rel="stylesheet" href="../css/normalize.css">
-    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -21,7 +20,8 @@
 
             <?php
             include("../includes/sidebar.php");
-            require_once("../includes/functions_catalogos.php");
+            require_once("../includes/functions_admin.php");
+
             ?>
 
 
@@ -49,77 +49,74 @@
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
 
                 </div> -->
-                
-                <div class="container-fluid"> 
+                <div class="container-fluid">
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("pc_agente")))) {
-                                    include("forms/FC_agente.php");
-                                }else{
-                                    include("404.php");
-                                }
+                            if ((roles($_SESSION["rol"], array("ADM", "ADC"))) || (permissions($_SESSION["permisos"], array("padm_usuarios")))) {
+                                include("forms/FADM_usuarios.php");
+                            }else{
+                                include("404.php");
+                            }
 
-                                if(isset($_POST["C_agente"])){
-                                    $idCompania = $_SESSION["idCompania"];
-                                    $reg = dispRepresentante($conn,$idCompania);
-                                    echo "<div class='card shadow mb-4'>
+                            if (isset($_POST["ADM_usuarios"])) {
+                                $reg = dispUsuarios($conn, $_SESSION["idCompania"]);
+                                echo "<div class='card shadow mb-4'>
                                             <div class='card-header py-3'>
-                                                <h6 class='m-0 font-weight-bold text-primary'>Listado de Representantes</h6>
+                                                <h6 class='m-0 font-weight-bold text-primary'>Listado de Usuarios</h6>
                                             </div>
                                             <div class='card-body'>
-                                                <div class='table-responsive'>
+                                                <div class='table-responsive'>                                                
                                                     <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
                                                         <thead>
                                                             <tr align='center'>
-                                                                <th>ID Compañía</th>
-                                                                <th>ID Representante</th><!---->
-                                                                <th>Nombre</th><!---->
+                                                                <th>Usuario</th>
+                                                                <th>Nombre de Usuario</th>
+                                                                <th>Rol</th>
+                                                                <th>Compañia</th>
+                                                                <th>Opciones</th>
                                                             </tr>
                                                         </thead>
                                                         
                                                         <tbody>";
-                                    while ($row=mysqli_fetch_assoc($reg)){
-                                                            if ($row["estatus"] == 1){
-                                                                echo "  <tr>
-                                                                            <td align='center'>".$row["idCompania"]."</td>
-                                                                            <td align='center'>".$row["idRepresentante"]."</td>
-                                                                            <td align='center'>".$row["nomRepresentante"]."</td>
-                                                                        </tr>";
-                                                                }
+                                                        while ($row = mysqli_fetch_assoc($reg)) {
+                                                            echo "  
+                                                            <tr>
+                                                                <td align='center'>" . $row["idUsuario"] . "</td>
+                                                                <td align='center'>" . $row["nomUsuario"] . "</td>
+                                                                <td align='center'>" . $row["rol"] . "</td>
+                                                                <td align='center'>" . $row["idCompania"] . "</td>
+                                                                <td align='center'><a href='../includes/functions_admin.php?B_Usuario=1&idUsuario=".$row["idUsuario"]."'class='btn btn-danger'>Eliminar Usuario</a></td>
+                                                                
+
+                                                            </tr>";
                                                         }
 
-                                    echo " 
+                                echo " 
                                                             
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>";
+                            }
+                            if (isset($_GET["error"])) {
+                                if ($_GET["error"] == "success") {
+                                    echo "<p style='color: black;'> ¡Rol actualizado exitosamente! </p>";
                                 }
-
-                                if(isset($_GET["error"]))
-                                {
-                                    if($_GET["error"] == "success")
-                                    {
-                                        echo "<p style='color: black;'> ¡Agente dado de alta exitosamente! </p>";
-                                    }
-                                    if($_GET["error"] == "success2")
-                                    {
-                                        echo "<p style='color: black;'> ¡Agente dado de baja exitosamente! </p>";
-                                    }
-                                    if($_GET["error"] == "sqlerror")
-                                    {
-                                        echo "<p style='color: black;'> ¡Algo salió mal! </p>";
-                                    }
-
+                                if ($_GET["error"] == "success2") {
+                                    echo "<p style='color: black;'> ¡Rol actualizado exitosamente! </p>";
                                 }
+                                if ($_GET["error"] == "sqlerror") {
+                                    echo "<p style='color: black;'> ¡Algo salió mal! </p>";
+                                }
+                            }
                             ?>
                         </div>
                     </div>
-				</div>
-				
-           
+                </div>
+
+                <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
@@ -155,12 +152,6 @@
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../js/demo/datatables-demo.js"></script>
 </body>
 
 </html>

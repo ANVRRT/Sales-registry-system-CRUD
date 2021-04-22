@@ -65,7 +65,7 @@
                                             echo "<th>Num. Orden compra</th>";
                                             echo "<th>Fecha Orden</th>";
 
-                                            if($_SESSION["rol"]=="ADM" || "DIR"){
+                                            if ((roles($_SESSION["rol"], array("ADM", "DIR"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenADM")))){
                                                 echo "<th>vFac</th>";
                                                 echo "<th>vCxC</th>";
                                                 echo "<th>vPREC</th>";
@@ -74,32 +74,32 @@
                                                 echo "<th>vPLN</th>";
                                                 echo "<th>vFEC</th>";
                                             }
-                                                
-                                            if($_SESSION["rol"]=="FAC"){
+                                            
+                                            if ((roles($_SESSION["rol"], array("FAC"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenFAC")))){
                                                 echo "<th>vFac</th>";
                                             }
-                                            if($_SESSION["rol"]=="CXC"){
+                                            if ((roles($_SESSION["rol"], array("CXC"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenCXC")))){
 
                                                 echo "<th>vCxC</th>";
                                             }
 
-                                            if($_SESSION["rol"]=="VTA"){
+                                            if ((roles($_SESSION["rol"], array("VTA"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenVTA")))){
 
                                                 echo "<th>vPREC</th>";
                                             }
-                                            if($_SESSION["rol"]=="CST"){
+                                            if ((roles($_SESSION["rol"], array("CST"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenCST")))){
 
                                                 echo "<th>vCST</th>";
                                             }
-                                            if($_SESSION["rol"]=="ING"){
+                                            if ((roles($_SESSION["rol"], array("ING"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenING")))){
 
                                                 echo "<th>vING</th>";
                                             }
-                                            if($_SESSION["rol"]=="PLN"){
+                                            if ((roles($_SESSION["rol"], array("PLN"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenPLN")))){
 
                                                 echo "<th>vPLN</th>";
                                             }
-                                            if($_SESSION["rol"]=="FEC"){
+                                            if ((roles($_SESSION["rol"], array("FEC"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenFEC")))){
                                                 echo "<th>vFEC</th>";
 
                                             }
@@ -131,9 +131,12 @@
 
                                         if(isset($_GET["idOrden"])){
                                             $reg = dispOrdenByID($conn,$_GET["idOrden"]);
+                                            $bToken = 1;
                                         }
                                         else{
                                             $reg = dispOrden($conn, $_SESSION["idCompania"]);
+                                            $bToken = 0;
+
 
                                         }
 
@@ -189,33 +192,33 @@
                                                 //     }
                                                 //     break;
                                                 case "CXC":
-                                                    if($row["vCxC"]!="1"){
+                                                    if(($row["vCxC"]!="1") || ($bToken == 1)){
                                                         $skey = true;
                                                     }
                                                     break;
                                                 case "VTA":
-                                                    if(($row["vPrecios"]!="1") && ($row["vCxC"]=="1")){
+                                                    if((($row["vPrecios"]!="1") && ($row["vCxC"]=="1")) || ($bToken == 1)){
                                                         $skey = true;
                                                     }
                                                     
                                                     break;
 
                                                 case "CST":
-                                                    if(($row["vCostos"]!="1") && ($row["vIng"]=="1")){
+                                                    if((($row["vCostos"]!="1") && ($row["vIng"]=="1")) || ($bToken == 1)){
                                                         $skey = true;
                                                     }
                                                     
                                                     break;
 
                                                 case "ING":
-                                                    if(($row["vIng"]!="1")  && ($row["vPrecios"]=="1")){
+                                                    if((($row["vIng"]!="1")  && ($row["vPrecios"]=="1")) || ($bToken == 1)){
                                                         $skey = true;
                                                     }
                                                     
                                                     break;
 
                                                 case "PLN":
-                                                    if(($row["vPlaneacion"]!="1") && ($row["vCostos"]=="1")){
+                                                    if((($row["vPlaneacion"]!="1") && ($row["vCostos"]=="1")) || ($bToken == 1)){
                                                         $skey = true;
                                                     }
                                                     break;
@@ -241,7 +244,7 @@
                                                 echo "<td id='ordCompra_".$row["idOrden"]."' style='text-align: center;'>". $row["ordenCompra"] ."</td>";
                                                 echo "<td style='text-align: center;'><input  type='date' name='fechaOrden' id='fechaOrden_".$row["idOrden"]."' value='".$row["fechaOrden"]."' readonly></td>";
 
-                                                if($_SESSION["rol"]=="ADM" || "DIR"){
+                                                if ((roles($_SESSION["rol"], array("ADM", "DIR"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenADM")))){
                                                     echo "<td align='center'><input  type='checkbox' name='vFacturas_".$row["idOrden"]."'   id='vFacturas_".$row["idOrden"]."' ".$vFacturas_chked." disabled></td>";
                                                     echo "<td align='center'><input  type='checkbox' name='vCxC_".$row["idOrden"]."'        id='vCxC_".$row["idOrden"]."' ".$vCXC_chked." disabled></td>";
                                                     echo "<td align='center'><input  type='checkbox' name='vPrecios_".$row["idOrden"]."'    id='vPrecios_".$row["idOrden"]."' ".$vPrecios_chked." disabled></td>";
@@ -270,7 +273,7 @@
                                                 //     <input style='margin-top: 5px;' name='detalle' type='button' value='Ver detalle' class='btn btn-primary' 
                                                 //     onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML,".$_SESSION["idCompania"].")'></td>";
                                                 // }
-                                                if($_SESSION["rol"]=="CXC"){
+                                                if ((roles($_SESSION["rol"], array("CXC"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenCXC")))){
                                                     echo "<td align='center'><input  type='checkbox' name='vCxC_".$row["idOrden"]."'        id='vCxC_".$row["idOrden"]."' ".$vCXC_chked." disabled></td>";
                                                     echo "<td align='center'>
                                                     <input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' 
@@ -280,7 +283,7 @@
                                                     </td>";
                                                 }
 
-                                                if($_SESSION["rol"]=="VTA"){
+                                                if ((roles($_SESSION["rol"], array("VTA"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenVTA")))){
                                                     echo "<td align='center'><input  type='checkbox' name='vPrecios_".$row["idOrden"]."'    id='vPrecios_".$row["idOrden"]."' ".$vPrecios_chked." disabled></td>";
                                                     echo "<td align='center'>
                                                     <input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' 
@@ -289,7 +292,7 @@
                                                     onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'>
                                                     </td>";
                                                 }
-                                                if($_SESSION["rol"]=="CST"){
+                                                if ((roles($_SESSION["rol"], array("CST"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenCST")))){
                                                     echo "<td align='center'><input  type='checkbox' name='vCST_".$row["idOrden"]."'        id='vCostos_".$row["idOrden"]."' ".$vCostos_chked." disabled></td>";
                                                     echo "<td align='center'>
                                                     <input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' 
@@ -298,7 +301,7 @@
                                                     onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'>
                                                     </td>";
                                                 }
-                                                if($_SESSION["rol"]=="ING"){
+                                                if ((roles($_SESSION["rol"], array("ING"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenING")))){
                                                     echo "<td align='center'><input  type='checkbox' name='vIng_".$row["idOrden"]."'        id='vIng_".$row["idOrden"]."' ".$vIng_chked." disabled></td>";
                                                     echo "<td align='center'>
                                                     <input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' 
@@ -307,7 +310,7 @@
                                                     onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'>
                                                     </td>";
                                                 }
-                                                if($_SESSION["rol"]=="PLN"){
+                                                if ((roles($_SESSION["rol"], array("PLN"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenPLN")))){
                                                     echo "<td align='center'><input  type='checkbox' name='vPLN_".$row["idOrden"]."'        id='vPLN_".$row["idOrden"]."' ".$vPlaneacion_chked." disabled></td>";
                                                     echo "<td align='center'>
                                                     <input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' 

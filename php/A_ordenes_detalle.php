@@ -101,7 +101,7 @@
                                             //PLN
                                             // vPLN, nota, !maquina, acumulado.
                                             //Ya puestos en ADM: Precio CXC
-                                            if($_SESSION["rol"]=="ADM" || "DIR"){
+                                            if ((roles($_SESSION["rol"], array("ADM", "DIR"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenADM")))){
                                                 echo "<th>Precio</th>";
                                                 echo "<th>Costo</th>";
                                                 echo "<th>Acumulado</th>";
@@ -121,14 +121,14 @@
 
                                             }
                                                 
-                                            // if($_SESSION["rol"]=="FAC"){
+                                            // if ((roles($_SESSION["rol"], array("FAC"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenFAC")))){
+
                                             //     echo "Los TH van aquí"
                                             // }
                                             
                                             //CXC
                                             //precio,vcxc, numfact, ordenCompra
-                                            if($_SESSION["rol"]=="CXC"){
-
+                                            if ((roles($_SESSION["rol"], array("CXC"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenCXC")))){
                                                 echo "<th>Precio</th>";
                                                 echo "<th>Núm. Factura</th>";
                                                 echo "<th>vCxC</th>";
@@ -137,7 +137,7 @@
                                             //VTA
                                             //precio, moneda, fechaOrdenCompra, fechaCliente
                                             //VPREC, vrep, ordenCompra, nota
-                                            if($_SESSION["rol"]=="VTA"){
+                                            if ((roles($_SESSION["rol"], array("VTA"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenVTA")))){
 
                                                 echo "<th>Precio</th>";
                                                 echo "<th>Moneda</th>";
@@ -153,8 +153,9 @@
                                             
                                             //CST
                                             //Precio,vCXC, numFact, ordenCompra
-                                            if($_SESSION["rol"]=="CST"){
+                                            if ((roles($_SESSION["rol"], array("CST"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenCST")))){
                                                 echo "<th>Precio</th>";
+                                                echo "<th>Costo</th>";
                                                 echo "<th>Núm. Factura</th>";
                                                 echo "<th>vCxC</th>";
                                                 echo "<th>Orden Compra</th>";
@@ -164,7 +165,7 @@
                                             //ING
                                             //vcxc, vprec,
                                             //ving,vcst,vrep,vPLN,costo,
-                                            if($_SESSION["rol"]=="ING"){
+                                            if ((roles($_SESSION["rol"], array("ING"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenING")))){
 
                                                 echo "<th>Costo</th>";
                                                 echo "<th>vCxC</th>";
@@ -179,14 +180,14 @@
                                             //PLN
                                             // vPLN, nota, !maquina, acumulado.
                                             //Ya puestos en ADM: Precio CXC
-                                            if($_SESSION["rol"]=="PLN"){
+                                            if ((roles($_SESSION["rol"], array("PLN"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenPLN")))){
                                                 echo "<th>Acumulado</th>";
 
                                                 echo "<th>vPLN</th>";
                                                 echo "<th>Nota</th>";
                                                 echo "<th>Opciones</th>";
                                             }
-                                            // if($_SESSION["rol"]=="FEC"){
+                                            // if ((roles($_SESSION["rol"], array("FEC"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenFEC")))){
                                             //     echo "Los TH van aquí"
 
                                             // }
@@ -276,7 +277,7 @@
 
                                                 
 
-                                                if($_SESSION["rol"]=="ADM" || "DIR"){
+                                                if ((roles($_SESSION["rol"], array("ADM", "DIR"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenADM")))){
 
                                                     // echo "<th>Precio</th>";
                                                     echo "<td id='precio_".$row2["folioRO"]."' style='text-align: center;'>". $row2["precio"] ."</td>";
@@ -315,10 +316,10 @@
                                                     
                                                 }
                                                     
-                                                // if($_SESSION["rol"]=="FAC"){
+                                                // if ((roles($_SESSION["rol"], array("FAC"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenFAC")))){
                                                 //     echo "AQUÍ VAN LOS TD";
                                                 // }
-                                                if($_SESSION["rol"]=="CXC"){
+                                                if ((roles($_SESSION["rol"], array("CXC"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenCXC")))){
                                                     // echo "<th>Precio</th>";
                                                     echo "<td id='precio_".$row2["folioRO"]."' style='text-align: center;'>". $row2["precio"] ."</td>";
                                                     // echo "<th>Núm. Factura</th>";
@@ -330,7 +331,7 @@
                                                     // echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'></td>";
                                                 }
 
-                                                if($_SESSION["rol"]=="VTA"){
+                                                if ((roles($_SESSION["rol"], array("VTA"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenVTA")))){
                                                     // echo "<th>Precio</th>";
                                                     echo "<td id='precio_".$row2["folioRO"]."' style='text-align: center;'>". $row2["precio"] ."</td>";
                                                     // echo "<th>Moneda</th>";
@@ -352,9 +353,10 @@
                                                     // echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'></td>";
                                                     echo "<td align='center'><input type='button' class='btn btn-primary'  data-toggle='modal' data-target='#ventana' value='Modificar Artículo' onClick='returnDataIntoPOW(\"".$row2["folioRO"]."\",document.getElementById(\"idOrden_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"folioArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"idArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"cantidad_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"precio_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"fechaOC_".$row2["folioRO"]."\").value,document.getElementById(\"fechaEnt_".$row2["folioRO"]."\").value);'></td> ";
                                             }
-                                                if($_SESSION["rol"]=="CST"){
+                                                if ((roles($_SESSION["rol"], array("CST"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenCST")))){
                                                     // echo "<th>Precio</th>";
                                                     echo "<td id='precio_".$row2["folioRO"]."' style='text-align: center;'>". $row2["precio"] ."</td>";
+                                                    echo "<td id='costoo_".$row2["folioRO"]."' style='text-align: center;'>". $row2["costo"] ."</td>";
                                                     // echo "<th>Núm. Factura</th>";
                                                     echo "<td id='numFact_".$row2["folioRO"]."' style='text-align: center;'>". $row2["numFact"] ."</td>";
                                                     // echo "<th>vCxC</th>";
@@ -363,7 +365,7 @@
                                                     echo "<td id='ordenCompra_".$row2["folioRO"]."' style='text-align: center;'>". $row2["ordenCompra"] ."</td>";
 
                                                 }
-                                                if($_SESSION["rol"]=="ING"){
+                                                if ((roles($_SESSION["rol"], array("ING"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenING")))){
                                                     // echo "<th>Costo</th>";
                                                     echo "<td id='costo_".$row2["folioRO"]."' style='text-align: center;'>". $row2["costo"] ."</td>";
                                                     // echo "<th>vCxC</th>";
@@ -381,7 +383,7 @@
                                                     
                                                     // echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'></td>";
                                                 }
-                                                if($_SESSION["rol"]=="PLN"){
+                                                if ((roles($_SESSION["rol"], array("PLN"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenPLN")))){
                                                     // echo "<th>Acumulado</th>";
                                                     echo "<td id='acumulado_".$row2["folioRO"]."' style='text-align: center;'>". $row2["acumulado"] ."</td>";
                                                     // echo "<th>vPLN</th>";
@@ -391,7 +393,7 @@
                                                     // echo "<td align='center'><input name='autorizar' type='button' value='Autorizar orden' class='btn btn-primary' onClick='orden_detalle(document.getElementById(\"idOrden_" . $row["idOrden"] . "\").innerHTML)'></td>";
                                                     echo "<td align='center'><input type='button' class='btn btn-primary'  data-toggle='modal' data-target='#ventana' value='Modificar Artículo' onClick='returnDataIntoPOW2(\"".$row2["folioRO"]."\",document.getElementById(\"idOrden_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"folioArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"idArticulo_".$row2["folioRO"]."\").innerHTML,document.getElementById(\"fechaEntrega_".$row2["folioRO"]."\").value);'></td> ";
                                                 }
-                                                // if($_SESSION["rol"]=="FEC"){
+                                                // if ((roles($_SESSION["rol"], array("FEC"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenFEC")))){
                                                 //     echo "<td align='center'><input  type='checkbox' name='vFEC_".$row["idOrden"]."'        id='vFEC_".$row["idOrden"]."' ".$vFEC_chked." disabled></td>";
                                                 // }
 
@@ -464,7 +466,8 @@
         <i class="fas fa-angle-up"></i>
     </a>
     <?php
-        if((roles($_SESSION["rol"], array("ADM","VTA","DIR")))){
+    
+        if ((roles($_SESSION["rol"], array("ADM", "DIR","VTA"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenADM","po_autorizarOrdenVTA","po_autorizarOrdenDIR")))){
             echo "<div class='modal fade' id='ventana' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
                     <div class='modal-dialog' role='document'>
                         <div class='modal-content'>

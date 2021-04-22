@@ -1,10 +1,10 @@
 <div class="fix-margin">
 	<h1 class="h1-mine">Cliente</h1>
 
-	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
+	<form class="formulario" name="fc_cliente" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="cliente"> id Cliente</label>
-			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="cliente" maxlength="10" required>
+			<input class="campo__field" type="text" name="idCliente" id="idCliente" list="cliente" maxlength="10" required >
 			<?php
 				
 				$reg = dispClientes($conn, $_SESSION["idCompania"]);
@@ -13,7 +13,7 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idCliente"]."</option>";
+						echo "<option value = '".$row["idCliente"]."'>".$row["nombreCliente"]."</option>";
 					}
 					
 
@@ -30,7 +30,7 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="idRepresentante">Representante</label>
+			<label class="campo__label" for="idRepresentante">Representante*</label>
 			<input class="campo__field" type="text" name="idRepresentante" id="idRepresentante" list="representante" >
 			<?php
 
@@ -40,7 +40,7 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idRepresentante"]."</option>";
+						echo "<option value='".$row["idRepresentante"]."'>".$row["nomRepresentante"]."</option>";
 					}
 					
 
@@ -51,8 +51,8 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="idAlmacen">Lista de  precios a utilizar</label>
-			<input class="campo__field" type="text" name="listaPrecios" id="listaPrecios" list="listaPrecio">
+			<label class="campo__label" for="idAlmacen">Lista de  precios a utilizar*</label>
+			<input class="campo__field" type="text" name="listaPrecios" id="listaPrecios" list="listaPrecio" required>
 			<?php
 				
 				$reg = dispListaPrecios($conn, $_SESSION["idCompania"]);
@@ -79,7 +79,7 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idAlmacen"]."</option>";
+						echo "<option value='".$row["idAlmacen"]."'>".$row["descripcion"]."</option>";
 					}
 					
 
@@ -89,18 +89,18 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="nomCliente">Nombre del cliente</label>
+			<label class="campo__label" for="nomCliente">Nombre del cliente*</label>
 			<input class="campo__field" type="text" name="nomCliente" id="nomCliente" required>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="listPrecios">Estatus de cliente</label>
+			<label class="campo__label" for="listPrecios">Estatus de cliente*</label>
 			<input class="campo__field" type="number" name="estatus" id="estatus" min="1" max="3" required>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="analista">Analista</label>
-			<input class="campo__field" type="text" name="idAnalista" id="idAnalista" list="analista" required>
+			<label class="campo__label" for="analista">Analista*</label>
+			<input class="campo__field" type="text" name="idAnalista" id="idAnalista" list="analista" >
 			<?php
 
 				$reg = dispRepresentante($conn, $_SESSION["idCompania"]);
@@ -109,7 +109,8 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idRepresentante"]."</option>";
+						echo "<option value='".$row["idRepresentante"]."'>".$row["nomRepresentante"]."</option>";
+						// echo "<option>".$row["idRepresentante"]."</option>";
 					}
 	
 				}
@@ -123,7 +124,7 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="lim_credito">Límite de crédito</label>
+			<label class="campo__label" for="lim_credito">Límite de crédito*</label>
 			<input class="campo__field" type="number" name="limCredito" id="limCredito" required>
 		</div>
 
@@ -145,7 +146,10 @@
 		<div class="campo__3--button">
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
 			<input class="campo__field button--blue" type="submit" name= "B_cliente" value="Baja">
-			<input class="campo__field button--blue" type="submit" name= "A_cliente" value="Alta">
+			<input class="campo__field button--blue" type="submit" name= "A_cliente" value="Alta" >
+		</div>
+		<div class="campo__3--button">
+		<input style="background-color:#E2CD01" class="campo__field button--blue" type="button" value="Actualizar" name="U_cliente" id="U_cliente" onclick="updateCliente()">
 		</div>
 	</form>
 

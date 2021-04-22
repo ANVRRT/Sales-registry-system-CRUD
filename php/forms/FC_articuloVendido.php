@@ -4,7 +4,7 @@
 	<form class="formulario" method="POST" action="../includes/functions_catalogos.php" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="folio">Folio</label>
-			<input class="campo__field" name="folio" type="number" id="folio" min="0" max="99999999999"required>
+			<input class="campo__field" name="folio" type="number" id="folio" min="0" max="99999999999">
 		</div>
 
 		<div class="campo">
@@ -18,7 +18,8 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idArticulo"]."</option>";
+						echo "<option value='".$row["idArticulo"]."'>".$row["descripcion"]."</option>";
+						// echo "<option>".$row["idArticulo"]."</option>";
 					}
 
 				}
@@ -44,7 +45,8 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idCliente"]."</option>";
+						echo "<option value = '".$row["idCliente"]."'>".$row["nombreCliente"]."</option>";
+						// echo "<option>".$row["idCliente"]."</option>";
 					}
 				}
 				echo "</datalist>";
@@ -53,23 +55,26 @@
 		
 		<div class="campo">
 			<label class="campo__label" for="stock">Stock</label>
-			<input class="campo__field" name="stock" type="number" id="stock">
+			<input class="campo__field" name="stock" type="number" id="stock" required>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="codAviso">Código Aviso</label>
-			<input class="campo__field" name="codAviso" type="text" id="codAviso" required>
+			<label class="campo__label" for="codAviso">Código Aviso*</label>
+			<input class="campo__field" name="codAviso" type="text" id="codAviso" maxlength="3" required>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="udVta">Unidad de venta</label>
-			<input class="campo__field" name="udVta" type="text" id="udVta">
+			<label class="campo__label" for="udVta">Unidad de venta*</label>
+			<input class="campo__field" name="udVta" type="text" id="udVta" required>
 		</div>
 
 		<div class="campo__3--button">
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
 			<input class="campo__field button--blue" name="B_artV" type="submit" value="Baja">
 			<input class="campo__field button--blue" name="A_artV" type="submit" value="Alta">
+		</div>
+		<div class="campo__3--button">
+		<input style="background-color:#E2CD01" class="campo__field button--blue" type="button" value="Actualizar" name="U_artV" id="U_artV" onclick="updateArtV()">
 		</div>
 	</form>
 

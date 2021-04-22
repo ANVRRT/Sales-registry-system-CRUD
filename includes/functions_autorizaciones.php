@@ -1,5 +1,6 @@
 <?php
 require_once("dbh.inc.php");
+require_once("functions_reporteOrden.php");
 
 if(isset($_GET["A_CXC"])){
     A_CXC($conn,$_GET["idOrden"],$_GET["idCliente"]);
@@ -165,7 +166,7 @@ function A_VTA($conn,$idOrden,$idCliente){
     }
 }
 function A_PLN($conn,$idOrden,$idCliente){
-    $sql= "UPDATE Orden SET vPlaneacion= 1, tPLN = ? WHERE idOrden = ? AND idCliente= ?";
+    $sql= "UPDATE Orden SET vPlaneacion= 1, vREP = 1, estatus = 1, tPLN = ? WHERE idOrden = ? AND idCliente= ?";
     $date = date('Y-m-d');
 
     $stmt = mysqli_stmt_init($conn);
@@ -179,7 +180,8 @@ function A_PLN($conn,$idOrden,$idCliente){
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
-        header("location: ../php/A_ordenes_base.php?error=success");
+        generateTxtERP($conn,$idOrden);
+        header("location: ../php/A_ordenes_base.php?error=successERP");
         exit();
     }
     else{
@@ -190,12 +192,19 @@ function A_PLN($conn,$idOrden,$idCliente){
 }
 // MA_VTA($conn,$_GET["idOrden"],$_GET["folio"],$_GET["articulo"],$_GET["cantidad"],$_GET["precio"],$_GET["fsolicitud"],$_GET["fentrega"])
 function MA_VTA($conn,$idOrden,$folioRO,$cantidad,$precio,$fsolicitud,$fentrega){
+
     $Orden = getOrden($conn,$idOrden);
+
     $ROrden = getReporteOrden($conn,$folioRO);
+
     $totalO = $Orden["total"];
+
     $totalRO = $ROrden["total"];
+
     $AtotalO = $totalO - $totalRO;
+
     $NtotalRO = $cantidad * $precio;
+
     $NtotalO = $AtotalO + $NtotalRO;
 
     $sql= "UPDATE ReporteOrden SET cantidad = ?, precio = ?, fechaSolicitud = ?, fechaEntrega = ?, total = ? WHERE folioRO = ?";
@@ -212,7 +221,6 @@ function MA_VTA($conn,$idOrden,$folioRO,$cantidad,$precio,$fsolicitud,$fentrega)
     {
         mysqli_stmt_close($stmt);
         updatetOrden($conn,$idOrden,$NtotalO);
-        
         header("location: ../php/A_ordenes_detalle.php?idOrden=$idOrden");
         exit();
     }
@@ -294,7 +302,6 @@ function getReporteOrden($conn,$folioRO){
 
 function updatetOrden($conn,$idOrden,$total){
     $sql= "UPDATE Orden SET total = ? WHERE idOrden = ?";
-
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))
     {
@@ -304,7 +311,5 @@ function updatetOrden($conn,$idOrden,$total){
     mysqli_stmt_bind_param($stmt,"ds",$total, $idOrden);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-
-    exit();
 }
 ?>

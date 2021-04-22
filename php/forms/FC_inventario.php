@@ -39,7 +39,8 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					
-					echo "<option>".$row["idArticulo"]."</option>";
+						echo "<option value='".$row["idArticulo"]."'>".$row["descripcion"]."</option>";
+						// echo "<option>".$row["idArticulo"]."</option>";
 				
 
 				}
@@ -49,16 +50,19 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="stockInventario">Stock</label>
+			<label class="campo__label" for="stockInventario">Stock*</label>
 			<input class="campo__field" type="number" name="stock" id="stock">
 		</div>
 		
 
 		<div class="campo__3--button">
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
-			<input style="background-color:#E2CD01" class="campo__field button--blue" type="submit" value="Actualizar" name="U_inventario">
+		
 			<input class="campo__field button--blue" name="B_inventario" type="submit" value="Baja">
 			<input class="campo__field button--blue" name="A_inventario" type="submit" value="Alta">
+		</div>
+		<div class="campo__3--button">
+		<input style="background-color:#E2CD01" class="campo__field button--blue" type="submit" value="Actualizar" name="U_inventario">
 		</div>
 	</form>
 

@@ -178,6 +178,7 @@ function loginUser($conn, $idUsuario, $pswrd)
            
         }
         $_SESSION["idUsuario"] = $iduExists["idUsuario"];
+        $_SESSION["nombre"] = $iduExists["nomUsuario"];
         $_SESSION["idCompania"] = $iduExists["idCompania"];
         $_SESSION["rol"] = $iduExists["rol"];
         header("location: ../php/index.php");
