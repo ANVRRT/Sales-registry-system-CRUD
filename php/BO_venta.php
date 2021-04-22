@@ -52,7 +52,11 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("forms/FB_ordenes_venta.php");
+                                if ((roles($_SESSION["rol"], array("ADM", "ADC","AGE","CST","ING","VTA","EMB","DIR"))) || (permissions($_SESSION["permisos"], array("pb_ordenVenta")))) {
+                                    include("forms/FB_ordenes_venta.php");
+                                }else{
+                                    include("404.php");
+                                }
                             ?>
                         </div>
                     </div>

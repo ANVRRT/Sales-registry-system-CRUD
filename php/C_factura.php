@@ -52,7 +52,11 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                            include("forms/FC_factura.php");
+                            if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("pc_factura")))) {
+                                include("forms/FC_factura.php");
+                            }else{
+                                include("404.php");
+                            }
                             if (isset($_POST["C_factura"])) {
                                 $idCompania = $_SESSION["idCompania"];
                                 $reg = dispFactura($conn, $idCompania);

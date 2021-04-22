@@ -181,7 +181,7 @@ function A_PLN($conn,$idOrden,$idCliente){
     {
         mysqli_stmt_close($stmt);
         generateTxtERP($conn,$idOrden);
-        header("location: ../php/A_ordenes_base.php?error=success");
+        header("location: ../php/A_ordenes_base.php?error=successERP");
         exit();
     }
     else{

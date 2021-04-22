@@ -56,7 +56,11 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("forms/FC_articuloExistente.php");
+                                if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("pc_artExistente")))) {
+                                    include("forms/FC_articuloExistente.php");
+                                }else{
+                                    include("404.php");
+                                }
                                 if(isset($_POST["C_articuloExistente"])){
                                     $idCompania = $_SESSION["idCompania"];
                                     $reg = dispArticulos($conn,$idCompania);

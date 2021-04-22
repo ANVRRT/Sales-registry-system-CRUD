@@ -53,7 +53,12 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                            include("forms/FADM_roles.php");
+                            if ((roles($_SESSION["rol"], array("ADM", "ADC"))) || (permissions($_SESSION["permisos"], array("padm_roles")))) {
+                                include("forms/FADM_roles.php");
+                            }else{
+                                include("404.php");
+                            }
+
                             if (isset($_POST["ADM_roles"])) {
                                 $reg = dispRoles($conn, $_SESSION["idCompania"]);
                                 echo "<div class='card shadow mb-4'>

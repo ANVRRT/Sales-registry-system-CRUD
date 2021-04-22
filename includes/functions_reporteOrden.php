@@ -274,6 +274,119 @@ function generateTxtERP($conn,$idOrden){
     // fwrite($myfile, $lineLIN2);
     fclose($myfile);
 
+    //mandarFTP($txtnameOrden);
+    // ftpFileUpload($conn, $txtnameOrden, "ftpitesm.cmoderna.com", "usu_itesm");
+    ftpFileUpload($conn, $txtnameOrden, $myidCompania);
+
+
+    
+
+
     
 }
+
+function getFTPParams($conn, $idCompania) {
+    $sql="SELECT * FROM Parametro WHERE activo = 1 AND idCompania = ?";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+    $pass = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+    
+
+    mysqli_stmt_close($stmt);
+    // exit();
+
+
+
+    return $pass;
+
+}
+
+function ftpFileUpload($conn, $file, $idCompania) {
+
+    $remote_file=$file; //"PV-13-555555-PRUEBA2-225.txt";
+    $file = "../txtBaan/$file";
+    //$file="PV-13-555555-PRUEBA2-225.txt";
+    /*
+    $fp=fopen($file, 'r');
+    //fpassthru($fp);
+    while(!feof($fp)){
+        // Leyendo una linea
+        $traer = fgets($fp);
+        // Imprimiendo una linea
+        echo nl2br($traer);
+    }
+    fclose($fp);
+    */
+
+    $credentials = getFTPParams($conn, $idCompania);
+    $ftp_server = $credentials["servidor"];
+    $ftp_user_name = $credentials["idUsuario"];
+    $ftp_user_pass = $credentials["contrasena"];
+    // header("location: ../php/index.php?error=/$ftp_user_name/$ftp_server/$ftp_user_pass");
+    // exit();
+
+    //$ftp_server="ftpitesm.cmoderna.com";
+    //$ftp_user_name="usu_itesm";
+    //$ftp_user_pass="usuitesm";
+
+    // establecer una conexión básica
+    // $conn_id = ftp_connect($ftp_server); 
+
+    $conn_id = ftp_connect($ftp_server); 
+    // ftp_close($conn_id);
+
+    // header("location: ../php/index.php?success=$conn_id");
+
+    //echo $conn_id;
+
+    // iniciar una sesión con nombre de usuario y contraseña
+    $login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass); 
+    // header("location: ../php/index.php?error=$conn_id/$login_result/$ftp_user_name/$ftp_server/$ftp_user_pass");
+    // exit();
+
+    
+
+    // verificar la conexión
+
+    if ((!$conn_id) || (!$login_result)) {  
+        header("location: ../php/index.php?error=ftpcone");
+        //echo "¡La conexión FTP ha fallado!";
+        //echo "Se intentó conectar al $ftp_server por el usuario $ftp_user_name"; 
+    } else {
+        header("location: ../php/index.php?error=ftpcons");
+        // exit();
+        //echo "<br> Conexión a $ftp_server realizada con éxito, por el usuario $ftp_user_name";
+    }
+
+    //echo "<br>";
+
+    //ftp_pasv ($conn_id, false) ;
+
+    //echo ftp_pwd($conn_id);
+    //echo ftp_mlsd($conn_id, '/');
+
+    
+    
+
+
+    if (ftp_put($conn_id, $remote_file, $file)) {
+        header("location: ../php/index.php?error=ftps");
+        //echo "Cargado correctamente $file\n";
+    } else {
+        //echo "Ha habido un problema al cargar $file\n";
+        header("location: ../php/index.php?error=ftpe");
+    
+    }
+    ftp_close($conn_id);
+    unlink($file);
+    
+}
+
 ?>

@@ -41,7 +41,9 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                <?php
+                     if ((roles($_SESSION["rol"], array("ADM", "AGE", "VTA", "EMB", "DIR"))) || (permissions($_SESSION["permisos"], array("po_procesadas")))) {
+                ?>
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Ordenes Procesadas</h1>
                     <!-- DataTales Example -->
@@ -237,6 +239,11 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <?php
+                                }else{
+                                    include("404.php");
+                                }
+                            ?>
                         </div>
                     </div>
 

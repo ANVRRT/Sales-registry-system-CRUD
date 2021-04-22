@@ -53,7 +53,12 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("forms/FC_listaPrecios.php");
+                                if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("pc_listaPrecios")))) {
+                                    include("forms/FC_listaPrecios.php");
+                                }else{
+                                    include("404.php");
+                                }
+
                                 if(isset($_POST["C_listaPrecios"])){
                                     $idCompania = $_SESSION["idCompania"];
                                     $reg = dispListaPrecioCompleta($conn,$idCompania);
