@@ -42,7 +42,7 @@ if(isset($_GET["listado"])){
 
 //Parametros Funciones
 if(isset($_POST["A_parametros"])){ 
-    createParametros($conn,$_POST["nameServer"],$_POST["nameUser"],$_POST["namePassword"],$_POST["namePort"],$_POST["nameCompania"],$_POST["nameState"]);
+    createParametros($conn,$_POST["nameServer"],$_POST["nameUser"],$_POST["namePassword"],$_POST["namePort"],$_POST["idCompania"],$_POST["nameState"]);
 }
 if(isset($_POST["B_parametros"])){ 
     deleteParametros($conn,$_POST["nameServer"],$_POST["nameUser"]);
@@ -387,6 +387,9 @@ function setCompaniaADM($idCompania){
 
 
 function createParametros($conn,$Server,$User,$Password,$Port,$Compania,$State){
+    if(empty($Port)) {
+        $Port = null;
+    }
     $sql = "INSERT INTO Parametro VALUES(?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql))

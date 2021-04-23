@@ -110,7 +110,7 @@
                                     }
                                     if($_GET["error"] == "sqlerror")
                                     {
-                                        echo "<p style='color: black;'> ¡Algo salió mal! </p>";
+                                        echo "<p style='text-align: center;color: black;'> ¡Algo salió mal! </p>";
                                     }
 
                                 }

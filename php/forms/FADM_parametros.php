@@ -4,22 +4,22 @@
 	<form class="formulario" method="POST" action="../includes/functions_admin.php" autocomplete="off">
 		<div class="campo">
 			<label class="campo__label" for="idRepresentante">Servidor</label>
-			<input class="campo__field" placeholder="Alta y Baja" type="text" name="nameServer" id="idServer" required>
+			<input class="campo__field" placeholder="Alta y Baja" type="text" name="nameServer" id="nameServer" required>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="idRepresentante">Usuario</label>
-			<input class="campo__field" placeholder="Alta y Baja" type="text" name="nameUser" id="idUser" required>
+			<input class="campo__field" placeholder="Alta y Baja" type="text" name="nameUser" id="nameUser" required>
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="idRepresentante">Contraseña</label>
-			<input class="campo__field" placeholder="Alta" type="text" name="namePassword" id="idPassword">
+			<input class="campo__field" placeholder="Alta" type="text" name="namePassword" id="namePassword">
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="idRepresentante">Puerto</label>
-			<input class="campo__field" placeholder="Alta" type="text" name="namePort" id="idPort">
+			<input class="campo__field" placeholder="Alta" type="text" name="namePort" id="namePort">
 		</div>
 
 		<div class="campo">
@@ -31,7 +31,7 @@
 
 		<div class="campo">
 			<label class="campo__label" for="idRepresentante">Estado</label>
-			<input class="campo__field" placeholder="0: Inactive | 1: Active" type="number" name="nameState" id="idState" min="0" max="1">
+			<input class="campo__field" placeholder="0: Inactive | 1: Active" type="number" name="nameState" id="nameState" min="0" max="1">
 		</div>
 
 
