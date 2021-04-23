@@ -131,7 +131,7 @@ function roles($role, $roleschck)
         <li class='nav-item'>
             <a class='nav-link collapsed' href='#' data-toggle='collapse' data-target='#admin' aria-expanded='true' aria-controls='collapseUtilities'>
                 <i class='fas fa-users-cog'></i>
-                <span>Administracion: </span>
+                <span>Administracion </span>
             </a>
             <div id='admin' class='collapse' aria-labelledby='headingUtilities' data-parent='#accordionSidebar'>
                 <div class='bg-white py-2 collapse-inner rounded'>
@@ -148,6 +148,9 @@ function roles($role, $roleschck)
         }
         if ((roles($_SESSION["rol"], array("ADM", "ADC"))) || (permissions($_SESSION["permisos"], array("padm_registro")))) {
             echo "<a class='collapse-item' href='register.php'>Creación de Usuarios</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM", "ADC"))) || (permissions($_SESSION["permisos"], array("padm_parametros")))) {
+            echo "<a class='collapse-item' href='ADM_parametros.php'>Parametros</a>";
         }
         
         echo "
