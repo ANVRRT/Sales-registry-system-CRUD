@@ -44,14 +44,33 @@ function lecturaTabla(){
   return json;
 }
 
-function BuildChart(labels, values, chartTitle) {
+function lecturaTablaR(){
+  var table = document.getElementById('dataTableR');
+  var json = []; //incluye a los headers
+  var headers = [];
+  for (var i = 0; i < table.rows[0].cells.length; i++) {
+    headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi, '');
+  }
+  //recorre celdas
+  for (var i = 1; i < table.rows.length; i++) {
+    var tableRow = table.rows[i];
+    var rowData = {};
+    for (var j = 0; j < tableRow.cells.length; j++) {
+      rowData[headers[j]] = tableRow.cells[j].innerHTML;
+    }
+  json.push(rowData);
+  }
+  return json;
+}
+
+function BuildChart(labels, values, chartTitle, type) {
   Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
   Chart.defaults.global.defaultFontColor = '#858796';
   //var ctx = document.getElementById("myChart").getContext('2d');
   var ctx = document.getElementById("myBarChart");
   //bar
       myChart = new Chart(ctx, {
-      type: 'horizontalBar',
+      type: type,
       data: {
           labels: labels, // Our labels
           datasets: [{
@@ -66,7 +85,49 @@ function BuildChart(labels, values, chartTitle) {
       },
       options: {
           responsive: true, // Instruct chart js to respond nicely.
-          maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+          maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
+          scales:{
+            xAxes:[{
+              ticks:{
+                beginAtZero:true
+              }
+            }]
+          }
+      }
+  });
+  return myChart;
+}
+
+function BuildChartR(labels, values, chartTitle, type) {
+  Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+  Chart.defaults.global.defaultFontColor = '#858796';
+  //var ctx = document.getElementById("myChart").getContext('2d');
+  var ctx = document.getElementById("myBarChartR");
+  //bar
+      myChart = new Chart(ctx, {
+      type: type,
+      data: {
+          labels: labels, // Our labels
+          datasets: [{
+              label: chartTitle, // Name the series
+              data: values, // Our values
+              backgroundColor: [ // Specify custom colors
+              ],
+              borderColor: [ // Add custom color borders
+              ],
+              borderWidth: 1 // Specify bar border width
+          }]
+      },
+      options: {
+          responsive: true, // Instruct chart js to respond nicely.
+          maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
+          scales:{
+            yAxes:[{
+              ticks:{
+                beginAtZero:true
+              }
+            }]
+          }
       }
   });
   return myChart;
@@ -78,7 +139,7 @@ function actualizarGrafico(chart, labels, values){
   chart.update();
 }
 
-function filtroTabla(){
+function filtroTabla(tipo){
   var json=lecturaTabla();
   var fjson;
   var labels;
@@ -110,7 +171,7 @@ function filtroTabla(){
     //console.log(labels);
     // Map json values back to values array
     values = fjson.map(function (e) {
-        return e.nventa;
+        return e.total;
     });
     //console.log(values);
     actualizarGrafico(myChart,labels,values);
@@ -126,7 +187,7 @@ function filtroTabla(){
     //console.log(labels);
     // Map json values back to values array
     values = fjson.map(function (e) {
-        return e.nventa;
+        return e.total;
     });
     //console.log(values);
     actualizarGrafico(myChart,labels,values);
@@ -141,7 +202,7 @@ function filtroTabla(){
     //console.log(labels);
     // Map json values back to values array
     values = fjson.map(function (e) {
-        return e.nventa;
+        return e.total;
     });
     //console.log(values);
     actualizarGrafico(myChart,labels,values);
@@ -157,7 +218,7 @@ function filtroTabla(){
     //console.log(labels);
     // Map json values back to values array
     values = fjson.map(function (e) {
-        return e.nventa;
+        return e.total;
     });
     //console.log(values);
     actualizarGrafico(myChart,labels,values);
@@ -165,7 +226,7 @@ function filtroTabla(){
     //console.log(fjson);
   }else if (ford.length!=0){
     fjson = json.filter(function (el) {
-      return el.nventa == ford;
+      return el.fechadeorden == ford;
     });
     labels = fjson.map(function (e) {
       return e.idart;
@@ -173,7 +234,7 @@ function filtroTabla(){
     //console.log(labels);
     // Map json values back to values array
     values = fjson.map(function (e) {
-        return e.nventa;
+        return e.total;
     });
     //console.log(values);
     actualizarGrafico(myChart,labels,values);
@@ -185,7 +246,7 @@ function filtroTabla(){
     });
     // Map json values back to values array
     var values = json.map(function (e) {
-        return e.nventa;
+        return e.total;
     });
     actualizarGrafico(myChart,labels,values);
   }
@@ -275,7 +336,7 @@ function filtroOrden() {
   table = document.getElementById("dataTable");
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[6];//numero de columna en la que se aplica la búsqueda
+    td = tr[i].getElementsByTagName("td")[7];//numero de columna en la que se aplica la búsqueda
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -285,4 +346,88 @@ function filtroOrden() {
       }
     }       
   }
+}
+
+//UTILERIAS JSON A CSV
+ function convCSV(objArray) {
+  const array = typeof objArray != "object" ? JSON.parse(objArray) : objArray;
+  let str = "";
+  for (let i = 0; i < array.length; i++) {
+  let line = "";
+  for (let index in array[i]) {
+    if (line != "") line += ",";line += array[i][index];
+    }
+  str += line + "\r\n";
+  }
+  return str;
+}
+
+function exportarCSV(headers, items, fileName) {
+  if (headers) {
+  items.unshift(headers);
+  }
+
+  const jsonObject = JSON.stringify(items);const csv = convCSV(jsonObject);
+  const exportName = fileName + ".csv" || "export.csv";
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+
+  if (navigator.msSaveBlob) {
+   navigator.msSaveBlob(blob, exportName);
+  } else {
+    const link = document.createElement("a");
+
+    if (link.download !== undefined) {
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", exportName);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    }
+  }
+}
+
+function generarCSV(nombre){
+  const headers = {
+    idart: 'Id Art',
+    idcliente: 'Id Cliente',
+    idcomp: 'Id Comp',
+    fechadefactura:'Fecha de factura',
+    idrepresentante_agente: 'ID Representante',
+    uventa:'Unidad de venta',
+    divisa:'Divisa',
+    fechadeorden:'Fecha de orden',
+    cantidad:'Cantidad de compra',
+    total:'Total de compra'
+
+   };
+
+  var json=lecturaTabla();
+
+  exportarCSV(headers,json,nombre);
+}
+
+function csvArticulo(){
+  const headers = {
+    numdeventas: '# de Ventas por Art',
+    idart: 'Id Art',
+    nombre: 'Nombre Art',
+   };
+
+  var json=lecturaTablaR();
+
+  exportarCSV(headers,json,"reporte_ventas_por_art");
+}
+
+function csvCliente(){
+  const headers = {
+    numdeventas: '# de Ventas por Cliente',
+    idcliente: 'Id Cliente',
+    nombre: 'Nombre cliente',
+   };
+
+  var json=lecturaTablaR();
+
+  exportarCSV(headers,json,"reporte_ventas_por_cliente");
 }
