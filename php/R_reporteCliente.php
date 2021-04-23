@@ -16,14 +16,14 @@
 
         <link rel="stylesheet" href="../vendor/datatables/dataTables.bootstrap4.min.css">
 
-        <title>Reporte por artículo</title>
+        <title>Reporte por cliente</title>
     </head>
     <br>
   <body>
-    <button class="btn btn-primary" onclick="generatePDF('reporte_venta_de_art.pdf')">Descargar reporte de venta de artículo</button>
-    <button class="btn btn-success" onclick="generarCSV('reporte_venta_de_art')">CSV</button>
-    <button class="btn btn-primary" onclick="generatePDFR('reporte_ventas_por_art.pdf')">Descargar reporte de # de ventas de artículo</button>
-    <button class="btn btn-success" onclick="csvArticulo()">CSV</button>
+    <button class="btn btn-primary" onclick="generatePDF('reporte_venta_de_cliente.pdf')">Descargar reporte de venta de artículo</button>
+    <button class="btn btn-success" onclick="generarCSV('reporte_venta_de_cliente')">CSV</button>
+    <button class="btn btn-primary" onclick="generatePDFR('reporte_ventas_por_cliente.pdf')">Descargar reporte de # de ventas de artículo</button>
+    <button class="btn btn-success" onclick="csvCliente()">CSV</button>
 
     <br><br>
       <div class="input-group input-group-lg">
@@ -77,7 +77,7 @@
           console.log(values);
 
           //var reporte=grafica(labels,parseInt(values),"N ventas");
-          var reporte=BuildChart(labels,values,"Ventas de Art","horizontalBar");
+          var reporte=BuildChart(labels,values,"Ventas de Cliente","horizontalBar");
           //reporte=BuildChart(labels, values, "prueba");
 
         </script>
@@ -94,11 +94,11 @@
         <table class="table table-bordered mydataTableR" style="width: 100%" id="dataTableR">
           <thead>
             <th>Num de ventas</th>
-            <th>IdArt</th>
+            <th>IdCliente</th>
             <th>Nombre</th>
           </thead>
           <tbody>
-            <?php articuloR($conn)?>
+            <?php clienteR($conn)?>
           </tbody>
         </table>
       </div>

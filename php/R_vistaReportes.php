@@ -55,7 +55,29 @@
                             <?php
                                 include("forms/FR_seleccionReporte.php");
                             	if(isset($_POST["Generar"])){
-                            		include("R_reporteArticulo.php");
+                                    $op=$_POST["tipoReporte"];
+                                    if($op=="VUV"){
+                                        echo"<h2 align='center'>Ventas por Unidad de Venta</h2>";
+                                        include("R_reporteUV.php");
+                                    }else if($op=="VA"){
+                                        echo"<h2 align='center'>Ventas por Artículo</h2>";
+                            		    include("R_reporteArticulo.php");
+                                    }else if($op=="VC"){
+                                        echo"<h2 align='center'>Ventas por Cliente</h2>";
+                            		    include("R_reporteCliente.php");
+                                    }else if($op=="VR"){
+                                        echo"<h2 align='center'>Ventas por Representante</h2>";
+                            		    include("R_reporteRepresentante.php");
+                                    }else if($op=="VMA"){
+                                        echo"<h2 align='center'>Ventas por Mes-Año</h2>";
+                            		    include("R_reporteMA.php");
+                                    }else if($op=="PVS"){
+                                        echo"<h2 align='center'>Pedido vs Surtido</h2>";
+                            		    include("R_reportePS.php");
+                                    }else if($op=="CVPA"){
+                                        echo"<h2 align='center'>Ventas por Artículo</h2>";
+                            		    include("R_reporteCVPA.php");
+                                    }
                             	}
                             ?>
                         </div>
