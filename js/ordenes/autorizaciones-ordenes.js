@@ -38,3 +38,10 @@ function autorizacion_pln(idOrden,idCliente){
     location.href= url;
 
 }
+
+function cancelarOrden(idOrden,idUser){
+    var url = "../includes/functions_orden.php?D_Orden=1&idOrden="+idOrden+"&idUser="+idUser;
+    if(confirm("¿Seguro que quieres cancelar la orden: '"+idOrden+"' ?") == true){
+        location.href= url;
+    }
+}
