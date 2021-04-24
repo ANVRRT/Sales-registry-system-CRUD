@@ -3,34 +3,34 @@
 
 	<form class="formulario" method="POST" action="../includes/functions_admin.php" autocomplete="off">
 		<div class="campo">
-			<label class="campo__label" for="idRepresentante">Servidor</label>
-			<input class="campo__field" placeholder="Alta y Baja" type="text" name="nameServer" id="nameServer" required>
+			<label class="campo__label" for="idServidor">Servidor</label>
+			<input class="campo__field" placeholder="Alta y Baja y Actualizar" type="text" name="nameServer" id="nameServer" required>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="idRepresentante">Usuario</label>
-			<input class="campo__field" placeholder="Alta y Baja" type="text" name="nameUser" id="nameUser" required>
+			<label class="campo__label" for="idUsuario">Usuario</label>
+			<input class="campo__field" placeholder="Alta y Baja y Actualizar" type="text" name="nameUser" id="nameUser" required>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="idRepresentante">Contraseña</label>
-			<input class="campo__field" placeholder="Alta" type="text" name="namePassword" id="namePassword">
+			<label class="campo__label" for="idContrasena">Contraseña</label>
+			<input class="campo__field" placeholder="Alta y Actualizar" type="text" name="namePassword" id="namePassword">
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="idRepresentante">Puerto</label>
-			<input class="campo__field" placeholder="Alta" type="text" name="namePort" id="namePort">
+			<label class="campo__label" for="idPuerto">Puerto</label>
+			<input class="campo__field" placeholder="Alta y Actualizar" type="text" name="namePort" id="namePort">
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="idRepresentante">Compañia</label>
+			<label class="campo__label" for="idCompania">Compañia</label>
 			<?php
 				echo "<input class='campo__field' type='text' name='idCompania' id='idCompania' value='".$_SESSION["idCompania"]."' readonly>";
 			?>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="idRepresentante">Estado</label>
+			<label class="campo__label" for="idEstado">Estado</label>
 			<input class="campo__field" placeholder="0: Inactive | 1: Active" type="number" name="nameState" id="nameState" min="0" max="1">
 		</div>
 
@@ -39,6 +39,9 @@
 			<input class="campo__field button--red" style="grid-row: 3 / 4;" type="reset" value="Limpiar">
 			<input class="campo__field button--blue" type="submit" value="Baja" name="B_parametros">
 			<input class="campo__field button--blue" type="submit" value="Alta" name="A_parametros">
+		</div>
+		<div class="campo__3--button">
+		<input style="background-color:#E2CD01" class="campo__field button--blue" type="submit" value="Actualizar" name="U_parametros">
 		</div>
 	</form>
 

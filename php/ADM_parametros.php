@@ -54,7 +54,7 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("pc_parametros")))) {
+                                if ((roles($_SESSION["rol"], array("ADM","ADC"))) || (permissions($_SESSION["permisos"], array("pc_parametros")))) {
                                     include("forms/FADM_parametros.php");
                                 }else{
                                     include("404.php");
@@ -75,6 +75,7 @@
                                                                 <th>Servidor</th>
                                                                 <th>id Usuario</th>
                                                                 <th>Compania</th>
+                                                                <th>Activo</th>
                                                             </tr>
                                                         </thead>
                                                         
@@ -85,6 +86,7 @@
                                                                         <td align='center'>".$row["servidor"]."</td>
                                                                         <td align='center'>".$row["idUsuario"]."</td>
                                                                         <td align='center'>".$row["idCompania"]."</td>
+                                                                        <td align='center'>".$row["activo"]."</td>
                                                                     </tr>";
                                                             
                                                         }
@@ -106,7 +108,11 @@
                                     }
                                     if($_GET["error"] == "success2")
                                     {
-                                        echo "<p style='text-align: center;color: red;'> ¡Parametros dado de baja exitosamente! </p>";
+                                        echo "<p style='text-align: center;color: red;'> ¡Parametros dados de baja exitosamente! </p>";
+                                    }
+                                    if($_GET["error"] == "success3")
+                                    {
+                                        echo "<p style='text-align: center;color: red;'> ¡Parametros actualizados exitosamente! </p>";
                                     }
                                     if($_GET["error"] == "sqlerror")
                                     {

@@ -47,6 +47,9 @@ if(isset($_POST["A_parametros"])){
 if(isset($_POST["B_parametros"])){ 
     deleteParametros($conn,$_POST["nameServer"],$_POST["nameUser"]);
 }
+if(isset($_POST["U_parametros"])){ 
+    updateParametros($conn,$_POST["nameServer"],$_POST["nameUser"],$_POST["namePassword"],$_POST["namePort"],$_POST["idCompania"],$_POST["nameState"]);
+}
 
 function dispUsuarios($conn,$idCompania){
     $sql="SELECT * FROM Usuario WHERE idCompania = '$idCompania' ;";
@@ -425,6 +428,32 @@ function deleteParametros($conn,$Server,$User){
     {
         mysqli_stmt_close($stmt);
         header("location: ../php/ADM_parametros.php?error=success2");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/ADM_parametros.php?error=sqlerror");
+        exit();
+    }
+}
+
+function updateParametros($conn,$Server,$User,$Password,$Port,$Compania,$State){
+    if(empty($Port)) {
+        $Port = null;
+    }
+    $sql = "UPDATE Parametro SET servidor = ?, idUsuario = ?, contrasena = ?, puerto = ?, idCompania = ?, activo = ? WHERE servidor = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sssssis",$Server,$User,$Password,$Port,$Compania,$State,$Server);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/ADM_parametros.php?error=success3");
         exit();
     }
     else{
