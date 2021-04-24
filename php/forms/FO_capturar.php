@@ -20,7 +20,7 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idCliente"]."</option>";
+						echo "<option value = '".$row["idCliente"]."'>".$row["nombreCliente"]."</option>";
 					}
 
 				}
@@ -109,7 +109,7 @@
 
 		<div class="campo--button">
 			<input class="campo__field button--red grd" type="reset" value="Limpiar">
-			<input class="campo__field button--blue" type="submit" name="A_Orden" value="Guardar">
+			<input class="campo__field button--blue" type="button" name="A_Orden" id="A_Orden" value="Guardar" onclick="altaOrden()">
 		</div>
 		
 	</form>
