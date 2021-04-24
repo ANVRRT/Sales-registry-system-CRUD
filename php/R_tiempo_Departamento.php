@@ -109,13 +109,15 @@
 
                                             $tFacB = $orders["tFac"];
                                             $tFecB = $orders["tFEC"];
+                                            
+
 
                                             //Validacion Fac y FEC
-                                            if(tiempoPorDepartamento($tFacB,$fechaOrden)<0)
+                                            if(tiempoPorDepartamento($tFacB,$fechaOrden)<=0)
                                             {
                                                 $tFacB = $fechaOrden;
                                             }
-                                            if(tiempoPorDepartamento($tFecB,$fechaOrden)<0)
+                                            if(tiempoPorDepartamento($tFecB,$fechaOrden)<=0)
                                             {
                                                 $tFecB = $fechaOrden;
                                             }
