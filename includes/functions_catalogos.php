@@ -1981,7 +1981,12 @@ function dispOrdenByID($conn, $idOrden){
 
 function tiempoPorDepartamento($fechaDepartamento, $fechaInicial)
 {
-    return (strtotime($fechaDepartamento) - strtotime($fechaInicial)) / 86400; //Días
+    $txd = (strtotime($fechaDepartamento) - strtotime($fechaInicial)) / 86400; //Días
+    if($txd<0)
+    {
+        return "N/V";
+    }
+    return strval($txd);
 }
 
 function dispOrdenesByFechas($conn,$idCompania,$fechaInicial,$fechaFinal){

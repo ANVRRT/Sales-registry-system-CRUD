@@ -405,33 +405,6 @@
                                             
                                         }
                                         ?>
-                                        <!-- echo "<th>Orden</th>";
-                                        echo "<th>Compañia</th>";
-                                        echo "<th>Cliente</th>";
-                                        echo "<th>Dirección Entrega</th>";
-                                        echo "<th>Estatus</th>";
-                                        echo "<th>Num. Orden compra</th>";
-                                        echo "<th>Fecha Orden</th>"; -->
-                                        <!-- <td>2021/04/02</td>
-                                        <td>2021/04/01</td>
-                                        <td>2021/04/05</td>
-                                        <td>2021/04/04</td>
-                                        <td>2021/03/31</td>
-                                        <td>2021/04/02</td>
-                                        <td>2021/04/02</td> -->
-                                        <!-- <td>3</td> -->
-                                        <!-- <td align="center"><input  type="checkbox" name="vFacturas"   id="vFacturas"></td>
-                                        <td align="center"><input  type="checkbox" name="vCxC"        id="vCxC" ></td>
-                                        <td align="center"><input  type="checkbox" name="vPrecios"    id="vPrecios"></td>
-                                        <td align="center"><input  type="checkbox" name="vCostos"     id="vCostos" ></td>
-                                        <td align="center"><input  type="checkbox" name="vIng"        id="vIng"></td>
-                                        <td align="center"><input  type="checkbox" name="vPlaneacion" id="vPlaneacion"></td>
-                                        <td align="center"><input  type="checkbox" name="vServCli"    id="vServCli" ></td>
-                                        <td align="center"><input  type="checkbox" name="vREP"        id="vREP"></td>
-                                        <td align="center"><input  type="checkbox" name="vFEC"        id="vFEC"></td> -->
-
-
-
                                     </tbody>
                                 </table>
                             </div>
