@@ -40,6 +40,7 @@
 				<option value="po_procesadas">Ordenes en proceso</option>
 				<option value="po_proceso">Ordenes procesadas</option>
 				<option value="padm_permisos">Administración Permisos</option>
+				<option value="padm_parametros">Administración Parametros FTP</option>
 				<option value="padm_roles">Administración Roles</option>
 				<option value="padm_usuarios">Administración Usuarios</option>
 				<option value="padm_registro">Creación de usuarios</option>
