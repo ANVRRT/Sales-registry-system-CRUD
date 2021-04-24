@@ -204,20 +204,22 @@ function updateCliente(){
     $("estatus").removeAttr("required");
     $("divisa").removeAttr("required");
     $("limCredito").removeAttr("required");
-    $("saldoFactura").removeAttr("required");
+    
     var lp=$("#listaPrecios").val();
     var nom=$("#nomCliente").val();
     var estatus=$("#estatus").val();
     var rep=$("#idRepresentante").val();
     var analista=$("#idAnalista").val();
     var lim=$("#limCredito").val();
-    var bloq=$("#bloqueo").val();
+    var salOrden=$("#saldoOrden").val();
+    var salFact=$("#saldoFactura").val();
     var cliente=$("#idCliente").val();
     var fun='updateCliente'; 
     $.ajax({
         type:"POST",
         url:"../includes/functions_catalogos.php",
-        data:{funcion:fun,listaPrecios:lp,nombreCliente:nom,estatusCliente:estatus,idRepresentante:rep,idAnalista:analista,limCredito:lim,idCliente:cliente},
+        data:{funcion:fun,listaPrecios:lp,nombreCliente:nom,estatusCliente:estatus,idRepresentante:rep,idAnalista:analista,limCredito:lim,
+            saldoOrden:salOrden,saldoFactura:salFact,idCliente:cliente},
         success:function(response){
             
             if(response=="Actualizado exitosamente"){
@@ -290,6 +292,7 @@ function updateCantEnt(){
     });
 }
 
+
 function estatusValidaciones(idOrden){
     var fun='checkValidaciones';
     var orden=document.getElementById(idOrden).value;
@@ -325,4 +328,48 @@ function estatusValidaciones(idOrden){
         }
     });
 
+}
+
+
+
+function altaOrden(){
+    
+    var com=$("#idCompania").val();
+    var cliente=$("#idCliente").val();
+    var orden=$("#idOrden").val();
+    var dir=$("#dirEnt").val();
+    var art=$("#idArticulo").val();
+    var fol=$("#folio").val();
+    var pre=$("#precio").val();
+    var cant=$("#cantidad").val();
+    var codigo=$("#codAviso").val();
+    var uni=$("#udVta").val();
+    var obs=$("#observaciones").val();
+    var fecha=$("#fechaSol").val();
+    var fun='A_Orden';
+    $.ajax({
+        type:"POST",
+        url:"../includes/functions_orden.php",
+        data:{A_Orden:fun,idCompania:com,idCliente:cliente,idOrden:orden,dirEnt:dir,idArticulo:art,folio:fol,
+        precio:pre,cantidad:cant,codAviso:codigo,udVta:uni,observaciones:obs,fechaSol:fecha},
+        success:function(response){
+            if(response=="Error saldo"){
+                window.location.href = "../php/O_capturar.php?error=successSaldoAlert";
+                alert ("Orden capturada, se ha excedido el saldo del cliente");
+            }
+            if(response=="Error Orden"){
+                window.location.href = "../php/O_capturar.php?error=sqlerrorOrden";
+            }
+            if(response=="Error Reporte"){
+                window.location.href = "../php/O_capturar.php?error=sqlerrorReporte";  
+            }
+            if(response=="Error Art"){
+                window.location.href = "../php/O_capturar.php?error=sqlerrorArt";  
+            }
+            if(response=="Success saldo"){
+                window.location.href = "../php/O_capturar.php?error=success";  
+            }
+  
+        }
+    });
 }

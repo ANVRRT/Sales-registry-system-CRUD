@@ -129,12 +129,12 @@
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="saldoOrden">Saldo orden</label>
+			<label class="campo__label" for="saldoOrden">Saldo orden*</label>
 			<input class="campo__field" type="number" name="saldoOrden" id="saldoOrden" required >
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="saldoFact">Saldo factura</label>
+			<label class="campo__label" for="saldoFact">Saldo factura*</label>
 			<input class="campo__field" type="number" name="saldoFactura" id="saldoFactura" required>
 		</div>
 
