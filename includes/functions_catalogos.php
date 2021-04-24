@@ -52,12 +52,13 @@ if(isset($_POST["funcion"])){
     if($_POST["funcion"]=="updateArtV"){
         if(strlen($_POST["codAviso"])>0){
             $msg=updateArtVCod($conn,$_POST["codAviso"],$_POST["folio"],$_POST["artV"],$_POST["idCliente"]);
-            die($msg);
+            
         }
         if(strlen($_POST["udVta"])>0){
             $msg=updateArtVUni($conn,$_POST["udVta"],$_POST["folio"],$_POST["artV"],$_POST["idCliente"]);
-            die($msg);
+            
         }
+        die($msg);
     }
 }
 //BLOQUEO DE CLIENTE FUNCTIONS
@@ -90,20 +91,21 @@ if(isset($_POST["funcion"])){
     if($_POST["funcion"]=="updateCantEnt"){
         if(strlen($_POST["posicion"])>0){
             $msg= updateCantEPos($conn,$_POST["posicion"],$_POST["idOrden"],$_POST["folio"],$_POST["tipoReg"]);
-            die($msg);
+            
         }
         if(strlen($_POST["fechaMov"])>0){
             $msg= updateCantEFech($conn,$_POST["fechaMov"],$_POST["idOrden"],$_POST["folio"],$_POST["tipoReg"]);
-            die($msg);
+            
         }
         if(strlen($_POST["hora"])>0){
             $msg= updateCantEHor($conn,$_POST["hora"],$_POST["idOrden"],$_POST["folio"],$_POST["tipoReg"]);
-            die($msg);
+            
         }
         if(strlen($_POST["secuencia"])>0){
             $msg= updateCantESec($conn,$_POST["secuencia"],$_POST["idOrden"],$_POST["folio"],$_POST["tipoReg"]);
-            die($msg);
+            
         }
+        die($msg);
 
     }
 }
@@ -127,29 +129,36 @@ if(isset($_POST["funcion"])){
     if($_POST["funcion"]=="updateCliente"){
         if(strlen($_POST["listaPrecios"])>0){
             $msg= updateClienteLP($conn,$_POST["listaPrecios"],$_POST["idCliente"]);
-            die($msg);
+            
         }
         if(strlen($_POST["nombreCliente"])>0){
             $msg= updateClientenomCli($conn,$_POST["nombreCliente"],$_POST["idCliente"]);
-            die($msg);
+            
         }
         if(strlen($_POST["estatusCliente"])>0){
             $msg= updateClienteEstatus($conn,$_POST["estatusCliente"],$_POST["idCliente"]);
-            die($msg);
+            
         }
         if(strlen($_POST["idAnalista"])>0){
             $msg= updateClienteRepre($conn,$_POST["idAnalista"],$_POST["idCliente"]);
-            die($msg);
+            
         }
         if(strlen($_POST["idRepresentante"])>0){
             $msg= updateClienteRepre($conn,$_POST["idRepresentante"],$_POST["idCliente"]);
-            die($msg);
+            
         }
         if(strlen($_POST["limCredito"])>0){
             $msg= updateClientelimCredi($conn,$_POST["limCredito"],$_POST["idCliente"]);
-            die($msg);
+            
         }
-        
+        if(strlen($_POST["saldoOrden"])>0){
+            $msg= updateClienteSaldoO($conn,$_POST["saldoOrden"],$_POST["idCliente"]);
+           
+        }
+        if(strlen($_POST["saldoFactura"])>0){
+            $msg= updateClienteSaldoF($conn,$_POST["saldoFactura"],$_POST["idCliente"]);
+        }
+        die($msg);
         
     }
     
@@ -236,6 +245,10 @@ if(isset($_GET["listado"])){
     if($_GET["listado"] == "dispPrecio"){
         $entrada2 = $_GET["entrada2"];
         dispPrecio($conn,$entrada,$entrada2);
+    }
+    if($_GET["listado"] == "dispPrecio2"){
+        $entrada2 = $_GET["entrada2"];
+        dispPrecio2($conn,$entrada,$entrada2);
     }
     if($_GET["listado"] == "dispOrdenesByFechas"){
         $finicial = $_GET["entrada"];
@@ -711,6 +724,28 @@ function dispPrecio($conn, $entrada,$entrada2){
     while($row = mysqli_fetch_assoc($resultData))
     {
         echo "<option>".$row["precio"]."</option>";
+
+    }
+    mysqli_stmt_close($stmt);
+    exit();
+}
+function dispPrecio2($conn, $entrada,$entrada2){
+    $sql="SELECT * FROM ListaPrecio WHERE idLista=? AND idArticulo=? AND estatus = 1";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"ss", $entrada,$entrada2);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    while($row = mysqli_fetch_assoc($resultData))
+    {
+        $pre= $row["precio"]-$row["impDesc"];
+        echo "<option>".$pre."</option>";
 
     }
     mysqli_stmt_close($stmt);
@@ -1519,8 +1554,57 @@ function updateClientelimCredi($conn,$limCredito,$idCliente){
         header("location: ../php/index.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt,"ss",$limCredito,$idCliente);
+    mysqli_stmt_bind_param($stmt,"is",$limCredito,$idCliente);
     if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        
+        $msg="Actualizado exitosamente";
+        
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        $msg="Error al actualizar";
+    }
+    return $msg;
+}
+
+function updateClienteSaldoO($conn,$saldoO,$idCliente){
+    $sql = "UPDATE Cliente SET saldoOrden = ? WHERE idCliente = ? ;";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"ds",$saldoO,$idCliente);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        
+        $msg="Actualizado exitosamente";
+        
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        $msg="Error al actualizar";
+    }
+    return $msg;
+}
+
+function updateClienteSaldoF($conn,$saldoF,$idCliente){
+    $sql = "UPDATE Cliente SET saldoFactura = ? WHERE idCliente = ? ;";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"ds",$saldoF,$idCliente);
+    if(mysqli_stmt_execute($stmt))
+
     {
         mysqli_stmt_close($stmt);
         

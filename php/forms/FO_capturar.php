@@ -61,7 +61,7 @@
 					</svg>
 				</button>
 			</div>
-			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articuloList" onblur="AjaxFunction2('dispFolio','idCliente','idArticulo','folioList');AjaxFunction2('dispPrecio','idList','idArticulo','precioList')" required>
+			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articuloList" onblur="AjaxFunction2('dispFolio','idCliente','idArticulo','folioList');AjaxFunction2('dispPrecio2','idList','idArticulo','precioList')" required>
 			<datalist id="articuloList" >
 			</datalist>
 		</div>

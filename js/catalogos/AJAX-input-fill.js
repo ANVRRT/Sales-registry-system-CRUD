@@ -204,20 +204,22 @@ function updateCliente(){
     $("estatus").removeAttr("required");
     $("divisa").removeAttr("required");
     $("limCredito").removeAttr("required");
-    $("saldoFactura").removeAttr("required");
+    
     var lp=$("#listaPrecios").val();
     var nom=$("#nomCliente").val();
     var estatus=$("#estatus").val();
     var rep=$("#idRepresentante").val();
     var analista=$("#idAnalista").val();
     var lim=$("#limCredito").val();
-    var bloq=$("#bloqueo").val();
+    var salOrden=$("#saldoOrden").val();
+    var salFact=$("#saldoFactura").val();
     var cliente=$("#idCliente").val();
     var fun='updateCliente'; 
     $.ajax({
         type:"POST",
         url:"../includes/functions_catalogos.php",
-        data:{funcion:fun,listaPrecios:lp,nombreCliente:nom,estatusCliente:estatus,idRepresentante:rep,idAnalista:analista,limCredito:lim,idCliente:cliente},
+        data:{funcion:fun,listaPrecios:lp,nombreCliente:nom,estatusCliente:estatus,idRepresentante:rep,idAnalista:analista,limCredito:lim,
+            saldoOrden:salOrden,saldoFactura:salFact,idCliente:cliente},
         success:function(response){
             
             if(response=="Actualizado exitosamente"){
