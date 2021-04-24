@@ -55,7 +55,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 >Reporte de Promedio de Tiempo por Departamento</h1>
+                    <h1 >Reporte de Tiempo Promedio por Departamento</h1>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -63,7 +63,7 @@
                             <input type="button" style="background: blue; color: white; border-radius: 15px; border:0px; width: 150px; height:30px;" value="Generar PDF" onclick="generatePDF_TD()">
                         </div>
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Fitrar por Fecha de Orden</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Filtrar por Fecha de Orden</h6>
 
                             <h5>Fecha Inicial</h5>
                             <input type="date" id="fechaInicial" onblur="AjaxFunction2('dispOrdenesByFechas','fechaInicial','fechaFinal','tableBodyFechas')">
@@ -75,7 +75,7 @@
                             <div class="table-responsive">
                             <table class="table table-bordered" id="fechasTabla" width="100%" cellspacing="0">
                                     <caption style="caption-side:top">
-                                        <p align="center" style="font-weight:bold;">Reporte de Tiempo por Departamento</p>
+                                        <p align="center" style="font-weight:bold;">Reporte de Tiempo Promedio por Departamento</p>
                                     </caption>
                                     <thead>
                                         <tr align="center">
@@ -107,14 +107,27 @@
                                             $nombreCliente = $orders["nombreCliente"];
                                             $fechaOrden    = $orders["fechaOrden"];
 
+                                            $tFacB = $orders["tFac"];
+                                            $tFecB = $orders["tFEC"];
+
+                                            //Validacion Fac y FEC
+                                            if(tiempoPorDepartamento($tFacB,$fechaOrden)<0)
+                                            {
+                                                $tFacB = $fechaOrden;
+                                            }
+                                            if(tiempoPorDepartamento($tFecB,$fechaOrden)<0)
+                                            {
+                                                $tFecB = $fechaOrden;
+                                            }
+
                                             //Tiempo por departamento
-                                            $fac =  tiempoPorDepartamento($orders["tFac"],$fechaOrden);
+                                            $fac =  tiempoPorDepartamento($tFacB,$fechaOrden);
                                             $cxc =  tiempoPorDepartamento($orders["tCXC"],$fechaOrden);
                                             $pre =  tiempoPorDepartamento($orders["tPRE"],$fechaOrden);
                                             $cst =  tiempoPorDepartamento($orders["tCST"],$fechaOrden);
                                             $ing =  tiempoPorDepartamento($orders["tING"],$fechaOrden);
                                             $pln =  tiempoPorDepartamento($orders["tPLN"],$fechaOrden);
-                                            $fec =  tiempoPorDepartamento($orders["tFEC"],$fechaOrden);
+                                            $fec =  tiempoPorDepartamento($tFecB,$fechaOrden);
 
                                             $total = $orders["total"];
 
