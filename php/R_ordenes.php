@@ -73,7 +73,7 @@
                         <div class="table-responsive">
                             <table width="100%" cellspacing="10" cellpadding="10">
                                 <caption style="caption-side:top">
-                                <h4 class="m-0 font-weight-bold text-primary" style="text-align: center;">Fitrar</h4>
+                                <h4 class="m-0 font-weight-bold text-primary" style="text-align: center;">Filtrar</h4>
                                 </caption>
 
                                 <tr style="background: #0b56bf;">
@@ -186,7 +186,6 @@
                                             <th>CST</th>
                                             <th>ING</th>
                                             <th>PLN</th>
-                                            <th>ServCli</th>
                                             <th>REP</th>
                                             <th>FEC</th>
                                             <th>Articulo</th>
@@ -273,7 +272,6 @@
                                             echo "<td> <input  type='checkbox' name='cst_".$idOrden."'  id='cst_".$idOrden."' ".$cstCheck." disabled> </td>";
                                             echo "<td> <input  type='checkbox' name='ing_".$idOrden."'  id='ing_".$idOrden."' ".$ingCheck." disabled> </td>";
                                             echo "<td> <input  type='checkbox' name='pln_".$idOrden."'  id='pln_".$idOrden."' ".$plnCheck." disabled> </td>";
-                                            echo "<td> <input  type='checkbox' name='sCl_".$idOrden."'  id='sCl_".$idOrden."' ".$sClCheck." disabled> </td>";
                                             echo "<td> <input  type='checkbox' name='rep_".$idOrden."'  id='rep_".$idOrden."' ".$repCheck." disabled> </td>";
                                             echo "<td> <input  type='checkbox' name='fec_".$idOrden."'  id='fec_".$idOrden."' ".$fecCheck." disabled> </td>";
 

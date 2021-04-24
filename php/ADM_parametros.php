@@ -21,7 +21,7 @@
 
             <?php
             include("../includes/sidebar.php");
-            require_once("../includes/functions_catalogos.php");
+            require_once("../includes/functions_admin.php");
             ?>
 
 
@@ -54,39 +54,41 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("pc_agente")))) {
-                                    include("forms/FC_agente.php");
+                                if ((roles($_SESSION["rol"], array("ADM","ADC"))) || (permissions($_SESSION["permisos"], array("pc_parametros")))) {
+                                    include("forms/FADM_parametros.php");
                                 }else{
                                     include("404.php");
                                 }
 
-                                if(isset($_POST["C_agente"])){
+                                if(isset($_POST["C_parametros"])){
                                     $idCompania = $_SESSION["idCompania"];
-                                    $reg = dispRepresentante($conn,$idCompania);
+                                    $reg = dispParametros($conn,$idCompania);
                                     echo "<div class='card shadow mb-4'>
                                             <div class='card-header py-3'>
-                                                <h6 class='m-0 font-weight-bold text-primary'>Listado de Representantes</h6>
+                                                <h6 class='m-0 font-weight-bold text-primary'>Listado de Parametros</h6>
                                             </div>
                                             <div class='card-body'>
                                                 <div class='table-responsive'>
                                                     <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
                                                         <thead>
                                                             <tr align='center'>
-                                                                <th>ID Compañía</th>
-                                                                <th>ID Representante</th><!---->
-                                                                <th>Nombre</th><!---->
+                                                                <th>Servidor</th>
+                                                                <th>id Usuario</th>
+                                                                <th>Compania</th>
+                                                                <th>Activo</th>
                                                             </tr>
                                                         </thead>
                                                         
                                                         <tbody>";
-                                    while ($row=mysqli_fetch_assoc($reg)){
-                                                            if ($row["estatus"] == 1){
-                                                                echo "  <tr>
-                                                                            <td align='center'>".$row["idCompania"]."</td>
-                                                                            <td align='center'>".$row["idRepresentante"]."</td>
-                                                                            <td align='center'>".$row["nomRepresentante"]."</td>
-                                                                        </tr>";
-                                                                }
+                                                        while ($row=mysqli_fetch_assoc($reg)){
+                                                            
+                                                            echo "  <tr>
+                                                                        <td align='center'>".$row["servidor"]."</td>
+                                                                        <td align='center'>".$row["idUsuario"]."</td>
+                                                                        <td align='center'>".$row["idCompania"]."</td>
+                                                                        <td align='center'>".$row["activo"]."</td>
+                                                                    </tr>";
+                                                            
                                                         }
 
                                     echo " 
@@ -102,15 +104,19 @@
                                 {
                                     if($_GET["error"] == "success")
                                     {
-                                        echo "<p style='color: black;'> ¡Agente dado de alta exitosamente! </p>";
+                                        echo "<p style='text-align: center;color: green;'> ¡Parametros dados de alta exitosamente! </p>";
                                     }
                                     if($_GET["error"] == "success2")
                                     {
-                                        echo "<p style='color: black;'> ¡Agente dado de baja exitosamente! </p>";
+                                        echo "<p style='text-align: center;color: red;'> ¡Parametros dados de baja exitosamente! </p>";
+                                    }
+                                    if($_GET["error"] == "success3")
+                                    {
+                                        echo "<p style='text-align: center;color: red;'> ¡Parametros actualizados exitosamente! </p>";
                                     }
                                     if($_GET["error"] == "sqlerror")
                                     {
-                                        echo "<p style='color: black;'> ¡Algo salió mal! </p>";
+                                        echo "<p style='text-align: center;color: black;'> ¡Algo salió mal! </p>";
                                     }
 
                                 }

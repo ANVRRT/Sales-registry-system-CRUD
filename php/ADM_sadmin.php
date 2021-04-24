@@ -54,7 +54,11 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                            include("forms/FADM_sadmin.php");
+                            if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("psadm")))) {
+                                include("forms/FADM_sadmin.php");
+                            }else{
+                                include("404.php");
+                            }
                             ?>
                         </div>
                     </div>

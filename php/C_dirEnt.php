@@ -53,7 +53,12 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
-                                include("forms/FC_dirEnt.php");
+                                if ((roles($_SESSION["rol"], array("ADM"))) || (permissions($_SESSION["permisos"], array("pc_dirEnt")))) {
+                                    include("forms/FC_dirEnt.php");
+                                }else{
+                                    include("404.php");
+                                }
+                                
                                 if(isset($_POST["C_dirEnt"])){
                                     $idCompania = $_SESSION["idCompania"];
                                     $reg = dispDirEnt($conn,$idCompania);

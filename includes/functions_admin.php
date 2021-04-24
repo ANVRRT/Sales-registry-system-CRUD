@@ -38,8 +38,19 @@ if(isset($_GET["listado"])){
     if($_GET["listado"] == "dispRolActual"){
         dispRolActual($conn,$entrada);
     }
-
 }
+
+//Parametros Funciones
+if(isset($_POST["A_parametros"])){ 
+    createParametros($conn,$_POST["nameServer"],$_POST["nameUser"],$_POST["namePassword"],$_POST["namePort"],$_POST["idCompania"],$_POST["nameState"]);
+}
+if(isset($_POST["B_parametros"])){ 
+    deleteParametros($conn,$_POST["nameServer"],$_POST["nameUser"]);
+}
+if(isset($_POST["U_parametros"])){ 
+    updateParametros($conn,$_POST["nameServer"],$_POST["nameUser"],$_POST["namePassword"],$_POST["namePort"],$_POST["idCompania"],$_POST["nameState"]);
+}
+
 function dispUsuarios($conn,$idCompania){
     $sql="SELECT * FROM Usuario WHERE idCompania = '$idCompania' ;";
 
@@ -377,4 +388,98 @@ function setCompaniaADM($idCompania){
     exit();
 }
 
+
+function createParametros($conn,$Server,$User,$Password,$Port,$Compania,$State){
+    if(empty($Port)) {
+        $Port = null;
+    }
+    $sql = "INSERT INTO Parametro VALUES(?,?,?,?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sssssi",$Server,$User,$Password,$Port,$Compania,$State);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/ADM_parametros.php?error=success");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/ADM_parametros.php?error=sqlerror");
+        exit();
+    }
+}
+
+function deleteParametros($conn,$Server,$User){
+    $sql = "DELETE FROM Parametro WHERE servidor = ? AND idUsuario = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"ss",$Server,$User);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/ADM_parametros.php?error=success2");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/ADM_parametros.php?error=sqlerror");
+        exit();
+    }
+}
+
+function updateParametros($conn,$Server,$User,$Password,$Port,$Compania,$State){
+    if(empty($Port)) {
+        $Port = null;
+    }
+    $sql = "UPDATE Parametro SET servidor = ?, idUsuario = ?, contrasena = ?, puerto = ?, idCompania = ?, activo = ? WHERE servidor = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"sssssis",$Server,$User,$Password,$Port,$Compania,$State,$Server);
+    if(mysqli_stmt_execute($stmt))
+    {
+        mysqli_stmt_close($stmt);
+        header("location: ../php/ADM_parametros.php?error=success3");
+        exit();
+    }
+    else{
+        mysqli_stmt_close($stmt);
+        header("location: ../php/ADM_parametros.php?error=sqlerror");
+        exit();
+    }
+}
+
+function dispParametros($conn, $idCompania){
+    $sql="SELECT * FROM Parametro WHERE idCompania = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    return $resultData;
+
+
+    mysqli_stmt_close($stmt);
+    exit();
+}
 ?>

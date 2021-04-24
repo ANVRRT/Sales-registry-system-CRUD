@@ -1,5 +1,10 @@
 <?php
     require_once("dbh.inc.php");
+    if(isset($_GET["D_Orden"])){
+        cancelOrder($conn,$_GET["idOrden"],$_GET["idUser"]);
+        // echo $_GET["idOrden"];
+        // echo $_GET["idUser"];
+    }
     //ALTA ORDENES
     if(isset($_POST["A_Orden"]) || isset($_POST["A_articulo"])){
         $banderaOrden=prepararOrden($conn,$_POST["idOrden"]);
@@ -8,7 +13,7 @@
         $estatus=0;
         $costo=obtenerCosto($conn,$_POST["idArticulo"]);
         $act=creditoActual($conn,$_POST["idCliente"]);
-        echo "el acumulado es ".$act;
+        // echo "el acumulado es ".$act;
         $revCst=$total+$act;
         $date = date('Y-m-d');
         if($revCst < $reg->limCredito){
@@ -492,7 +497,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_Capturar.php?error=succes");
+            header("location: ../php/O_Capturar.php?error=success");
             exit();
         }
         else{
@@ -558,5 +563,40 @@
 
 
         mysqli_stmt_close($stmt);
+    }
+
+    function cancelOrder($conn,$idOrden,$idBaja){
+        $sql = "UPDATE Orden SET estatusDB = ?, idBaja = ? WHERE idOrden=?;";
+        $stmt = mysqli_stmt_init($conn);
+        $estatus=0;
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmt, "iss",$estatus,$idBaja,$idOrden);
+
+        if(mysqli_stmt_execute($stmt))
+        {
+            mysqli_stmt_close($stmt);
+            $sql = "UPDATE ReporteOrden SET estatus = ?, idBaja = ? WHERE idOrden=?;";
+            $stmt = mysqli_stmt_init($conn);
+            if (!mysqli_stmt_prepare($stmt, $sql)){
+                header("location: ../php/index.php?error=stmtfailed");
+                exit();
+            }
+            mysqli_stmt_bind_param($stmt, "iss",$estatus,$idBaja,$idOrden);
+            if(mysqli_stmt_execute($stmt))
+            {
+                header("location: ../php/O_venta_proceso.php?error=success");
+
+            }
+            
+        }
+        else{
+            mysqli_stmt_close($stmt);
+            header("location: ../php/index.php?error=stmtfailed");
+            exit();
+        }
     }
 ?>
