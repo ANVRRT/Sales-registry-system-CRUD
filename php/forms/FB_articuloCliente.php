@@ -16,7 +16,8 @@
                 echo "<datalist id='cliente'>";
                 while($row = mysqli_fetch_assoc($reg))
                 {
-                    echo "<option>".$row["idCliente"]."</option>";
+                    echo "<option value='".$row["idCliente"]."'>".$row["nombreCliente"]."</option>";
+                    // echo "<option>".$row["idCliente"]."</option>";
 
                 }
                 

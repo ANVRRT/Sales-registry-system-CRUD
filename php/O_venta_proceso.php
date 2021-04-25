@@ -19,12 +19,13 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?php
-        include("../includes/sidebar.php");
-        require_once("../includes/functions_catalogos.php");
+        <div>
+            <?php
+            include("../includes/sidebar.php");
+            require_once("../includes/functions_catalogos.php");
 
-
-        ?>
+            ?>
+        </div>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
