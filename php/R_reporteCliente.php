@@ -20,16 +20,16 @@
     </head>
     <br>
   <body>
-    <button class="btn btn-primary" onclick="generatePDF('reporte_venta_de_cliente.pdf')">Descargar reporte de venta de artículo</button>
+    <button class="btn btn-primary" onclick="generatePDF('reporte_venta_de_cliente.pdf')">Descargar reporte de venta de cliente</button>
     <button class="btn btn-success" onclick="generarCSV('reporte_venta_de_cliente')">CSV</button>
-    <button class="btn btn-primary" onclick="generatePDFR('reporte_ventas_por_cliente.pdf')">Descargar reporte de # de ventas de artículo</button>
+    <button class="btn btn-primary" onclick="generatePDFR('reporte_ventas_por_cliente.pdf')">Descargar reporte de # de ventas por cliente</button>
     <button class="btn btn-success" onclick="csvCliente()">CSV</button>
 
     <br><br>
       <div class="input-group input-group-lg">
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroup-sizing-lg">Filtros adicionales</span>
-          <button class="btn btn-outline-secondary" onclick="filtroTabla()">Aplicar filtro</button>
+          <button class="btn btn-outline-secondary" onclick="filtroTabla('cliente')">Aplicar filtro</button>
         </div>
         <input type="text" id="F_cliente" onkeyup="filtroCliente()" placeholder="Por ID de cliente" name="cliente" title="Ingresa un ID de cliente" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
         <input type="text" id="F_rep" onkeyup="filtroRepresentante()" placeholder="Por ID de representante" name="rep" title="Ingresa un ID de representante" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
@@ -49,11 +49,12 @@
             <th>U Venta</th>
             <th>Divisa</th>
             <th>Fecha de orden</th>
+            <th>IdOrden</th>
             <th>Cantidad</th>
             <th>Total</th>
           </thead>
           <tbody>
-            <?php reporteBase($conn)?>
+            <?php reporteBase($conn,$_SESSION["idCompania"])?>
           </tbody>
         </table>
       </div>
@@ -67,7 +68,7 @@
           console.log(json);
           // Map json values back to label array
           var labels = json.map(function (e) {
-              return e.idart;
+              return e.idcliente;
           });
           console.log(labels);
           // Map json values back to values array
@@ -98,7 +99,7 @@
             <th>Nombre</th>
           </thead>
           <tbody>
-            <?php clienteR($conn)?>
+            <?php clienteR($conn,$_SESSION["idCompania"])?>
           </tbody>
         </table>
       </div>
@@ -108,21 +109,21 @@
       </div>
 
       <script>
-          var json=lecturaTablaR();
-          console.log(json);
+          var rjson=lecturaTablaR();
+          console.log(rjson);
           // Map json values back to label array
-          var labels = json.map(function (e) {
-              return e.idart;
+          var rlabels = rjson.map(function (e) {
+              return e.idcliente;
           });
-          console.log(labels);
+          console.log(rlabels);
           // Map json values back to values array
-          var values = json.map(function (e) {
+          var rvalues = rjson.map(function (e) {
               return e.numdeventas;
           });
-          console.log(values);
+          console.log(rvalues);
 
           //var reporte=grafica(labels,parseInt(values),"N ventas");
-          var reporte=BuildChartR(labels,values,"# de ventas","bar");
+          var reporte=BuildChartR(rlabels,rvalues,"# de ventas","bar");
           //reporte=BuildChart(labels, values, "prueba");
 
         </script>
