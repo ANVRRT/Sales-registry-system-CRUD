@@ -29,14 +29,16 @@
 
 		<div class="campo">
 			<label class="campo__label" for="idOrden">ID Orden</label>
-			<input class="campo__field" type="text" name="idOrden" id="idOrden" maxlength="10" list="idOrdenlist" required>
+			<input class="campo__field" type="text" name="idOrden" id="idOrden" maxlength="10" list="idOrdenlist" onblur="AjaxFunction('dispFolioAVbyOrden','idOrden','folioList')"required>
 			<datalist id="idOrdenlist" >
 			</datalist>
 		</div>
 
 		<div class="campo">
-			<label class="campo__label" for="idFolio">Folio</label>
-			<input class="campo__field" type="text" name="idFolio" maxlength="11" >
+			<label class="campo__label" for="folio">Folio</label>
+			<input class="campo__field" type="text" name="folio" id="folio" list="folioList" onblur="AjaxFunction2('dispArtbyfolio','idOrden','folio','artList')">
+			<datalist id="folioList" >
+			</datalist>
 		</div>
 
 		<div class="campo">
@@ -61,19 +63,9 @@
 
 		<div class="campo">
 			<label class="campo__label" for="articulo">Artículo</label>
-			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articulos" required>
-			<?php
-				$reg = dispArticulos($conn, $_SESSION["idCompania"]);
-				
-				echo "<datalist id='articulos'>";
-				while($row = mysqli_fetch_assoc($reg))
-				{
-					if($row["estatus"]==1){
-						echo "<option>".$row["idArticulo"]."</option>";
-					}
-				}
-				echo "</datalist>";
-			?>
+			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="artList" required>
+			<datalist id="artList" >
+			</datalist>
 		</div>
 
 		<div class="campo__3--button">
