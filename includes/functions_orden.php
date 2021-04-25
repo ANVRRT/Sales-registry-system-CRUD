@@ -158,6 +158,8 @@
                 updatevFEC($conn,$vFEC,null,$_POST["idOrden"]);
             }
         }
+        header("location: ../php/O_actualizar.php?error=success");
+        exit();
     }
     //ACTUALIZAR ORDENES
     function updateDirEnt($conn,$dirEnt,$idOrden){
@@ -173,8 +175,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successDirEnt");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -195,8 +196,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successFecha");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -217,8 +217,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvFac");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -239,8 +238,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvCxC");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -261,8 +259,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvPrecios");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -284,8 +281,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvCostos");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -306,8 +302,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvIng");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -328,8 +323,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvFEC");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);

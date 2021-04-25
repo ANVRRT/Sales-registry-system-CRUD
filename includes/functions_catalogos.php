@@ -235,12 +235,20 @@ if(isset($_GET["listado"])){
     if($_GET["listado"] == "dispFolioByOrden"){
         dispFolioByOrden($conn,$entrada);
     }
+    
+    if($_GET["listado"] == "dispFolioAVbyOrden"){
+        dispFolioAVbyOrden($conn,$entrada);
+    }
     if($_GET["listado"] == "dispArticuloRO"){
         dispArticuloRO($conn,$entrada);
     }
     if($_GET["listado"] == "dispFolio"){
         $entrada2 = $_GET["entrada2"];
         dispFolio($conn,$entrada,$entrada2);
+    }
+    if($_GET["listado"] == "dispArtbyfolio"){
+        $entrada2 = $_GET["entrada2"];
+        dispArtbyfolio($conn,$entrada,$entrada2);
     }
     if($_GET["listado"] == "dispPrecio"){
         $entrada2 = $_GET["entrada2"];
@@ -660,6 +668,49 @@ function dispFolioByOrden($conn,$entrada){
     while($row = mysqli_fetch_assoc($resultData))
     {
         echo "<option>".$row["folioRO"]."</option>";
+
+    }
+    mysqli_stmt_close($stmt);
+    exit();
+}
+
+function dispFolioAVbyOrden($conn,$entrada){
+    $sql="SELECT  * FROM ReporteOrden WHERE idOrden=? AND estatus = 1";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $entrada);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    while($row = mysqli_fetch_assoc($resultData))
+    {
+        echo "<option>".$row["folio"]."</option>";
+
+    }
+    mysqli_stmt_close($stmt);
+    exit();
+}
+function dispArtbyfolio($conn,$entrada,$entrada2){
+    $sql="SELECT  * FROM ReporteOrden WHERE idOrden = ? AND folio = ? AND estatus = 1";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"ii", $entrada,$entrada2);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    while($row = mysqli_fetch_assoc($resultData))
+    {
+        echo "<option>".$row["idArticulo"]."</option>";
 
     }
     mysqli_stmt_close($stmt);
