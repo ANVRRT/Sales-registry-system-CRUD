@@ -11,9 +11,7 @@
                 <option value="VR">Ventas por Representante</option>
                 <option value="VC">Ventas por Cliente</option>
                 <option value="VA">Ventas por Artículo</option>
-                <option value="VMA">Ventas por Mes-Año</option>
-                <option value="PVS">Pedido vs Surtido</option>
-                <option value="CVPA">Comparativo ventas por año</option>
+                <option value="VMA">Ventas por Fecha</option>
             </select>
         </div>
         <div class="campo__3--button">

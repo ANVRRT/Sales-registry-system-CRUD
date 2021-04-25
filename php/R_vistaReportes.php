@@ -69,14 +69,8 @@
                                         echo"<h2 align='center'>Ventas por Representante</h2>";
                             		    include("R_reporteRepresentante.php");
                                     }else if($op=="VMA"){
-                                        echo"<h2 align='center'>Ventas por Mes-Año</h2>";
+                                        echo"<h2 align='center'>Ventas por Fecha</h2>";
                             		    include("R_reporteMA.php");
-                                    }else if($op=="PVS"){
-                                        echo"<h2 align='center'>Pedido vs Surtido</h2>";
-                            		    include("R_reportePS.php");
-                                    }else if($op=="CVPA"){
-                                        echo"<h2 align='center'>Ventas por Artículo</h2>";
-                            		    include("R_reporteCVPA.php");
                                     }
                             	}
                             ?>
