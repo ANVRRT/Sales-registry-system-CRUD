@@ -104,7 +104,7 @@ function BuildChartR(labels, values, chartTitle, type) {
   //var ctx = document.getElementById("myChart").getContext('2d');
   var ctx = document.getElementById("myBarChartR");
   //bar
-      myChart = new Chart(ctx, {
+      myChartR = new Chart(ctx, {
       type: type,
       data: {
           labels: labels, // Our labels
@@ -130,21 +130,29 @@ function BuildChartR(labels, values, chartTitle, type) {
           }
       }
   });
-  return myChart;
+  return myChartR;
 }
 
-function actualizarGrafico(chart, labels, values){
-  chart.data.datasets.data=values;
-  chart.data.labels=labels;
+function actualizarGrafico(chart, tlabels, tvalues){
+  chart.data.labels=tlabels;
+  chart.data.datasets[0].data=tvalues;
+  chart.update();
+}
+function removeData(chart) {
+  chart.data.labels.pop();
+  chart.data.datasets.forEach((dataset) => {
+      dataset.data.pop();
+  });
   chart.update();
 }
 
 function filtroTabla(tipo){
-  var json=lecturaTabla();
+  //var json=lecturaTabla();
   var fjson;
   var labels;
   var values;
-  console.log(json);
+  var tipo;
+  //console.log(json);
 
   cliente=document.getElementById("F_cliente");
   fcliente=cliente.value;
@@ -161,94 +169,466 @@ function filtroTabla(tipo){
   //console.log(farticulo);
   //console.log(ffac);
   //console.log(ford);
-  if (fcliente.length!=0){
-    fjson = json.filter(function (el) {
-      return el.idcliente == fcliente;
+  //console.log(tipo);
+  delete values;
+  delete labels;
+  if (tipo=="art"){
+    if (fcliente.length!=0){
+      fjson = json.filter(function (el) {
+        return el.idcliente == fcliente;
+      });
+      labels = fjson.map(function (e) {
+        return e.idart;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      //console.log(fjson);
+      actualizarGrafico(myChart,labels,values);
+      //reporte=BuildChart(labels,values,"N ventas");
+      //console.log(fjson);
+    }else if (frep.length!=0){
+      fjson = json.filter(function (el) {
+        return el.idrepresentante_agente == frep;
+      });
+      labels = fjson.map(function (e) {
+        return e.idart;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+    }else if (farticulo.length!=0){
+      fjson = json.filter(function (el) {
+        return el.idart == farticulo;
+      });
+      labels = fjson.map(function (e) {
+        return e.idart;
+      });
+      console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else if (ffac.length!=0){
+      fjson = json.filter(function (el) {
+        return el.fechadefactura == ffac;
+      });
+      labels = fjson.map(function (e) {
+        return e.idart;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else if (ford.length!=0){
+      fjson = json.filter(function (el) {
+        return el.fechadeorden == ford;
+      });
+      labels = fjson.map(function (e) {
+        return e.idart;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else{
+      var labels = json.map(function (e) {
+        return e.idart;
+      });
+      // Map json values back to values array
+      var values = json.map(function (e) {
+          return e.total;
+      });
+      actualizarGrafico(myChart,labels,values);
+    }
+  }else if(tipo=="cliente"){
+    if (fcliente.length!=0){
+      fjson = json.filter(function (el) {
+        return el.idcliente == fcliente;
+      });
+      labels = fjson.map(function (e) {
+        return e.idcliente;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //reporte=BuildChart(labels,values,"N ventas");
+      //console.log(fjson);
+    }else if (frep.length!=0){
+      fjson = json.filter(function (el) {
+        return el.idrepresentante_agente == frep;
+      });
+      labels = fjson.map(function (e) {
+        return e.idcliente;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+    }else if (farticulo.length!=0){
+      fjson = json.filter(function (el) {
+        return el.idart == farticulo;
+      });
+      labels = fjson.map(function (e) {
+        return e.idcliente;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else if (ffac.length!=0){
+      fjson = json.filter(function (el) {
+        return el.fechadefactura == ffac;
+      });
+      labels = fjson.map(function (e) {
+        return e.idcliente;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else if (ford.length!=0){
+      fjson = json.filter(function (el) {
+        return el.fechadeorden == ford;
+      });
+      labels = fjson.map(function (e) {
+        return e.idcliente;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else{
+      var labels = json.map(function (e) {
+        return e.idcliente;
+      });
+      // Map json values back to values array
+      var values = json.map(function (e) {
+          return e.total;
+      });
+      actualizarGrafico(myChart,labels,values);
+    }
+  }else if(tipo=="representante"){
+    if (fcliente.length!=0){
+      fjson = json.filter(function (el) {
+        return el.idcliente == fcliente;
+      });
+      labels = fjson.map(function (e) {
+        return e.idrepresentante_agente;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //reporte=BuildChart(labels,values,"N ventas");
+      //console.log(fjson);
+    }else if (frep.length!=0){
+      fjson = json.filter(function (el) {
+        return el.idrepresentante_agente == frep;
+      });
+      labels = fjson.map(function (e) {
+        return e.idrepresentante_agente;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+    }else if (farticulo.length!=0){
+      fjson = json.filter(function (el) {
+        return el.idart == farticulo;
+      });
+      labels = fjson.map(function (e) {
+        return e.idrepresentante_agente;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else if (ffac.length!=0){
+      fjson = json.filter(function (el) {
+        return el.fechadefactura == ffac;
+      });
+      labels = fjson.map(function (e) {
+        return e.idrepresentante_agente;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else if (ford.length!=0){
+      fjson = json.filter(function (el) {
+        return el.fechadeorden == ford;
+      });
+      labels = fjson.map(function (e) {
+        return e.idrepresentante_agente;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else{
+      var labels = json.map(function (e) {
+        return e.idrepresentante_agente;
+      });
+      // Map json values back to values array
+      var values = json.map(function (e) {
+          return e.total;
+      });
+      actualizarGrafico(myChart,labels,values);
+    }
+  }else if(tipo=="uv"){
+    if (fcliente.length!=0){
+      fjson = json.filter(function (el) {
+        return el.idcliente == fcliente;
+      });
+      labels = fjson.map(function (e) {
+        return e.uventa;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //reporte=BuildChart(labels,values,"N ventas");
+      //console.log(fjson);
+    }else if (frep.length!=0){
+      fjson = json.filter(function (el) {
+        return el.idrepresentante_agente == frep;
+      });
+      labels = fjson.map(function (e) {
+        return e.uventa;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+    }else if (farticulo.length!=0){
+      fjson = json.filter(function (el) {
+        return el.idart == farticulo;
+      });
+      labels = fjson.map(function (e) {
+        return e.uventa;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else if (ffac.length!=0){
+      fjson = json.filter(function (el) {
+        return el.fechadefactura == ffac;
+      });
+      labels = fjson.map(function (e) {
+        return e.uventa;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else if (ford.length!=0){
+      fjson = json.filter(function (el) {
+        return el.fechadeorden == ford;
+      });
+      labels = fjson.map(function (e) {
+        return e.uventa;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else{
+      var labels = json.map(function (e) {
+        return e.uventa;
+      });
+      // Map json values back to values array
+      var values = json.map(function (e) {
+          return e.total;
+      });
+      actualizarGrafico(myChart,labels,values);
+    }
+  }
+  
+  else if(tipo=="ma"){
+    var f_json=json.sort((a, b) => {
+      return new Date(a.json) - new Date(b.json); // descending
     });
-    labels = fjson.map(function (e) {
-      return e.idart;
-    });
-    //console.log(labels);
-    // Map json values back to values array
-    values = fjson.map(function (e) {
-        return e.total;
-    });
-    //console.log(values);
-    actualizarGrafico(myChart,labels,values);
-    //reporte=BuildChart(labels,values,"N ventas");
-    //console.log(fjson);
-  }else if (frep.length!=0){
-    fjson = json.filter(function (el) {
-      return el.idrepresentante_agente == frep;
-    });
-    labels = fjson.map(function (e) {
-      return e.idart;
-    });
-    //console.log(labels);
-    // Map json values back to values array
-    values = fjson.map(function (e) {
-        return e.total;
-    });
-    //console.log(values);
-    actualizarGrafico(myChart,labels,values);
-    //console.log(fjson);
-  }else if (farticulo.length!=0){
-    fjson = json.filter(function (el) {
-      return el.idart == farticulo;
-    });
-    labels = fjson.map(function (e) {
-      return e.idart;
-    });
-    //console.log(labels);
-    // Map json values back to values array
-    values = fjson.map(function (e) {
-        return e.total;
-    });
-    //console.log(values);
-    actualizarGrafico(myChart,labels,values);
-    //console.log(fjson);
-    //console.log(fjson);
-  }else if (ffac.length!=0){
-    fjson = json.filter(function (el) {
-      return el.fechadefactura == ffac;
-    });
-    labels = fjson.map(function (e) {
-      return e.idart;
-    });
-    //console.log(labels);
-    // Map json values back to values array
-    values = fjson.map(function (e) {
-        return e.total;
-    });
-    //console.log(values);
-    actualizarGrafico(myChart,labels,values);
-    //console.log(fjson);
-    //console.log(fjson);
-  }else if (ford.length!=0){
-    fjson = json.filter(function (el) {
-      return el.fechadeorden == ford;
-    });
-    labels = fjson.map(function (e) {
-      return e.idart;
-    });
-    //console.log(labels);
-    // Map json values back to values array
-    values = fjson.map(function (e) {
-        return e.total;
-    });
-    //console.log(values);
-    actualizarGrafico(myChart,labels,values);
-    //console.log(fjson);
-    //console.log(fjson);
-  }else{
-    var labels = json.map(function (e) {
-      return e.idart;
-    });
-    // Map json values back to values array
-    var values = json.map(function (e) {
-        return e.total;
-    });
-    actualizarGrafico(myChart,labels,values);
+console.log(f_json);
+    if (fcliente.length!=0){
+      fjson = f_json.filter(function (el) {
+        return el.idcliente == fcliente;
+      });
+      labels = fjson.map(function (e) {
+        return e.fechadefactura;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //reporte=BuildChart(labels,values,"N ventas");
+      //console.log(fjson);
+    }else if (frep.length!=0){
+      fjson = f_json.filter(function (el) {
+        return el.idrepresentante_agente == frep;
+      });
+      labels = fjson.map(function (e) {
+        return e.fechadefactura;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+    }else if (farticulo.length!=0){
+      fjson = f_json.filter(function (el) {
+        return el.idart == farticulo;
+      });
+      labels = fjson.map(function (e) {
+        return e.fechadefactura;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else if (ffac.length!=0){
+      fjson = f_json.filter(function (el) {
+        return el.fechadefactura == ffac;
+      });
+      labels = fjson.map(function (e) {
+        return e.fechadefactura;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else if (ford.length!=0){
+      fjson = f_json.filter(function (el) {
+        return el.fechadeorden == ford;
+      });
+      labels = fjson.map(function (e) {
+        return e.fechadefactura;
+      });
+      //console.log(labels);
+      // Map json values back to values array
+      values = fjson.map(function (e) {
+          return e.total;
+      });
+      //console.log(values);
+      actualizarGrafico(myChart,labels,values);
+      //console.log(fjson);
+      //console.log(fjson);
+    }else{
+      var labels = f_json.map(function (e) {
+        return e.fechadefactura;
+      });
+      // Map json values back to values array
+      var values = f_json.map(function (e) {
+          return e.total;
+      });
+      actualizarGrafico(myChart,labels,values);
+    }
   }
 
 }
@@ -398,6 +778,7 @@ function generarCSV(nombre){
     uventa:'Unidad de venta',
     divisa:'Divisa',
     fechadeorden:'Fecha de orden',
+    idorden:'Id de orden',
     cantidad:'Cantidad de compra',
     total:'Total de compra'
 
@@ -430,4 +811,38 @@ function csvCliente(){
   var json=lecturaTablaR();
 
   exportarCSV(headers,json,"reporte_ventas_por_cliente");
+}
+
+function csvRepresentante(){
+  const headers = {
+    numdeventas: '# de Ventas por Representante',
+    idrepresentante: 'Id Representante',
+    nombre: 'Nombre Representante',
+   };
+
+  var json=lecturaTablaR();
+
+  exportarCSV(headers,json,"reporte_ventas_por_representante");
+}
+
+function csvUV(){
+  const headers = {
+    numdeventas: '# de Ventas por Unidad de venta',
+    unidaddeventa: 'Unidad de venta',
+   };
+
+  var json=lecturaTablaR();
+
+  exportarCSV(headers,json,"reporte_ventas_por_uv");
+}
+
+function csvMA(){
+  const headers = {
+    numdeventas: '# de Ventas por Unidad de venta',
+    fecha: 'Fecha',
+   };
+
+  var json=lecturaTablaR();
+
+  exportarCSV(headers,json,"reporte_ventas_por_fecha");
 }
