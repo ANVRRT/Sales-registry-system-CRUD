@@ -104,7 +104,12 @@
 
 		<div class="campo">
 			<label class="campo__label" for="fecha-sol">Fecha de solicitud</label>
-			<input class="campo__field" type="date" name="fechaSol" id="fechaSol" required>
+			<?php
+				date_default_timezone_set('America/Mexico_City');
+				$minDate = date("Y-m-d");
+				echo "<input class='campo__field' type='date' name='fechaSol' id='fechaSol' min='$minDate' required>";
+			?>
+			
 		</div>
 
 		<div class="campo--button">

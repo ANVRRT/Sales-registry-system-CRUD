@@ -8,6 +8,8 @@
 			<label class="campo__label" for="compania">Compañía</label>
 			<?php
 				echo "<input class='campo__field' type='text'name='idCompania' id='idCompania' value='".$_SESSION["idCompania"]."' readonly>";
+				date_default_timezone_set('America/Mexico_City');
+				$minDate = date("Y-m-d");
 			?>
 		</div>
 
@@ -69,12 +71,20 @@
 
 		<div class="campo">
 			<label class="campo__label" for="fechaCaducidad">Fecha de caducidad</label>
-			<input class="campo__field" type="date" name="fechaCaducidad" id="fechaCaducidad"></input>
+			<?php
+
+				echo "<input class='campo__field' type='date' name='fechaCaducidad' id='fechaCaducidad' min='$minDate'></input>";
+			?>
+			
 		</div>
 
 		<div class="campo">
 			<label class="campo__label" for="fechaInicio">Fecha de inicio</label>
-			<input class="campo__field" type="date" name="fechaInicio" id="fechaInicio"></input>
+			<?php
+
+				echo "<input class='campo__field' type='date' name='fechaInicio' id='fechaInicio' min='$minDate'></input>";
+			?>
+			
 		</div>
 
 		<div class="campo campo__text">
