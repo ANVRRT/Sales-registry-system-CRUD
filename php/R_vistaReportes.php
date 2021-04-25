@@ -5,9 +5,9 @@
     <?php
         include("../includes/header.php");
         require_once("../includes/dbh.inc.php");
-        require_once("../includes/functions_catalogos.php");
+        require_once("../includes/functions_reportesGraficos.php");
     ?>
-    <link rel="stylesheet" href="../css/styles-capOrden.css">
+    <!--<link rel="stylesheet" href="../css/styles-capOrden.css"> -->
     <link rel="stylesheet" href="../css/normalize.css">
 </head>
 
@@ -53,14 +53,26 @@
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
+                                include("forms/FR_seleccionReporte.php");
                             	if(isset($_POST["Generar"])){
-                                    echo "<div class='fix-margin'>";
-                            		include("R_graficaEjemplo.php");
-                                    echo "</div>";
+                                    $op=$_POST["tipoReporte"];
+                                    if($op=="VUV"){
+                                        echo"<h2 align='center'>Ventas por Unidad de Venta</h2>";
+                                        include("R_reporteUV.php");
+                                    }else if($op=="VA"){
+                                        echo"<h2 align='center'>Ventas por Artículo</h2>";
+                            		    include("R_reporteArticulo.php");
+                                    }else if($op=="VC"){
+                                        echo"<h2 align='center'>Ventas por Cliente</h2>";
+                            		    include("R_reporteCliente.php");
+                                    }else if($op=="VR"){
+                                        echo"<h2 align='center'>Ventas por Representante</h2>";
+                            		    include("R_reporteRepresentante.php");
+                                    }else if($op=="VMA"){
+                                        echo"<h2 align='center'>Ventas por Fecha</h2>";
+                            		    include("R_reporteMA.php");
+                                    }
                             	}
-                                else{
-                                    include("forms/FR_seleccionReporte.php");
-                                }
                             ?>
                         </div>
                     </div>
