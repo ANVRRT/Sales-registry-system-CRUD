@@ -13,51 +13,50 @@
         $estatus=0;
         $costo=obtenerCosto($conn,$_POST["idArticulo"]);
         $act=creditoActual($conn,$_POST["idCliente"]);
-        // echo "el acumulado es ".$act;
+       
         $revCst=$total+$act;
         $date = date('Y-m-d');
-        if($revCst < $reg->limCredito){
-            //echo "se puede hacer registro".$revCst.$reg->limCredito;
             
-            if(strlen($_POST["folio"])>0){
-                $banderaFolio=prepararFolio($conn,$_POST["folio"]);
-                if(!$banderaFolio){
-                    createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
-                }
-                if(!$banderaOrden){
-                    createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],$date,null,null,null,null,null,$date,$total,1,0,0,0,0,0,0,0,1,'1',null);   
-                }
-                else{
-                    $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
-                    $newTotal= $totalOrden + $total;
-                    updateOrden($conn,$_POST["idOrden"],$newTotal);
-                }
-                createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["folio"],'default',null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
-                $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
-                
+        if(strlen($_POST["folio"])>0){
+            $banderaFolio=prepararFolio($conn,$_POST["folio"]);
+            if(!$banderaFolio){
+                createArtVendido($conn,$_POST["folio"],$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
+            }
+            if(!$banderaOrden){
+                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],$date,null,null,null,null,null,$date,$total,1,0,0,0,0,0,0,0,1,'1',null);   
             }
             else{
-                createArtVendido($conn,'default',$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
-                
-                if(!$banderaOrden){
-                    createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],$date,null,null,null,null,null,$date,$total,1,0,0,0,0,0,0,0,1,'1',null);            }
-                else{
-                    $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
-                    $newTotal= $totalOrden + $total;
-                    updateOrden($conn,$_POST["idOrden"],$newTotal);
-                }
-                $regArt=consultarFolio($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"]);
-                createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$regArt->folio,'default',null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
-                $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
-                
+                $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
+                $newTotal= $totalOrden + $total;
+                updateOrden($conn,$_POST["idOrden"],$newTotal);
             }
+            createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["folio"],'default',null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
+            $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
+            
         }
         else{
-            //echo "No se puede hacer registro".$revCst.$reg->limCredito;
+            createArtVendido($conn,'default',$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"],'1',null);
             
-            header("location: ../php/O_capturar.php?error=saldo");
-            exit();
+            if(!$banderaOrden){
+                createOrden($conn,$_POST["idOrden"],$_POST["idCompania"],$_POST["idCliente"],$_POST["dirEnt"],$estatus,$_POST["idOrden"],$_POST["fechaSol"],$date,null,null,null,null,null,$date,$total,1,0,0,0,0,0,0,0,1,'1',null);            }
+            else{
+                $totalOrden=consultaTotal($conn,$_POST["idOrden"]);
+                $newTotal= $totalOrden + $total;
+                updateOrden($conn,$_POST["idOrden"],$newTotal);
+            }
+            $regArt=consultarFolio($conn,$_POST["idArticulo"],$_POST["idCompania"],$_POST["idCliente"],$_POST["cantidad"],$_POST["codAviso"],$_POST["udVta"]);
+            createReporte($conn,$_POST["idOrden"],$_POST["idCompania"],$regArt->folio,'default',null,null,$_POST["idCliente"],$reg->nombreCliente,$_POST["dirEnt"],$_POST["idArticulo"],$_POST["idOrden"],$_POST["cantidad"],$_POST["precio"],
+            $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
+            
         }
+        
+        if($revCst > $reg->limCredito){
+            die("Error saldo");
+        }
+        else{
+            die("Success saldo");
+        }
+        
     }
     //ACTUALIZACION ORDENES
     if(isset($_POST["U_Orden"])){
@@ -159,6 +158,8 @@
                 updatevFEC($conn,$vFEC,null,$_POST["idOrden"]);
             }
         }
+        header("location: ../php/O_actualizar.php?error=success");
+        exit();
     }
     //ACTUALIZAR ORDENES
     function updateDirEnt($conn,$dirEnt,$idOrden){
@@ -174,8 +175,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successDirEnt");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -196,8 +196,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successFecha");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -218,8 +217,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvFac");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -240,8 +238,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvCxC");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -262,8 +259,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvPrecios");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -285,8 +281,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvCostos");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -307,8 +302,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvIng");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -329,8 +323,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvFEC");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -456,8 +449,7 @@
         }
         else{
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_Capturar.php?error=sqlerror");
-            exit();
+            die("Error Art");
         }
     }
 
@@ -478,8 +470,8 @@
         }
         else{
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_capturar.php?error=sqlerror2");
-            exit();
+            die("Error Orden");
+            
         }
 
     }
@@ -497,13 +489,10 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_Capturar.php?error=success");
-            exit();
         }
         else{
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_capturar.php?error=sqlerror3");
-            exit();
+            die("Error Reporte");
         }
     }
 
