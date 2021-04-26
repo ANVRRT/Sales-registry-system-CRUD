@@ -185,7 +185,7 @@ if(isset($_POST["U_compania"])){
 }
 //FACTURA FUNCTIONS
 if(isset($_POST["A_Facs"])){ 
-    createFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_POST["idOrden"],$_POST["idArticulo"],$_POST["idCliente"],$_POST["idFolio"],$_POST["entrega"],$_POST["tipoTrans"],$_POST["fechaFac"]);
+    createFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_POST["idOrden"],$_POST["idArticulo"],$_POST["idCliente"],$_POST["folio"],$_POST["entrega"],$_POST["tipoTrans"],$_POST["fechaFac"]);
     updateReOrdenFact($conn,$_POST["idOrden"],$_POST["numFac"],$_POST["idFolio"]);
 }
 if(isset($_POST["B_Facs"])){
@@ -1826,7 +1826,7 @@ function createFactura($conn,$numFact,$idCompania,$idOrden,$idArticulo,$idClient
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"sssssiissis",$numFact,$idCompania,$idOrden,$idArticulo,$idCliente,$folio,$entrega,$tipoTrans,$fechaFac,$estatus,$idBaja);
+    mysqli_stmt_bind_param($stmt,"isissiissis",$numFact,$idCompania,$idOrden,$idArticulo,$idCliente,$folio,$entrega,$tipoTrans,$fechaFac,$estatus,$idBaja);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
