@@ -49,7 +49,11 @@
 
                 </div> -->
 
-                <div class="container-fluid"> 
+                <div class="container-fluid">
+                    <?php
+                    if ((roles($_SESSION["rol"], array("ADM","DIR"))) || (permissions($_SESSION["permisos"], array("pr_reportes")))) {
+
+                    ?>
                     <div class="col-lg-12">
                         <div class="card-body">
                             <?php
@@ -76,6 +80,11 @@
                             ?>
                         </div>
                     </div>
+                    <?php
+                    }else{
+                        include("404.php");
+                    }
+                    ?>
                 </div>
                 
                 <!-- /.container-fluid -->
@@ -87,7 +96,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                    <span>Copyright &copy; Cartones Corrugados 2020</span>
                     </div>
                 </div>
             </footer>

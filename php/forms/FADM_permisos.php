@@ -62,7 +62,8 @@
 				<option value="ps_archivos">Subir Archvios</option>
 				<option value="pr_tiempoDepto">Reporte Tiempo Departamento</option>
 				<option value="pr_ordenes">Reporte de todas las ordenes</option>
-				<option value="p_reportes">Reportes completos</option>
+				<option value="pr_reportes">Reportes completos</option>
+				
 			</select>
 		</div>
 

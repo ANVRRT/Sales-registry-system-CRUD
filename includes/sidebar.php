@@ -277,6 +277,9 @@ function roles($role, $roleschck)
         if ((roles($_SESSION["rol"], array("ADM","AGE","CST","VTA","EMB","DIR"))) || (permissions($_SESSION["permisos"], array("pr_ordenes")))) {
             echo "<a class='collapse-item' href='R_ordenes.php'>Reporte de todas <br> las ordenes</a>";
         }
+        if ((roles($_SESSION["rol"], array("ADM","DIR"))) || (permissions($_SESSION["permisos"], array("pr_reportes")))) {
+            echo "<a class='collapse-item' href='R_vistaReportes.php'>Reportes generales<br> y gráficos</a>";
+        }
         echo "
                 </div>
             </div>
