@@ -92,14 +92,17 @@
             </div>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+           <!-- Footer -->
+            <!--<footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Cartones Corrugados 2020</span>
+                        <span>Copyright &copy; Cartones Corrugados 2020</span>
                     </div>
                 </div>
-            </footer>
+            </footer>-->
+            <?php
+                include("../includes/bottom.php");
+            ?>
             <!-- End of Footer -->
 
         </div>
