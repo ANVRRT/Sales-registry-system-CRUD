@@ -288,14 +288,6 @@
                                     ?>
                                     </tbody>
                                 </table>
-
-                            <?php
-                                }
-                                else {
-                                    include("404.php");
-                                }
-                                
-                            ?>
                             </div>
                         </div>
                     </div>
