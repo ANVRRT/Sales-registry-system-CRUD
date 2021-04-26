@@ -13,12 +13,11 @@
         $estatus=0;
         $costo=obtenerCosto($conn,$_POST["idArticulo"]);
         $act=creditoActual($conn,$_POST["idCliente"]);
-        // echo "el acumulado es ".$act;
+       
         $revCst=$total+$act;
         $date = date('Y-m-d');
-        if($revCst < $reg->limCredito){
-            //echo "se puede hacer registro".$revCst.$reg->limCredito;
-            
+        if($reg->bloqueo!=1){
+
             if(strlen($_POST["folio"])>0){
                 $banderaFolio=prepararFolio($conn,$_POST["folio"]);
                 if(!$banderaFolio){
@@ -51,13 +50,19 @@
                 $_POST["observaciones"],$_POST["fechaSol"],null,0,0,0,$total,$costo, $reg->divisa,null,'1',null);
                 
             }
+            
+            if($revCst > $reg->limCredito){
+                die("Error saldo");
+            }
+            else{
+                die("Success saldo");
+            }
         }
         else{
-            //echo "No se puede hacer registro".$revCst.$reg->limCredito;
-            
-            header("location: ../php/O_capturar.php?error=saldo");
-            exit();
+            die("Error cliente");
+
         }
+        
     }
     //ACTUALIZACION ORDENES
     if(isset($_POST["U_Orden"])){
@@ -159,6 +164,8 @@
                 updatevFEC($conn,$vFEC,null,$_POST["idOrden"]);
             }
         }
+        header("location: ../php/O_actualizar.php?error=success");
+        exit();
     }
     //ACTUALIZAR ORDENES
     function updateDirEnt($conn,$dirEnt,$idOrden){
@@ -174,8 +181,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successDirEnt");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -196,8 +202,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successFecha");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -218,8 +223,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvFac");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -240,8 +244,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvCxC");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -262,8 +265,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvPrecios");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -285,8 +287,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvCostos");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -307,8 +308,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvIng");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -329,8 +329,7 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_actualizar.php?error=successvFEC");
-            exit();
+            
         }
         else{
             mysqli_stmt_close($stmt);
@@ -456,8 +455,7 @@
         }
         else{
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_Capturar.php?error=sqlerror");
-            exit();
+            die("Error Art");
         }
     }
 
@@ -478,8 +476,8 @@
         }
         else{
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_capturar.php?error=sqlerror2");
-            exit();
+            die("Error Orden");
+            
         }
 
     }
@@ -497,13 +495,10 @@
         if(mysqli_stmt_execute($stmt))
         {
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_Capturar.php?error=success");
-            exit();
         }
         else{
             mysqli_stmt_close($stmt);
-            header("location: ../php/O_capturar.php?error=sqlerror3");
-            exit();
+            die("Error Reporte");
         }
     }
 

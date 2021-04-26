@@ -34,11 +34,11 @@ if (isset($_POST["submit"])){
         header("location: ../php/register.php?error=comp!exist");
         exit();
     }
-    // if (rolExists($conn, $rol, $idCompania) !== true)
-    // {
-    //     header("location: ../php/register.php?error=rol!exist");
-    //     exit();
-    // }
+    if (rolExists($conn, $rol, $idCompania) !== true)
+    {
+        header("location: ../php/register.php?error=rol!exist");
+        exit();
+    }
 
     createUser($conn, $idUsuario, $idCompania, $rol, $nombre, $contrasena);
 }

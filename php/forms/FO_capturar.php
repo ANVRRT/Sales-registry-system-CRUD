@@ -20,7 +20,7 @@
 				while($row = mysqli_fetch_assoc($reg))
 				{
 					if($row["estatus"]==1){
-						echo "<option>".$row["idCliente"]."</option>";
+						echo "<option value = '".$row["idCliente"]."'>".$row["nombreCliente"]."</option>";
 					}
 
 				}
@@ -61,7 +61,7 @@
 					</svg>
 				</button>
 			</div>
-			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articuloList" onblur="AjaxFunction2('dispFolio','idCliente','idArticulo','folioList');AjaxFunction2('dispPrecio','idList','idArticulo','precioList')" required>
+			<input class="campo__field" type="text" name="idArticulo" id="idArticulo" list="articuloList" onblur="AjaxFunction2('dispFolio','idCliente','idArticulo','folioList');AjaxFunction2('dispPrecio2','idList','idArticulo','precioList')" required>
 			<datalist id="articuloList" >
 			</datalist>
 		</div>
@@ -104,12 +104,17 @@
 
 		<div class="campo">
 			<label class="campo__label" for="fecha-sol">Fecha de solicitud</label>
-			<input class="campo__field" type="date" name="fechaSol" id="fechaSol" required>
+			<?php
+				date_default_timezone_set('America/Mexico_City');
+				$minDate = date("Y-m-d");
+				echo "<input class='campo__field' type='date' name='fechaSol' id='fechaSol' min='$minDate' required>";
+			?>
+			
 		</div>
 
 		<div class="campo--button">
 			<input class="campo__field button--red grd" type="reset" value="Limpiar">
-			<input class="campo__field button--blue" type="submit" name="A_Orden" value="Guardar">
+			<input class="campo__field button--blue" type="button" name="A_Orden" id="A_Orden" value="Guardar" onclick="altaOrden()">
 		</div>
 		
 	</form>

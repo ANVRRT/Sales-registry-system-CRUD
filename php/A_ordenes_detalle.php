@@ -435,7 +435,8 @@
         <i class="fas fa-angle-up"></i>
     </a>
     <?php
-    
+        date_default_timezone_set('America/Mexico_City');
+        $minDate = date("Y-m-d");
         if ((roles($_SESSION["rol"], array("ADM", "DIR","VTA"))) || (permissions($_SESSION["permisos"], array("po_autorizarOrdenADM","po_autorizarOrdenVTA","po_autorizarOrdenDIR")))){
             echo "<div class='modal fade' id='ventana' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
                     <div class='modal-dialog' role='document'>
@@ -476,7 +477,7 @@
                                                     <p class='textPop'>Fecha O.C</p><input style='text-align: center;' class='bloquePop' size='10' type='date' name='PO_FCOMPRA' id='PO_FCOMPRA'>
                                                 </td>
                                                 <td>
-                                                    <p class='textPop'>Fecha Cliente</p><input style='text-align: center;' class='bloquePop' size='10' type='date' name='PO_FCLIENTE' id='PO_FCLIENTE'>
+                                                    <p class='textPop'>Fecha Cliente</p><input style='text-align: center;' class='bloquePop' size='10' type='date' name='PO_FCLIENTE' id='PO_FCLIENTE' min='$minDate'>
                                                 </td>
                                             </tr>
 
@@ -502,6 +503,7 @@
         }
 
         if($_SESSION["rol"]=="PLN"){
+
             echo "<div class='modal fade' id='ventana' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
                     <div class='modal-dialog' role='document'>
                         <div class='modal-content'>
@@ -524,7 +526,7 @@
 
                                             <tr align='center'>
                                                 <td style='text-align: center;'>
-                                                    <p class='textPop'>Fecha Cliente</p><input style='text-align: center;' class='bloquePop' size='10' type='date' name='PO_FCLIENTE' id='PO_FCLIENTE'>
+                                                    <p class='textPop'>Fecha Cliente</p><input style='text-align: center;' class='bloquePop' size='10' type='date' name='PO_FCLIENTE' id='PO_FCLIENTE' min='$minDate'>
                                                 </td>
                                             </tr>
 

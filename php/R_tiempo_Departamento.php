@@ -26,6 +26,7 @@
             include("../includes/sidebar.php");
             require_once("../includes/functions_catalogos.php");
             require_once("../includes/functions_reportes.php");
+
             ?>
 
 
@@ -53,15 +54,10 @@
 
                 </div> -->
                 <div class="container-fluid">
-
                     <?php
 
-                        if ((roles($_SESSION["rol"], array("ADM","PLN","DIR"))) || (permissions($_SESSION["permisos"], array("pr_tiempoDepto")))) {
-                            
-                        
-
+                    if ((roles($_SESSION["rol"], array("ADM","PLN","DIR"))) || (permissions($_SESSION["permisos"], array("pr_tiempoDepto")))) {
                     ?>
-
                     <!-- Page Heading -->
                     <h1 >Reporte de Tiempo Promedio por Departamento</h1>
                     <!-- DataTales Example -->
@@ -174,6 +170,12 @@
                             ?>
                         </div>
                     </div>
+                    <?php
+                    }
+                    else{
+                        include("404.php");
+                    }
+                    ?>
 
                 </div>
                 <!-- /.container-fluid -->

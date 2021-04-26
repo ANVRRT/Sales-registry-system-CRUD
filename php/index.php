@@ -37,9 +37,12 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <?php
-                            echo "<h1 class='h1 mb-1 text-gray-800' style='text-align: center'>Bienvenido <strong>".$_SESSION["nombre"]."</strong> al nuevo sistema de La Moderna</h1>";
-                        ?>
+                        <div class="col-xl-12 ">
+                            <img src="../img/logo.png" style="  display: block; margin-left: auto; margin-right: auto; width: 50%; margin-bottom:30px;"/>
+                            <?php
+                                echo "<h1 class='h1 mb-1 text-gray-800' style='text-align: center;'>Bienvenido <strong>".$_SESSION["nombre"]."</strong> al nuevo sistema</h1>";
+                            ?>
+                        </div>
                         
                         <!-- <h1 class="h3 mb-0 text-gray-800" style="text-align: center"> :)</h1> -->
                         
@@ -47,7 +50,9 @@
                     </div>
 
                     <!-- Content Row -->
-                    <div class="row" >
+                    <div class="row justify-content-between mb-4" >
+                        
+                        
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
