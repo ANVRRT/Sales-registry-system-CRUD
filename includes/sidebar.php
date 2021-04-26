@@ -34,7 +34,11 @@ function roles($role, $roleschck)
     <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-box-open"></i>
     </div>
-    <div class="sidebar-brand-text mx-3">Cartones Corrugados</div>
+    <?php
+    
+    // echo "<div class='sidebar-brand-text mx-3'>".$_SESSION["idCompania"]."</div>";
+    echo "<div class='sidebar-brand-text mx-3'>Papeles Corrugados</div>";
+    ?>
 
     </a>
 
