@@ -159,7 +159,15 @@
                                     ?>
                                     </tbody>
                                 </table>
+
                             </div>
+                            <?php
+                                }
+                                else {
+                                    include("404.php");
+                                }
+                                
+                            ?>
                         </div>
                     </div>
                     <?php
