@@ -75,6 +75,13 @@
                                     }else if($op=="VMA"){
                                         echo"<h2 align='center'>Ventas por Fecha</h2>";
                             		    include("R_reporteMA.php");
+                                    }else if($op=="PVS"){
+                                        echo"<h2 align='center'>Estatus de Órdenes de venta</h2>";
+                            		    include("R_reportePvS.php");
+                                    }
+                                    else if($op=="PVS2"){
+                                        echo"<h2 align='center'>Pedido VS surtido</h2>";
+                            		    include("R_reportePvS2.php");
                                     }
                             	}
                             ?>
