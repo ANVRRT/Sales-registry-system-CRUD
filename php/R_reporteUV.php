@@ -38,30 +38,33 @@
         <input type="text" id="F_forden" onkeyup="filtroOrden()" placeholder="Por fecha de orden" name="ord" title="Ingresa fecha de orden" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
       </div>
     <br><br>
-      <div class="container mb-5 mt-3">
-        <table class="table table-bordered mydataTable" style="width: 100%" id="dataTable">
-          <thead>
-            <th>IdArt</th>
-            <th>IdCliente</th>
-            <th>IdComp</th>
-            <th>Fecha de factura</th>
-            <th>ID Representante_agente</th>
-            <th>U Venta</th>
-            <th>Divisa</th>
-            <th>Fecha de orden</th>
-            <th>IdOrden</th>
-            <th>Cantidad</th>
-            <th>Total</th>
-          </thead>
-          <tbody>
-            <?php reporteBase($conn,$_SESSION["idCompania"])?>
-          </tbody>
-        </table>
-      </div>
+      
+      <div class="reportes" id="repoDoc">
+        <div class="container mb-5 mt-3">
+          <table class="table table-bordered mydataTable" style="width: 100%" id="dataTable">
+            <thead>
+              <th>IdArt</th>
+              <th>IdCliente</th>
+              <th>IdComp</th>
+              <th>Fecha de factura</th>
+              <th>ID Representante_agente</th>
+              <th>U Venta</th>
+              <th>Divisa</th>
+              <th>Fecha de orden</th>
+              <th>IdOrden</th>
+              <th>Cantidad</th>
+              <th>Total</th>
+            </thead>
+            <tbody>
+              <?php reporteBase($conn,$_SESSION["idCompania"])?>
+            </tbody>
+          </table>
+        </div>
 
         <div id="canvas-holder" name="grafica">
             <canvas id="myBarChart" width="100" height="600"></canvas>
         </div>
+      </div>
 
         <script>
           var json=lecturaTabla();
@@ -91,20 +94,23 @@
         </script>
 
         <br>
-      <div class="container mb-5 mt-3">
-        <table class="table table-bordered mydataTableR" style="width: 100%" id="dataTableR">
-          <thead>
-            <th>Num de ventas</th>
-            <th>Unidad de venta</th>
-          </thead>
-          <tbody>
-            <?php uventaR($conn,$_SESSION["idCompania"])?>
-          </tbody>
-        </table>
-      </div>
+      
+      <div class="reportesR" id="repoDocR">
+        <div class="container mb-5 mt-3">
+          <table class="table table-bordered mydataTableR" style="width: 100%" id="dataTableR">
+            <thead>
+              <th>Num de ventas</th>
+              <th>Unidad de venta</th>
+            </thead>
+            <tbody>
+              <?php uventaR($conn,$_SESSION["idCompania"])?>
+            </tbody>
+          </table>
+        </div>
 
-      <div id="canvas-holderR" name="grafica">
-        <canvas id="myBarChartR" width="100" height="600"></canvas>
+        <div id="canvas-holderR" name="grafica">
+          <canvas id="myBarChartR" width="100" height="600"></canvas>
+        </div>
       </div>
 
       <script>

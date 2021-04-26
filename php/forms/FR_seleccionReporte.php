@@ -12,6 +12,8 @@
                 <option value="VC">Ventas por Cliente</option>
                 <option value="VA">Ventas por Artículo</option>
                 <option value="VMA">Ventas por Fecha</option>
+                <option value="PVS">Estatus de Órdenes</option>
+                <option value="PVS2">Pedido vs Surtido</option>
             </select>
         </div>
         <div class="campo__3--button">

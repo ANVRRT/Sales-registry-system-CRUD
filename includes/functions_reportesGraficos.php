@@ -154,6 +154,81 @@ function MaR($conn,$compania){
     mysqli_stmt_close($stmt);
 }
 
+function psR($conn, $idCompania, $estatus){
+    $sql="SELECT * FROM Orden WHERE idCompania = ? AND estatus = ? AND estatusDB = 1";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"si", $idCompania, $estatus);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    return $resultData;
+
+    mysqli_stmt_close($stmt);
+    exit();
+}
+
+function conteoOrdenes($conn,$idCompania,$estatus){
+    $sql="SELECT COUNT(*)total FROM Orden WHERE idCompania = ? AND estatus = ? AND estatusDB = 1";
+
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"si", $idCompania, $estatus);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+    return $resultData["total"];
+}
+
+function pvs2R($conn,$idCompania){
+    $sql ="SELECT * FROM Orden WHERE idCompania= ? AND estatus = 1";
+    // $sql ="SELECT * FROM scores WHERE gamerTag = '$filtro' ORDER BY score DESC LIMIT 3";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt,$sql))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+    $sql2 = "";
+
+    while($row = mysqli_fetch_assoc($resultData)){
+        $sql2 = $sql2."SELECT * FROM ReporteOrden WHERE idOrden = ".$row["idOrden"]." AND idCompania=$idCompania ";
+        $sql2 = $sql2."UNION ";
+    }
+    $sql2 = substr($sql2, 0, -6);
+
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt,$sql2))
+    {
+        header("location: ../php/index.php?error=stmtfailed");
+        //echo $sql2;
+        exit();
+    }
+    //mysqli_stmt_bind_param($stmt,"s", $idCompania);
+    mysqli_stmt_execute($stmt);
+    $resultData2 = mysqli_stmt_get_result($stmt);
+    //$result2 = $conn->query($sql2);
+    return $resultData2;
+
+    
+}
+
 function reporteBase($conn, $compania){
     //$sql="SELECT * FROM ArticuloExistente";
     //$sql="SELECT * FROM((Factura JOIN ArticuloVendido ON Factura.idCliente=ArticuloVendido.idCliente) JOIN Cliente ON Cliente.idCliente=Factura.idCliente) JOIN ArticuloExistente ON ArticuloExistente.idArticulo=Factura.idArticulo WHERE bloqueo=0 AND ArticuloExistente.estatus=1 AND Factura.folio=ArticuloVendido.folio AND Factura.estatus=1 AND ArticuloVendido.estatus=1 AND Cliente.estatus=1";
