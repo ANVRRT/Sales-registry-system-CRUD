@@ -369,6 +369,10 @@ function altaOrden(){
             if(response=="Success saldo"){
                 window.location.href = "../php/O_capturar.php?error=success";  
             }
+            if(response=="Error cliente"){
+                window.location.href = "../php/O_capturar.php?error=clienteBloqueado";  
+                alert ("Este cliente se encuentra bloqueado");
+            }
   
         }
     });

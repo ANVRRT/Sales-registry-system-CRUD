@@ -56,6 +56,9 @@
                                     if ($_GET["error"] == "pswrd!match") {
                                         echo "<p style='color: white;'> ¡Las contraseñas no coinciden! </p>";
                                     }
+                                    if ($_GET["error"] == "rol!exist") {
+                                        echo "<p style='color: white;'> ¡No existe ese rol en esa compañia! </p>";
+                                    }
                                     if ($_GET["error"] == "usrtaken") {
                                         echo "<p style='color: white;'> ¡Ese usuario ya existe! </p>";
                                     }

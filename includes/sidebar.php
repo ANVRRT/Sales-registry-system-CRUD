@@ -34,7 +34,11 @@ function roles($role, $roleschck)
     <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-box-open"></i>
     </div>
-    <div class="sidebar-brand-text mx-3">Cartones Corrugados</div>
+    <?php
+    
+    // echo "<div class='sidebar-brand-text mx-3'>".$_SESSION["idCompania"]."</div>";
+    echo "<div class='sidebar-brand-text mx-3'>Papeles Corrugados</div>";
+    ?>
 
     </a>
 
@@ -276,6 +280,9 @@ function roles($role, $roleschck)
         }
         if ((roles($_SESSION["rol"], array("ADM","AGE","CST","VTA","EMB","DIR"))) || (permissions($_SESSION["permisos"], array("pr_ordenes")))) {
             echo "<a class='collapse-item' href='R_ordenes.php'>Reporte de todas <br> las ordenes</a>";
+        }
+        if ((roles($_SESSION["rol"], array("ADM","DIR"))) || (permissions($_SESSION["permisos"], array("pr_reportes")))) {
+            echo "<a class='collapse-item' href='R_vistaReportes.php'>Reportes generales<br> y gráficos</a>";
         }
         echo "
                 </div>

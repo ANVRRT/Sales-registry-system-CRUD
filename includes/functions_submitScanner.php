@@ -141,10 +141,10 @@
 
         for($z = 0; $z<count($getPathFiles); $z++) {
             if (($_FILES[$getPathFiles[$z]]['name']!="")){
-                //File size limiter
-                if ($_FILES[$getPathFiles[$z]]['size'] > 500000) {
-                    echo "Sorry, your file is too large.";
-                    return array(false, "Size");
+                //File size limiter (3MB)
+                if ($_FILES[$getPathFiles[$z]]['size'] > 3000000) {
+                    $GLOBALnoErrorFlag[$z] =  false;
+                    $GLOBALstrCombinedArrays[$z] = "Operaciones fallidas:" ."<br>" ."Archivo muy pesado";
                 }
                 else {
                     $noErrorFlag = "true";
@@ -160,11 +160,11 @@
                     $path_filename_ext = $target_dir.$filename.".".$ext;
                     
                     move_uploaded_file($temp_name,$path_filename_ext);
-                    //operation
-                    $data = file($path_filename_ext, FILE_SKIP_EMPTY_LINES);
 
+                    //Operation
+                    $data = file($path_filename_ext, FILE_SKIP_EMPTY_LINES);
                     for ($i = 0; $i<count($data); $i++) {
-                        $mscData = explode("||", $data[$i]);
+                        $mscData = explode(",", $data[$i]);
 
                         for ($j = 0; $j<count($mscData); $j++) {
                             $mscData[$j] = trim($mscData[$j]);

@@ -185,7 +185,7 @@ if(isset($_POST["U_compania"])){
 }
 //FACTURA FUNCTIONS
 if(isset($_POST["A_Facs"])){ 
-    createFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_POST["idOrden"],$_POST["idArticulo"],$_POST["idCliente"],$_POST["idFolio"],$_POST["entrega"],$_POST["tipoTrans"],$_POST["fechaFac"]);
+    createFactura($conn,$_POST["numFac"],$_POST["idCompania"],$_POST["idOrden"],$_POST["idArticulo"],$_POST["idCliente"],$_POST["folio"],$_POST["entrega"],$_POST["tipoTrans"],$_POST["fechaFac"]);
     updateReOrdenFact($conn,$_POST["idOrden"],$_POST["numFac"],$_POST["idFolio"]);
 }
 if(isset($_POST["B_Facs"])){
@@ -1826,7 +1826,7 @@ function createFactura($conn,$numFact,$idCompania,$idOrden,$idArticulo,$idClient
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt,"sssssiissis",$numFact,$idCompania,$idOrden,$idArticulo,$idCliente,$folio,$entrega,$tipoTrans,$fechaFac,$estatus,$idBaja);
+    mysqli_stmt_bind_param($stmt,"isissiissis",$numFact,$idCompania,$idOrden,$idArticulo,$idCliente,$folio,$entrega,$tipoTrans,$fechaFac,$estatus,$idBaja);
     if(mysqli_stmt_execute($stmt))
     {
         mysqli_stmt_close($stmt);
@@ -2309,7 +2309,7 @@ function dispAllOrdenesByFiltro($conn,$idCompania,$finicial,$ffinal,$baanInicial
         echo "<td> <input  type='checkbox' name='cst_".$idOrden."'  id='cst_".$idOrden."' ".$cstCheck." disabled> </td>";
         echo "<td> <input  type='checkbox' name='ing_".$idOrden."'  id='ing_".$idOrden."' ".$ingCheck." disabled> </td>";
         echo "<td> <input  type='checkbox' name='pln_".$idOrden."'  id='pln_".$idOrden."' ".$plnCheck." disabled> </td>";
-        echo "<td> <input  type='checkbox' name='sCl_".$idOrden."'  id='sCl_".$idOrden."' ".$sClCheck." disabled> </td>";
+        //echo "<td> <input  type='checkbox' name='sCl_".$idOrden."'  id='sCl_".$idOrden."' ".$sClCheck." disabled> </td>";
         echo "<td> <input  type='checkbox' name='rep_".$idOrden."'  id='rep_".$idOrden."' ".$repCheck." disabled> </td>";
         echo "<td> <input  type='checkbox' name='fec_".$idOrden."'  id='fec_".$idOrden."' ".$fecCheck." disabled> </td>";
 
