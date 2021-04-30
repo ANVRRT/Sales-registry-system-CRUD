@@ -13,5 +13,5 @@ Sistema interno realizado por estudiantes de la carrera Ingeniería en Tecnolog�
 ( Tomás Ulises Peña Martínez A01366603 Contacto: )
 
 
-(<h1> El sistema se a diseñado, desarrollado e implementado a su funcionamiento del 100% para el Corporativo La Moderna para su uso interno.
-Queda prohibido la venta y distribución no autorizada del sistema entero o parcial fuera de Corporativo La Moderna sin autorización previa de los lideres de desarrollo del sistema. </h1>)
+(<h1> El sistema se a diseñado, desarrollado e implementado a su funcionamiento del 100% para el Corporativo La Moderna y su uso interno.
+Queda prohibida la venta y distribución no autorizada del sistema entero o parcial fuera de Corporativo La Moderna sin autorización previa de los lideres de desarrollo del sistema. </h1>)
