@@ -25,7 +25,7 @@
     <br><br>
 
     <div>       
-            <table class="table">
+            <table class="table table-bordered mydataTable" id="dataTable">
                 <thead>
                 <tr>
                     <th>IdOrden</th>
@@ -73,11 +73,7 @@ var reporte=myPieChart('Pedido', 'Surtido',$cantidad, $entregado);
 ?>
 
         <script>
-          $('.mydataTableR').DataTable({
-            //searching: false
-            responsive: true
-          });
-          $('.mydataTable2').DataTable({
+          $('.mydataTable').DataTable({
             //searching: false
             responsive: true
           });
