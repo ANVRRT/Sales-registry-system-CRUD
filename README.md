@@ -74,7 +74,7 @@ This section should list any major frameworks that you built your project using.
 * [JQuery](https://jquery.com)
 * [Chart.js](https://www.chartjs.org/)
 * [PHP 7.4.21](https://www.php.net/)
-* [MYSQL 8.0.13-4] (https://dev.mysql.com/downloads/mysql/)
+* [MYSQL 8.0.13-4](https://dev.mysql.com/downloads/mysql/)
 
 
 <!-- GETTING STARTED -->
@@ -109,7 +109,7 @@ You should have knowledge of how to install/set up and use the previous software
 5. Deploy your site
 6. Once deployed, go to yoursite/php/register.php and create a new user filling up the form with your "idCompania" = "SYS" and "rol" = "ADM" <br><br><br>
 
-[Product Name Screen Shot][product-screenshot]
+[![Product Name Screen Shot][product-screenshot]]
 
 
 8. Keep in mind that this are the unique roles set up in the system, and the roles permissions can't be set dynamically in the system (Without touching the code) but the user permissions can.   This are the roles that are set ADM, DIR, FAC, CXC, VTA, CST, ING, PLN, FEC and need to be added into your SQL table "Rol".
