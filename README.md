@@ -54,11 +54,8 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
@@ -146,5 +143,5 @@ Tomás Ulises Peña Martínez<br>
 [license-url]: https://github.com/ANVRRT/Sales-registry-system-CRUD/blob/main/license.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/albertonr/
-[product-screenshot]: tree/main/img
+[product-screenshot]: https://github.com/ANVRRT/Sales-registry-system-CRUD/blob/main/img/registerform.PNG
 
