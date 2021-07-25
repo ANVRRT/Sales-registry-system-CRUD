@@ -97,12 +97,12 @@ You should have knowledge of how to install/set up and use the previous software
   git clone https://github.com/ANVRRT/CCLaModerna.git
   ```
 3. Modify the "dbh.inc.php" file located in "CCLaModerna/includes/dbh.inc.php" to set up the conection to your SQL server modifying lines 3, 4, 5, and 6 with your SQL credentials
-
-  3 - $serverName
-  4 - $dBUsername
-  5 - $dBPassword
-  6 - $dBname
-
+<ul>
+  <li>3 - $serverName
+  <li>4 - $dBUsername
+  <li>5 - $dBPassword
+  <li>6 - $dBname
+</ul>
   
 4. Create a new company with name "SYS" and "idCompania" = "SYS" in the table "Compania", and the roles in table "Rol"
    ```MYSQL
@@ -126,16 +126,16 @@ Distributed under a specific License. See `LICENSE` for more information.
 ## Contact
 
 
-Alberto Navarrete Ramírez (Lead Programmer) [Linkedin](https://www.linkedin.com/in/albertonr/) - albertonavarreteramirez@gmail.com
-Grecia Pacheco Castellanos (Lead Programmer 2) [Linkedin] (https://www.linkedin.com/in/grecia-pacheco-3020921a6) - greciapc_01@hotmail.com
-Javier Jimenez Barbosa [Linkedin](https://www.linkedin.com/in/javier-jim%C3%A9nez-barbosa-824a25189) - javierjb456@gmail.com
-Horacio Llamas Arellano 
-Juan Pablo Ortiz Ortega 
-José Luis Hernández Hurtado A01365190 [email](sushitofox@gmail.com)
-Angel Nolasco Serrano A01365726 [Linkedin](https://www.linkedin.com/in/angel-nolasco-serrano-a919821b8)
-Myron Clarence Molina Bean
-Axel Hernández Montes de Oca
-Tomás Ulises Peña Martínez
+Alberto Navarrete Ramírez (Lead Programmer) [Linkedin](https://www.linkedin.com/in/albertonr/) - albertonavarreteramirez@gmail.com <br>
+Grecia Pacheco Castellanos (Lead Programmer 2) [Linkedin] (https://www.linkedin.com/in/grecia-pacheco-3020921a6) - greciapc_01@hotmail.com<br>
+Javier Jimenez Barbosa [Linkedin](https://www.linkedin.com/in/javier-jim%C3%A9nez-barbosa-824a25189) - javierjb456@gmail.com<br>
+Horacio Llamas Arellano <br>
+Juan Pablo Ortiz Ortega <br>
+José Luis Hernández Hurtado A01365190 [email](sushitofox@gmail.com)<br>
+Angel Nolasco Serrano A01365726 [Linkedin](https://www.linkedin.com/in/angel-nolasco-serrano-a919821b8)<br>
+Myron Clarence Molina Bean<br>
+Axel Hernández Montes de Oca<br>
+Tomás Ulises Peña Martínez<br>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
