@@ -127,12 +127,12 @@ Distributed under a specific License. See `LICENSE` for more information.
 
 
 Alberto Navarrete Ramírez (Lead Programmer) [Linkedin](https://www.linkedin.com/in/albertonr/) - albertonavarreteramirez@gmail.com <br>
-Grecia Pacheco Castellanos (Lead Programmer 2) [Linkedin] (https://www.linkedin.com/in/grecia-pacheco-3020921a6) - greciapc_01@hotmail.com<br>
+Grecia Pacheco Castellanos (Lead Programmer 2) [Linkedin](https://www.linkedin.com/in/grecia-pacheco-3020921a6) - greciapc_01@hotmail.com<br>
 Javier Jimenez Barbosa [Linkedin](https://www.linkedin.com/in/javier-jim%C3%A9nez-barbosa-824a25189) - javierjb456@gmail.com<br>
 Horacio Llamas Arellano <br>
 Juan Pablo Ortiz Ortega <br>
-José Luis Hernández Hurtado A01365190 [email](sushitofox@gmail.com)<br>
-Angel Nolasco Serrano A01365726 [Linkedin](https://www.linkedin.com/in/angel-nolasco-serrano-a919821b8)<br>
+José Luis Hernández Hurtado - sushitofox@gmail.com<br>
+Angel Nolasco Serrano [Linkedin](https://www.linkedin.com/in/angel-nolasco-serrano-a919821b8)<br>
 Myron Clarence Molina Bean<br>
 Axel Hernández Montes de Oca<br>
 Tomás Ulises Peña Martínez<br>
@@ -146,5 +146,5 @@ Tomás Ulises Peña Martínez<br>
 [license-url]: https://github.com/ANVRRT/Sales-registry-system-CRUD/blob/main/license.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/albertonr/
-[product-screenshot]: img/registerForm.png
+[product-screenshot]: tree/main/img
 
