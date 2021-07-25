@@ -16,7 +16,7 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 [![Contributors][contributors-shield]][contributors-url]
-[![Stargazers][stars-shield]]
+![Stargazers][stars-shield]
 [![License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -25,7 +25,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-    <img src="img/crud.png" alt="Logo" width="80" height="80">
+    <img src="img/crud.png" alt="Logo">
   </a>
 
   <h3 align="center">Sales Registry System</h3>
