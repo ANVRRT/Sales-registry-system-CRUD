@@ -107,8 +107,11 @@ You should have knowledge of how to install/set up and use the previous software
    INSERT INTO Rol VALUES("SYS","ADM");
    ```
 5. Deploy your site
-6. Once deployed, go to yoursite/php/register.php and create a new user filling up the form with your "idCompania" = "SYS" and "rol" = "ADM"
-[![Product Name Screen Shot][product-screenshot]]
+6. Once deployed, go to yoursite/php/register.php and create a new user filling up the form with your "idCompania" = "SYS" and "rol" = "ADM" <br><br><br>
+
+[Product Name Screen Shot][product-screenshot]
+
+
 8. Keep in mind that this are the unique roles set up in the system, and the roles permissions can't be set dynamically in the system (Without touching the code) but the user permissions can.   This are the roles that are set ADM, DIR, FAC, CXC, VTA, CST, ING, PLN, FEC and need to be added into your SQL table "Rol".
   
 
