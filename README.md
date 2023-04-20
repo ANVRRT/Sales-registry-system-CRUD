@@ -127,6 +127,24 @@ Distributed under a specific License. See `LICENSE` for more information.
 
 
 Alberto Navarrete Ramírez (Lead Programmer) [Linkedin](https://www.linkedin.com/in/albertonr/) - albertonavarreteramirez@gmail.com <br>
+Grecia Pacheco Castellanos - greciapc_01@hotmail.com <br>
+
+Javier Jimenez Barbosa - javierjb456@gmail.com <br>
+
+Horacio Llamas Arellano - No hay método de contacto disponible <br>
+
+Juan Pablo Ortiz Ortega - No hay método de contacto disponible <br>
+
+José Luis Hernández Hurtado Email - sushitofox@gmail.com <br>
+
+Angel Nolasco Serrano - No hay método de contacto disponible <br>
+
+Myron Clarence Molina Bean - No hay método de contacto disponible <br>
+
+Axel Hernández Montes de Oca - No hay método de contacto disponible <br>
+
+Tomás Ulises Peña Martínez - No hay método de contacto disponible <br>
+
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
